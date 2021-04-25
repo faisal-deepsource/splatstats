@@ -32,7 +32,7 @@ class BattleSerializer(serializers.Serializer):
             # general match stats
             splatnet_json = cleaned_data["splatnet_json"]
             rule = splatnet_json["rule"]["key"]
-            match_type = splatnet_json["type"]
+            match_type = splatnet_json["game_mode"]["key"]
             stage = splatnet_json["stage"]["id"]
             win = splatnet_json["my_team_result"]["key"] == "victory"
             has_disconnected_player = False
@@ -309,6 +309,77 @@ class BattleSerializer(serializers.Serializer):
                 else:
                     teammate2_shoes_sub2 = None
 
+            # teammate 3
+            if len(splatnet_json["my_team_members"]) > 2:
+                # basic stats
+                player = splatnet_json["my_team_members"][2]
+                teammate3_splatnet_id = player["player"]["principal_id"]
+                teammate3_name = player["player"]["nickname"]
+                teammate3_level_star = player["player"]["star_rank"]
+                teammate3_level = player["player"]["player_rank"]
+                if "udemae" in player["player"]:
+                    teammate3_rank = splatnet_json["udemae"]["number"]
+                else:
+                    teammate3_rank = None
+                teammate3_weapon = player["player"]["weapon"]["id"]
+                teammate3_gender = player["player"]["player_type"]["style"]
+                teammate3_species = player["player"]["player_type"]["species"]
+                teammate3_kills = player["kill_count"]
+                teammate3_deaths = player["death_count"]
+                teammate3_assists = player["assist_count"]
+                teammate3_game_paint_point = player["game_paint_point"]
+                teammate3_specials = player["special_count"]
+                # headgear
+                teammate3_headgear = player["player"]["head"]["id"]
+                teammate3_headgear_main = player["player"]["head_skills"]["main"]["id"]
+                subs = player["player"]["head_skills"]["subs"]
+                if len(subs) > 0:
+                    teammate3_headgear_sub0 = subs[0]["id"]
+                else:
+                    teammate3_headgear_sub0 = None
+                if len(subs) > 1:
+                    teammate3_headgear_sub1 = subs[1]["id"]
+                else:
+                    teammate3_headgear_sub1 = None
+                if len(subs) > 2:
+                    teammate3_headgear_sub2 = subs[2]["id"]
+                else:
+                    teammate3_headgear_sub2 = None
+                # clothes
+                teammate3_clothes = player["player"]["clothes"]["id"]
+                teammate3_clothes_main = player["player"]["clothes_skills"]["main"][
+                    "id"
+                ]
+                subs = player["player"]["clothes_skills"]["subs"]
+                if len(subs) > 0:
+                    teammate3_clothes_sub0 = subs[0]["id"]
+                else:
+                    teammate3_clothes_sub0 = None
+                if len(subs) > 1:
+                    teammate3_clothes_sub1 = subs[1]["id"]
+                else:
+                    teammate3_clothes_sub1 = None
+                if len(subs) > 2:
+                    teammate3_clothes_sub2 = subs[2]["id"]
+                else:
+                    teammate3_clothes_sub2 = None
+                # shoes
+                teammate3_shoes = player["player"]["shoes"]["id"]
+                teammate3_shoes_main = player["player"]["shoes_skills"]["main"]["id"]
+                subs = player["player"]["shoes_skills"]["subs"]
+                if len(subs) > 0:
+                    teammate3_shoes_sub0 = subs[0]["id"]
+                else:
+                    teammate3_shoes_sub0 = None
+                if len(subs) > 1:
+                    teammate3_shoes_sub1 = subs[1]["id"]
+                else:
+                    teammate3_shoes_sub1 = None
+                if len(subs) > 2:
+                    teammate3_shoes_sub2 = subs[2]["id"]
+                else:
+                    teammate3_shoes_sub2 = None
+
         if "stat_ink_json" in cleaned_data:
             stat_ink_json = cleaned_data["stat_ink_json"]
 
@@ -418,6 +489,34 @@ class BattleSerializer(serializers.Serializer):
                 teammate2_shoes_sub0=teammate2_shoes_sub0,
                 teammate2_shoes_sub1=teammate2_shoes_sub1,
                 teammate2_shoes_sub2=teammate2_shoes_sub2,
+                teammate3_splatnet_id=teammate3_splatnet_id,
+                teammate3_name=teammate3_name,
+                teammate3_level_star=teammate3_level_star,
+                teammate3_level=teammate3_level,
+                teammate3_rank=teammate3_rank,
+                teammate3_weapon=teammate3_weapon,
+                teammate3_gender=teammate3_gender,
+                teammate3_species=teammate3_species,
+                teammate3_kills=teammate3_kills,
+                teammate3_deaths=teammate3_deaths,
+                teammate3_assists=teammate3_assists,
+                teammate3_game_paint_point=teammate3_game_paint_point,
+                teammate3_specials=teammate3_specials,
+                teammate3_headgear=teammate3_headgear,
+                teammate3_headgear_main=teammate3_headgear_main,
+                teammate3_headgear_sub0=teammate3_headgear_sub0,
+                teammate3_headgear_sub1=teammate3_headgear_sub1,
+                teammate3_headgear_sub2=teammate3_headgear_sub2,
+                teammate3_clothes=teammate3_clothes,
+                teammate3_clothes_main=teammate3_clothes_main,
+                teammate3_clothes_sub0=teammate3_clothes_sub0,
+                teammate3_clothes_sub1=teammate3_clothes_sub1,
+                teammate3_clothes_sub2=teammate3_clothes_sub2,
+                teammate3_shoes=teammate3_shoes,
+                teammate3_shoes_main=teammate3_shoes_main,
+                teammate3_shoes_sub0=teammate3_shoes_sub0,
+                teammate3_shoes_sub1=teammate3_shoes_sub1,
+                teammate3_shoes_sub2=teammate3_shoes_sub2,
             )
             return battle
         return None
