@@ -155,15 +155,54 @@ class Battle(models.Model):
             player_specials = splatnet_json["player_result"]["special_count"]
             player_game_paint_point = splatnet_json["player_result"]["game_paint_point"]
 
+            # headgear
             player_headgear = splatnet_json["player_result"]["player"]["head"]["id"]
             player_headgear_main = splatnet_json["player_result"]["player"]["head_skills"]["main"]["id"]
             subs = splatnet_json["player_result"]["player"]["head_skills"]["subs"]
             if len(subs) > 0:
                 player_headgear_sub0 = subs[0]["id"]
+            else:
+                player_headgear_sub0 = None
             if len(subs) > 1:
                 player_headgear_sub1 = subs[1]["id"]
+            else:
+                player_headgear_sub1 = None
             if len(subs) > 2:
                 player_headgear_sub2 = subs[2]["id"]
+            else:
+                player_headgear_sub2 = None
+            # clothes
+            player_clothes = splatnet_json["player_result"]["player"]["clothes"]["id"]
+            player_clothes_main = splatnet_json["player_result"]["player"]["clothes_skills"]["main"]["id"]
+            subs = splatnet_json["player_result"]["player"]["clothes_skills"]["subs"]
+            if len(subs) > 0:
+                player_clothes_sub0 = subs[0]["id"]
+            else:
+                player_clothes_sub0 = None
+            if len(subs) > 1:
+                player_clothes_sub1 = subs[1]["id"]
+            else:
+                player_clothes_sub1 = None
+            if len(subs) > 2:
+                player_clothes_sub2 = subs[2]["id"]
+            else:
+                player_clothes_sub2 = None
+            # shoes
+            player_shoes = splatnet_json["player_result"]["player"]["shoes"]["id"]
+            player_shoes_main = splatnet_json["player_result"]["player"]["shoes_skills"]["main"]["id"]
+            subs = splatnet_json["player_result"]["player"]["shoes_skills"]["subs"]
+            if len(subs) > 0:
+                player_shoes_sub0 = subs[0]["id"]
+            else:
+                player_shoes_sub0 = None
+            if len(subs) > 1:
+                player_shoes_sub1 = subs[1]["id"]
+            else:
+                player_shoes_sub1 = None
+            if len(subs) > 2:
+                player_shoes_sub2 = subs[2]["id"]
+            else:
+                player_shoes_sub2 = None
 
         if "stat_ink_json" in kwargs:
             stat_ink_json = kwargs["stat_ink_json"]
@@ -202,6 +241,16 @@ class Battle(models.Model):
             player_headgear_sub0=player_headgear_sub0,
             player_headgear_sub1=player_headgear_sub1,
             player_headgear_sub2=player_headgear_sub2,
+            player_clothes=player_clothes,
+            player_clothes_main=player_clothes_main,
+            player_clothes_sub0=player_clothes_sub0,
+            player_clothes_sub1=player_clothes_sub1,
+            player_clothes_sub2=player_clothes_sub2,
+            player_shoes=player_shoes,
+            player_shoes_main=player_shoes_main,
+            player_shoes_sub0=player_shoes_sub0,
+            player_shoes_sub1=player_shoes_sub1,
+            player_shoes_sub2=player_shoes_sub2,
         )
         return battle
 
