@@ -54,12 +54,15 @@ class Battle(models.Model):
     player_weapon = models.CharField(max_length=4)
     player_rank = models.IntegerField(null=True)
     player_level = models.PositiveSmallIntegerField(null=True)
+    player_level_star = models.PositiveSmallIntegerField(null=True)
     player_kills = models.PositiveSmallIntegerField(null=True)
     player_deaths = models.PositiveSmallIntegerField(null=True)
     player_assists = models.PositiveSmallIntegerField(null=True)
     player_specials = models.PositiveSmallIntegerField(null=True)
     player_game_paint_point = models.PositiveSmallIntegerField(null=True)
     player_splatfest_title = models.TextField(blank=True, null=True)
+    player_splatnet_id = models.CharField(max_length=16, null=True)
+    player_name = models.CharField(max_length=10, null=True)
 
     # player gear
     # headgear
@@ -85,6 +88,7 @@ class Battle(models.Model):
     def create(cls, **kwargs):
         splatnet_json = None
         stat_ink_json = None
+        player_user = kwargs["user"]
         if "splatnet_json" in kwargs:
             splatnet_json = kwargs["splatnet_json"]
             rule = splatnet_json["rule"]["key"]
@@ -144,10 +148,12 @@ class Battle(models.Model):
             splatfest_point = None
             splatfest_title_after = None
             
-            player_user = kwargs["user"]
+            player_splatnet_id = splatnet_json["player_result"]["player"]["principal_id"]
+            player_name = splatnet_json["player_result"]["player"]["nickname"]
             player_weapon = splatnet_json["player_result"]["player"]["weapon"]["id"]
             player_rank = splatnet_json["udemae"]["number"]
             player_splatfest_title = None
+            player_level_star = splatnet_json["star_rank"]
             player_level = splatnet_json["player_rank"]
             player_kills = splatnet_json["player_result"]["kill_count"]
             player_deaths = splatnet_json["player_result"]["death_count"]
@@ -234,6 +240,9 @@ class Battle(models.Model):
             player_assists=player_assists,
             player_specials=player_specials,
             player_game_paint_point=player_game_paint_point,
+            player_splatnet_id=player_splatnet_id,
+            player_name=player_name,
+            player_level_star=player_level_star,
             elapsed_time=elapsed_time,
             player_user=player_user,
             player_headgear=player_headgear,

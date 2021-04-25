@@ -86,11 +86,15 @@ class BattleSerializer(serializers.Serializer):
                 other_team_count = splatnet_json["other_team_percentage"]
             else:
                 other_team_count = None
+
             player_kills = splatnet_json["player_result"]["kill_count"]
             player_deaths = splatnet_json["player_result"]["death_count"]
             player_assists = splatnet_json["player_result"]["assist_count"]
             player_specials = splatnet_json["player_result"]["special_count"]
             player_game_paint_point = splatnet_json["player_result"]["game_paint_point"]
+            player_level_star = splatnet_json["star_rank"]
+            player_splatnet_id = splatnet_json["player_result"]["player"]["principal_id"]
+            player_name = splatnet_json["player_result"]["player"]["nickname"]
             player_splatfest_title = None
             if "x_power" in splatnet_json:
                 player_x_power = splatnet_json["x_power"]
@@ -160,6 +164,9 @@ class BattleSerializer(serializers.Serializer):
                     player_splatfest_title=player_splatfest_title,
                     splatfest_title_after=splatfest_title_after,
                     player_level=player_level,
+                    player_splatnet_id=player_splatnet_id,
+                    player_name=player_name,
+                    player_level_star=player_level_star,
                     my_team_count=my_team_count,
                     other_team_count=other_team_count,
                     player_kills=player_kills,
@@ -205,6 +212,9 @@ class BattleSerializer(serializers.Serializer):
                     player_splatfest_title=player_splatfest_title,
                     splatfest_title_after=splatfest_title_after,
                     player_level=player_level,
+                    player_splatnet_id=player_splatnet_id,
+                    player_name=player_name,
+                    player_level_star=player_level_star,
                     my_team_count=my_team_count,
                     other_team_count=other_team_count,
                     player_kills=player_kills,
