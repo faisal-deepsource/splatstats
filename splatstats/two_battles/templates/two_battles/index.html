@@ -1,0 +1,26 @@
+{% if latest_battles %}
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Mode</th>
+            <th>Stage</th>
+            <th>Weapon</th>
+            <th>Result</th>
+            <th>k/d</th>
+            <th>Time</th>
+        </tr>
+    {% for battle in latest_battles %}
+        <tr>
+            <td><a href="/two_battles/{{ battle.id }}/">{{ battle.id }}</a></td>
+            <td>{{ battle.rule }}</td>
+            <td>{{ battle.stage }}</td>
+            <td>{{ battle.player_weapon }}</td>
+            <td>{{ battle.win }}</td>
+            <td>{{ battle.kills }}/{{ battle.deaths }}</td>
+            <td>{{ battle.time }}</td>
+        </tr>
+    {% endfor %}
+    </table>
+{% else %}
+    <p>No battles are available.</p>
+{% endif %}
