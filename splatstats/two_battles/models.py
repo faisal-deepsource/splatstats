@@ -203,6 +203,150 @@ class Battle(models.Model):
     teammate3_shoes_sub1 = models.CharField(null=True, max_length=5)
     teammate3_shoes_sub2 = models.CharField(null=True, max_length=5)
 
+    # opponent 0
+    # basic stats
+    opponent0_splatnet_id = models.CharField(null=True, max_length=16)
+    opponent0_name = models.CharField(null=True, max_length=10)
+    opponent0_level_star = models.PositiveSmallIntegerField(null=True)
+    opponent0_level = models.PositiveSmallIntegerField(null=True)
+    opponent0_rank = models.CharField(null=True, max_length=2)
+    opponent0_weapon = models.CharField(null=True, max_length=4)
+    opponent0_gender = models.CharField(max_length=4, null=True, choices=Gender.choices)
+    opponent0_species = models.CharField(
+        max_length=9, null=True, choices=Species.choices
+    )
+    opponent0_kills = models.PositiveSmallIntegerField(null=True)
+    opponent0_deaths = models.PositiveSmallIntegerField(null=True)
+    opponent0_assists = models.PositiveSmallIntegerField(null=True)
+    opponent0_game_paint_point = models.PositiveSmallIntegerField(null=True)
+    opponent0_specials = models.PositiveSmallIntegerField(null=True)
+    # headgear
+    opponent0_headgear = models.CharField(null=True, max_length=5)
+    opponent0_headgear_main = models.CharField(null=True, max_length=5)
+    opponent0_headgear_sub0 = models.CharField(null=True, max_length=5)
+    opponent0_headgear_sub1 = models.CharField(null=True, max_length=5)
+    opponent0_headgear_sub2 = models.CharField(null=True, max_length=5)
+    # clothes
+    opponent0_clothes = models.CharField(null=True, max_length=5)
+    opponent0_clothes_main = models.CharField(null=True, max_length=5)
+    opponent0_clothes_sub0 = models.CharField(null=True, max_length=5)
+    opponent0_clothes_sub1 = models.CharField(null=True, max_length=5)
+    opponent0_clothes_sub2 = models.CharField(null=True, max_length=5)
+    # shoes
+    opponent0_shoes = models.CharField(null=True, max_length=5)
+    opponent0_shoes_main = models.CharField(null=True, max_length=5)
+    opponent0_shoes_sub0 = models.CharField(null=True, max_length=5)
+    opponent0_shoes_sub1 = models.CharField(null=True, max_length=5)
+    opponent0_shoes_sub2 = models.CharField(null=True, max_length=5)
+
+    # opponent 1
+    # basic stats
+    opponent1_splatnet_id = models.CharField(null=True, max_length=16)
+    opponent1_name = models.CharField(null=True, max_length=10)
+    opponent1_level_star = models.PositiveSmallIntegerField(null=True)
+    opponent1_level = models.PositiveSmallIntegerField(null=True)
+    opponent1_rank = models.CharField(null=True, max_length=2)
+    opponent1_weapon = models.CharField(null=True, max_length=4)
+    opponent1_gender = models.CharField(max_length=4, null=True, choices=Gender.choices)
+    opponent1_species = models.CharField(
+        max_length=9, null=True, choices=Species.choices
+    )
+    opponent1_kills = models.PositiveSmallIntegerField(null=True)
+    opponent1_deaths = models.PositiveSmallIntegerField(null=True)
+    opponent1_assists = models.PositiveSmallIntegerField(null=True)
+    opponent1_game_paint_point = models.PositiveSmallIntegerField(null=True)
+    opponent1_specials = models.PositiveSmallIntegerField(null=True)
+    # headgear
+    opponent1_headgear = models.CharField(null=True, max_length=5)
+    opponent1_headgear_main = models.CharField(null=True, max_length=5)
+    opponent1_headgear_sub0 = models.CharField(null=True, max_length=5)
+    opponent1_headgear_sub1 = models.CharField(null=True, max_length=5)
+    opponent1_headgear_sub2 = models.CharField(null=True, max_length=5)
+    # clothes
+    opponent1_clothes = models.CharField(null=True, max_length=5)
+    opponent1_clothes_main = models.CharField(null=True, max_length=5)
+    opponent1_clothes_sub0 = models.CharField(null=True, max_length=5)
+    opponent1_clothes_sub1 = models.CharField(null=True, max_length=5)
+    opponent1_clothes_sub2 = models.CharField(null=True, max_length=5)
+    # shoes
+    opponent1_shoes = models.CharField(null=True, max_length=5)
+    opponent1_shoes_main = models.CharField(null=True, max_length=5)
+    opponent1_shoes_sub0 = models.CharField(null=True, max_length=5)
+    opponent1_shoes_sub1 = models.CharField(null=True, max_length=5)
+    opponent1_shoes_sub2 = models.CharField(null=True, max_length=5)
+
+    # opponent 2
+    # basic stats
+    opponent2_splatnet_id = models.CharField(null=True, max_length=16)
+    opponent2_name = models.CharField(null=True, max_length=10)
+    opponent2_level_star = models.PositiveSmallIntegerField(null=True)
+    opponent2_level = models.PositiveSmallIntegerField(null=True)
+    opponent2_rank = models.CharField(null=True, max_length=2)
+    opponent2_weapon = models.CharField(null=True, max_length=4)
+    opponent2_gender = models.CharField(max_length=4, null=True, choices=Gender.choices)
+    opponent2_species = models.CharField(
+        max_length=9, null=True, choices=Species.choices
+    )
+    opponent2_kills = models.PositiveSmallIntegerField(null=True)
+    opponent2_deaths = models.PositiveSmallIntegerField(null=True)
+    opponent2_assists = models.PositiveSmallIntegerField(null=True)
+    opponent2_game_paint_point = models.PositiveSmallIntegerField(null=True)
+    opponent2_specials = models.PositiveSmallIntegerField(null=True)
+    # headgear
+    opponent2_headgear = models.CharField(null=True, max_length=5)
+    opponent2_headgear_main = models.CharField(null=True, max_length=5)
+    opponent2_headgear_sub0 = models.CharField(null=True, max_length=5)
+    opponent2_headgear_sub1 = models.CharField(null=True, max_length=5)
+    opponent2_headgear_sub2 = models.CharField(null=True, max_length=5)
+    # clothes
+    opponent2_clothes = models.CharField(null=True, max_length=5)
+    opponent2_clothes_main = models.CharField(null=True, max_length=5)
+    opponent2_clothes_sub0 = models.CharField(null=True, max_length=5)
+    opponent2_clothes_sub1 = models.CharField(null=True, max_length=5)
+    opponent2_clothes_sub2 = models.CharField(null=True, max_length=5)
+    # shoes
+    opponent2_shoes = models.CharField(null=True, max_length=5)
+    opponent2_shoes_main = models.CharField(null=True, max_length=5)
+    opponent2_shoes_sub0 = models.CharField(null=True, max_length=5)
+    opponent2_shoes_sub1 = models.CharField(null=True, max_length=5)
+    opponent2_shoes_sub2 = models.CharField(null=True, max_length=5)
+
+    # opponent 3
+    # basic stats
+    opponent3_splatnet_id = models.CharField(null=True, max_length=16)
+    opponent3_name = models.CharField(null=True, max_length=10)
+    opponent3_level_star = models.PositiveSmallIntegerField(null=True)
+    opponent3_level = models.PositiveSmallIntegerField(null=True)
+    opponent3_rank = models.CharField(null=True, max_length=2)
+    opponent3_weapon = models.CharField(null=True, max_length=4)
+    opponent3_gender = models.CharField(max_length=4, null=True, choices=Gender.choices)
+    opponent3_species = models.CharField(
+        max_length=9, null=True, choices=Species.choices
+    )
+    opponent3_kills = models.PositiveSmallIntegerField(null=True)
+    opponent3_deaths = models.PositiveSmallIntegerField(null=True)
+    opponent3_assists = models.PositiveSmallIntegerField(null=True)
+    opponent3_game_paint_point = models.PositiveSmallIntegerField(null=True)
+    opponent3_specials = models.PositiveSmallIntegerField(null=True)
+    # headgear
+    opponent3_headgear = models.CharField(null=True, max_length=5)
+    opponent3_headgear_main = models.CharField(null=True, max_length=5)
+    opponent3_headgear_sub0 = models.CharField(null=True, max_length=5)
+    opponent3_headgear_sub1 = models.CharField(null=True, max_length=5)
+    opponent3_headgear_sub2 = models.CharField(null=True, max_length=5)
+    # clothes
+    opponent3_clothes = models.CharField(null=True, max_length=5)
+    opponent3_clothes_main = models.CharField(null=True, max_length=5)
+    opponent3_clothes_sub0 = models.CharField(null=True, max_length=5)
+    opponent3_clothes_sub1 = models.CharField(null=True, max_length=5)
+    opponent3_clothes_sub2 = models.CharField(null=True, max_length=5)
+    # shoes
+    opponent3_shoes = models.CharField(null=True, max_length=5)
+    opponent3_shoes_main = models.CharField(null=True, max_length=5)
+    opponent3_shoes_sub0 = models.CharField(null=True, max_length=5)
+    opponent3_shoes_sub1 = models.CharField(null=True, max_length=5)
+    opponent3_shoes_sub2 = models.CharField(null=True, max_length=5)
+
     @classmethod
     def create(cls, **kwargs):
         splatnet_json = None
@@ -560,6 +704,290 @@ class Battle(models.Model):
                 else:
                     teammate3_shoes_sub2 = None
 
+            # opponent 0
+            if len(splatnet_json["other_team_members"]) > 0:
+                # basic stats
+                player = splatnet_json["other_team_members"][0]
+                opponent0_splatnet_id = player["player"]["principal_id"]
+                opponent0_name = player["player"]["nickname"]
+                opponent0_level_star = player["player"]["star_rank"]
+                opponent0_level = player["player"]["player_rank"]
+                if "udemae" in player["player"]:
+                    opponent0_rank = splatnet_json["udemae"]["number"]
+                else:
+                    opponent0_rank = None
+                opponent0_weapon = player["player"]["weapon"]["id"]
+                opponent0_gender = player["player"]["player_type"]["style"]
+                opponent0_species = player["player"]["player_type"]["species"]
+                opponent0_kills = player["kill_count"]
+                opponent0_deaths = player["death_count"]
+                opponent0_assists = player["assist_count"]
+                opponent0_game_paint_point = player["game_paint_point"]
+                opponent0_specials = player["special_count"]
+                # headgear
+                opponent0_headgear = player["player"]["head"]["id"]
+                opponent0_headgear_main = player["player"]["head_skills"]["main"]["id"]
+                subs = player["player"]["head_skills"]["subs"]
+                if len(subs) > 0:
+                    opponent0_headgear_sub0 = subs[0]["id"]
+                else:
+                    opponent0_headgear_sub0 = None
+                if len(subs) > 1:
+                    opponent0_headgear_sub1 = subs[1]["id"]
+                else:
+                    opponent0_headgear_sub1 = None
+                if len(subs) > 2:
+                    opponent0_headgear_sub2 = subs[2]["id"]
+                else:
+                    opponent0_headgear_sub2 = None
+                # clothes
+                opponent0_clothes = player["player"]["clothes"]["id"]
+                opponent0_clothes_main = player["player"]["clothes_skills"]["main"][
+                    "id"
+                ]
+                subs = player["player"]["clothes_skills"]["subs"]
+                if len(subs) > 0:
+                    opponent0_clothes_sub0 = subs[0]["id"]
+                else:
+                    opponent0_clothes_sub0 = None
+                if len(subs) > 1:
+                    opponent0_clothes_sub1 = subs[1]["id"]
+                else:
+                    opponent0_clothes_sub1 = None
+                if len(subs) > 2:
+                    opponent0_clothes_sub2 = subs[2]["id"]
+                else:
+                    opponent0_clothes_sub2 = None
+                # shoes
+                opponent0_shoes = player["player"]["shoes"]["id"]
+                opponent0_shoes_main = player["player"]["shoes_skills"]["main"]["id"]
+                subs = player["player"]["shoes_skills"]["subs"]
+                if len(subs) > 0:
+                    opponent0_shoes_sub0 = subs[0]["id"]
+                else:
+                    opponent0_shoes_sub0 = None
+                if len(subs) > 1:
+                    opponent0_shoes_sub1 = subs[1]["id"]
+                else:
+                    opponent0_shoes_sub1 = None
+                if len(subs) > 2:
+                    opponent0_shoes_sub2 = subs[2]["id"]
+                else:
+                    opponent0_shoes_sub2 = None
+
+            # opponent 1
+            if len(splatnet_json["other_team_members"]) > 1:
+                # basic stats
+                player = splatnet_json["other_team_members"][1]
+                opponent1_splatnet_id = player["player"]["principal_id"]
+                opponent1_name = player["player"]["nickname"]
+                opponent1_level_star = player["player"]["star_rank"]
+                opponent1_level = player["player"]["player_rank"]
+                if "udemae" in player["player"]:
+                    opponent1_rank = splatnet_json["udemae"]["number"]
+                else:
+                    opponent1_rank = None
+                opponent1_weapon = player["player"]["weapon"]["id"]
+                opponent1_gender = player["player"]["player_type"]["style"]
+                opponent1_species = player["player"]["player_type"]["species"]
+                opponent1_kills = player["kill_count"]
+                opponent1_deaths = player["death_count"]
+                opponent1_assists = player["assist_count"]
+                opponent1_game_paint_point = player["game_paint_point"]
+                opponent1_specials = player["special_count"]
+                # headgear
+                opponent1_headgear = player["player"]["head"]["id"]
+                opponent1_headgear_main = player["player"]["head_skills"]["main"]["id"]
+                subs = player["player"]["head_skills"]["subs"]
+                if len(subs) > 0:
+                    opponent1_headgear_sub0 = subs[0]["id"]
+                else:
+                    opponent1_headgear_sub0 = None
+                if len(subs) > 1:
+                    opponent1_headgear_sub1 = subs[1]["id"]
+                else:
+                    opponent1_headgear_sub1 = None
+                if len(subs) > 2:
+                    opponent1_headgear_sub2 = subs[2]["id"]
+                else:
+                    opponent1_headgear_sub2 = None
+                # clothes
+                opponent1_clothes = player["player"]["clothes"]["id"]
+                opponent1_clothes_main = player["player"]["clothes_skills"]["main"][
+                    "id"
+                ]
+                subs = player["player"]["clothes_skills"]["subs"]
+                if len(subs) > 0:
+                    opponent1_clothes_sub0 = subs[0]["id"]
+                else:
+                    opponent1_clothes_sub0 = None
+                if len(subs) > 1:
+                    opponent1_clothes_sub1 = subs[1]["id"]
+                else:
+                    opponent1_clothes_sub1 = None
+                if len(subs) > 2:
+                    opponent1_clothes_sub2 = subs[2]["id"]
+                else:
+                    opponent1_clothes_sub2 = None
+                # shoes
+                opponent1_shoes = player["player"]["shoes"]["id"]
+                opponent1_shoes_main = player["player"]["shoes_skills"]["main"]["id"]
+                subs = player["player"]["shoes_skills"]["subs"]
+                if len(subs) > 0:
+                    opponent1_shoes_sub0 = subs[0]["id"]
+                else:
+                    opponent1_shoes_sub0 = None
+                if len(subs) > 1:
+                    opponent1_shoes_sub1 = subs[1]["id"]
+                else:
+                    opponent1_shoes_sub1 = None
+                if len(subs) > 2:
+                    opponent1_shoes_sub2 = subs[2]["id"]
+                else:
+                    opponent1_shoes_sub2 = None
+
+            # opponent 2
+            if len(splatnet_json["other_team_members"]) > 2:
+                # basic stats
+                player = splatnet_json["other_team_members"][2]
+                opponent2_splatnet_id = player["player"]["principal_id"]
+                opponent2_name = player["player"]["nickname"]
+                opponent2_level_star = player["player"]["star_rank"]
+                opponent2_level = player["player"]["player_rank"]
+                if "udemae" in player["player"]:
+                    opponent2_rank = splatnet_json["udemae"]["number"]
+                else:
+                    opponent2_rank = None
+                opponent2_weapon = player["player"]["weapon"]["id"]
+                opponent2_gender = player["player"]["player_type"]["style"]
+                opponent2_species = player["player"]["player_type"]["species"]
+                opponent2_kills = player["kill_count"]
+                opponent2_deaths = player["death_count"]
+                opponent2_assists = player["assist_count"]
+                opponent2_game_paint_point = player["game_paint_point"]
+                opponent2_specials = player["special_count"]
+                # headgear
+                opponent2_headgear = player["player"]["head"]["id"]
+                opponent2_headgear_main = player["player"]["head_skills"]["main"]["id"]
+                subs = player["player"]["head_skills"]["subs"]
+                if len(subs) > 0:
+                    opponent2_headgear_sub0 = subs[0]["id"]
+                else:
+                    opponent2_headgear_sub0 = None
+                if len(subs) > 1:
+                    opponent2_headgear_sub1 = subs[1]["id"]
+                else:
+                    opponent2_headgear_sub1 = None
+                if len(subs) > 2:
+                    opponent2_headgear_sub2 = subs[2]["id"]
+                else:
+                    opponent2_headgear_sub2 = None
+                # clothes
+                opponent2_clothes = player["player"]["clothes"]["id"]
+                opponent2_clothes_main = player["player"]["clothes_skills"]["main"][
+                    "id"
+                ]
+                subs = player["player"]["clothes_skills"]["subs"]
+                if len(subs) > 0:
+                    opponent2_clothes_sub0 = subs[0]["id"]
+                else:
+                    opponent2_clothes_sub0 = None
+                if len(subs) > 1:
+                    opponent2_clothes_sub1 = subs[1]["id"]
+                else:
+                    opponent2_clothes_sub1 = None
+                if len(subs) > 2:
+                    opponent2_clothes_sub2 = subs[2]["id"]
+                else:
+                    opponent2_clothes_sub2 = None
+                # shoes
+                opponent2_shoes = player["player"]["shoes"]["id"]
+                opponent2_shoes_main = player["player"]["shoes_skills"]["main"]["id"]
+                subs = player["player"]["shoes_skills"]["subs"]
+                if len(subs) > 0:
+                    opponent2_shoes_sub0 = subs[0]["id"]
+                else:
+                    opponent2_shoes_sub0 = None
+                if len(subs) > 1:
+                    opponent2_shoes_sub1 = subs[1]["id"]
+                else:
+                    opponent2_shoes_sub1 = None
+                if len(subs) > 2:
+                    opponent2_shoes_sub2 = subs[2]["id"]
+                else:
+                    opponent2_shoes_sub2 = None
+
+            # opponent 3
+            if len(splatnet_json["other_team_members"]) > 3:
+                # basic stats
+                player = splatnet_json["other_team_members"][3]
+                opponent3_splatnet_id = player["player"]["principal_id"]
+                opponent3_name = player["player"]["nickname"]
+                opponent3_level_star = player["player"]["star_rank"]
+                opponent3_level = player["player"]["player_rank"]
+                if "udemae" in player["player"]:
+                    opponent3_rank = splatnet_json["udemae"]["number"]
+                else:
+                    opponent3_rank = None
+                opponent3_weapon = player["player"]["weapon"]["id"]
+                opponent3_gender = player["player"]["player_type"]["style"]
+                opponent3_species = player["player"]["player_type"]["species"]
+                opponent3_kills = player["kill_count"]
+                opponent3_deaths = player["death_count"]
+                opponent3_assists = player["assist_count"]
+                opponent3_game_paint_point = player["game_paint_point"]
+                opponent3_specials = player["special_count"]
+                # headgear
+                opponent3_headgear = player["player"]["head"]["id"]
+                opponent3_headgear_main = player["player"]["head_skills"]["main"]["id"]
+                subs = player["player"]["head_skills"]["subs"]
+                if len(subs) > 0:
+                    opponent3_headgear_sub0 = subs[0]["id"]
+                else:
+                    opponent3_headgear_sub0 = None
+                if len(subs) > 1:
+                    opponent3_headgear_sub1 = subs[1]["id"]
+                else:
+                    opponent3_headgear_sub1 = None
+                if len(subs) > 2:
+                    opponent3_headgear_sub2 = subs[2]["id"]
+                else:
+                    opponent3_headgear_sub2 = None
+                # clothes
+                opponent3_clothes = player["player"]["clothes"]["id"]
+                opponent3_clothes_main = player["player"]["clothes_skills"]["main"][
+                    "id"
+                ]
+                subs = player["player"]["clothes_skills"]["subs"]
+                if len(subs) > 0:
+                    opponent3_clothes_sub0 = subs[0]["id"]
+                else:
+                    opponent3_clothes_sub0 = None
+                if len(subs) > 1:
+                    opponent3_clothes_sub1 = subs[1]["id"]
+                else:
+                    opponent3_clothes_sub1 = None
+                if len(subs) > 2:
+                    opponent3_clothes_sub2 = subs[2]["id"]
+                else:
+                    opponent3_clothes_sub2 = None
+                # shoes
+                opponent3_shoes = player["player"]["shoes"]["id"]
+                opponent3_shoes_main = player["player"]["shoes_skills"]["main"]["id"]
+                subs = player["player"]["shoes_skills"]["subs"]
+                if len(subs) > 0:
+                    opponent3_shoes_sub0 = subs[0]["id"]
+                else:
+                    opponent3_shoes_sub0 = None
+                if len(subs) > 1:
+                    opponent3_shoes_sub1 = subs[1]["id"]
+                else:
+                    opponent3_shoes_sub1 = None
+                if len(subs) > 2:
+                    opponent3_shoes_sub2 = subs[2]["id"]
+                else:
+                    opponent3_shoes_sub2 = None
+
         if "stat_ink_json" in kwargs:
             stat_ink_json = kwargs["stat_ink_json"]
 
@@ -696,6 +1124,118 @@ class Battle(models.Model):
             teammate3_shoes_sub0=teammate3_shoes_sub0,
             teammate3_shoes_sub1=teammate3_shoes_sub1,
             teammate3_shoes_sub2=teammate3_shoes_sub2,
+            opponent0_splatnet_id=opponent0_splatnet_id,
+            opponent0_name=opponent0_name,
+            opponent0_level_star=opponent0_level_star,
+            opponent0_level=opponent0_level,
+            opponent0_rank=opponent0_rank,
+            opponent0_weapon=opponent0_weapon,
+            opponent0_gender=opponent0_gender,
+            opponent0_species=opponent0_species,
+            opponent0_kills=opponent0_kills,
+            opponent0_deaths=opponent0_deaths,
+            opponent0_assists=opponent0_assists,
+            opponent0_game_paint_point=opponent0_game_paint_point,
+            opponent0_specials=opponent0_specials,
+            opponent0_headgear=opponent0_headgear,
+            opponent0_headgear_main=opponent0_headgear_main,
+            opponent0_headgear_sub0=opponent0_headgear_sub0,
+            opponent0_headgear_sub1=opponent0_headgear_sub1,
+            opponent0_headgear_sub2=opponent0_headgear_sub2,
+            opponent0_clothes=opponent0_clothes,
+            opponent0_clothes_main=opponent0_clothes_main,
+            opponent0_clothes_sub0=opponent0_clothes_sub0,
+            opponent0_clothes_sub1=opponent0_clothes_sub1,
+            opponent0_clothes_sub2=opponent0_clothes_sub2,
+            opponent0_shoes=opponent0_shoes,
+            opponent0_shoes_main=opponent0_shoes_main,
+            opponent0_shoes_sub0=opponent0_shoes_sub0,
+            opponent0_shoes_sub1=opponent0_shoes_sub1,
+            opponent0_shoes_sub2=opponent0_shoes_sub2,
+            opponent1_splatnet_id=opponent1_splatnet_id,
+            opponent1_name=opponent1_name,
+            opponent1_level_star=opponent1_level_star,
+            opponent1_level=opponent1_level,
+            opponent1_rank=opponent1_rank,
+            opponent1_weapon=opponent1_weapon,
+            opponent1_gender=opponent1_gender,
+            opponent1_species=opponent1_species,
+            opponent1_kills=opponent1_kills,
+            opponent1_deaths=opponent1_deaths,
+            opponent1_assists=opponent1_assists,
+            opponent1_game_paint_point=opponent1_game_paint_point,
+            opponent1_specials=opponent1_specials,
+            opponent1_headgear=opponent1_headgear,
+            opponent1_headgear_main=opponent1_headgear_main,
+            opponent1_headgear_sub0=opponent1_headgear_sub0,
+            opponent1_headgear_sub1=opponent1_headgear_sub1,
+            opponent1_headgear_sub2=opponent1_headgear_sub2,
+            opponent1_clothes=opponent1_clothes,
+            opponent1_clothes_main=opponent1_clothes_main,
+            opponent1_clothes_sub0=opponent1_clothes_sub0,
+            opponent1_clothes_sub1=opponent1_clothes_sub1,
+            opponent1_clothes_sub2=opponent1_clothes_sub2,
+            opponent1_shoes=opponent1_shoes,
+            opponent1_shoes_main=opponent1_shoes_main,
+            opponent1_shoes_sub0=opponent1_shoes_sub0,
+            opponent1_shoes_sub1=opponent1_shoes_sub1,
+            opponent1_shoes_sub2=opponent1_shoes_sub2,
+            opponent2_splatnet_id=opponent2_splatnet_id,
+            opponent2_name=opponent2_name,
+            opponent2_level_star=opponent2_level_star,
+            opponent2_level=opponent2_level,
+            opponent2_rank=opponent2_rank,
+            opponent2_weapon=opponent2_weapon,
+            opponent2_gender=opponent2_gender,
+            opponent2_species=opponent2_species,
+            opponent2_kills=opponent2_kills,
+            opponent2_deaths=opponent2_deaths,
+            opponent2_assists=opponent2_assists,
+            opponent2_game_paint_point=opponent2_game_paint_point,
+            opponent2_specials=opponent2_specials,
+            opponent2_headgear=opponent2_headgear,
+            opponent2_headgear_main=opponent2_headgear_main,
+            opponent2_headgear_sub0=opponent2_headgear_sub0,
+            opponent2_headgear_sub1=opponent2_headgear_sub1,
+            opponent2_headgear_sub2=opponent2_headgear_sub2,
+            opponent2_clothes=opponent2_clothes,
+            opponent2_clothes_main=opponent2_clothes_main,
+            opponent2_clothes_sub0=opponent2_clothes_sub0,
+            opponent2_clothes_sub1=opponent2_clothes_sub1,
+            opponent2_clothes_sub2=opponent2_clothes_sub2,
+            opponent2_shoes=opponent2_shoes,
+            opponent2_shoes_main=opponent2_shoes_main,
+            opponent2_shoes_sub0=opponent2_shoes_sub0,
+            opponent2_shoes_sub1=opponent2_shoes_sub1,
+            opponent2_shoes_sub2=opponent2_shoes_sub2,
+            opponent3_splatnet_id=opponent3_splatnet_id,
+            opponent3_name=opponent3_name,
+            opponent3_level_star=opponent3_level_star,
+            opponent3_level=opponent3_level,
+            opponent3_rank=opponent3_rank,
+            opponent3_weapon=opponent3_weapon,
+            opponent3_gender=opponent3_gender,
+            opponent3_species=opponent3_species,
+            opponent3_kills=opponent3_kills,
+            opponent3_deaths=opponent3_deaths,
+            opponent3_assists=opponent3_assists,
+            opponent3_game_paint_point=opponent3_game_paint_point,
+            opponent3_specials=opponent3_specials,
+            opponent3_headgear=opponent3_headgear,
+            opponent3_headgear_main=opponent3_headgear_main,
+            opponent3_headgear_sub0=opponent3_headgear_sub0,
+            opponent3_headgear_sub1=opponent3_headgear_sub1,
+            opponent3_headgear_sub2=opponent3_headgear_sub2,
+            opponent3_clothes=opponent3_clothes,
+            opponent3_clothes_main=opponent3_clothes_main,
+            opponent3_clothes_sub0=opponent3_clothes_sub0,
+            opponent3_clothes_sub1=opponent3_clothes_sub1,
+            opponent3_clothes_sub2=opponent3_clothes_sub2,
+            opponent3_shoes=opponent3_shoes,
+            opponent3_shoes_main=opponent3_shoes_main,
+            opponent3_shoes_sub0=opponent3_shoes_sub0,
+            opponent3_shoes_sub1=opponent3_shoes_sub1,
+            opponent3_shoes_sub2=opponent3_shoes_sub2,
         )
         return battle
 
