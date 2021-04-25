@@ -20,7 +20,7 @@ from two_factor.urls import urlpatterns as tf_urls
 from rest_framework.authtoken import views
 import sys
 
-sys.path.append('..')
+sys.path.append("..")
 from site_auth import views as auth_views
 
 urlpatterns = [
@@ -28,9 +28,16 @@ urlpatterns = [
     path("", include(tf_urls)),
     path("api-auth/", include("rest_framework.urls")),
     path("two_battles/", include("two_battles.urls")),
-    path('api-token-auth/', views.obtain_auth_token),
-    url(r'^signup/$', auth_views.signup, name='signup'),
-    url(r'^account_activation_sent/$', auth_views.account_activation_sent, name='account_activation_sent'),
-    url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,32})/$',
-        auth_views.activate, name='activate'),
+    path("api-token-auth/", views.obtain_auth_token),
+    url(r"^signup/$", auth_views.signup, name="signup"),
+    url(
+        r"^account_activation_sent/$",
+        auth_views.account_activation_sent,
+        name="account_activation_sent",
+    ),
+    url(
+        r"^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,32})/$",
+        auth_views.activate,
+        name="activate",
+    ),
 ]

@@ -55,6 +55,7 @@ class BattleViewSet(viewsets.ModelViewSet):
         user = self.request.user
         return Battle.objects.all().order_by("id").filter(player_user=user)
 
+
 class UserList(generics.ListAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
