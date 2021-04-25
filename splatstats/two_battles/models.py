@@ -131,6 +131,42 @@ class Battle(models.Model):
     teammate1_shoes_sub1 = models.CharField(null=True, max_length=5)
     teammate1_shoes_sub2 = models.CharField(null=True, max_length=5)
 
+    # teammate 2
+    # basic stats
+    teammate2_splatnet_id = models.CharField(null=True, max_length=16)
+    teammate2_name = models.CharField(null=True, max_length=10)
+    teammate2_level_star = models.PositiveSmallIntegerField(null=True)
+    teammate2_level = models.PositiveSmallIntegerField(null=True)
+    teammate2_rank = models.CharField(null=True, max_length=2)
+    teammate2_weapon = models.CharField(null=True, max_length=4)
+    teammate2_gender = models.CharField(max_length=4, null=True, choices=Gender.choices)
+    teammate2_species = models.CharField(
+        max_length=9, null=True, choices=Species.choices
+    )
+    teammate2_kills = models.PositiveSmallIntegerField(null=True)
+    teammate2_deaths = models.PositiveSmallIntegerField(null=True)
+    teammate2_assists = models.PositiveSmallIntegerField(null=True)
+    teammate2_game_paint_point = models.PositiveSmallIntegerField(null=True)
+    teammate2_specials = models.PositiveSmallIntegerField(null=True)
+    # headgear
+    teammate2_headgear = models.CharField(null=True, max_length=5)
+    teammate2_headgear_main = models.CharField(null=True, max_length=5)
+    teammate2_headgear_sub0 = models.CharField(null=True, max_length=5)
+    teammate2_headgear_sub1 = models.CharField(null=True, max_length=5)
+    teammate2_headgear_sub2 = models.CharField(null=True, max_length=5)
+    # clothes
+    teammate2_clothes = models.CharField(null=True, max_length=5)
+    teammate2_clothes_main = models.CharField(null=True, max_length=5)
+    teammate2_clothes_sub0 = models.CharField(null=True, max_length=5)
+    teammate2_clothes_sub1 = models.CharField(null=True, max_length=5)
+    teammate2_clothes_sub2 = models.CharField(null=True, max_length=5)
+    # shoes
+    teammate2_shoes = models.CharField(null=True, max_length=5)
+    teammate2_shoes_main = models.CharField(null=True, max_length=5)
+    teammate2_shoes_sub0 = models.CharField(null=True, max_length=5)
+    teammate2_shoes_sub1 = models.CharField(null=True, max_length=5)
+    teammate2_shoes_sub2 = models.CharField(null=True, max_length=5)
+
     @classmethod
     def create(cls, **kwargs):
         splatnet_json = None
@@ -346,6 +382,77 @@ class Battle(models.Model):
                 else:
                     teammate1_shoes_sub2 = None
 
+            # teammate 2
+            if len(splatnet_json["my_team_members"]) > 1:
+                # basic stats
+                player = splatnet_json["my_team_members"][1]
+                teammate2_splatnet_id = player["player"]["principal_id"]
+                teammate2_name = player["player"]["nickname"]
+                teammate2_level_star = player["player"]["star_rank"]
+                teammate2_level = player["player"]["player_rank"]
+                if "udemae" in player["player"]:
+                    teammate2_rank = splatnet_json["udemae"]["number"]
+                else:
+                    teammate2_rank = None
+                teammate2_weapon = player["player"]["weapon"]["id"]
+                teammate2_gender = player["player"]["player_type"]["style"]
+                teammate2_species = player["player"]["player_type"]["species"]
+                teammate2_kills = player["kill_count"]
+                teammate2_deaths = player["death_count"]
+                teammate2_assists = player["assist_count"]
+                teammate2_game_paint_point = player["game_paint_point"]
+                teammate2_specials = player["special_count"]
+                # headgear
+                teammate2_headgear = player["player"]["head"]["id"]
+                teammate2_headgear_main = player["player"]["head_skills"]["main"]["id"]
+                subs = player["player"]["head_skills"]["subs"]
+                if len(subs) > 0:
+                    teammate2_headgear_sub0 = subs[0]["id"]
+                else:
+                    teammate2_headgear_sub0 = None
+                if len(subs) > 1:
+                    teammate2_headgear_sub1 = subs[1]["id"]
+                else:
+                    teammate2_headgear_sub1 = None
+                if len(subs) > 2:
+                    teammate2_headgear_sub2 = subs[2]["id"]
+                else:
+                    teammate2_headgear_sub2 = None
+                # clothes
+                teammate2_clothes = player["player"]["clothes"]["id"]
+                teammate2_clothes_main = player["player"]["clothes_skills"]["main"][
+                    "id"
+                ]
+                subs = player["player"]["clothes_skills"]["subs"]
+                if len(subs) > 0:
+                    teammate2_clothes_sub0 = subs[0]["id"]
+                else:
+                    teammate2_clothes_sub0 = None
+                if len(subs) > 1:
+                    teammate2_clothes_sub1 = subs[1]["id"]
+                else:
+                    teammate2_clothes_sub1 = None
+                if len(subs) > 2:
+                    teammate2_clothes_sub2 = subs[2]["id"]
+                else:
+                    teammate2_clothes_sub2 = None
+                # shoes
+                teammate2_shoes = player["player"]["shoes"]["id"]
+                teammate2_shoes_main = player["player"]["shoes_skills"]["main"]["id"]
+                subs = player["player"]["shoes_skills"]["subs"]
+                if len(subs) > 0:
+                    teammate2_shoes_sub0 = subs[0]["id"]
+                else:
+                    teammate2_shoes_sub0 = None
+                if len(subs) > 1:
+                    teammate2_shoes_sub1 = subs[1]["id"]
+                else:
+                    teammate2_shoes_sub1 = None
+                if len(subs) > 2:
+                    teammate2_shoes_sub2 = subs[2]["id"]
+                else:
+                    teammate2_shoes_sub2 = None
+
         if "stat_ink_json" in kwargs:
             stat_ink_json = kwargs["stat_ink_json"]
 
@@ -426,6 +533,34 @@ class Battle(models.Model):
             teammate1_shoes_sub0=teammate1_shoes_sub0,
             teammate1_shoes_sub1=teammate1_shoes_sub1,
             teammate1_shoes_sub2=teammate1_shoes_sub2,
+            teammate2_splatnet_id=teammate2_splatnet_id,
+            teammate2_name=teammate2_name,
+            teammate2_level_star=teammate2_level_star,
+            teammate2_level=teammate2_level,
+            teammate2_rank=teammate2_rank,
+            teammate2_weapon=teammate2_weapon,
+            teammate2_gender=teammate2_gender,
+            teammate2_species=teammate2_species,
+            teammate2_kills=teammate2_kills,
+            teammate2_deaths=teammate2_deaths,
+            teammate2_assists=teammate2_assists,
+            teammate2_game_paint_point=teammate2_game_paint_point,
+            teammate2_specials=teammate2_specials,
+            teammate2_headgear=teammate2_headgear,
+            teammate2_headgear_main=teammate2_headgear_main,
+            teammate2_headgear_sub0=teammate2_headgear_sub0,
+            teammate2_headgear_sub1=teammate2_headgear_sub1,
+            teammate2_headgear_sub2=teammate2_headgear_sub2,
+            teammate2_clothes=teammate2_clothes,
+            teammate2_clothes_main=teammate2_clothes_main,
+            teammate2_clothes_sub0=teammate2_clothes_sub0,
+            teammate2_clothes_sub1=teammate2_clothes_sub1,
+            teammate2_clothes_sub2=teammate2_clothes_sub2,
+            teammate2_shoes=teammate2_shoes,
+            teammate2_shoes_main=teammate2_shoes_main,
+            teammate2_shoes_sub0=teammate2_shoes_sub0,
+            teammate2_shoes_sub1=teammate2_shoes_sub1,
+            teammate2_shoes_sub2=teammate2_shoes_sub2,
         )
         return battle
 
