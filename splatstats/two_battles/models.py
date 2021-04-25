@@ -101,7 +101,7 @@ class Battle(models.Model):
     teammate1_name = models.CharField(null=True, max_length=10)
     teammate1_level_star = models.PositiveSmallIntegerField(null=True)
     teammate1_level = models.PositiveSmallIntegerField(null=True)
-    teammate1_rank = models.PositiveSmallIntegerField(null=True)
+    teammate1_rank = models.CharField(null=True, max_length=2)
     teammate1_weapon = models.CharField(null=True, max_length=4)
     teammate1_gender = models.CharField(max_length=4, null=True, choices=Gender.choices)
     teammate1_species = models.CharField(
