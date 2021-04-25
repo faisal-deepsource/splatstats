@@ -63,7 +63,7 @@ class Battle(models.Model):
     )
     player_user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     player_weapon = models.CharField(max_length=4)
-    player_rank = models.IntegerField(null=True)
+    player_rank = models.PositiveSmallIntegerField(null=True)
     player_level = models.PositiveSmallIntegerField(null=True)
     player_level_star = models.PositiveSmallIntegerField(null=True)
     player_kills = models.PositiveSmallIntegerField(null=True)
@@ -101,6 +101,7 @@ class Battle(models.Model):
     teammate1_name = models.CharField(null=True, max_length=10)
     teammate1_level_star = models.PositiveSmallIntegerField(null=True)
     teammate1_level = models.PositiveSmallIntegerField(null=True)
+    teammate1_rank = models.PositiveSmallIntegerField(null=True)
     teammate1_weapon = models.CharField(null=True, max_length=4)
     teammate1_gender = models.CharField(max_length=4, null=True, choices=Gender.choices)
     teammate1_species = models.CharField(
@@ -282,6 +283,10 @@ class Battle(models.Model):
                 teammate1_name = player["player"]["nickname"]
                 teammate1_level_star = player["player"]["star_rank"]
                 teammate1_level = player["player"]["player_rank"]
+                if "udemae" in player["player"]:
+                    teammate1_rank = splatnet_json["udemae"]["number"]
+                else:
+                    teammate1_rank = None
                 teammate1_weapon = player["player"]["weapon"]["id"]
                 teammate1_gender = player["player"]["player_type"]["style"]
                 teammate1_species = player["player"]["player_type"]["species"]
@@ -397,6 +402,7 @@ class Battle(models.Model):
             teammate1_name=teammate1_name,
             teammate1_level_star=teammate1_level_star,
             teammate1_level=teammate1_level,
+            teammate1_rank=teammate1_rank,
             teammate1_weapon=teammate1_weapon,
             teammate1_gender=teammate1_gender,
             teammate1_species=teammate1_species,

@@ -32,11 +32,6 @@ class BattleSerializer(serializers.Serializer):
             rule = splatnet_json["rule"]["key"]
             match_type = splatnet_json["type"]
             stage = splatnet_json["stage"]["id"]
-            player_weapon = splatnet_json["player_result"]["player"]["weapon"]["id"]
-            if "udemae" in splatnet_json:
-                player_rank = splatnet_json["udemae"]["number"]
-            else:
-                player_rank = None
             win = splatnet_json["my_team_result"]["key"] == "victory"
             has_disconnected_player = False
             for teammate in splatnet_json["my_team_members"]:
@@ -94,6 +89,11 @@ class BattleSerializer(serializers.Serializer):
 
             # player
             # general stats
+            player_weapon = splatnet_json["player_result"]["player"]["weapon"]["id"]
+            if "udemae" in splatnet_json:
+                player_rank = splatnet_json["udemae"]["number"]
+            else:
+                player_rank = None
             player_level = splatnet_json["player_rank"]
             player_kills = splatnet_json["player_result"]["kill_count"]
             player_deaths = splatnet_json["player_result"]["death_count"]
@@ -169,6 +169,10 @@ class BattleSerializer(serializers.Serializer):
             if len(splatnet_json["my_team_members"]) > 0:
                 # basic stats
                 player = splatnet_json["my_team_members"][0]
+                if "udemae" in player["player"]:
+                    teammate1_rank = splatnet_json["udemae"]["number"]
+                else:
+                    teammate1_rank = None
                 teammate1_splatnet_id = player["player"]["principal_id"]
                 teammate1_name = player["player"]["nickname"]
                 teammate1_level_star = player["player"]["star_rank"]
@@ -286,6 +290,7 @@ class BattleSerializer(serializers.Serializer):
                     teammate1_name=teammate1_name,
                     teammate1_level_star=teammate1_level_star,
                     teammate1_level=teammate1_level,
+                    teammate1_rank=teammate1_rank,
                     teammate1_weapon=teammate1_weapon,
                     teammate1_gender=teammate1_gender,
                     teammate1_species=teammate1_species,
@@ -363,6 +368,7 @@ class BattleSerializer(serializers.Serializer):
                     teammate1_name=teammate1_name,
                     teammate1_level_star=teammate1_level_star,
                     teammate1_level=teammate1_level,
+                    teammate1_rank=teammate1_rank,
                     teammate1_weapon=teammate1_weapon,
                     teammate1_gender=teammate1_gender,
                     teammate1_species=teammate1_species,
