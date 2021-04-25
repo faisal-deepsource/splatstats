@@ -20,7 +20,7 @@ class Battle(models.Model):
         rg = "regular", _("Turf War")
         fs = "fes_solo", _("Splatfest Solo/Pro")
         ft = "fes_team", _("Splatfest Team/Normal")
-    
+
     class Species(models.TextChoices):
         ink = "inklings", _("Inkling")
         octo = "octolings", _("Octoling")
@@ -56,8 +56,11 @@ class Battle(models.Model):
     )
     splatfest_title_after = models.TextField(blank=True, null=True)
 
-    # player basic stats
-    player_x_power = models.DecimalField(blank=True, null=True, decimal_places=1, max_digits=5)
+    # player
+    # basic stats
+    player_x_power = models.DecimalField(
+        blank=True, null=True, decimal_places=1, max_digits=5
+    )
     player_user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     player_weapon = models.CharField(max_length=4)
     player_rank = models.IntegerField(null=True)
@@ -73,8 +76,6 @@ class Battle(models.Model):
     player_name = models.CharField(max_length=10, null=True)
     player_gender = models.CharField(max_length=4, null=True, choices=Gender.choices)
     player_species = models.CharField(max_length=9, null=True, choices=Species.choices)
-
-    # player gear
     # headgear
     player_headgear = models.CharField(null=True, max_length=5)
     player_headgear_main = models.CharField(null=True, max_length=5)
@@ -94,12 +95,48 @@ class Battle(models.Model):
     player_shoes_sub1 = models.CharField(null=True, max_length=5)
     player_shoes_sub2 = models.CharField(null=True, max_length=5)
 
+    # teammate 1
+    # basic stats
+    teammate1_splatnet_id = models.CharField(null=True, max_length=16)
+    teammate1_name = models.CharField(null=True, max_length=10)
+    teammate1_level_star = models.PositiveSmallIntegerField(null=True)
+    teammate1_level = models.PositiveSmallIntegerField(null=True)
+    teammate1_weapon = models.CharField(null=True, max_length=4)
+    teammate1_gender = models.CharField(max_length=4, null=True, choices=Gender.choices)
+    teammate1_species = models.CharField(
+        max_length=9, null=True, choices=Species.choices
+    )
+    teammate1_kills = models.PositiveSmallIntegerField(null=True)
+    teammate1_deaths = models.PositiveSmallIntegerField(null=True)
+    teammate1_assists = models.PositiveSmallIntegerField(null=True)
+    teammate1_game_paint_point = models.PositiveSmallIntegerField(null=True)
+    teammate1_specials = models.PositiveSmallIntegerField(null=True)
+    # headgear
+    teammate1_headgear = models.CharField(null=True, max_length=5)
+    teammate1_headgear_main = models.CharField(null=True, max_length=5)
+    teammate1_headgear_sub0 = models.CharField(null=True, max_length=5)
+    teammate1_headgear_sub1 = models.CharField(null=True, max_length=5)
+    teammate1_headgear_sub2 = models.CharField(null=True, max_length=5)
+    # clothes
+    teammate1_clothes = models.CharField(null=True, max_length=5)
+    teammate1_clothes_main = models.CharField(null=True, max_length=5)
+    teammate1_clothes_sub0 = models.CharField(null=True, max_length=5)
+    teammate1_clothes_sub1 = models.CharField(null=True, max_length=5)
+    teammate1_clothes_sub2 = models.CharField(null=True, max_length=5)
+    # shoes
+    teammate1_shoes = models.CharField(null=True, max_length=5)
+    teammate1_shoes_main = models.CharField(null=True, max_length=5)
+    teammate1_shoes_sub0 = models.CharField(null=True, max_length=5)
+    teammate1_shoes_sub1 = models.CharField(null=True, max_length=5)
+    teammate1_shoes_sub2 = models.CharField(null=True, max_length=5)
+
     @classmethod
     def create(cls, **kwargs):
         splatnet_json = None
         stat_ink_json = None
         player_user = kwargs["user"]
         if "splatnet_json" in kwargs:
+            # general match stats
             splatnet_json = kwargs["splatnet_json"]
             rule = splatnet_json["rule"]["key"]
             match_type = splatnet_json["type"]
@@ -145,20 +182,25 @@ class Battle(models.Model):
             else:
                 elapsed_time = splatnet_json["elapsed_time"]
 
+            # league battle stuff
             if "tag_id" in splatnet_json:
                 tag_id = splatnet_json["tag_id"]
             else:
                 tag_id = None
-            x_power = splatnet_json["x_power"]
             if "league_point" in splatnet_json:
                 league_point = splatnet_json["league_point"]
             else:
                 league_point = None
-            
+
+            # splatfest
             splatfest_point = None
             splatfest_title_after = None
-            
-            player_splatnet_id = splatnet_json["player_result"]["player"]["principal_id"]
+
+            # player
+            # basic stats
+            player_splatnet_id = splatnet_json["player_result"]["player"][
+                "principal_id"
+            ]
             player_name = splatnet_json["player_result"]["player"]["nickname"]
             player_weapon = splatnet_json["player_result"]["player"]["weapon"]["id"]
             player_rank = splatnet_json["udemae"]["number"]
@@ -170,12 +212,18 @@ class Battle(models.Model):
             player_assists = splatnet_json["player_result"]["assist_count"]
             player_specials = splatnet_json["player_result"]["special_count"]
             player_game_paint_point = splatnet_json["player_result"]["game_paint_point"]
-            player_gender = splatnet_json["player_result"]["player"]["player_type"]["style"]
-            player_species = splatnet_json["player_result"]["player"]["player_type"]["species"]
-
+            player_gender = splatnet_json["player_result"]["player"]["player_type"][
+                "style"
+            ]
+            player_species = splatnet_json["player_result"]["player"]["player_type"][
+                "species"
+            ]
+            player_x_power = splatnet_json["x_power"]
             # headgear
             player_headgear = splatnet_json["player_result"]["player"]["head"]["id"]
-            player_headgear_main = splatnet_json["player_result"]["player"]["head_skills"]["main"]["id"]
+            player_headgear_main = splatnet_json["player_result"]["player"][
+                "head_skills"
+            ]["main"]["id"]
             subs = splatnet_json["player_result"]["player"]["head_skills"]["subs"]
             if len(subs) > 0:
                 player_headgear_sub0 = subs[0]["id"]
@@ -191,7 +239,9 @@ class Battle(models.Model):
                 player_headgear_sub2 = None
             # clothes
             player_clothes = splatnet_json["player_result"]["player"]["clothes"]["id"]
-            player_clothes_main = splatnet_json["player_result"]["player"]["clothes_skills"]["main"]["id"]
+            player_clothes_main = splatnet_json["player_result"]["player"][
+                "clothes_skills"
+            ]["main"]["id"]
             subs = splatnet_json["player_result"]["player"]["clothes_skills"]["subs"]
             if len(subs) > 0:
                 player_clothes_sub0 = subs[0]["id"]
@@ -207,7 +257,9 @@ class Battle(models.Model):
                 player_clothes_sub2 = None
             # shoes
             player_shoes = splatnet_json["player_result"]["player"]["shoes"]["id"]
-            player_shoes_main = splatnet_json["player_result"]["player"]["shoes_skills"]["main"]["id"]
+            player_shoes_main = splatnet_json["player_result"]["player"][
+                "shoes_skills"
+            ]["main"]["id"]
             subs = splatnet_json["player_result"]["player"]["shoes_skills"]["subs"]
             if len(subs) > 0:
                 player_shoes_sub0 = subs[0]["id"]
@@ -221,6 +273,73 @@ class Battle(models.Model):
                 player_shoes_sub2 = subs[2]["id"]
             else:
                 player_shoes_sub2 = None
+
+            # teammate 1
+            if len(splatnet_json["my_team_members"]) > 0:
+                # basic stats
+                player = splatnet_json["my_team_members"][0]
+                teammate1_splatnet_id = player["player"]["principal_id"]
+                teammate1_name = player["player"]["nickname"]
+                teammate1_level_star = player["player"]["star_rank"]
+                teammate1_level = player["player"]["player_rank"]
+                teammate1_weapon = player["player"]["weapon"]["id"]
+                teammate1_gender = player["player"]["player_type"]["style"]
+                teammate1_species = player["player"]["player_type"]["species"]
+                teammate1_kills = player["kill_count"]
+                teammate1_deaths = player["death_count"]
+                teammate1_assists = player["assist_count"]
+                teammate1_game_paint_point = player["game_paint_point"]
+                teammate1_specials = player["special_count"]
+                # headgear
+                teammate1_headgear = player["player"]["head"]["id"]
+                teammate1_headgear_main = player["player"]["head_skills"]["main"]["id"]
+                subs = player["player"]["head_skills"]["subs"]
+                if len(subs) > 0:
+                    teammate1_headgear_sub0 = subs[0]["id"]
+                else:
+                    teammate1_headgear_sub0 = None
+                if len(subs) > 1:
+                    teammate1_headgear_sub1 = subs[1]["id"]
+                else:
+                    teammate1_headgear_sub1 = None
+                if len(subs) > 2:
+                    teammate1_headgear_sub2 = subs[2]["id"]
+                else:
+                    teammate1_headgear_sub2 = None
+                # clothes
+                teammate1_clothes = player["player"]["clothes"]["id"]
+                teammate1_clothes_main = player["player"]["clothes_skills"]["main"][
+                    "id"
+                ]
+                subs = player["player"]["clothes_skills"]["subs"]
+                if len(subs) > 0:
+                    teammate1_clothes_sub0 = subs[0]["id"]
+                else:
+                    teammate1_clothes_sub0 = None
+                if len(subs) > 1:
+                    teammate1_clothes_sub1 = subs[1]["id"]
+                else:
+                    teammate1_clothes_sub1 = None
+                if len(subs) > 2:
+                    teammate1_clothes_sub2 = subs[2]["id"]
+                else:
+                    teammate1_clothes_sub2 = None
+                # shoes
+                teammate1_shoes = player["player"]["shoes"]["id"]
+                teammate1_shoes_main = player["player"]["shoes_skills"]["main"]["id"]
+                subs = player["player"]["shoes_skills"]["subs"]
+                if len(subs) > 0:
+                    teammate1_shoes_sub0 = subs[0]["id"]
+                else:
+                    teammate1_shoes_sub0 = None
+                if len(subs) > 1:
+                    teammate1_shoes_sub1 = subs[1]["id"]
+                else:
+                    teammate1_shoes_sub1 = None
+                if len(subs) > 2:
+                    teammate1_shoes_sub2 = subs[2]["id"]
+                else:
+                    teammate1_shoes_sub2 = None
 
         if "stat_ink_json" in kwargs:
             stat_ink_json = kwargs["stat_ink_json"]
@@ -239,7 +358,7 @@ class Battle(models.Model):
             battle_number=battle_number,
             win_meter=win_meter,
             tag_id=tag_id,
-            x_power=x_power,
+            player_x_power=player_x_power,
             league_point=league_point,
             splatfest_point=splatfest_point,
             player_splatfest_title=player_splatfest_title,
@@ -274,6 +393,33 @@ class Battle(models.Model):
             player_shoes_sub0=player_shoes_sub0,
             player_shoes_sub1=player_shoes_sub1,
             player_shoes_sub2=player_shoes_sub2,
+            teammate1_splatnet_id=teammate1_splatnet_id,
+            teammate1_name=teammate1_name,
+            teammate1_level_star=teammate1_level_star,
+            teammate1_level=teammate1_level,
+            teammate1_weapon=teammate1_weapon,
+            teammate1_gender=teammate1_gender,
+            teammate1_species=teammate1_species,
+            teammate1_kills=teammate1_kills,
+            teammate1_deaths=teammate1_deaths,
+            teammate1_assists=teammate1_assists,
+            teammate1_game_paint_point=teammate1_game_paint_point,
+            teammate1_specials=teammate1_specials,
+            teammate1_headgear=teammate1_headgear,
+            teammate1_headgear_main=teammate1_headgear_main,
+            teammate1_headgear_sub0=teammate1_headgear_sub0,
+            teammate1_headgear_sub1=teammate1_headgear_sub1,
+            teammate1_headgear_sub2=teammate1_headgear_sub2,
+            teammate1_clothes=teammate1_clothes,
+            teammate1_clothes_main=teammate1_clothes_main,
+            teammate1_clothes_sub0=teammate1_clothes_sub0,
+            teammate1_clothes_sub1=teammate1_clothes_sub1,
+            teammate1_clothes_sub2=teammate1_clothes_sub2,
+            teammate1_shoes=teammate1_shoes,
+            teammate1_shoes_main=teammate1_shoes_main,
+            teammate1_shoes_sub0=teammate1_shoes_sub0,
+            teammate1_shoes_sub1=teammate1_shoes_sub1,
+            teammate1_shoes_sub2=teammate1_shoes_sub2,
         )
         return battle
 
@@ -285,6 +431,7 @@ from django.conf import settings
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from rest_framework.authtoken.models import Token
+
 
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
 def create_auth_token(sender, instance=None, created=False, **kwargs):
