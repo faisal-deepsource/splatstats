@@ -95,6 +95,8 @@ class BattleSerializer(serializers.Serializer):
             player_level_star = splatnet_json["star_rank"]
             player_splatnet_id = splatnet_json["player_result"]["player"]["principal_id"]
             player_name = splatnet_json["player_result"]["player"]["nickname"]
+            player_gender = splatnet_json["player_result"]["player"]["player_type"]["style"]
+            player_species = splatnet_json["player_result"]["player"]["player_type"]["species"]
             player_splatfest_title = None
             if "x_power" in splatnet_json:
                 player_x_power = splatnet_json["x_power"]
@@ -176,6 +178,8 @@ class BattleSerializer(serializers.Serializer):
                     player_game_paint_point=player_game_paint_point,
                     elapsed_time=elapsed_time,
                     player_user=player_user,
+                    player_gender=player_gender,
+                    player_species=player_species,
                     player_headgear=player_headgear,
                     player_headgear_main=player_headgear_main,
                     player_headgear_sub0=player_headgear_sub0,
@@ -224,6 +228,8 @@ class BattleSerializer(serializers.Serializer):
                     player_game_paint_point=player_game_paint_point,
                     elapsed_time=elapsed_time,
                     player_user=player_user,
+                    player_gender=player_gender,
+                    player_species=player_species,
                     player_headgear=player_headgear,
                     player_headgear_main=player_headgear_main,
                     player_headgear_sub0=player_headgear_sub0,

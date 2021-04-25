@@ -20,6 +20,14 @@ class Battle(models.Model):
         rg = "regular", _("Turf War")
         fs = "fes_solo", _("Splatfest Solo/Pro")
         ft = "fes_team", _("Splatfest Team/Normal")
+    
+    class Species(models.TextChoices):
+        ink = "inklings", _("Inkling")
+        octo = "octolings", _("Octoling")
+
+    class Gender(models.TextChoices):
+        girl = "girl", _("Female")
+        boy = "boy", _("Male")
 
     # general match stats
     splatnet_json = models.JSONField("splatNet 2 JSON file", blank=True, null=True)
@@ -63,6 +71,8 @@ class Battle(models.Model):
     player_splatfest_title = models.TextField(blank=True, null=True)
     player_splatnet_id = models.CharField(max_length=16, null=True)
     player_name = models.CharField(max_length=10, null=True)
+    player_gender = models.CharField(max_length=4, null=True, choices=Gender.choices)
+    player_species = models.CharField(max_length=9, null=True, choices=Species.choices)
 
     # player gear
     # headgear
@@ -160,6 +170,8 @@ class Battle(models.Model):
             player_assists = splatnet_json["player_result"]["assist_count"]
             player_specials = splatnet_json["player_result"]["special_count"]
             player_game_paint_point = splatnet_json["player_result"]["game_paint_point"]
+            player_gender = splatnet_json["player_result"]["player"]["player_type"]["style"]
+            player_species = splatnet_json["player_result"]["player"]["player_type"]["species"]
 
             # headgear
             player_headgear = splatnet_json["player_result"]["player"]["head"]["id"]
@@ -245,6 +257,8 @@ class Battle(models.Model):
             player_level_star=player_level_star,
             elapsed_time=elapsed_time,
             player_user=player_user,
+            player_gender=player_gender,
+            player_species=player_species,
             player_headgear=player_headgear,
             player_headgear_main=player_headgear_main,
             player_headgear_sub0=player_headgear_sub0,
