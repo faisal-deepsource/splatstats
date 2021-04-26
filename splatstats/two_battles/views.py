@@ -20,7 +20,10 @@ def index(request):
 
 def detail(request, id):
     battle = get_object_or_404(Battle, pk=id)
-    return render(request, "two_battles/detail.html", {"battle": battle})
+    player_k_a = battle.player_kills + battle.player_assists
+    return render(
+        request, "two_battles/battle.html", {"battle": battle, "player_k_a": player_k_a}
+    )
 
 
 def upload(request):

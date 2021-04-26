@@ -1,5 +1,4 @@
 from django.db import models
-from django.db.models.deletion import CASCADE
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import User
 import sys
@@ -24,7 +23,22 @@ class Battle(models.Model):
         rg = "turf_war", _("Turf War")
         fs = "fes_solo", _("Splatfest Solo/Pro")
         ft = "fes_team", _("Splatfest Team/Normal")
-    
+
+    class Ranks(models.IntegerChoices):
+        c_minus = 0, _("C-")
+        c_rank = 1, _("C")
+        c_plus = 2, _("C+")
+        b_minus = 3, _("B-")
+        b_rank = 4, _("B")
+        b_plus = 5, _("B+")
+        a_minus = 6, _("A-")
+        a_rank = 7, _("A")
+        a_plus = 8, _("A+")
+        s_rank = 9, _("S")
+        s_plus0 = 10, _("S+0")
+        s_plus1 = 11, _("S+1")
+        s_plus2 = 12, _("S+2")
+
     class Weapons(models.TextChoices):
         bold = "0", _("Sploosh-o-matic")
         bold_neo = "1", _("Neo Sploosh-o-matic")
@@ -164,6 +178,75 @@ class Battle(models.Model):
         spygadget_sorella = "6021", _("Undercover Sorella Brella")
         spygadget_becchu = "6022", _("Kensa Undercover Brella")
 
+    class Stage(models.TextChoices):
+        reef = "0", _("The Reef")
+        musselforge = "1", _("Musselforge Fitness")
+        mainstage = "2", _("Starfish Mainstage")
+        sturgeon = "3", _("Sturgeon Shipyard")
+        inkblot = "4", _("Inkblot Art Academy")
+        humpback = "5", _("Humpback Pump Track")
+        manta = "6", _("Manta Maria")
+        moray = "8", _("Moray Towers")
+        snapper = "9", _("Snapper Canal")
+        dome = "10", _("Kelp Dome")
+        blackbelly = "11", _("Blackbelly Skatepark")
+        shellendorf = "12", _("Shellendorf Institute")
+        mart = "13", _("MakoMart")
+        walleye = "14", _("Walleye Warehouse")
+        mall = "15", _("Arowana Mall")
+        camp = "16", _("Camp Triggerfish")
+        pit = "17", _("Piranha Pit")
+        goby = "18", _("Goby Arena")
+        albacore = "19", _("New Albacore Hotel")
+        wahoo = "20", _("Wahoo World")
+        anchov = "21", _("Ancho-V Games")
+        skipper = "22", _("Skipper Pavillion")
+
+    class MainAbilities(models.TextChoices):
+        ink_saver_main = "0"
+        ink_saver_sub = "1"
+        ink_recovery_up = "2"
+        run_speed_up = "3"
+        swim_speed_up = "4"
+        special_charge_up = "5"
+        special_saver = "6"
+        special_power_up = "7"
+        quick_respawn = "8"
+        quick_super_jump = "9"
+        sub_power_up = "10"
+        ink_resistance_up = "11"
+        opening_gambit = "100"
+        last_ditch_effort = "101"
+        tenacity = "102"
+        comeback = "103"
+        ninja_squid = "104"
+        haunt = "105"
+        thermal_ink = "106"
+        respawn_punisher = "107"
+        ability_doubler = "108"
+        stealth_jump = "109"
+        object_shredder = "110"
+        drop_roller = "111"
+        bomb_defense_up_dx = "200"
+        main_power_up = "201"
+
+    class SubAbilities(models.TextChoices):
+        ink_saver_main = "0"
+        ink_saver_sub = "1"
+        ink_recovery_up = "2"
+        run_speed_up = "3"
+        swim_speed_up = "4"
+        special_charge_up = "5"
+        special_saver = "6"
+        special_power_up = "7"
+        quick_respawn = "8"
+        quick_super_jump = "9"
+        sub_power_up = "10"
+        ink_resistance_up = "11"
+        bomb_defense_up_dx = "200"
+        main_power_up = "201"
+        question_mark = "255"
+
     # general match stats
     splatnet_json = models.JSONField("splatNet 2 JSON file", blank=True, null=True)
     stat_ink_json = models.JSONField("stat.ink JSON file", blank=True, null=True)
@@ -198,7 +281,7 @@ class Battle(models.Model):
     )
     player_user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     player_weapon = models.CharField(max_length=4, choices=Weapons.choices)
-    player_rank = models.PositiveSmallIntegerField(null=True)
+    player_rank = models.PositiveSmallIntegerField(null=True, choices=Ranks.choices)
     player_level = models.PositiveSmallIntegerField(null=True)
     player_level_star = models.PositiveSmallIntegerField(null=True)
     player_kills = models.PositiveSmallIntegerField(null=True)
@@ -213,22 +296,46 @@ class Battle(models.Model):
     player_species = models.CharField(max_length=9, null=True, choices=Species.choices)
     # headgear
     player_headgear = models.CharField(null=True, max_length=5)
-    player_headgear_main = models.CharField(null=True, max_length=5)
-    player_headgear_sub0 = models.CharField(null=True, max_length=5)
-    player_headgear_sub1 = models.CharField(null=True, max_length=5)
-    player_headgear_sub2 = models.CharField(null=True, max_length=5)
+    player_headgear_main = models.CharField(
+        null=True, max_length=3, choices=MainAbilities.choices
+    )
+    player_headgear_sub0 = models.CharField(
+        null=True, max_length=3, choices=SubAbilities.choices
+    )
+    player_headgear_sub1 = models.CharField(
+        null=True, max_length=3, choices=SubAbilities.choices
+    )
+    player_headgear_sub2 = models.CharField(
+        null=True, max_length=3, choices=SubAbilities.choices
+    )
     # clothes
     player_clothes = models.CharField(null=True, max_length=5)
-    player_clothes_main = models.CharField(null=True, max_length=5)
-    player_clothes_sub0 = models.CharField(null=True, max_length=5)
-    player_clothes_sub1 = models.CharField(null=True, max_length=5)
-    player_clothes_sub2 = models.CharField(null=True, max_length=5)
+    player_clothes_main = models.CharField(
+        null=True, max_length=3, choices=MainAbilities.choices
+    )
+    player_clothes_sub0 = models.CharField(
+        null=True, max_length=3, choices=SubAbilities.choices
+    )
+    player_clothes_sub1 = models.CharField(
+        null=True, max_length=3, choices=SubAbilities.choices
+    )
+    player_clothes_sub2 = models.CharField(
+        null=True, max_length=3, choices=SubAbilities.choices
+    )
     # shoes
     player_shoes = models.CharField(null=True, max_length=5)
-    player_shoes_main = models.CharField(null=True, max_length=5)
-    player_shoes_sub0 = models.CharField(null=True, max_length=5)
-    player_shoes_sub1 = models.CharField(null=True, max_length=5)
-    player_shoes_sub2 = models.CharField(null=True, max_length=5)
+    player_shoes_main = models.CharField(
+        null=True, max_length=3, choices=MainAbilities.choices
+    )
+    player_shoes_sub0 = models.CharField(
+        null=True, max_length=3, choices=SubAbilities.choices
+    )
+    player_shoes_sub1 = models.CharField(
+        null=True, max_length=3, choices=SubAbilities.choices
+    )
+    player_shoes_sub2 = models.CharField(
+        null=True, max_length=3, choices=SubAbilities.choices
+    )
 
     # teammate 1
     # basic stats
@@ -237,7 +344,9 @@ class Battle(models.Model):
     teammate1_level_star = models.PositiveSmallIntegerField(null=True)
     teammate1_level = models.PositiveSmallIntegerField(null=True)
     teammate1_rank = models.CharField(null=True, max_length=2)
-    teammate1_weapon = models.CharField(null=True, max_length=4)
+    teammate1_weapon = models.CharField(
+        null=True, max_length=4, choices=Weapons.choices
+    )
     teammate1_gender = models.CharField(max_length=4, null=True, choices=Gender.choices)
     teammate1_species = models.CharField(
         max_length=9, null=True, choices=Species.choices
@@ -249,22 +358,46 @@ class Battle(models.Model):
     teammate1_specials = models.PositiveSmallIntegerField(null=True)
     # headgear
     teammate1_headgear = models.CharField(null=True, max_length=5)
-    teammate1_headgear_main = models.CharField(null=True, max_length=5)
-    teammate1_headgear_sub0 = models.CharField(null=True, max_length=5)
-    teammate1_headgear_sub1 = models.CharField(null=True, max_length=5)
-    teammate1_headgear_sub2 = models.CharField(null=True, max_length=5)
+    teammate1_headgear_main = models.CharField(
+        null=True, max_length=3, choices=MainAbilities.choices
+    )
+    teammate1_headgear_sub0 = models.CharField(
+        null=True, max_length=3, choices=SubAbilities.choices
+    )
+    teammate1_headgear_sub1 = models.CharField(
+        null=True, max_length=3, choices=SubAbilities.choices
+    )
+    teammate1_headgear_sub2 = models.CharField(
+        null=True, max_length=3, choices=SubAbilities.choices
+    )
     # clothes
     teammate1_clothes = models.CharField(null=True, max_length=5)
-    teammate1_clothes_main = models.CharField(null=True, max_length=5)
-    teammate1_clothes_sub0 = models.CharField(null=True, max_length=5)
-    teammate1_clothes_sub1 = models.CharField(null=True, max_length=5)
-    teammate1_clothes_sub2 = models.CharField(null=True, max_length=5)
+    teammate1_clothes_main = models.CharField(
+        null=True, max_length=3, choices=MainAbilities.choices
+    )
+    teammate1_clothes_sub0 = models.CharField(
+        null=True, max_length=3, choices=SubAbilities.choices
+    )
+    teammate1_clothes_sub1 = models.CharField(
+        null=True, max_length=3, choices=SubAbilities.choices
+    )
+    teammate1_clothes_sub2 = models.CharField(
+        null=True, max_length=3, choices=SubAbilities.choices
+    )
     # shoes
     teammate1_shoes = models.CharField(null=True, max_length=5)
-    teammate1_shoes_main = models.CharField(null=True, max_length=5)
-    teammate1_shoes_sub0 = models.CharField(null=True, max_length=5)
-    teammate1_shoes_sub1 = models.CharField(null=True, max_length=5)
-    teammate1_shoes_sub2 = models.CharField(null=True, max_length=5)
+    teammate1_shoes_main = models.CharField(
+        null=True, max_length=3, choices=MainAbilities.choices
+    )
+    teammate1_shoes_sub0 = models.CharField(
+        null=True, max_length=3, choices=SubAbilities.choices
+    )
+    teammate1_shoes_sub1 = models.CharField(
+        null=True, max_length=3, choices=SubAbilities.choices
+    )
+    teammate1_shoes_sub2 = models.CharField(
+        null=True, max_length=3, choices=SubAbilities.choices
+    )
 
     # teammate 2
     # basic stats
@@ -273,7 +406,9 @@ class Battle(models.Model):
     teammate2_level_star = models.PositiveSmallIntegerField(null=True)
     teammate2_level = models.PositiveSmallIntegerField(null=True)
     teammate2_rank = models.CharField(null=True, max_length=2)
-    teammate2_weapon = models.CharField(null=True, max_length=4)
+    teammate2_weapon = models.CharField(
+        null=True, max_length=4, choices=Weapons.choices
+    )
     teammate2_gender = models.CharField(max_length=4, null=True, choices=Gender.choices)
     teammate2_species = models.CharField(
         max_length=9, null=True, choices=Species.choices
@@ -285,22 +420,46 @@ class Battle(models.Model):
     teammate2_specials = models.PositiveSmallIntegerField(null=True)
     # headgear
     teammate2_headgear = models.CharField(null=True, max_length=5)
-    teammate2_headgear_main = models.CharField(null=True, max_length=5)
-    teammate2_headgear_sub0 = models.CharField(null=True, max_length=5)
-    teammate2_headgear_sub1 = models.CharField(null=True, max_length=5)
-    teammate2_headgear_sub2 = models.CharField(null=True, max_length=5)
+    teammate2_headgear_main = models.CharField(
+        null=True, max_length=3, choices=MainAbilities.choices
+    )
+    teammate2_headgear_sub0 = models.CharField(
+        null=True, max_length=3, choices=SubAbilities.choices
+    )
+    teammate2_headgear_sub1 = models.CharField(
+        null=True, max_length=3, choices=SubAbilities.choices
+    )
+    teammate2_headgear_sub2 = models.CharField(
+        null=True, max_length=3, choices=SubAbilities.choices
+    )
     # clothes
     teammate2_clothes = models.CharField(null=True, max_length=5)
-    teammate2_clothes_main = models.CharField(null=True, max_length=5)
-    teammate2_clothes_sub0 = models.CharField(null=True, max_length=5)
-    teammate2_clothes_sub1 = models.CharField(null=True, max_length=5)
-    teammate2_clothes_sub2 = models.CharField(null=True, max_length=5)
+    teammate2_clothes_main = models.CharField(
+        null=True, max_length=3, choices=MainAbilities.choices
+    )
+    teammate2_clothes_sub0 = models.CharField(
+        null=True, max_length=3, choices=SubAbilities.choices
+    )
+    teammate2_clothes_sub1 = models.CharField(
+        null=True, max_length=3, choices=SubAbilities.choices
+    )
+    teammate2_clothes_sub2 = models.CharField(
+        null=True, max_length=3, choices=SubAbilities.choices
+    )
     # shoes
     teammate2_shoes = models.CharField(null=True, max_length=5)
-    teammate2_shoes_main = models.CharField(null=True, max_length=5)
-    teammate2_shoes_sub0 = models.CharField(null=True, max_length=5)
-    teammate2_shoes_sub1 = models.CharField(null=True, max_length=5)
-    teammate2_shoes_sub2 = models.CharField(null=True, max_length=5)
+    teammate2_shoes_main = models.CharField(
+        null=True, max_length=3, choices=MainAbilities.choices
+    )
+    teammate2_shoes_sub0 = models.CharField(
+        null=True, max_length=3, choices=SubAbilities.choices
+    )
+    teammate2_shoes_sub1 = models.CharField(
+        null=True, max_length=3, choices=SubAbilities.choices
+    )
+    teammate2_shoes_sub2 = models.CharField(
+        null=True, max_length=3, choices=SubAbilities.choices
+    )
 
     # teammate 3
     # basic stats
@@ -309,7 +468,9 @@ class Battle(models.Model):
     teammate3_level_star = models.PositiveSmallIntegerField(null=True)
     teammate3_level = models.PositiveSmallIntegerField(null=True)
     teammate3_rank = models.CharField(null=True, max_length=2)
-    teammate3_weapon = models.CharField(null=True, max_length=4)
+    teammate3_weapon = models.CharField(
+        null=True, max_length=4, choices=Weapons.choices
+    )
     teammate3_gender = models.CharField(max_length=4, null=True, choices=Gender.choices)
     teammate3_species = models.CharField(
         max_length=9, null=True, choices=Species.choices
@@ -321,22 +482,46 @@ class Battle(models.Model):
     teammate3_specials = models.PositiveSmallIntegerField(null=True)
     # headgear
     teammate3_headgear = models.CharField(null=True, max_length=5)
-    teammate3_headgear_main = models.CharField(null=True, max_length=5)
-    teammate3_headgear_sub0 = models.CharField(null=True, max_length=5)
-    teammate3_headgear_sub1 = models.CharField(null=True, max_length=5)
-    teammate3_headgear_sub2 = models.CharField(null=True, max_length=5)
+    teammate3_headgear_main = models.CharField(
+        null=True, max_length=3, choices=MainAbilities.choices
+    )
+    teammate3_headgear_sub0 = models.CharField(
+        null=True, max_length=3, choices=SubAbilities.choices
+    )
+    teammate3_headgear_sub1 = models.CharField(
+        null=True, max_length=3, choices=SubAbilities.choices
+    )
+    teammate3_headgear_sub2 = models.CharField(
+        null=True, max_length=3, choices=SubAbilities.choices
+    )
     # clothes
     teammate3_clothes = models.CharField(null=True, max_length=5)
-    teammate3_clothes_main = models.CharField(null=True, max_length=5)
-    teammate3_clothes_sub0 = models.CharField(null=True, max_length=5)
-    teammate3_clothes_sub1 = models.CharField(null=True, max_length=5)
-    teammate3_clothes_sub2 = models.CharField(null=True, max_length=5)
+    teammate3_clothes_main = models.CharField(
+        null=True, max_length=3, choices=MainAbilities.choices
+    )
+    teammate3_clothes_sub0 = models.CharField(
+        null=True, max_length=3, choices=SubAbilities.choices
+    )
+    teammate3_clothes_sub1 = models.CharField(
+        null=True, max_length=3, choices=SubAbilities.choices
+    )
+    teammate3_clothes_sub2 = models.CharField(
+        null=True, max_length=3, choices=SubAbilities.choices
+    )
     # shoes
     teammate3_shoes = models.CharField(null=True, max_length=5)
-    teammate3_shoes_main = models.CharField(null=True, max_length=5)
-    teammate3_shoes_sub0 = models.CharField(null=True, max_length=5)
-    teammate3_shoes_sub1 = models.CharField(null=True, max_length=5)
-    teammate3_shoes_sub2 = models.CharField(null=True, max_length=5)
+    teammate3_shoes_main = models.CharField(
+        null=True, max_length=3, choices=MainAbilities.choices
+    )
+    teammate3_shoes_sub0 = models.CharField(
+        null=True, max_length=3, choices=SubAbilities.choices
+    )
+    teammate3_shoes_sub1 = models.CharField(
+        null=True, max_length=3, choices=SubAbilities.choices
+    )
+    teammate3_shoes_sub2 = models.CharField(
+        null=True, max_length=3, choices=SubAbilities.choices
+    )
 
     # opponent 0
     # basic stats
@@ -345,7 +530,9 @@ class Battle(models.Model):
     opponent0_level_star = models.PositiveSmallIntegerField(null=True)
     opponent0_level = models.PositiveSmallIntegerField(null=True)
     opponent0_rank = models.CharField(null=True, max_length=2)
-    opponent0_weapon = models.CharField(null=True, max_length=4)
+    opponent0_weapon = models.CharField(
+        null=True, max_length=4, choices=Weapons.choices
+    )
     opponent0_gender = models.CharField(max_length=4, null=True, choices=Gender.choices)
     opponent0_species = models.CharField(
         max_length=9, null=True, choices=Species.choices
@@ -357,22 +544,46 @@ class Battle(models.Model):
     opponent0_specials = models.PositiveSmallIntegerField(null=True)
     # headgear
     opponent0_headgear = models.CharField(null=True, max_length=5)
-    opponent0_headgear_main = models.CharField(null=True, max_length=5)
-    opponent0_headgear_sub0 = models.CharField(null=True, max_length=5)
-    opponent0_headgear_sub1 = models.CharField(null=True, max_length=5)
-    opponent0_headgear_sub2 = models.CharField(null=True, max_length=5)
+    opponent0_headgear_main = models.CharField(
+        null=True, max_length=3, choices=MainAbilities.choices
+    )
+    opponent0_headgear_sub0 = models.CharField(
+        null=True, max_length=3, choices=SubAbilities.choices
+    )
+    opponent0_headgear_sub1 = models.CharField(
+        null=True, max_length=3, choices=SubAbilities.choices
+    )
+    opponent0_headgear_sub2 = models.CharField(
+        null=True, max_length=3, choices=SubAbilities.choices
+    )
     # clothes
     opponent0_clothes = models.CharField(null=True, max_length=5)
-    opponent0_clothes_main = models.CharField(null=True, max_length=5)
-    opponent0_clothes_sub0 = models.CharField(null=True, max_length=5)
-    opponent0_clothes_sub1 = models.CharField(null=True, max_length=5)
-    opponent0_clothes_sub2 = models.CharField(null=True, max_length=5)
+    opponent0_clothes_main = models.CharField(
+        null=True, max_length=3, choices=MainAbilities.choices
+    )
+    opponent0_clothes_sub0 = models.CharField(
+        null=True, max_length=3, choices=SubAbilities.choices
+    )
+    opponent0_clothes_sub1 = models.CharField(
+        null=True, max_length=3, choices=SubAbilities.choices
+    )
+    opponent0_clothes_sub2 = models.CharField(
+        null=True, max_length=3, choices=SubAbilities.choices
+    )
     # shoes
     opponent0_shoes = models.CharField(null=True, max_length=5)
-    opponent0_shoes_main = models.CharField(null=True, max_length=5)
-    opponent0_shoes_sub0 = models.CharField(null=True, max_length=5)
-    opponent0_shoes_sub1 = models.CharField(null=True, max_length=5)
-    opponent0_shoes_sub2 = models.CharField(null=True, max_length=5)
+    opponent0_shoes_main = models.CharField(
+        null=True, max_length=3, choices=MainAbilities.choices
+    )
+    opponent0_shoes_sub0 = models.CharField(
+        null=True, max_length=3, choices=SubAbilities.choices
+    )
+    opponent0_shoes_sub1 = models.CharField(
+        null=True, max_length=3, choices=SubAbilities.choices
+    )
+    opponent0_shoes_sub2 = models.CharField(
+        null=True, max_length=3, choices=SubAbilities.choices
+    )
 
     # opponent 1
     # basic stats
@@ -381,7 +592,9 @@ class Battle(models.Model):
     opponent1_level_star = models.PositiveSmallIntegerField(null=True)
     opponent1_level = models.PositiveSmallIntegerField(null=True)
     opponent1_rank = models.CharField(null=True, max_length=2)
-    opponent1_weapon = models.CharField(null=True, max_length=4)
+    opponent1_weapon = models.CharField(
+        null=True, max_length=4, choices=Weapons.choices
+    )
     opponent1_gender = models.CharField(max_length=4, null=True, choices=Gender.choices)
     opponent1_species = models.CharField(
         max_length=9, null=True, choices=Species.choices
@@ -393,22 +606,46 @@ class Battle(models.Model):
     opponent1_specials = models.PositiveSmallIntegerField(null=True)
     # headgear
     opponent1_headgear = models.CharField(null=True, max_length=5)
-    opponent1_headgear_main = models.CharField(null=True, max_length=5)
-    opponent1_headgear_sub0 = models.CharField(null=True, max_length=5)
-    opponent1_headgear_sub1 = models.CharField(null=True, max_length=5)
-    opponent1_headgear_sub2 = models.CharField(null=True, max_length=5)
+    opponent1_headgear_main = models.CharField(
+        null=True, max_length=3, choices=MainAbilities.choices
+    )
+    opponent1_headgear_sub0 = models.CharField(
+        null=True, max_length=3, choices=SubAbilities.choices
+    )
+    opponent1_headgear_sub1 = models.CharField(
+        null=True, max_length=3, choices=SubAbilities.choices
+    )
+    opponent1_headgear_sub2 = models.CharField(
+        null=True, max_length=3, choices=SubAbilities.choices
+    )
     # clothes
     opponent1_clothes = models.CharField(null=True, max_length=5)
-    opponent1_clothes_main = models.CharField(null=True, max_length=5)
-    opponent1_clothes_sub0 = models.CharField(null=True, max_length=5)
-    opponent1_clothes_sub1 = models.CharField(null=True, max_length=5)
-    opponent1_clothes_sub2 = models.CharField(null=True, max_length=5)
+    opponent1_clothes_main = models.CharField(
+        null=True, max_length=3, choices=MainAbilities.choices
+    )
+    opponent1_clothes_sub0 = models.CharField(
+        null=True, max_length=3, choices=SubAbilities.choices
+    )
+    opponent1_clothes_sub1 = models.CharField(
+        null=True, max_length=3, choices=SubAbilities.choices
+    )
+    opponent1_clothes_sub2 = models.CharField(
+        null=True, max_length=3, choices=SubAbilities.choices
+    )
     # shoes
     opponent1_shoes = models.CharField(null=True, max_length=5)
-    opponent1_shoes_main = models.CharField(null=True, max_length=5)
-    opponent1_shoes_sub0 = models.CharField(null=True, max_length=5)
-    opponent1_shoes_sub1 = models.CharField(null=True, max_length=5)
-    opponent1_shoes_sub2 = models.CharField(null=True, max_length=5)
+    opponent1_shoes_main = models.CharField(
+        null=True, max_length=3, choices=MainAbilities.choices
+    )
+    opponent1_shoes_sub0 = models.CharField(
+        null=True, max_length=3, choices=SubAbilities.choices
+    )
+    opponent1_shoes_sub1 = models.CharField(
+        null=True, max_length=3, choices=SubAbilities.choices
+    )
+    opponent1_shoes_sub2 = models.CharField(
+        null=True, max_length=3, choices=SubAbilities.choices
+    )
 
     # opponent 2
     # basic stats
@@ -417,7 +654,9 @@ class Battle(models.Model):
     opponent2_level_star = models.PositiveSmallIntegerField(null=True)
     opponent2_level = models.PositiveSmallIntegerField(null=True)
     opponent2_rank = models.CharField(null=True, max_length=2)
-    opponent2_weapon = models.CharField(null=True, max_length=4)
+    opponent2_weapon = models.CharField(
+        null=True, max_length=4, choices=Weapons.choices
+    )
     opponent2_gender = models.CharField(max_length=4, null=True, choices=Gender.choices)
     opponent2_species = models.CharField(
         max_length=9, null=True, choices=Species.choices
@@ -429,22 +668,46 @@ class Battle(models.Model):
     opponent2_specials = models.PositiveSmallIntegerField(null=True)
     # headgear
     opponent2_headgear = models.CharField(null=True, max_length=5)
-    opponent2_headgear_main = models.CharField(null=True, max_length=5)
-    opponent2_headgear_sub0 = models.CharField(null=True, max_length=5)
-    opponent2_headgear_sub1 = models.CharField(null=True, max_length=5)
-    opponent2_headgear_sub2 = models.CharField(null=True, max_length=5)
+    opponent2_headgear_main = models.CharField(
+        null=True, max_length=3, choices=MainAbilities.choices
+    )
+    opponent2_headgear_sub0 = models.CharField(
+        null=True, max_length=3, choices=SubAbilities.choices
+    )
+    opponent2_headgear_sub1 = models.CharField(
+        null=True, max_length=3, choices=SubAbilities.choices
+    )
+    opponent2_headgear_sub2 = models.CharField(
+        null=True, max_length=3, choices=SubAbilities.choices
+    )
     # clothes
     opponent2_clothes = models.CharField(null=True, max_length=5)
-    opponent2_clothes_main = models.CharField(null=True, max_length=5)
-    opponent2_clothes_sub0 = models.CharField(null=True, max_length=5)
-    opponent2_clothes_sub1 = models.CharField(null=True, max_length=5)
-    opponent2_clothes_sub2 = models.CharField(null=True, max_length=5)
+    opponent2_clothes_main = models.CharField(
+        null=True, max_length=3, choices=MainAbilities.choices
+    )
+    opponent2_clothes_sub0 = models.CharField(
+        null=True, max_length=3, choices=SubAbilities.choices
+    )
+    opponent2_clothes_sub1 = models.CharField(
+        null=True, max_length=3, choices=SubAbilities.choices
+    )
+    opponent2_clothes_sub2 = models.CharField(
+        null=True, max_length=3, choices=SubAbilities.choices
+    )
     # shoes
     opponent2_shoes = models.CharField(null=True, max_length=5)
-    opponent2_shoes_main = models.CharField(null=True, max_length=5)
-    opponent2_shoes_sub0 = models.CharField(null=True, max_length=5)
-    opponent2_shoes_sub1 = models.CharField(null=True, max_length=5)
-    opponent2_shoes_sub2 = models.CharField(null=True, max_length=5)
+    opponent2_shoes_main = models.CharField(
+        null=True, max_length=3, choices=MainAbilities.choices
+    )
+    opponent2_shoes_sub0 = models.CharField(
+        null=True, max_length=3, choices=SubAbilities.choices
+    )
+    opponent2_shoes_sub1 = models.CharField(
+        null=True, max_length=3, choices=SubAbilities.choices
+    )
+    opponent2_shoes_sub2 = models.CharField(
+        null=True, max_length=3, choices=SubAbilities.choices
+    )
 
     # opponent 3
     # basic stats
@@ -453,7 +716,9 @@ class Battle(models.Model):
     opponent3_level_star = models.PositiveSmallIntegerField(null=True)
     opponent3_level = models.PositiveSmallIntegerField(null=True)
     opponent3_rank = models.CharField(null=True, max_length=2)
-    opponent3_weapon = models.CharField(null=True, max_length=4)
+    opponent3_weapon = models.CharField(
+        null=True, max_length=4, choices=Weapons.choices
+    )
     opponent3_gender = models.CharField(max_length=4, null=True, choices=Gender.choices)
     opponent3_species = models.CharField(
         max_length=9, null=True, choices=Species.choices
@@ -465,22 +730,46 @@ class Battle(models.Model):
     opponent3_specials = models.PositiveSmallIntegerField(null=True)
     # headgear
     opponent3_headgear = models.CharField(null=True, max_length=5)
-    opponent3_headgear_main = models.CharField(null=True, max_length=5)
-    opponent3_headgear_sub0 = models.CharField(null=True, max_length=5)
-    opponent3_headgear_sub1 = models.CharField(null=True, max_length=5)
-    opponent3_headgear_sub2 = models.CharField(null=True, max_length=5)
+    opponent3_headgear_main = models.CharField(
+        null=True, max_length=3, choices=MainAbilities.choices
+    )
+    opponent3_headgear_sub0 = models.CharField(
+        null=True, max_length=3, choices=SubAbilities.choices
+    )
+    opponent3_headgear_sub1 = models.CharField(
+        null=True, max_length=3, choices=SubAbilities.choices
+    )
+    opponent3_headgear_sub2 = models.CharField(
+        null=True, max_length=3, choices=SubAbilities.choices
+    )
     # clothes
     opponent3_clothes = models.CharField(null=True, max_length=5)
-    opponent3_clothes_main = models.CharField(null=True, max_length=5)
-    opponent3_clothes_sub0 = models.CharField(null=True, max_length=5)
-    opponent3_clothes_sub1 = models.CharField(null=True, max_length=5)
-    opponent3_clothes_sub2 = models.CharField(null=True, max_length=5)
+    opponent3_clothes_main = models.CharField(
+        null=True, max_length=3, choices=MainAbilities.choices
+    )
+    opponent3_clothes_sub0 = models.CharField(
+        null=True, max_length=3, choices=SubAbilities.choices
+    )
+    opponent3_clothes_sub1 = models.CharField(
+        null=True, max_length=3, choices=SubAbilities.choices
+    )
+    opponent3_clothes_sub2 = models.CharField(
+        null=True, max_length=3, choices=SubAbilities.choices
+    )
     # shoes
     opponent3_shoes = models.CharField(null=True, max_length=5)
-    opponent3_shoes_main = models.CharField(null=True, max_length=5)
-    opponent3_shoes_sub0 = models.CharField(null=True, max_length=5)
-    opponent3_shoes_sub1 = models.CharField(null=True, max_length=5)
-    opponent3_shoes_sub2 = models.CharField(null=True, max_length=5)
+    opponent3_shoes_main = models.CharField(
+        null=True, max_length=3, choices=MainAbilities.choices
+    )
+    opponent3_shoes_sub0 = models.CharField(
+        null=True, max_length=3, choices=SubAbilities.choices
+    )
+    opponent3_shoes_sub1 = models.CharField(
+        null=True, max_length=3, choices=SubAbilities.choices
+    )
+    opponent3_shoes_sub2 = models.CharField(
+        null=True, max_length=3, choices=SubAbilities.choices
+    )
 
     @classmethod
     def create(cls, **kwargs):
