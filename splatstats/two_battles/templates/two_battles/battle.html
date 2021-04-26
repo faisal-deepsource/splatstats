@@ -9,16 +9,16 @@
         <div class="frame">
             <div class="table">
                 <div class="header_row">
-                    <div class="half_cell col_0" style="order: 0;">
-                        <div class="half_cell_top"></div>
+                    <div class="three_quarter_cell col_0" style="order: 0;">
+                        <div class="three_quarter_cell_top"></div>
                         <div class="cell_left"></div>
                         <div class="cell_contents">
                             <p class="header_cell_text">
                                 Name
                             </p>
                         </div>
-                        <div class="half_cell_bot"></div>
-                        <div class="half_cell_right"></div>
+                        <div class="three_quarter_cell_bot"></div>
+                        <div class="three_quarter_cell_right"></div>
                     </div>
                     <div class="full_cell col_1" style="order: 1;">
                         <div class="full_cell_top"></div>
@@ -98,23 +98,23 @@
                         <div class="full_cell_bot"></div>
                     </div>
                 </div>
-                <div class="row" style="order: 1;">
-                    <div class="half_cell col_0" style="order: 0;">
-                        <div class="half_cell_top"></div>
+                <div class="row row1">
+                    <div class="three_quarter_cell col_0" style="order: 0;">
+                        <div class="three_quarter_cell_top"></div>
                         <div class="cell_left"></div>
                         <div class="cell_contents">
-                            <p class="header_cell_text">
+                            <p class="cell_text">
                                 {{ battle.player_name }}
                             </p>
                         </div>
-                        <div class="half_cell_bot"></div>
-                        <div class="half_cell_right"></div>
+                        <div class="three_quarter_cell_bot"></div>
+                        <div class="three_quarter_cell_right"></div>
                     </div>
                     <div class="full_cell col_1" style="order: 1;">
                         <div class="full_cell_top"></div>
                         <div class="cell_left"></div>
                         <div class="cell_contents">
-                            <p class="header_cell_text">
+                            <p class="cell_text">
                                 {{ battle.get_player_weapon_display }}
                             </p>
                         </div>
@@ -125,7 +125,7 @@
                         <div class="half_cell_top"></div>
                         <div class="cell_left"></div>
                         <div class="cell_contents">
-                            <p class="header_cell_text">
+                            <p class="cell_text">
                                 {{ battle.player_level_star }}★{{ battle.player_level }}
                             </p>
                         </div>
@@ -136,7 +136,7 @@
                         <div class="half_cell_top"></div>
                         <div class="cell_left"></div>
                         <div class="cell_contents">
-                            <p class="header_cell_text">
+                            <p class="cell_text">
                                 {{ battle.get_player_rank_display }}
                             </p>
                         </div>
@@ -147,7 +147,7 @@
                         <div class="half_cell_top"></div>
                         <div class="cell_left"></div>
                         <div class="cell_contents">
-                            <p class="header_cell_text">
+                            <p class="cell_text">
                                 {{ battle.player_game_paint_point }}
                             </p>
                         </div>
@@ -158,7 +158,7 @@
                         <div class="half_cell_top"></div>
                         <div class="cell_left"></div>
                         <div class="cell_contents">
-                            <p class="header_cell_text">
+                            <p class="cell_text">
                                 {{ player_k_a }} ({{ battle.player_assists }}) / {{ battle.player_specials }}
                             </p>
                         </div>
@@ -169,7 +169,7 @@
                         <div class="half_cell_top"></div>
                         <div class="cell_left"></div>
                         <div class="cell_contents">
-                            <p class="header_cell_text">
+                            <p class="cell_text">
                                 {{ battle.player_kills }} / {{ battle.player_deaths }}
                             </p>
                         </div>
@@ -182,45 +182,804 @@
                         <div class="gear">
                             <div class="headgear">
                                 <div class="main">
-                                    <img src="{% static 'two_battles/abilities/' %}"
+                                    <img src="{{ player_headgear_main }}">
                                 </div>
-                                <div class="sub_0">
-
-                                </div>
-                                <div class="sub_1">
-                                    
-                                </div>
-                                <div class="sub_2">
-
-                                </div>
+                                <img class="sub_0" src="{{ player_headgear_sub0 }}">
+                                <img class="sub_1" src="{{ player_headgear_sub1 }}">
+                                <img class="sub_2" src="{{ player_headgear_sub2 }}">
                             </div>
                             <div class="clothes">
                                 <div class="main">
-                                    
+                                    <img src="{{ player_clothes_main }}">
                                 </div>
-                                <div class="sub_0">
-
-                                </div>
-                                <div class="sub_1">
-                                    
-                                </div>
-                                <div class="sub_2">
-
-                                </div>
+                                <img class="sub_0" src="{{ player_clothes_sub0 }}">
+                                <img class="sub_1" src="{{ player_clothes_sub1 }}">
+                                <img class="sub_2" src="{{ player_clothes_sub2 }}">
                             </div>
                             <div class="shoes">
                                 <div class="main">
-                                    
+                                    <img src="{{ player_shoes_main }}">
                                 </div>
-                                <div class="sub_0">
-
+                                <img class="sub_0" src="{{ player_shoes_sub0 }}">
+                                <img class="sub_1" src="{{ player_shoes_sub1 }}">
+                                <img class="sub_2" src="{{ player_shoes_sub2 }}">
+                            </div>
+                        </div>
+                        <div class="full_cell_right"></div>
+                        <div class="full_cell_bot"></div>
+                    </div>
+                </div>
+                <div class="row row2">
+                    <div class="three_quarter_cell col_0" style="order: 0;">
+                        <div class="three_quarter_cell_top"></div>
+                        <div class="cell_left"></div>
+                        <div class="cell_contents">
+                            <p class="cell_text">
+                                {{ battle.teammate1_name }}
+                            </p>
+                        </div>
+                        <div class="three_quarter_cell_bot"></div>
+                        <div class="three_quarter_cell_right"></div>
+                    </div>
+                    <div class="full_cell col_1" style="order: 1;">
+                        <div class="full_cell_top"></div>
+                        <div class="cell_left"></div>
+                        <div class="cell_contents">
+                            <p class="cell_text">
+                                {{ battle.get_teammate1_weapon_display }}
+                            </p>
+                        </div>
+                        <div class="full_cell_bot"></div>
+                        <div class="full_cell_right"></div>
+                    </div>
+                    <div class="half_cell col_2" style="order: 2;">
+                        <div class="half_cell_top"></div>
+                        <div class="cell_left"></div>
+                        <div class="cell_contents">
+                            <p class="cell_text">
+                                {{ battle.teammate1_level_star }}★{{ battle.teammate1_level }}
+                            </p>
+                        </div>
+                        <div class="half_cell_bot"></div>
+                        <div class="half_cell_right"></div>
+                    </div>
+                    <div class="half_cell col_3" style="order: 3;">
+                        <div class="half_cell_top"></div>
+                        <div class="cell_left"></div>
+                        <div class="cell_contents">
+                            <p class="cell_text">
+                                {{ battle.get_teammate1_rank_display }}
+                            </p>
+                        </div>
+                        <div class="half_cell_bot"></div>
+                        <div class="half_cell_right"></div>
+                    </div>
+                    <div class="half_cell col_4" style="order: 4;">
+                        <div class="half_cell_top"></div>
+                        <div class="cell_left"></div>
+                        <div class="cell_contents">
+                            <p class="cell_text">
+                                {{ battle.teammate1_game_paint_point }}
+                            </p>
+                        </div>
+                        <div class="half_cell_bot"></div>
+                        <div class="half_cell_right"></div>
+                    </div>
+                    <div class="half_cell col_5" style="order: 5;">
+                        <div class="half_cell_top"></div>
+                        <div class="cell_left"></div>
+                        <div class="cell_contents">
+                            <p class="cell_text">
+                                {{ teammate1_k_a }} ({{ battle.teammate1_assists }}) / {{ battle.teammate1_specials }}
+                            </p>
+                        </div>
+                        <div class="half_cell_bot"></div>
+                        <div class="half_cell_right"></div>
+                    </div>
+                    <div class="half_cell col_6" style="order: 6;">
+                        <div class="half_cell_top"></div>
+                        <div class="cell_left"></div>
+                        <div class="cell_contents">
+                            <p class="cell_text">
+                                {{ battle.teammate1_kills }} / {{ battle.teammate1_deaths }}
+                            </p>
+                        </div>
+                        <div class="half_cell_bot"></div>
+                        <div class="half_cell_right"></div>
+                    </div>
+                    <div class="full_cell col_7" style="order: 7;">
+                        <div class="full_cell_top"></div>
+                        <div class="cell_left"></div>
+                        <div class="gear">
+                            <div class="headgear">
+                                <div class="main">
+                                    <img src="{{ teammate1_headgear_main }}">
                                 </div>
-                                <div class="sub_1">
-                                    
+                                <img class="sub_0" src="{{ teammate1_headgear_sub0 }}">
+                                <img class="sub_1" src="{{ teammate1_headgear_sub1 }}">
+                                <img class="sub_2" src="{{ teammate1_headgear_sub2 }}">
+                            </div>
+                            <div class="clothes">
+                                <div class="main">
+                                    <img src="{{ teammate1_clothes_main }}">
                                 </div>
-                                <div class="sub_2">
-
+                                <img class="sub_0" src="{{ teammate1_clothes_sub0 }}">
+                                <img class="sub_1" src="{{ teammate1_clothes_sub1 }}">
+                                <img class="sub_2" src="{{ teammate1_clothes_sub2 }}">
+                            </div>
+                            <div class="shoes">
+                                <div class="main">
+                                    <img src="{{ teammate1_shoes_main }}">
                                 </div>
+                                <img class="sub_0" src="{{ teammate1_shoes_sub0 }}">
+                                <img class="sub_1" src="{{ teammate1_shoes_sub1 }}">
+                                <img class="sub_2" src="{{ teammate1_shoes_sub2 }}">
+                            </div>
+                        </div>
+                        <div class="full_cell_right"></div>
+                        <div class="full_cell_bot"></div>
+                    </div>
+                </div>
+                <div class="row row3">
+                    <div class="three_quarter_cell col_0" style="order: 0;">
+                        <div class="three_quarter_cell_top"></div>
+                        <div class="cell_left"></div>
+                        <div class="cell_contents">
+                            <p class="cell_text">
+                                {{ battle.teammate2_name }}
+                            </p>
+                        </div>
+                        <div class="three_quarter_cell_bot"></div>
+                        <div class="three_quarter_cell_right"></div>
+                    </div>
+                    <div class="full_cell col_1" style="order: 1;">
+                        <div class="full_cell_top"></div>
+                        <div class="cell_left"></div>
+                        <div class="cell_contents">
+                            <p class="cell_text">
+                                {{ battle.get_teammate2_weapon_display }}
+                            </p>
+                        </div>
+                        <div class="full_cell_bot"></div>
+                        <div class="full_cell_right"></div>
+                    </div>
+                    <div class="half_cell col_2" style="order: 2;">
+                        <div class="half_cell_top"></div>
+                        <div class="cell_left"></div>
+                        <div class="cell_contents">
+                            <p class="cell_text">
+                                {{ battle.teammate2_level_star }}★{{ battle.teammate2_level }}
+                            </p>
+                        </div>
+                        <div class="half_cell_bot"></div>
+                        <div class="half_cell_right"></div>
+                    </div>
+                    <div class="half_cell col_3" style="order: 3;">
+                        <div class="half_cell_top"></div>
+                        <div class="cell_left"></div>
+                        <div class="cell_contents">
+                            <p class="cell_text">
+                                {{ battle.get_teammate2_rank_display }}
+                            </p>
+                        </div>
+                        <div class="half_cell_bot"></div>
+                        <div class="half_cell_right"></div>
+                    </div>
+                    <div class="half_cell col_4" style="order: 4;">
+                        <div class="half_cell_top"></div>
+                        <div class="cell_left"></div>
+                        <div class="cell_contents">
+                            <p class="cell_text">
+                                {{ battle.teammate2_game_paint_point }}
+                            </p>
+                        </div>
+                        <div class="half_cell_bot"></div>
+                        <div class="half_cell_right"></div>
+                    </div>
+                    <div class="half_cell col_5" style="order: 5;">
+                        <div class="half_cell_top"></div>
+                        <div class="cell_left"></div>
+                        <div class="cell_contents">
+                            <p class="cell_text">
+                                {{ teammate2_k_a }} ({{ battle.teammate2_assists }}) / {{ battle.teammate2_specials }}
+                            </p>
+                        </div>
+                        <div class="half_cell_bot"></div>
+                        <div class="half_cell_right"></div>
+                    </div>
+                    <div class="half_cell col_6" style="order: 6;">
+                        <div class="half_cell_top"></div>
+                        <div class="cell_left"></div>
+                        <div class="cell_contents">
+                            <p class="cell_text">
+                                {{ battle.teammate2_kills }} / {{ battle.teammate2_deaths }}
+                            </p>
+                        </div>
+                        <div class="half_cell_bot"></div>
+                        <div class="half_cell_right"></div>
+                    </div>
+                    <div class="full_cell col_7" style="order: 7;">
+                        <div class="full_cell_top"></div>
+                        <div class="cell_left"></div>
+                        <div class="gear">
+                            <div class="headgear">
+                                <div class="main">
+                                    <img src="{{ teammate2_headgear_main }}">
+                                </div>
+                                <img class="sub_0" src="{{ teammate2_headgear_sub0 }}">
+                                <img class="sub_1" src="{{ teammate2_headgear_sub1 }}">
+                                <img class="sub_2" src="{{ teammate2_headgear_sub2 }}">
+                            </div>
+                            <div class="clothes">
+                                <div class="main">
+                                    <img src="{{ teammate2_clothes_main }}">
+                                </div>
+                                <img class="sub_0" src="{{ teammate2_clothes_sub0 }}">
+                                <img class="sub_1" src="{{ teammate2_clothes_sub1 }}">
+                                <img class="sub_2" src="{{ teammate2_clothes_sub2 }}">
+                            </div>
+                            <div class="shoes">
+                                <div class="main">
+                                    <img src="{{ teammate2_shoes_main }}">
+                                </div>
+                                <img class="sub_0" src="{{ teammate2_shoes_sub0 }}">
+                                <img class="sub_1" src="{{ teammate2_shoes_sub1 }}">
+                                <img class="sub_2" src="{{ teammate2_shoes_sub2 }}">
+                            </div>
+                        </div>
+                        <div class="full_cell_right"></div>
+                        <div class="full_cell_bot"></div>
+                    </div>
+                </div>
+                <div class="row row4">
+                    <div class="three_quarter_cell col_0" style="order: 0;">
+                        <div class="three_quarter_cell_top"></div>
+                        <div class="cell_left"></div>
+                        <div class="cell_contents">
+                            <p class="cell_text">
+                                {{ battle.teammate3_name }}
+                            </p>
+                        </div>
+                        <div class="three_quarter_cell_bot"></div>
+                        <div class="three_quarter_cell_right"></div>
+                    </div>
+                    <div class="full_cell col_1" style="order: 1;">
+                        <div class="full_cell_top"></div>
+                        <div class="cell_left"></div>
+                        <div class="cell_contents">
+                            <p class="cell_text">
+                                {{ battle.get_teammate3_weapon_display }}
+                            </p>
+                        </div>
+                        <div class="full_cell_bot"></div>
+                        <div class="full_cell_right"></div>
+                    </div>
+                    <div class="half_cell col_2" style="order: 2;">
+                        <div class="half_cell_top"></div>
+                        <div class="cell_left"></div>
+                        <div class="cell_contents">
+                            <p class="cell_text">
+                                {{ battle.teammate3_level_star }}★{{ battle.teammate3_level }}
+                            </p>
+                        </div>
+                        <div class="half_cell_bot"></div>
+                        <div class="half_cell_right"></div>
+                    </div>
+                    <div class="half_cell col_3" style="order: 3;">
+                        <div class="half_cell_top"></div>
+                        <div class="cell_left"></div>
+                        <div class="cell_contents">
+                            <p class="cell_text">
+                                {{ battle.get_teammate3_rank_display }}
+                            </p>
+                        </div>
+                        <div class="half_cell_bot"></div>
+                        <div class="half_cell_right"></div>
+                    </div>
+                    <div class="half_cell col_4" style="order: 4;">
+                        <div class="half_cell_top"></div>
+                        <div class="cell_left"></div>
+                        <div class="cell_contents">
+                            <p class="cell_text">
+                                {{ battle.teammate3_game_paint_point }}
+                            </p>
+                        </div>
+                        <div class="half_cell_bot"></div>
+                        <div class="half_cell_right"></div>
+                    </div>
+                    <div class="half_cell col_5" style="order: 5;">
+                        <div class="half_cell_top"></div>
+                        <div class="cell_left"></div>
+                        <div class="cell_contents">
+                            <p class="cell_text">
+                                {{ teammate3_k_a }} ({{ battle.teammate3_assists }}) / {{ battle.teammate3_specials }}
+                            </p>
+                        </div>
+                        <div class="half_cell_bot"></div>
+                        <div class="half_cell_right"></div>
+                    </div>
+                    <div class="half_cell col_6" style="order: 6;">
+                        <div class="half_cell_top"></div>
+                        <div class="cell_left"></div>
+                        <div class="cell_contents">
+                            <p class="cell_text">
+                                {{ battle.teammate3_kills }} / {{ battle.teammate3_deaths }}
+                            </p>
+                        </div>
+                        <div class="half_cell_bot"></div>
+                        <div class="half_cell_right"></div>
+                    </div>
+                    <div class="full_cell col_7" style="order: 7;">
+                        <div class="full_cell_top"></div>
+                        <div class="cell_left"></div>
+                        <div class="gear">
+                            <div class="headgear">
+                                <div class="main">
+                                    <img src="{{ teammate3_headgear_main }}">
+                                </div>
+                                <img class="sub_0" src="{{ teammate3_headgear_sub0 }}">
+                                <img class="sub_1" src="{{ teammate3_headgear_sub1 }}">
+                                <img class="sub_2" src="{{ teammate3_headgear_sub2 }}">
+                            </div>
+                            <div class="clothes">
+                                <div class="main">
+                                    <img src="{{ teammate3_clothes_main }}">
+                                </div>
+                                <img class="sub_0" src="{{ teammate3_clothes_sub0 }}">
+                                <img class="sub_1" src="{{ teammate3_clothes_sub1 }}">
+                                <img class="sub_2" src="{{ teammate3_clothes_sub2 }}">
+                            </div>
+                            <div class="shoes">
+                                <div class="main">
+                                    <img src="{{ teammate3_shoes_main }}">
+                                </div>
+                                <img class="sub_0" src="{{ teammate3_shoes_sub0 }}">
+                                <img class="sub_1" src="{{ teammate3_shoes_sub1 }}">
+                                <img class="sub_2" src="{{ teammate3_shoes_sub2 }}">
+                            </div>
+                        </div>
+                        <div class="full_cell_right"></div>
+                        <div class="full_cell_bot"></div>
+                    </div>
+                </div>
+                <div class="row row5">
+                    <div class="three_quarter_cell col_0" style="order: 0;">
+                        <div class="three_quarter_cell_top"></div>
+                        <div class="cell_left"></div>
+                        <div class="cell_contents">
+                            <p class="cell_text">
+                                {{ battle.opponent0_name }}
+                            </p>
+                        </div>
+                        <div class="three_quarter_cell_bot"></div>
+                        <div class="three_quarter_cell_right"></div>
+                    </div>
+                    <div class="full_cell col_1" style="order: 1;">
+                        <div class="full_cell_top"></div>
+                        <div class="cell_left"></div>
+                        <div class="cell_contents">
+                            <p class="cell_text">
+                                {{ battle.get_opponent0_weapon_display }}
+                            </p>
+                        </div>
+                        <div class="full_cell_bot"></div>
+                        <div class="full_cell_right"></div>
+                    </div>
+                    <div class="half_cell col_2" style="order: 2;">
+                        <div class="half_cell_top"></div>
+                        <div class="cell_left"></div>
+                        <div class="cell_contents">
+                            <p class="cell_text">
+                                {{ battle.opponent0_level_star }}★{{ battle.opponent0_level }}
+                            </p>
+                        </div>
+                        <div class="half_cell_bot"></div>
+                        <div class="half_cell_right"></div>
+                    </div>
+                    <div class="half_cell col_3" style="order: 3;">
+                        <div class="half_cell_top"></div>
+                        <div class="cell_left"></div>
+                        <div class="cell_contents">
+                            <p class="cell_text">
+                                {{ battle.get_opponent0_rank_display }}
+                            </p>
+                        </div>
+                        <div class="half_cell_bot"></div>
+                        <div class="half_cell_right"></div>
+                    </div>
+                    <div class="half_cell col_4" style="order: 4;">
+                        <div class="half_cell_top"></div>
+                        <div class="cell_left"></div>
+                        <div class="cell_contents">
+                            <p class="cell_text">
+                                {{ battle.opponent0_game_paint_point }}
+                            </p>
+                        </div>
+                        <div class="half_cell_bot"></div>
+                        <div class="half_cell_right"></div>
+                    </div>
+                    <div class="half_cell col_5" style="order: 5;">
+                        <div class="half_cell_top"></div>
+                        <div class="cell_left"></div>
+                        <div class="cell_contents">
+                            <p class="cell_text">
+                                {{ opponent0_k_a }} ({{ battle.opponent0_assists }}) / {{ battle.opponent0_specials }}
+                            </p>
+                        </div>
+                        <div class="half_cell_bot"></div>
+                        <div class="half_cell_right"></div>
+                    </div>
+                    <div class="half_cell col_6" style="order: 6;">
+                        <div class="half_cell_top"></div>
+                        <div class="cell_left"></div>
+                        <div class="cell_contents">
+                            <p class="cell_text">
+                                {{ battle.opponent0_kills }} / {{ battle.opponent0_deaths }}
+                            </p>
+                        </div>
+                        <div class="half_cell_bot"></div>
+                        <div class="half_cell_right"></div>
+                    </div>
+                    <div class="full_cell col_7" style="order: 7;">
+                        <div class="full_cell_top"></div>
+                        <div class="cell_left"></div>
+                        <div class="gear">
+                            <div class="headgear">
+                                <div class="main">
+                                    <img src="{{ opponent0_headgear_main }}">
+                                </div>
+                                <img class="sub_0" src="{{ opponent0_headgear_sub0 }}">
+                                <img class="sub_1" src="{{ opponent0_headgear_sub1 }}">
+                                <img class="sub_2" src="{{ opponent0_headgear_sub2 }}">
+                            </div>
+                            <div class="clothes">
+                                <div class="main">
+                                    <img src="{{ opponent0_clothes_main }}">
+                                </div>
+                                <img class="sub_0" src="{{ opponent0_clothes_sub0 }}">
+                                <img class="sub_1" src="{{ opponent0_clothes_sub1 }}">
+                                <img class="sub_2" src="{{ opponent0_clothes_sub2 }}">
+                            </div>
+                            <div class="shoes">
+                                <div class="main">
+                                    <img src="{{ opponent0_shoes_main }}">
+                                </div>
+                                <img class="sub_0" src="{{ opponent0_shoes_sub0 }}">
+                                <img class="sub_1" src="{{ opponent0_shoes_sub1 }}">
+                                <img class="sub_2" src="{{ opponent0_shoes_sub2 }}">
+                            </div>
+                        </div>
+                        <div class="full_cell_right"></div>
+                        <div class="full_cell_bot"></div>
+                    </div>
+                </div>
+                <div class="row row6">
+                    <div class="three_quarter_cell col_0" style="order: 0;">
+                        <div class="three_quarter_cell_top"></div>
+                        <div class="cell_left"></div>
+                        <div class="cell_contents">
+                            <p class="cell_text">
+                                {{ battle.opponent1_name }}
+                            </p>
+                        </div>
+                        <div class="three_quarter_cell_bot"></div>
+                        <div class="three_quarter_cell_right"></div>
+                    </div>
+                    <div class="full_cell col_1" style="order: 1;">
+                        <div class="full_cell_top"></div>
+                        <div class="cell_left"></div>
+                        <div class="cell_contents">
+                            <p class="cell_text">
+                                {{ battle.get_opponent1_weapon_display }}
+                            </p>
+                        </div>
+                        <div class="full_cell_bot"></div>
+                        <div class="full_cell_right"></div>
+                    </div>
+                    <div class="half_cell col_2" style="order: 2;">
+                        <div class="half_cell_top"></div>
+                        <div class="cell_left"></div>
+                        <div class="cell_contents">
+                            <p class="cell_text">
+                                {{ battle.opponent1_level_star }}★{{ battle.opponent1_level }}
+                            </p>
+                        </div>
+                        <div class="half_cell_bot"></div>
+                        <div class="half_cell_right"></div>
+                    </div>
+                    <div class="half_cell col_3" style="order: 3;">
+                        <div class="half_cell_top"></div>
+                        <div class="cell_left"></div>
+                        <div class="cell_contents">
+                            <p class="cell_text">
+                                {{ battle.get_opponent1_rank_display }}
+                            </p>
+                        </div>
+                        <div class="half_cell_bot"></div>
+                        <div class="half_cell_right"></div>
+                    </div>
+                    <div class="half_cell col_4" style="order: 4;">
+                        <div class="half_cell_top"></div>
+                        <div class="cell_left"></div>
+                        <div class="cell_contents">
+                            <p class="cell_text">
+                                {{ battle.opponent1_game_paint_point }}
+                            </p>
+                        </div>
+                        <div class="half_cell_bot"></div>
+                        <div class="half_cell_right"></div>
+                    </div>
+                    <div class="half_cell col_5" style="order: 5;">
+                        <div class="half_cell_top"></div>
+                        <div class="cell_left"></div>
+                        <div class="cell_contents">
+                            <p class="cell_text">
+                                {{ opponent1_k_a }} ({{ battle.opponent1_assists }}) / {{ battle.opponent1_specials }}
+                            </p>
+                        </div>
+                        <div class="half_cell_bot"></div>
+                        <div class="half_cell_right"></div>
+                    </div>
+                    <div class="half_cell col_6" style="order: 6;">
+                        <div class="half_cell_top"></div>
+                        <div class="cell_left"></div>
+                        <div class="cell_contents">
+                            <p class="cell_text">
+                                {{ battle.opponent1_kills }} / {{ battle.opponent1_deaths }}
+                            </p>
+                        </div>
+                        <div class="half_cell_bot"></div>
+                        <div class="half_cell_right"></div>
+                    </div>
+                    <div class="full_cell col_7" style="order: 7;">
+                        <div class="full_cell_top"></div>
+                        <div class="cell_left"></div>
+                        <div class="gear">
+                            <div class="headgear">
+                                <div class="main">
+                                    <img src="{{ opponent1_headgear_main }}">
+                                </div>
+                                <img class="sub_0" src="{{ opponent1_headgear_sub0 }}">
+                                <img class="sub_1" src="{{ opponent1_headgear_sub1 }}">
+                                <img class="sub_2" src="{{ opponent1_headgear_sub2 }}">
+                            </div>
+                            <div class="clothes">
+                                <div class="main">
+                                    <img src="{{ opponent1_clothes_main }}">
+                                </div>
+                                <img class="sub_0" src="{{ opponent1_clothes_sub0 }}">
+                                <img class="sub_1" src="{{ opponent1_clothes_sub1 }}">
+                                <img class="sub_2" src="{{ opponent1_clothes_sub2 }}">
+                            </div>
+                            <div class="shoes">
+                                <div class="main">
+                                    <img src="{{ opponent1_shoes_main }}">
+                                </div>
+                                <img class="sub_0" src="{{ opponent1_shoes_sub0 }}">
+                                <img class="sub_1" src="{{ opponent1_shoes_sub1 }}">
+                                <img class="sub_2" src="{{ opponent1_shoes_sub2 }}">
+                            </div>
+                        </div>
+                        <div class="full_cell_right"></div>
+                        <div class="full_cell_bot"></div>
+                    </div>
+                </div>
+                <div class="row row7">
+                    <div class="three_quarter_cell col_0" style="order: 0;">
+                        <div class="three_quarter_cell_top"></div>
+                        <div class="cell_left"></div>
+                        <div class="cell_contents">
+                            <p class="cell_text">
+                                {{ battle.opponent2_name }}
+                            </p>
+                        </div>
+                        <div class="three_quarter_cell_bot"></div>
+                        <div class="three_quarter_cell_right"></div>
+                    </div>
+                    <div class="full_cell col_1" style="order: 1;">
+                        <div class="full_cell_top"></div>
+                        <div class="cell_left"></div>
+                        <div class="cell_contents">
+                            <p class="cell_text">
+                                {{ battle.get_opponent2_weapon_display }}
+                            </p>
+                        </div>
+                        <div class="full_cell_bot"></div>
+                        <div class="full_cell_right"></div>
+                    </div>
+                    <div class="half_cell col_2" style="order: 2;">
+                        <div class="half_cell_top"></div>
+                        <div class="cell_left"></div>
+                        <div class="cell_contents">
+                            <p class="cell_text">
+                                {{ battle.opponent2_level_star }}★{{ battle.opponent2_level }}
+                            </p>
+                        </div>
+                        <div class="half_cell_bot"></div>
+                        <div class="half_cell_right"></div>
+                    </div>
+                    <div class="half_cell col_3" style="order: 3;">
+                        <div class="half_cell_top"></div>
+                        <div class="cell_left"></div>
+                        <div class="cell_contents">
+                            <p class="cell_text">
+                                {{ battle.get_opponent2_rank_display }}
+                            </p>
+                        </div>
+                        <div class="half_cell_bot"></div>
+                        <div class="half_cell_right"></div>
+                    </div>
+                    <div class="half_cell col_4" style="order: 4;">
+                        <div class="half_cell_top"></div>
+                        <div class="cell_left"></div>
+                        <div class="cell_contents">
+                            <p class="cell_text">
+                                {{ battle.opponent2_game_paint_point }}
+                            </p>
+                        </div>
+                        <div class="half_cell_bot"></div>
+                        <div class="half_cell_right"></div>
+                    </div>
+                    <div class="half_cell col_5" style="order: 5;">
+                        <div class="half_cell_top"></div>
+                        <div class="cell_left"></div>
+                        <div class="cell_contents">
+                            <p class="cell_text">
+                                {{ opponent2_k_a }} ({{ battle.opponent2_assists }}) / {{ battle.opponent2_specials }}
+                            </p>
+                        </div>
+                        <div class="half_cell_bot"></div>
+                        <div class="half_cell_right"></div>
+                    </div>
+                    <div class="half_cell col_6" style="order: 6;">
+                        <div class="half_cell_top"></div>
+                        <div class="cell_left"></div>
+                        <div class="cell_contents">
+                            <p class="cell_text">
+                                {{ battle.opponent2_kills }} / {{ battle.opponent2_deaths }}
+                            </p>
+                        </div>
+                        <div class="half_cell_bot"></div>
+                        <div class="half_cell_right"></div>
+                    </div>
+                    <div class="full_cell col_7" style="order: 7;">
+                        <div class="full_cell_top"></div>
+                        <div class="cell_left"></div>
+                        <div class="gear">
+                            <div class="headgear">
+                                <div class="main">
+                                    <img src="{{ opponent2_headgear_main }}">
+                                </div>
+                                <img class="sub_0" src="{{ opponent2_headgear_sub0 }}">
+                                <img class="sub_1" src="{{ opponent2_headgear_sub1 }}">
+                                <img class="sub_2" src="{{ opponent2_headgear_sub2 }}">
+                            </div>
+                            <div class="clothes">
+                                <div class="main">
+                                    <img src="{{ opponent2_clothes_main }}">
+                                </div>
+                                <img class="sub_0" src="{{ opponent2_clothes_sub0 }}">
+                                <img class="sub_1" src="{{ opponent2_clothes_sub1 }}">
+                                <img class="sub_2" src="{{ opponent2_clothes_sub2 }}">
+                            </div>
+                            <div class="shoes">
+                                <div class="main">
+                                    <img src="{{ opponent2_shoes_main }}">
+                                </div>
+                                <img class="sub_0" src="{{ opponent2_shoes_sub0 }}">
+                                <img class="sub_1" src="{{ opponent2_shoes_sub1 }}">
+                                <img class="sub_2" src="{{ opponent2_shoes_sub2 }}">
+                            </div>
+                        </div>
+                        <div class="full_cell_right"></div>
+                        <div class="full_cell_bot"></div>
+                    </div>
+                </div>
+                <div class="row row8">
+                    <div class="three_quarter_cell col_0" style="order: 0;">
+                        <div class="three_quarter_cell_top"></div>
+                        <div class="cell_left"></div>
+                        <div class="cell_contents">
+                            <p class="cell_text">
+                                {{ battle.opponent3_name }}
+                            </p>
+                        </div>
+                        <div class="three_quarter_cell_bot"></div>
+                        <div class="three_quarter_cell_right"></div>
+                    </div>
+                    <div class="full_cell col_1" style="order: 1;">
+                        <div class="full_cell_top"></div>
+                        <div class="cell_left"></div>
+                        <div class="cell_contents">
+                            <p class="cell_text">
+                                {{ battle.get_opponent3_weapon_display }}
+                            </p>
+                        </div>
+                        <div class="full_cell_bot"></div>
+                        <div class="full_cell_right"></div>
+                    </div>
+                    <div class="half_cell col_2" style="order: 2;">
+                        <div class="half_cell_top"></div>
+                        <div class="cell_left"></div>
+                        <div class="cell_contents">
+                            <p class="cell_text">
+                                {{ battle.opponent3_level_star }}★{{ battle.opponent3_level }}
+                            </p>
+                        </div>
+                        <div class="half_cell_bot"></div>
+                        <div class="half_cell_right"></div>
+                    </div>
+                    <div class="half_cell col_3" style="order: 3;">
+                        <div class="half_cell_top"></div>
+                        <div class="cell_left"></div>
+                        <div class="cell_contents">
+                            <p class="cell_text">
+                                {{ battle.get_opponent3_rank_display }}
+                            </p>
+                        </div>
+                        <div class="half_cell_bot"></div>
+                        <div class="half_cell_right"></div>
+                    </div>
+                    <div class="half_cell col_4" style="order: 4;">
+                        <div class="half_cell_top"></div>
+                        <div class="cell_left"></div>
+                        <div class="cell_contents">
+                            <p class="cell_text">
+                                {{ battle.opponent3_game_paint_point }}
+                            </p>
+                        </div>
+                        <div class="half_cell_bot"></div>
+                        <div class="half_cell_right"></div>
+                    </div>
+                    <div class="half_cell col_5" style="order: 5;">
+                        <div class="half_cell_top"></div>
+                        <div class="cell_left"></div>
+                        <div class="cell_contents">
+                            <p class="cell_text">
+                                {{ opponent3_k_a }} ({{ battle.opponent3_assists }}) / {{ battle.opponent3_specials }}
+                            </p>
+                        </div>
+                        <div class="half_cell_bot"></div>
+                        <div class="half_cell_right"></div>
+                    </div>
+                    <div class="half_cell col_6" style="order: 6;">
+                        <div class="half_cell_top"></div>
+                        <div class="cell_left"></div>
+                        <div class="cell_contents">
+                            <p class="cell_text">
+                                {{ battle.opponent3_kills }} / {{ battle.opponent3_deaths }}
+                            </p>
+                        </div>
+                        <div class="half_cell_bot"></div>
+                        <div class="half_cell_right"></div>
+                    </div>
+                    <div class="full_cell col_7" style="order: 7;">
+                        <div class="full_cell_top"></div>
+                        <div class="cell_left"></div>
+                        <div class="gear">
+                            <div class="headgear">
+                                <div class="main">
+                                    <img src="{{ opponent3_headgear_main }}">
+                                </div>
+                                <img class="sub_0" src="{{ opponent3_headgear_sub0 }}">
+                                <img class="sub_1" src="{{ opponent3_headgear_sub1 }}">
+                                <img class="sub_2" src="{{ opponent3_headgear_sub2 }}">
+                            </div>
+                            <div class="clothes">
+                                <div class="main">
+                                    <img src="{{ opponent3_clothes_main }}">
+                                </div>
+                                <img class="sub_0" src="{{ opponent3_clothes_sub0 }}">
+                                <img class="sub_1" src="{{ opponent3_clothes_sub1 }}">
+                                <img class="sub_2" src="{{ opponent3_clothes_sub2 }}">
+                            </div>
+                            <div class="shoes">
+                                <div class="main">
+                                    <img src="{{ opponent3_shoes_main }}">
+                                </div>
+                                <img class="sub_0" src="{{ opponent3_shoes_sub0 }}">
+                                <img class="sub_1" src="{{ opponent3_shoes_sub1 }}">
+                                <img class="sub_2" src="{{ opponent3_shoes_sub2 }}">
                             </div>
                         </div>
                         <div class="full_cell_right"></div>
