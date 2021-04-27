@@ -1,26 +1,30 @@
-{% if latest_battles %}
-    <table>
-        <tr>
-            <th>ID</th>
-            <th>Mode</th>
-            <th>Stage</th>
-            <th>Weapon</th>
-            <th>Result</th>
-            <th>k/d</th>
-            <th>Time</th>
-        </tr>
-    {% for battle in latest_battles %}
-        <tr>
-            <td><a href="/two_battles/{{ battle.id }}/">{{ battle.id }}</a></td>
-            <td>{{ battle.rule }}</td>
-            <td>{{ battle.stage }}</td>
-            <td>{{ battle.player_weapon }}</td>
-            <td>{{ battle.win }}</td>
-            <td>{{ battle.kills }}/{{ battle.deaths }}</td>
-            <td>{{ battle.time }}</td>
-        </tr>
-    {% endfor %}
-    </table>
-{% else %}
-    <p>No battles are available.</p>
-{% endif %}
+{% extends "base.html" %}
+
+{% block content%}
+    {% if my_list %}
+        <table>
+            <tr>
+                <th>Splatnet #</th>
+                <th>Mode</th>
+                <th>Stage</th>
+                <th>Weapon</th>
+                <th>Result</th>
+                <th>k/d</th>
+                <th>Time</th>
+            </tr>
+        {% for battle, result, time_val in my_list %}
+            <tr>
+                <td><a href="/two_battles/{{ battle.id }}/">{{ battle.battle_number }}</a></td>
+                <td>{{ battle.get_rule_display }}</td>
+                <td>{{ battle.get_stage_display }}</td>
+                <td>{{ battle.get_player_weapon_display }}</td>
+                <td>{{ result }}</td>
+                <td>{{ battle.player_kills }}/{{ battle.player_deaths }}</td>
+                <td>{{ time_val }}</td>
+            </tr>
+        {% endfor %}
+        </table>
+    {% else %}
+        <p>No battles are available.</p>
+    {% endif %}
+{% endblock content %}

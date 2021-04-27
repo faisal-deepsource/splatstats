@@ -11,12 +11,23 @@ import base64
 from .models import Battle
 from django.templatetags.static import static
 import json
+from datetime import datetime
+
 
 
 def index(request):
     latest_battles = Battle.objects.order_by("-time")
+    results = []
+    time_vals = []
+    for battle in latest_battles:
+        results.append("Win" if battle.win else "Lose")
+        time_vals.append(datetime.utcfromtimestamp(battle.time).strftime('%Y-%m-%d %H:%M:%S'))
     context = {
-        "latest_battles": latest_battles,
+        "my_list": zip(
+            latest_battles,
+            results,
+            time_vals,
+        )
     }
     return render(request, "two_battles/index.html", context)
 

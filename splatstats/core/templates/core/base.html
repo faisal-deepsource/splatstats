@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <!--Import Google Icon Font-->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!-- Compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        {% block head %}{% endblock head %}
+    </head>
+    <body>
+        <nav class="light-blue lighten-1" role="navigation">
+            <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Splat Stats</a>
+                <!-- Dropdown Structure -->
+                <ul id='dropdown1' class='dropdown-content'>
+                    <li><a href="#!">Battles</a></li>
+                    <li><a href="#!">Salmon Run</a></li>
+                </ul>
+                <ul class="right">
+                    <li>
+                        <!-- Dropdown Trigger -->
+                        <a class='dropdown-trigger btn' href='#' data-target='dropdown1'>Splatoon 2<i class="material-icons">arrow_drop_down</i></a>
+                    </li>
+                </ul>
+              <ul id="nav-mobile" class="sidenav">
+                <li><a href="#">Navbar Link</a></li>
+              </ul>
+              <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+            </div>
+        </nav>
+          
+        <div class="container">{% block content %}{% endblock content %}</div>
+        <!-- Compiled and minified JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        {% load static %}
+        <script src="{% static 'core/js/base.js' %}"></script>
+    </body>
+</html>

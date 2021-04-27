@@ -1,11 +1,12 @@
-<!DOCTYPE html>
-
-<html>
+{% extends "base.html" %}
     <head>
+        {% block head %}
         {% load static %}
         <link rel="stylesheet" href="{% static 'two_battles/battle.css' %}">
+        {% endblock head %}
     </head>
     <body>
+        {% block content %}
         <div class="frame">
             <div class="table">
                 <div class="header_row">
@@ -988,5 +989,6 @@
                 </div>
             </div>
         </div>
+        {% endblock content %}
     </body>
 </html>

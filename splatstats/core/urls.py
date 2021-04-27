@@ -18,6 +18,8 @@ from django.urls import path, include
 from django.conf.urls import url
 from two_factor.urls import urlpatterns as tf_urls
 from rest_framework.authtoken import views
+from django.conf import settings
+from django.conf.urls.static import static
 import sys
 
 sys.path.append("..")
@@ -40,4 +42,4 @@ urlpatterns = [
         auth_views.activate,
         name="activate",
     ),
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

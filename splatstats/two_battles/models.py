@@ -256,7 +256,7 @@ class Battle(models.Model):
     stat_ink_json = models.JSONField("stat.ink JSON file", blank=True, null=True)
     rule = models.CharField(max_length=13, choices=Rule.choices)
     match_type = models.CharField(max_length=11, choices=Match_Type.choices)
-    stage = models.CharField(max_length=2)
+    stage = models.CharField(max_length=2, choices=Stage.choices)
     win = models.BooleanField(null=True)
     has_disconnected_player = models.BooleanField(null=True)
     time = models.PositiveIntegerField(null=True)
