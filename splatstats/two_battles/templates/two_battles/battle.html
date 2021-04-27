@@ -7,181 +7,30 @@
     </head>
     <body>
         {% block content %}
-        <div class="frame">
-            <div class="table">
-                <div class="header_row">
-                    <div class="three_quarter_cell col_0" style="order: 0;">
-                        <div class="three_quarter_cell_top"></div>
-                        <div class="cell_left"></div>
-                        <div class="cell_contents">
-                            <p class="header_cell_text">
-                                Name
-                            </p>
-                        </div>
-                        <div class="three_quarter_cell_bot"></div>
-                        <div class="three_quarter_cell_right"></div>
-                    </div>
-                    <div class="full_cell col_1" style="order: 1;">
-                        <div class="full_cell_top"></div>
-                        <div class="cell_left"></div>
-                        <div class="cell_contents">
-                            <p class="header_cell_text">
-                                Weapon
-                            </p>
-                        </div>
-                        <div class="full_cell_bot"></div>
-                        <div class="full_cell_right"></div>
-                    </div>
-                    <div class="half_cell col_2" style="order: 2;">
-                        <div class="half_cell_top"></div>
-                        <div class="cell_left"></div>
-                        <div class="cell_contents">
-                            <p class="header_cell_text">
-                                Level
-                            </p>
-                        </div>
-                        <div class="half_cell_bot"></div>
-                        <div class="half_cell_right"></div>
-                    </div>
-                    <div class="half_cell col_3" style="order: 3;">
-                        <div class="half_cell_top"></div>
-                        <div class="cell_left"></div>
-                        <div class="cell_contents">
-                            <p class="header_cell_text">
-                                Rank
-                            </p>
-                        </div>
-                        <div class="half_cell_bot"></div>
-                        <div class="half_cell_right"></div>
-                    </div>
-                    <div class="half_cell col_4" style="order: 4;">
-                        <div class="half_cell_top"></div>
-                        <div class="cell_left"></div>
-                        <div class="cell_contents">
-                            <p class="header_cell_text">
-                                Inked
-                            </p>
-                        </div>
-                        <div class="half_cell_bot"></div>
-                        <div class="half_cell_right"></div>
-                    </div>
-                    <div class="half_cell col_5" style="order: 5;">
-                        <div class="half_cell_top"></div>
-                        <div class="cell_left"></div>
-                        <div class="cell_contents">
-                            <p class="header_cell_text">
-                                k+a/sp
-                            </p>
-                        </div>
-                        <div class="half_cell_bot"></div>
-                        <div class="half_cell_right"></div>
-                    </div>
-                    <div class="half_cell col_6" style="order: 6;">
-                        <div class="half_cell_top"></div>
-                        <div class="cell_left"></div>
-                        <div class="cell_contents">
-                            <p class="header_cell_text">
-                                k/d
-                            </p>
-                        </div>
-                        <div class="half_cell_bot"></div>
-                        <div class="half_cell_right"></div>
-                    </div>
-                    <div class="full_cell col_7" style="order: 7;">
-                        <div class="full_cell_top"></div>
-                        <div class="cell_left"></div>
-                        <div class="cell_contents">
-                            <p class="header_cell_text">
-                                Gear
-                            </p>
-                        </div>
-                        <div class="full_cell_right"></div>
-                        <div class="full_cell_bot"></div>
-                    </div>
-                </div>
-                {% for player in battle_players %}
-                    <div class="row {{ player.row_num }}">
-                        <div class="three_quarter_cell col_0" style="order: 0;">
-                            <div class="three_quarter_cell_top"></div>
-                            <div class="cell_left"></div>
-                            <div class="cell_contents">
-                                <p class="cell_text">
-                                    {{ player.name }}
-                                </p>
-                            </div>
-                            <div class="three_quarter_cell_bot"></div>
-                            <div class="three_quarter_cell_right"></div>
-                        </div>
-                        <div class="full_cell col_1" style="order: 1;">
-                            <div class="full_cell_top"></div>
-                            <div class="cell_left"></div>
-                            <div class="cell_contents">
-                                <p class="cell_text">
-                                    {{ player.weapon }}
-                                </p>
-                            </div>
-                            <div class="full_cell_bot"></div>
-                            <div class="full_cell_right"></div>
-                        </div>
-                        <div class="half_cell col_2" style="order: 2;">
-                            <div class="half_cell_top"></div>
-                            <div class="cell_left"></div>
-                            <div class="cell_contents">
-                                <p class="cell_text">
-                                    {{ player.level_star }}★{{ player.level }}
-                                </p>
-                            </div>
-                            <div class="half_cell_bot"></div>
-                            <div class="half_cell_right"></div>
-                        </div>
-                        <div class="half_cell col_3" style="order: 3;">
-                            <div class="half_cell_top"></div>
-                            <div class="cell_left"></div>
-                            <div class="cell_contents">
-                                <p class="cell_text">
-                                    {{ player.rank }}
-                                </p>
-                            </div>
-                            <div class="half_cell_bot"></div>
-                            <div class="half_cell_right"></div>
-                        </div>
-                        <div class="half_cell col_4" style="order: 4;">
-                            <div class="half_cell_top"></div>
-                            <div class="cell_left"></div>
-                            <div class="cell_contents">
-                                <p class="cell_text">
-                                    {{ player.game_paint_point }}
-                                </p>
-                            </div>
-                            <div class="half_cell_bot"></div>
-                            <div class="half_cell_right"></div>
-                        </div>
-                        <div class="half_cell col_5" style="order: 5;">
-                            <div class="half_cell_top"></div>
-                            <div class="cell_left"></div>
-                            <div class="cell_contents">
-                                <p class="cell_text">
-                                    {{ player.k_a }} ({{ player.assists }}) / {{ player.specials }}
-                                </p>
-                            </div>
-                            <div class="half_cell_bot"></div>
-                            <div class="half_cell_right"></div>
-                        </div>
-                        <div class="half_cell col_6" style="order: 6;">
-                            <div class="half_cell_top"></div>
-                            <div class="cell_left"></div>
-                            <div class="cell_contents">
-                                <p class="cell_text">
-                                    {{ player.kills }} / {{ player.deaths }}
-                                </p>
-                            </div>
-                            <div class="half_cell_bot"></div>
-                            <div class="half_cell_right"></div>
-                        </div>
-                        <div class="full_cell col_7" style="order: 7;">
-                            <div class="full_cell_top"></div>
-                            <div class="cell_left"></div>
-                            <div class="gear">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Weapon</th>
+                        <th>Level</th>
+                        <th>Rank</th>
+                        <th>Inked</th>
+                        <th>k+a/sp</th>
+                        <th>k/d</th>
+                        <th>Gear</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for player in battle_players %}
+                        <tr>
+                            <th>{{ player.name }}</th>
+                            <th>{{ player.weapon }}</th>
+                            <th>{{ player.level_star }}★{{ player.level }}</th>
+                            <th>{{ player.rank }}</th>
+                            <th>{{ player.game_paint_point }}</th>
+                            <th>{{ player.k_a }} ({{ player.assists }}) / {{ player.specials }}</th>
+                            <th>{{ player.kills }} / {{ player.deaths }}</th>
+                            <th class="gear">
                                 <div class="headgear">
                                     <img class="main" src="{{ player.headgear_main }}">
                                     <img class="sub_0" src="{{ player.headgear_sub0 }}">
@@ -200,14 +49,11 @@
                                     <img class="sub_1" src="{{ player.shoes_sub1 }}">
                                     <img class="sub_2" src="{{ player.shoes_sub2 }}">
                                 </div>
-                            </div>
-                            <div class="full_cell_right"></div>
-                            <div class="full_cell_bot"></div>
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
-        </div>
+                            </th>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         {% endblock content %}
     </body>
 </html>
