@@ -1,74 +1,11 @@
-.gear {
-    width: 192px;
-    height: 32px;
-
-    position: relative;
-}
-
-.headgear {
-    position: absolute;
-    width: 64px;
-    height: 32px;
-    left: 0px;
-    top: 0px;
-}
-
-.clothes {
-    position: absolute;
-    width: 64px;
-    height: 32px;
-    left: 64px;
-    top: 0px;
-}
-
-.shoes {
-    position: absolute;
-    width: 64px;
-    height: 32px;
-    left: 128px;
-    top: 0px;
-}
-
 .main {
-    position: absolute;
-    width: 32px;
-    height: 32px;
-    left: 0px;
-    top: 0px;
+    height: 30px;
     border-radius: 50%;
-
     background: #404040;
 }
 
-.sub_0 {
-    position: absolute;
-    width: 16px;
-    height: 16px;
-    left: 32px;
-    top: 0px;
+.sub {
+    height: 24px;
     border-radius: 50%;
-
-    background: #404040;
-}
-
-.sub_1 {
-    position: absolute;
-    width: 16px;
-    height: 16px;
-    left: 48px;
-    top: 0px;
-    border-radius: 50%;
-
-    background: #404040;
-}
-
-.sub_2 {
-    position: absolute;
-    width: 16px;
-    height: 16px;
-    left: 40px;
-    top: 16px;
-    border-radius: 50%;
-
     background: #404040;
 }

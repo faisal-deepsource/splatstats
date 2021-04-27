@@ -49,6 +49,7 @@ class Shift(models.Model):
         barrelspinner = "4010", _("Heavy Splatling")
         hydra = "4020", _("Hydra Splatling")
         kugelschreiber = "4030", _("Ballpoint Splatling")
+        nautilus47 = "4040", _("Nautilus 47")
         sputtery = "5000", _("Dapple Dualies")
         maneuver = "5010", _("Splat Dualies")
         kelvin525 = "5020", _("Glooga Dualies")

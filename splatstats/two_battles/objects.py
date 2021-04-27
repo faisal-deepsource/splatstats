@@ -3,6 +3,7 @@ class Player:
         self,
         row_num,
         name,
+        weapon_icon,
         weapon,
         level_star,
         level,
@@ -28,6 +29,7 @@ class Player:
     ):
         self.row_num = row_num
         self.name = name
+        self.weapon_icon = weapon_icon
         self.weapon = weapon
         self.level_star = level_star
         self.level = level

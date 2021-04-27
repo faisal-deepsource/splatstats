@@ -12,12 +12,12 @@
                 <th>k/d</th>
                 <th>Time</th>
             </tr>
-        {% for battle, result, time_val in my_list %}
+        {% for battle, result, time_val, player_weapons in my_list %}
             <tr>
                 <td><a href="/two_battles/{{ battle.id }}/">{{ battle.battle_number }}</a></td>
                 <td>{{ battle.get_rule_display }}</td>
                 <td>{{ battle.get_stage_display }}</td>
-                <td>{{ battle.get_player_weapon_display }}</td>
+                <td><img style="height: 36px;" src="{{ player_weapons }}">{{ battle.get_player_weapon_display }}</td>
                 <td>{{ result }}</td>
                 <td>{{ battle.player_kills }}/{{ battle.player_deaths }}</td>
                 <td>{{ time_val }}</td>

@@ -158,6 +158,8 @@ class Battle(models.Model):
         hydra_custom = "4021", _("Custom Hydra Splatling")
         kugelschreiber = "4030", _("Ballpoint Splatling")
         kugelschreiber_hue = "4031", _("Ballpoint Splatling Nouveau")
+        nautilus47 = "4040", _("Nautilus 47")
+        nautilus79 = "4041", _("Nautilus 79")
         sputtery = "5000", _("Dapple Dualies")
         sputtery_hue = "5001", _("Daple Dualies Nouveau")
         sputtery_clear = "5002", _("Clear Dapple Dualies")

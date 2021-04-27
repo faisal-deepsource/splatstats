@@ -1,11 +1,10 @@
-from django.http.response import HttpResponse
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect
-from django.contrib.auth.models import User
 from rest_framework import views, status, permissions
 from rest_framework.parsers import JSONParser
-from rest_framework_msgpack.parsers import MessagePackParser
 from rest_framework.response import Response
+from time import gmtime
+from time import strftime
 from .forms import BattleForm
 import base64
 from .models import Battle
@@ -19,16 +18,19 @@ def index(request):
     latest_battles = Battle.objects.order_by("-time")
     results = []
     time_vals = []
+    player_weapons = []
     for battle in latest_battles:
         results.append("Win" if battle.win else "Lose")
         time_vals.append(
             datetime.utcfromtimestamp(battle.time).strftime("%Y-%m-%d %H:%M:%S")
         )
+        player_weapons.append(static("two_battles/weapons/" + battle.player_weapon + ".png"))
     context = {
         "my_list": zip(
             latest_battles,
             results,
             time_vals,
+            player_weapons,
         )
     }
     return render(request, "two_battles/index.html", context)
@@ -37,6 +39,7 @@ def index(request):
 def detail(request, id):
     battle = get_object_or_404(Battle, pk=id)
     player_k_a = battle.player_kills + battle.player_assists
+    player_weapon = static("two_battles/weapons/" + battle.player_weapon + ".png")
     player_headgear_main = static(
         "two_battles/abilities/mains/" + battle.player_headgear_main + ".png"
     )
@@ -112,6 +115,7 @@ def detail(request, id):
     player = Player(
         "row1",
         battle.player_name,
+        player_weapon,
         battle.get_player_weapon_display(),
         battle.player_level_star,
         battle.player_level,
@@ -137,6 +141,7 @@ def detail(request, id):
     )
     battle_players = [player]
     if battle.teammate1_splatnet_id is not None:
+        teammate1_weapon = static("two_battles/weapons/" + battle.teammate1_weapon + ".png")
         teammate1_k_a = battle.teammate1_kills + battle.teammate1_assists
         teammate1_headgear_main = static(
             "two_battles/abilities/mains/" + battle.teammate1_headgear_main + ".png"
@@ -223,6 +228,7 @@ def detail(request, id):
         teammate1 = Player(
             "row2",
             battle.teammate1_name,
+            teammate1_weapon,
             battle.get_teammate1_weapon_display(),
             battle.teammate1_level_star,
             battle.teammate1_level,
@@ -248,6 +254,7 @@ def detail(request, id):
         )
         battle_players.append(teammate1)
     if battle.teammate2_splatnet_id is not None:
+        teammate2_weapon = static("two_battles/weapons/" + battle.teammate2_weapon + ".png")
         teammate2_k_a = battle.teammate2_kills + battle.teammate2_assists
         teammate2_headgear_main = static(
             "two_battles/abilities/mains/" + battle.teammate2_headgear_main + ".png"
@@ -334,6 +341,7 @@ def detail(request, id):
         teammate2 = Player(
             "row3",
             battle.teammate2_name,
+            teammate2_weapon,
             battle.get_teammate2_weapon_display(),
             battle.teammate2_level_star,
             battle.teammate2_level,
@@ -359,6 +367,7 @@ def detail(request, id):
         )
         battle_players.append(teammate2)
     if battle.teammate3_splatnet_id is not None:
+        teammate3_weapon = static("two_battles/weapons/" + battle.teammate3_weapon + ".png")
         teammate3_k_a = battle.teammate3_kills + battle.teammate3_assists
         teammate3_headgear_main = static(
             "two_battles/abilities/mains/" + battle.teammate3_headgear_main + ".png"
@@ -445,6 +454,7 @@ def detail(request, id):
         teammate3 = Player(
             "row4",
             battle.teammate3_name,
+            teammate3_weapon,
             battle.get_teammate3_weapon_display(),
             battle.teammate3_level_star,
             battle.teammate3_level,
@@ -470,6 +480,7 @@ def detail(request, id):
         )
         battle_players.append(teammate3)
     if battle.opponent0_splatnet_id is not None:
+        opponent0_weapon = static("two_battles/weapons/" + battle.opponent0_weapon + ".png")
         opponent0_k_a = battle.opponent0_kills + battle.opponent0_assists
         opponent0_headgear_main = static(
             "two_battles/abilities/mains/" + battle.opponent0_headgear_main + ".png"
@@ -556,6 +567,7 @@ def detail(request, id):
         opponent0 = Player(
             "row5",
             battle.opponent0_name,
+            opponent0_weapon,
             battle.get_opponent0_weapon_display(),
             battle.opponent0_level_star,
             battle.opponent0_level,
@@ -581,6 +593,7 @@ def detail(request, id):
         )
         battle_players.append(opponent0)
     if battle.opponent1_splatnet_id is not None:
+        opponent1_weapon = static("two_battles/weapons/" + battle.opponent1_weapon + ".png")
         opponent1_k_a = battle.opponent1_kills + battle.opponent1_assists
         opponent1_headgear_main = static(
             "two_battles/abilities/mains/" + battle.opponent1_headgear_main + ".png"
@@ -667,6 +680,7 @@ def detail(request, id):
         opponent1 = Player(
             "row6",
             battle.opponent1_name,
+            opponent1_weapon,
             battle.get_opponent1_weapon_display(),
             battle.opponent1_level_star,
             battle.opponent1_level,
@@ -692,6 +706,7 @@ def detail(request, id):
         )
         battle_players.append(opponent1)
     if battle.opponent2_splatnet_id is not None:
+        opponent2_weapon = static("two_battles/weapons/" + battle.opponent2_weapon + ".png")
         opponent2_k_a = battle.opponent2_kills + battle.opponent2_assists
         opponent2_headgear_main = static(
             "two_battles/abilities/mains/" + battle.opponent2_headgear_main + ".png"
@@ -778,6 +793,7 @@ def detail(request, id):
         opponent2 = Player(
             "row7",
             battle.opponent2_name,
+            opponent2_weapon,
             battle.get_opponent2_weapon_display(),
             battle.opponent2_level_star,
             battle.opponent2_level,
@@ -803,6 +819,7 @@ def detail(request, id):
         )
         battle_players.append(opponent2)
     if battle.opponent3_splatnet_id is not None:
+        opponent3_weapon = static("two_battles/weapons/" + battle.opponent3_weapon + ".png")
         opponent3_k_a = battle.opponent3_kills + battle.opponent3_assists
         opponent3_headgear_main = static(
             "two_battles/abilities/mains/" + battle.opponent3_headgear_main + ".png"
@@ -889,6 +906,7 @@ def detail(request, id):
         opponent3 = Player(
             "row8",
             battle.opponent3_name,
+            opponent3_weapon,
             battle.get_opponent3_weapon_display(),
             battle.opponent3_level_star,
             battle.opponent3_level,
@@ -919,6 +937,13 @@ def detail(request, id):
         {
             "battle": battle,
             "battle_players": battle_players,
+            "result": "Win" if battle.win else "Lose",
+            "end_result": "Time"
+            if battle.rule != "turf_war" and battle.elapsed_time >= 300
+            else "Knockout",
+            "start_time": datetime.utcfromtimestamp(battle.time).strftime("%Y-%m-%d %H:%M:%S"),
+            "end_time": datetime.utcfromtimestamp(battle.time+battle.elapsed_time).strftime("%Y-%m-%d %H:%M:%S"),
+            "elapsed_time_min_sec": strftime("%M:%S", gmtime(battle.elapsed_time))
         },
     )
 
