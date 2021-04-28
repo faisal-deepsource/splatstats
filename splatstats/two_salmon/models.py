@@ -69,3 +69,5 @@ class Shift(models.Model):
         grounds = "Spwaning Grounds"
         bay = "Marooner's Bay"
         outpust = "Lost Outpost"
+
+    splatnet_json = models.JSONField("splatNet 2 JSON file", blank=True, null=True)
