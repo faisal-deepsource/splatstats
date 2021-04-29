@@ -27,6 +27,7 @@ class Battle(models.Model):
         rg = "turf_war", _("Turf War")
         fs = "fes_solo", _("Splatfest Solo/Pro")
         ft = "fes_team", _("Splatfest Team/Normal")
+        fest = "fest", _("Splatfest")
 
     class Ranks(models.IntegerChoices):
         c_minus = 0, _("C-")
@@ -192,6 +193,7 @@ class Battle(models.Model):
         inkblot = "4", _("Inkblot Art Academy")
         humpback = "5", _("Humpback Pump Track")
         manta = "6", _("Manta Maria")
+        port = "7", _("Port Mackerel")
         moray = "8", _("Moray Towers")
         snapper = "9", _("Snapper Canal")
         dome = "10", _("Kelp Dome")
@@ -207,6 +209,16 @@ class Battle(models.Model):
         wahoo = "20", _("Wahoo World")
         anchov = "21", _("Ancho-V Games")
         skipper = "22", _("Skipper Pavillion")
+        zappy = "109", _("Zappy Longshocking")
+        switches = "112", _("The Switches")
+        valley = "113", _("Sweet Valley Tentacles")
+        railway = "115", _("Railway Chillin'")
+        attic = "118", _("Flooders in the Attic")
+        our = "119", _("The Splat in Our Zones")
+        spreading = "120", _("The Ink is Spreading")
+        bridge = "121", _("Bridge to Tentaswitchia")
+        chronicles = "122", _("The Chronicles of Rolonium")
+        shifty = "9999", _("Shifty Station")
 
     class MainAbilities(models.TextChoices):
         ink_saver_main = "0"
@@ -258,7 +270,7 @@ class Battle(models.Model):
     stat_ink_json = models.JSONField("stat.ink JSON file", blank=True, null=True)
     rule = models.CharField(max_length=13, choices=Rule.choices)
     match_type = models.CharField(max_length=11, choices=Match_Type.choices)
-    stage = models.CharField(max_length=2, choices=Stage.choices)
+    stage = models.CharField(max_length=4, choices=Stage.choices)
     win = models.BooleanField(null=True)
     has_disconnected_player = models.BooleanField(null=True)
     time = models.PositiveIntegerField(null=True)
@@ -794,25 +806,40 @@ class Battle(models.Model):
                 "hoko": "rainmaker",
                 "asari": "clam_blitz",
                 "yagura": "tower_control",
-                "nawabari": "turf_War",
+                "nawabari": "turf_war",
             }
             rule = rules.get(stat_ink_json["rule"]["key"], None)
             match_type = stat_ink_json["mode"]["key"]
             stage = str(stat_ink_json["map"]["splatnet"])
             win = stat_ink_json["result"] == "win"
             has_disconnected_player = False
-            for player in stat_ink_json["players"]:
-                has_disconnected_player = (
-                    has_disconnected_player or player["point"] == 0
-                )
-            time = stat_ink_json["start_at"]["time"]
+            if stat_ink_json["players"] is not None:
+                for player in stat_ink_json["players"]:
+                    has_disconnected_player = (
+                        has_disconnected_player or player["point"] == 0
+                    )
+            else:
+                has_disconnected_player = True
+            if stat_ink_json["start_at"] is not None:
+                time = stat_ink_json["start_at"]["time"]
+                if stat_ink_json["end_at"] is not None:
+                    elapsed_time = (
+                        stat_ink_json["end_at"]["time"]
+                        - stat_ink_json["start_at"]["time"]
+                    )
+                else:
+                    elapsed_time = None
+            else:
+                time = None
+                elapsed_time = None
             battle_number = stat_ink_json["splatnet_number"]
-            win_meter = stat_ink_json["freshness"]["freshness"]
+            if stat_ink_json["freshness"] is not None:
+                win_meter = stat_ink_json["freshness"]["freshness"]
+            else:
+                win_meter = None
             my_team_count = stat_ink_json["my_team_percent"]
             other_team_count = stat_ink_json["his_team_percent"]
-            elapsed_time = (
-                stat_ink_json["start_at"]["time"] - stat_ink_json["end_at"]["time"]
-            )
+
             tag_id = stat_ink_json["my_team_id"]
             league_point = stat_ink_json["league_point"]
             splatfest_point = stat_ink_json["fest_power"]
@@ -820,32 +847,61 @@ class Battle(models.Model):
 
             player_x_power = stat_ink_json["x_power"]
             player_weapon = str(stat_ink_json["weapon"]["splatnet"])
-            player_rank = stat_ink_json["rank"]
+            rank_to_id = {
+                "c-": 0,
+                "c": 1,
+                "c+": 2,
+                "b-": 3,
+                "b": 4,
+                "b+": 5,
+                "a-": 6,
+                "a": 7,
+                "a+": 8,
+                "s": 9,
+                "s+": 10,
+                "x": 20,
+            }
+            if stat_ink_json["rank"] is not None:
+                player_rank = rank_to_id.get(stat_ink_json["rank"]["key"])
+            else:
+                player_rank = None
             player_level = stat_ink_json["level"]
             player_level_star = stat_ink_json["star_rank"]
-            player_kills = stat_ink_json["kill"]
+            if stat_ink_json["kill"] is not None:
+                player_kills = stat_ink_json["kill"]
+                if stat_ink_json["kill_or_assist"] is not None:
+                    player_assists = stat_ink_json["kill_or_assist"] - player_kills
+                else:
+                    player_assists = None
+            else:
+                player_kills = None
+                player_assists = None
             player_deaths = stat_ink_json["death"]
-            player_assists = stat_ink_json["kill_or_assist"] - player_kills
             player_specials = stat_ink_json["special"]
             player_game_paint_point = stat_ink_json["my_point"]
             player_splatfest_title = stat_ink_json["fest_title"]
             processed_players = []
-            for player in stat_ink_json["players"]:
-                if player["is_me"]:
-                    processed_players.append(stat_ink_json["players"].index(player))
-                    player_splatnet_id = player["splatnet_id"]
-                    player_name = player["name"]
-            player_gender = stat_ink_json["gender"]["key"]
+            if stat_ink_json["players"] is not None:
+                for player in stat_ink_json["players"]:
+                    if player["is_me"]:
+                        processed_players.append(stat_ink_json["players"].index(player))
+                        player_splatnet_id = player["splatnet_id"]
+                        player_name = player["name"]
+            else:
+                player_splatnet_id = None
+                player_name = None
+            if stat_ink_json["gender"] is not None:
+                player_gender = stat_ink_json["gender"]["key"]
+            else:
+                player_gender = None
             species = {
                 "inkling": "inklings",
                 "octoling": "octolings",
             }
-            player_species = species.get(stat_ink_json["species"]["key"], None)
-            player_headgear = str(
-                stat_ink_json["gears"]["headgear"]["gear"]["splatnet"]
-            )
-            player_clothes = str(stat_ink_json["gears"]["clothing"]["gear"]["splatnet"])
-            player_shoes = str(stat_ink_json["gears"]["shoes"]["gear"]["splatnet"])
+            if stat_ink_json["species"] is not None:
+                player_species = species.get(stat_ink_json["species"]["key"], None)
+            else:
+                player_species = None
             main_abilities = {
                 "ink_saver_main": "0",
                 "ink_saver_sub": "1",
@@ -874,15 +930,6 @@ class Battle(models.Model):
                 "bomb_defense_up_dx": "200",
                 "main_power_up": "201",
             }
-            player_headgear_main = main_abilities.get(
-                stat_ink_json["gears"]["headgear"]["primary_ability"]["key"], None
-            )
-            player_clothes_main = main_abilities.get(
-                stat_ink_json["gears"]["clothing"]["primary_ability"]["key"], None
-            )
-            player_shoes_main = main_abilities.get(
-                stat_ink_json["gears"]["shoes"]["primary_ability"]["key"], None
-            )
             sub_abilities = {
                 "ink_saver_main": "0",
                 "ink_saver_sub": "1",
@@ -899,50 +946,383 @@ class Battle(models.Model):
                 "bomb_defense_up_dx": "200",
                 "main_power_up": "201",
             }
-            player_headgear_sub0 = sub_abilities.get(
-                stat_ink_json["gears"]["headgear"]["secondary_abilities"][0]["key"],
-                None,
-            )
-            player_headgear_sub1 = sub_abilities.get(
-                stat_ink_json["gears"]["headgear"]["secondary_abilities"][1]["key"],
-                None,
-            )
-            player_headgear_sub2 = sub_abilities.get(
-                stat_ink_json["gears"]["headgear"]["secondary_abilities"][2]["key"],
-                None,
-            )
-            player_clothes_sub0 = sub_abilities.get(
-                stat_ink_json["gears"]["clothing"]["secondary_abilities"][0]["key"],
-                None,
-            )
-            player_clothes_sub1 = sub_abilities.get(
-                stat_ink_json["gears"]["clothing"]["secondary_abilities"][1]["key"],
-                None,
-            )
-            player_clothes_sub2 = sub_abilities.get(
-                stat_ink_json["gears"]["clothing"]["secondary_abilities"][2]["key"],
-                None,
-            )
-            player_shoes_sub0 = sub_abilities.get(
-                stat_ink_json["gears"]["shoes"]["secondary_abilities"][0]["key"],
-                None,
-            )
-            player_shoes_sub1 = sub_abilities.get(
-                stat_ink_json["gears"]["shoes"]["secondary_abilities"][1]["key"],
-                None,
-            )
-            player_shoes_sub2 = sub_abilities.get(
-                stat_ink_json["gears"]["shoes"]["secondary_abilities"][2]["key"],
-                None,
-            )
+            if stat_ink_json["gears"]["headgear"] is not None:
+                player_headgear = str(
+                    stat_ink_json["gears"]["headgear"]["gear"]["splatnet"]
+                )
+                if stat_ink_json["gears"]["headgear"]["primary_ability"] is not None:
+                    player_headgear_main = main_abilities.get(
+                        stat_ink_json["gears"]["headgear"]["primary_ability"]["key"],
+                        None,
+                    )
+                else:
+                    player_headgear_main = None
+                if (
+                    stat_ink_json["gears"]["headgear"]["secondary_abilities"][0]
+                    is not None
+                ):
+                    player_headgear_sub0 = sub_abilities.get(
+                        stat_ink_json["gears"]["headgear"]["secondary_abilities"][0][
+                            "key"
+                        ],
+                        None,
+                    )
+                    if (
+                        stat_ink_json["gears"]["headgear"]["secondary_abilities"][1]
+                        is not None
+                    ):
+                        player_headgear_sub1 = sub_abilities.get(
+                            stat_ink_json["gears"]["headgear"]["secondary_abilities"][
+                                1
+                            ]["key"],
+                            None,
+                        )
+                        if (
+                            stat_ink_json["gears"]["headgear"]["secondary_abilities"][2]
+                            is not None
+                        ):
+                            player_headgear_sub2 = sub_abilities.get(
+                                stat_ink_json["gears"]["headgear"][
+                                    "secondary_abilities"
+                                ][2]["key"],
+                                None,
+                            )
+                        else:
+                            player_headgear_sub2 = None
+                    else:
+                        player_headgear_sub1 = None
+                        player_headgear_sub2 = None
+                else:
+                    player_headgear_sub0 = None
+                    player_headgear_sub1 = None
+                    player_headgear_sub2 = None
+            else:
+                player_headgear = None
+                player_headgear_main = None
+                player_headgear_sub0 = None
+                player_headgear_sub1 = None
+                player_headgear_sub2 = None
+            if stat_ink_json["gears"]["clothing"] is not None:
+                if stat_ink_json["gears"]["clothing"]["gear"] is not None:
+                    player_clothes = str(
+                        stat_ink_json["gears"]["clothing"]["gear"]["splatnet"]
+                    )
+                else:
+                    player_clothes = None
+                if stat_ink_json["gears"]["clothing"]["primary_ability"] is not None:
+                    player_clothes_main = main_abilities.get(
+                        stat_ink_json["gears"]["clothing"]["primary_ability"]["key"],
+                        None,
+                    )
+                else:
+                    player_clothes_main = None
+                if (
+                    stat_ink_json["gears"]["clothing"]["secondary_abilities"] is not None and
+                    stat_ink_json["gears"]["clothing"]["secondary_abilities"][0]
+                    is not None
+                ):
+                    player_clothes_sub0 = sub_abilities.get(
+                        stat_ink_json["gears"]["clothing"]["secondary_abilities"][0][
+                            "key"
+                        ],
+                        None,
+                    )
+                    if (
+                        stat_ink_json["gears"]["clothing"]["secondary_abilities"][1]
+                        is not None
+                    ):
+                        player_clothes_sub1 = sub_abilities.get(
+                            stat_ink_json["gears"]["clothing"]["secondary_abilities"][
+                                1
+                            ]["key"],
+                            None,
+                        )
+                        if (
+                            stat_ink_json["gears"]["clothing"]["secondary_abilities"][2]
+                            is not None
+                        ):
+                            player_clothes_sub2 = sub_abilities.get(
+                                stat_ink_json["gears"]["clothing"][
+                                    "secondary_abilities"
+                                ][2]["key"],
+                                None,
+                            )
+                        else:
+                            player_clothes_sub2 = None
+                    else:
+                        player_clothes_sub1 = None
+                        player_clothes_sub2 = None
+                else:
+                    player_clothes_sub0 = None
+                    player_clothes_sub1 = None
+                    player_clothes_sub2 = None
+            else:
+                player_clothes = None
+                player_clothes_main = None
+                player_clothes_sub0 = None
+                player_clothes_sub1 = None
+                player_clothes_sub2 = None
+            if stat_ink_json["gears"]["shoes"] is not None:
+                if stat_ink_json["gears"]["shoes"]["gear"] is not None:
+                    player_shoes = str(
+                        stat_ink_json["gears"]["shoes"]["gear"]["splatnet"]
+                    )
+                else:
+                    player_shoes = None
+                if stat_ink_json["gears"]["shoes"]["primary_ability"] is not None:
+                    player_shoes_main = main_abilities.get(
+                        stat_ink_json["gears"]["shoes"]["primary_ability"]["key"], None
+                    )
+                else:
+                    player_shoes_main = None
+                if (
+                    stat_ink_json["gears"]["shoes"]["secondary_abilities"] is not None
+                    and stat_ink_json["gears"]["shoes"]["secondary_abilities"][0]
+                    is not None
+                ):
+                    player_shoes_sub0 = sub_abilities.get(
+                        stat_ink_json["gears"]["shoes"]["secondary_abilities"][0][
+                            "key"
+                        ],
+                        None,
+                    )
+                    if (
+                        stat_ink_json["gears"]["shoes"]["secondary_abilities"][1]
+                        is not None
+                    ):
+                        player_shoes_sub1 = sub_abilities.get(
+                            stat_ink_json["gears"]["shoes"]["secondary_abilities"][1][
+                                "key"
+                            ],
+                            None,
+                        )
+                        if (
+                            stat_ink_json["gears"]["shoes"]["secondary_abilities"][2]
+                            is not None
+                        ):
+                            player_shoes_sub2 = sub_abilities.get(
+                                stat_ink_json["gears"]["shoes"]["secondary_abilities"][
+                                    2
+                                ]["key"],
+                                None,
+                            )
+                        else:
+                            player_shoes_sub2 = None
+                    else:
+                        player_shoes_sub1 = None
+                        player_shoes_sub2 = None
+                else:
+                    player_shoes_sub0 = None
+                    player_shoes_sub1 = None
+                    player_shoes_sub2 = None
+            else:
+                player_shoes = None
+                player_shoes_main = None
+                player_shoes_sub0 = None
+                player_shoes_sub1 = None
+                player_shoes_sub2 = None
             players = stat_ink_json["players"]
-            processed_fields = []
-            # for player in players:
-            #    if players.index(player) not in processed_players:
+            i = 0
+            j = 0
+            if players is not None:
+                for player in players:
+                    if players.index(player) not in processed_players:
+                        if player["team"] == "my":
+                            teammate_dict["teammate{}_splatnet_id".format(i)] = player[
+                                "splatnet_id"
+                            ]
+                            teammate_dict["teammate{}_name".format(i)] = player["name"]
+                            teammate_dict["teammate{}_level_star".format(i)] = player[
+                                "star_rank"
+                            ]
+                            teammate_dict["teammate{}_level".format(i)] = player[
+                                "level"
+                            ]
+                            if player["rank"] is not None:
+                                teammate_dict[
+                                    "teammate{}_rank".format(i)
+                                ] = rank_to_id.get(player["rank"]["key"], None)
+                            else:
+                                teammate_dict["teammate{}_rank".format(i)] = None
+                            if player["weapon"] is not None:
+                                teammate_dict["teammate{}_weapon".format(i)] = str(
+                                    player["weapon"]["splatnet"]
+                                )
+                            else:
+                                teammate_dict["teammate{}_weapon".format(i)] = None
+                            if player["gender"] is not None:
+                                teammate_dict["teammate{}_gender".format(i)] = player[
+                                    "gender"
+                                ]["key"]
+                            else:
+                                teammate_dict["teammate{}_gender".format(i)] = None
+                            if player["species"] is not None:
+                                teammate_dict[
+                                    "teammate{}_species".format(i)
+                                ] = species.get(player["species"]["key"], None)
+                            else:
+                                teammate_dict["teammate{}_species".format(i)] = None
+                            teammate_dict["teammate{}_kills".format(i)] = player["kill"]
+                            teammate_dict["teammate{}_deaths".format(i)] = player[
+                                "death"
+                            ]
+                            teammate_dict["teammate{}_assists".format(i)] = (
+                                player["kill_or_assist"]
+                                - teammate_dict["teammate{}_kills".format(i)]
+                            )
+                            teammate_dict[
+                                "teammate{}_game_paint_point".format(i)
+                            ] = player["point"]
+                            teammate_dict["teammate{}_specials".format(i)] = player[
+                                "special"
+                            ]
+                            teammate_dict["teammate{}_headgear".format(i)] = None
+                            teammate_dict["teammate{}_headgear_main".format(i)] = None
+                            teammate_dict["teammate{}_headgear_sub0".format(i)] = None
+                            teammate_dict["teammate{}_headgear_sub1".format(i)] = None
+                            teammate_dict["teammate{}_headgear_sub2".format(i)] = None
+                            teammate_dict["teammate{}_clothes".format(i)] = None
+                            teammate_dict["teammate{}_clothes_main".format(i)] = None
+                            teammate_dict["teammate{}_clothes_sub0".format(i)] = None
+                            teammate_dict["teammate{}_clothes_sub1".format(i)] = None
+                            teammate_dict["teammate{}_clothes_sub2".format(i)] = None
+                            teammate_dict["teammate{}_shoes".format(i)] = None
+                            teammate_dict["teammate{}_shoes_main".format(i)] = None
+                            teammate_dict["teammate{}_shoes_sub0".format(i)] = None
+                            teammate_dict["teammate{}_shoes_sub1".format(i)] = None
+                            teammate_dict["teammate{}_shoes_sub2".format(i)] = None
+                            i += 1
+                        else:
+                            opponent_dict["opponent{}_splatnet_id".format(j)] = player[
+                                "splatnet_id"
+                            ]
+                            opponent_dict["opponent{}_name".format(j)] = player["name"]
+                            opponent_dict["opponent{}_level_star".format(j)] = player[
+                                "star_rank"
+                            ]
+                            opponent_dict["opponent{}_level".format(j)] = player[
+                                "level"
+                            ]
+                            if player["rank"] is not None:
+                                opponent_dict[
+                                    "opponent{}_rank".format(j)
+                                ] = rank_to_id.get(player["rank"]["key"], None)
+                            else:
+                                opponent_dict["opponent{}_rank".format(j)] = None
+                            if player["weapon"] is not None:
+                                opponent_dict["opponent{}_weapon".format(j)] = str(
+                                    player["weapon"]["splatnet"]
+                                )
+                            else:
+                                opponent_dict["opponent{}_weapon".format(j)] = None
+                            if player["gender"] is not None:
+                                opponent_dict["opponent{}_gender".format(j)] = player[
+                                    "gender"
+                                ]["key"]
+                            else:
+                                opponent_dict["opponent{}_gender".format(j)] = None
+                            if player["species"] is not None:
+                                opponent_dict[
+                                    "opponent{}_species".format(j)
+                                ] = species.get(player["species"]["key"], None)
+                            else:
+                                opponent_dict["opponent{}_species".format(j)] = None
+                            opponent_dict["opponent{}_kills".format(j)] = player["kill"]
+                            opponent_dict["opponent{}_deaths".format(j)] = player[
+                                "death"
+                            ]
+                            opponent_dict["opponent{}_assists".format(j)] = (
+                                player["kill_or_assist"]
+                                - opponent_dict["opponent{}_kills".format(j)]
+                            )
+                            opponent_dict[
+                                "opponent{}_game_paint_point".format(j)
+                            ] = player["point"]
+                            opponent_dict["opponent{}_specials".format(j)] = player[
+                                "special"
+                            ]
+                            opponent_dict["opponent{}_headgear".format(j)] = None
+                            opponent_dict["opponent{}_headgear_main".format(j)] = None
+                            opponent_dict["opponent{}_headgear_sub0".format(j)] = None
+                            opponent_dict["opponent{}_headgear_sub1".format(j)] = None
+                            opponent_dict["opponent{}_headgear_sub2".format(j)] = None
+                            opponent_dict["opponent{}_clothes".format(j)] = None
+                            opponent_dict["opponent{}_clothes_main".format(j)] = None
+                            opponent_dict["opponent{}_clothes_sub0".format(j)] = None
+                            opponent_dict["opponent{}_clothes_sub1".format(j)] = None
+                            opponent_dict["opponent{}_clothes_sub2".format(j)] = None
+                            opponent_dict["opponent{}_shoes".format(j)] = None
+                            opponent_dict["opponent{}_shoes_main".format(j)] = None
+                            opponent_dict["opponent{}_shoes_sub0".format(j)] = None
+                            opponent_dict["opponent{}_shoes_sub1".format(j)] = None
+                            opponent_dict["opponent{}_shoes_sub2".format(j)] = None
+                            j += 1
+                        processed_players.append(players.index(player))
+            while i < 3:
+                teammate_dict["teammate{}_splatnet_id".format(i)] = None
+                teammate_dict["teammate{}_name".format(i)] = None
+                teammate_dict["teammate{}_level_star".format(i)] = None
+                teammate_dict["teammate{}_level".format(i)] = None
+                teammate_dict["teammate{}_rank".format(i)] = None
+                teammate_dict["teammate{}_weapon".format(i)] = None
+                teammate_dict["teammate{}_gender".format(i)] = None
+                teammate_dict["teammate{}_species".format(i)] = None
+                teammate_dict["teammate{}_kills".format(i)] = None
+                teammate_dict["teammate{}_deaths".format(i)] = None
+                teammate_dict["teammate{}_assists".format(i)] = None
+                teammate_dict["teammate{}_game_paint_point".format(i)] = None
+                teammate_dict["teammate{}_specials".format(i)] = None
+                teammate_dict["teammate{}_headgear".format(i)] = None
+                teammate_dict["teammate{}_headgear_main".format(i)] = None
+                teammate_dict["teammate{}_headgear_sub0".format(i)] = None
+                teammate_dict["teammate{}_headgear_sub1".format(i)] = None
+                teammate_dict["teammate{}_headgear_sub2".format(i)] = None
+                teammate_dict["teammate{}_clothes".format(i)] = None
+                teammate_dict["teammate{}_clothes_main".format(i)] = None
+                teammate_dict["teammate{}_clothes_sub0".format(i)] = None
+                teammate_dict["teammate{}_clothes_sub1".format(i)] = None
+                teammate_dict["teammate{}_clothes_sub2".format(i)] = None
+                teammate_dict["teammate{}_shoes".format(i)] = None
+                teammate_dict["teammate{}_shoes_main".format(i)] = None
+                teammate_dict["teammate{}_shoes_sub0".format(i)] = None
+                teammate_dict["teammate{}_shoes_sub1".format(i)] = None
+                teammate_dict["teammate{}_shoes_sub2".format(i)] = None
+                i += 1
+            while j < 4:
+                opponent_dict["opponent{}_splatnet_id".format(j)] = None
+                opponent_dict["opponent{}_name".format(j)] = None
+                opponent_dict["opponent{}_level_star".format(j)] = None
+                opponent_dict["opponent{}_level".format(j)] = None
+                opponent_dict["opponent{}_rank".format(j)] = None
+                opponent_dict["opponent{}_weapon".format(j)] = None
+                opponent_dict["opponent{}_gender".format(j)] = None
+                opponent_dict["opponent{}_species".format(j)] = None
+                opponent_dict["opponent{}_kills".format(j)] = None
+                opponent_dict["opponent{}_deaths".format(j)] = None
+                opponent_dict["opponent{}_assists".format(j)] = None
+                opponent_dict["opponent{}_game_paint_point".format(j)] = None
+                opponent_dict["opponent{}_specials".format(j)] = None
+                opponent_dict["opponent{}_headgear".format(j)] = None
+                opponent_dict["opponent{}_headgear_main".format(j)] = None
+                opponent_dict["opponent{}_headgear_sub0".format(j)] = None
+                opponent_dict["opponent{}_headgear_sub1".format(j)] = None
+                opponent_dict["opponent{}_headgear_sub2".format(j)] = None
+                opponent_dict["opponent{}_clothes".format(j)] = None
+                opponent_dict["opponent{}_clothes_main".format(j)] = None
+                opponent_dict["opponent{}_clothes_sub0".format(j)] = None
+                opponent_dict["opponent{}_clothes_sub1".format(j)] = None
+                opponent_dict["opponent{}_clothes_sub2".format(j)] = None
+                opponent_dict["opponent{}_shoes".format(j)] = None
+                opponent_dict["opponent{}_shoes_main".format(j)] = None
+                opponent_dict["opponent{}_shoes_sub0".format(j)] = None
+                opponent_dict["opponent{}_shoes_sub1".format(j)] = None
+                opponent_dict["opponent{}_shoes_sub2".format(j)] = None
+                j += 1
 
         if "splatnet_json" in kwargs:
             # general match stats
             splatnet_json = kwargs["splatnet_json"]
+            battle_number = splatnet_json["battle_number"]
             rule = splatnet_json["rule"]["key"]
             match_type = splatnet_json["game_mode"]["key"]
             stage = splatnet_json["stage"]["id"]
@@ -971,7 +1351,6 @@ class Battle(models.Model):
             else:
                 has_disconnected_player = None
             time = splatnet_json["start_time"]
-            battle_number = splatnet_json["battle_number"]
             if "win_meter" in splatnet_json:
                 win_meter = splatnet_json["win_meter"]
             else:
@@ -1102,7 +1481,7 @@ class Battle(models.Model):
 
             if "my_team_members" in splatnet_json:
                 for player in splatnet_json["my_team_members"]:
-                    i = splatnet_json["my_team_members"].index(player) + 1
+                    i = splatnet_json["my_team_members"].index(player)
                     # basic stats
                     teammate_dict["teammate{}_splatnet_id".format(i)] = player[
                         "player"
@@ -1122,119 +1501,115 @@ class Battle(models.Model):
                         ]["number"]
                     else:
                         teammate_dict["teammate{}_rank".format(i)] = None
-                    teammate_dict["teammate{}__weapon".format(i)] = player["player"][
+                    teammate_dict["teammate{}_weapon".format(i)] = player["player"][
                         "weapon"
                     ]["id"]
-                    teammate_dict["teammate{}__gender".format(i)] = player["player"][
+                    teammate_dict["teammate{}_gender".format(i)] = player["player"][
                         "player_type"
                     ]["style"]
-                    teammate_dict["teammate{}__species".format(i)] = player["player"][
+                    teammate_dict["teammate{}_species".format(i)] = player["player"][
                         "player_type"
                     ]["species"]
-                    teammate_dict["teammate{}__kills".format(i)] = player["kill_count"]
-                    teammate_dict["teammate{}__deaths".format(i)] = player[
-                        "death_count"
-                    ]
-                    teammate_dict["teammate{}__assists".format(i)] = player[
+                    teammate_dict["teammate{}_kills".format(i)] = player["kill_count"]
+                    teammate_dict["teammate{}_deaths".format(i)] = player["death_count"]
+                    teammate_dict["teammate{}_assists".format(i)] = player[
                         "assist_count"
                     ]
-                    teammate_dict["teammate{}__game_paint_point".format(i)] = player[
+                    teammate_dict["teammate{}_game_paint_point".format(i)] = player[
                         "game_paint_point"
                     ]
-                    teammate_dict["teammate{}__specials".format(i)] = player[
+                    teammate_dict["teammate{}_specials".format(i)] = player[
                         "special_count"
                     ]
                     # headgear
-                    teammate_dict["teammate{}__headgear".format(i)] = player["player"][
+                    teammate_dict["teammate{}_headgear".format(i)] = player["player"][
                         "head"
                     ]["id"]
-                    teammate_dict["teammate{}__headgear_main".format(i)] = player[
+                    teammate_dict["teammate{}_headgear_main".format(i)] = player[
                         "player"
                     ]["head_skills"]["main"]["id"]
                     subs = player["player"]["head_skills"]["subs"]
                     if subs[0] is not None:
-                        teammate_dict["teammate{}__headgear_sub0".format(i)] = subs[0][
+                        teammate_dict["teammate{}_headgear_sub0".format(i)] = subs[0][
                             "id"
                         ]
                         if subs[1] is not None:
-                            teammate_dict["teammate{}__headgear_sub1".format(i)] = subs[
+                            teammate_dict["teammate{}_headgear_sub1".format(i)] = subs[
                                 1
                             ]["id"]
                             if subs[2] is not None:
                                 teammate_dict[
-                                    "teammate{}__headgear_sub2".format(i)
+                                    "teammate{}_headgear_sub2".format(i)
                                 ] = subs[2]["id"]
                             else:
                                 teammate_dict[
-                                    "teammate{}__headgear_sub2".format(i)
+                                    "teammate{}_headgear_sub2".format(i)
                                 ] = None
                         else:
-                            teammate_dict["teammate{}__headgear_sub1".format(i)] = None
-                            teammate_dict["teammate{}__headgear_sub2".format(i)] = None
+                            teammate_dict["teammate{}_headgear_sub1".format(i)] = None
+                            teammate_dict["teammate{}_headgear_sub2".format(i)] = None
                     else:
-                        teammate_dict["teammate{}__headgear_sub0".format(i)] = None
-                        teammate_dict["teammate{}__headgear_sub1".format(i)] = None
-                        teammate_dict["teammate{}__headgear_sub2".format(i)] = None
+                        teammate_dict["teammate{}_headgear_sub0".format(i)] = None
+                        teammate_dict["teammate{}_headgear_sub1".format(i)] = None
+                        teammate_dict["teammate{}_headgear_sub2".format(i)] = None
                     # clothes
-                    teammate_dict["teammate{}__clothes".format(i)] = player["player"][
+                    teammate_dict["teammate{}_clothes".format(i)] = player["player"][
                         "clothes"
                     ]["id"]
-                    teammate_dict["teammate{}__clothes_main".format(i)] = player[
+                    teammate_dict["teammate{}_clothes_main".format(i)] = player[
                         "player"
                     ]["clothes_skills"]["main"]["id"]
                     subs = player["player"]["clothes_skills"]["subs"]
                     if subs[1] is not None:
-                        teammate_dict["teammate{}__clothes_sub0".format(i)] = subs[0][
+                        teammate_dict["teammate{}_clothes_sub0".format(i)] = subs[0][
                             "id"
                         ]
                         if subs[1] is not None:
-                            teammate_dict["teammate{}__clothes_sub1".format(i)] = subs[
+                            teammate_dict["teammate{}_clothes_sub1".format(i)] = subs[
                                 1
                             ]["id"]
                             if subs[2] is not None:
                                 teammate_dict[
-                                    "teammate{}__clothes_sub2".format(i)
+                                    "teammate{}_clothes_sub2".format(i)
                                 ] = subs[2]["id"]
                             else:
                                 teammate_dict[
-                                    "teammate{}__clothes_sub2".format(i)
+                                    "teammate{}_clothes_sub2".format(i)
                                 ] = None
                         else:
-                            teammate_dict["teammate{}__clothes_sub1".format(i)] = None
-                            teammate_dict["teammate{}__clothes_sub2".format(i)] = None
+                            teammate_dict["teammate{}_clothes_sub1".format(i)] = None
+                            teammate_dict["teammate{}_clothes_sub2".format(i)] = None
                     else:
-                        teammate_dict["teammate{}__clothes_sub0".format(i)] = None
-                        teammate_dict["teammate{}__clothes_sub1".format(i)] = None
-                        teammate_dict["teammate{}__clothes_sub2".format(i)] = None
+                        teammate_dict["teammate{}_clothes_sub0".format(i)] = None
+                        teammate_dict["teammate{}_clothes_sub1".format(i)] = None
+                        teammate_dict["teammate{}_clothes_sub2".format(i)] = None
                     # shoes
-                    teammate_dict["teammate{}__shoes".format(i)] = player["player"][
+                    teammate_dict["teammate{}_shoes".format(i)] = player["player"][
                         "shoes"
                     ]["id"]
-                    teammate_dict["teammate{}__shoes_main".format(i)] = player[
-                        "player"
-                    ]["shoes_skills"]["main"]["id"]
+                    teammate_dict["teammate{}_shoes_main".format(i)] = player["player"][
+                        "shoes_skills"
+                    ]["main"]["id"]
                     subs = player["player"]["shoes_skills"]["subs"]
                     if subs[0] is not None:
-                        teammate_dict["teammate{}__shoes_sub0".format(i)] = subs[0][
-                            "id"
-                        ]
+                        teammate_dict["teammate{}_shoes_sub0".format(i)] = subs[0]["id"]
                         if subs[1] is not None:
-                            teammate_dict["teammate{}__shoes_sub1".format(i)] = subs[1][
+                            teammate_dict["teammate{}_shoes_sub1".format(i)] = subs[1][
                                 "id"
                             ]
                             if subs[2] is not None:
-                                teammate_dict[
-                                    "teammate{}__shoes_sub2".format(i)
-                                ] = subs[2]["id"]
+                                teammate_dict["teammate{}_shoes_sub2".format(i)] = subs[
+                                    2
+                                ]["id"]
                             else:
-                                teammate_dict["teammate{}__shoes_sub2".format(i)] = None
+                                teammate_dict["teammate{}_shoes_sub2".format(i)] = None
                         else:
-                            teammate_dict["teammate{}__shoes_sub1".format(i)] = None
-                            teammate_dict["teammate{}__shoes_sub2".format(i)] = None
+                            teammate_dict["teammate{}_shoes_sub1".format(i)] = None
+                            teammate_dict["teammate{}_shoes_sub2".format(i)] = None
                     else:
-                        teammate_dict["teammate{}__shoes_sub0".format(i)] = None
-                        teammate_dict["teammate{}__shoes_sub1".format(i)] = None
-                        teammate_dict["teammate{}__shoes_sub2".format(i)] = None
+                        teammate_dict["teammate{}_shoes_sub0".format(i)] = None
+                        teammate_dict["teammate{}_shoes_sub1".format(i)] = None
+                        teammate_dict["teammate{}_shoes_sub2".format(i)] = None
                 while i < 3:
                     teammate_dict["teammate{}_splatnet_id".format(i)] = None
                     teammate_dict["teammate{}_name".format(i)] = None
@@ -1353,168 +1728,164 @@ class Battle(models.Model):
 
             if "other_team_members" in splatnet_json:
                 for player in splatnet_json["other_team_members"]:
-                    i = splatnet_json["other_team_members"].index(player) + 1
+                    i = splatnet_json["other_team_members"].index(player)
                     # basic stats
-                    opponent_dict["opponent{}__splatnet_id".format(i)] = player[
+                    opponent_dict["opponent{}_splatnet_id".format(i)] = player[
                         "player"
                     ]["principal_id"]
-                    opponent_dict["opponent{}__name".format(i)] = player["player"][
+                    opponent_dict["opponent{}_name".format(i)] = player["player"][
                         "nickname"
                     ]
-                    opponent_dict["opponent{}__level_star".format(i)] = player[
-                        "player"
-                    ]["star_rank"]
-                    opponent_dict["opponent{}__level".format(i)] = player["player"][
+                    opponent_dict["opponent{}_level_star".format(i)] = player["player"][
+                        "star_rank"
+                    ]
+                    opponent_dict["opponent{}_level".format(i)] = player["player"][
                         "player_rank"
                     ]
                     if "udemae" in player["player"]:
-                        opponent_dict["opponent{}__rank".format(i)] = splatnet_json[
+                        opponent_dict["opponent{}_rank".format(i)] = splatnet_json[
                             "udemae"
                         ]["number"]
                     else:
-                        opponent_dict["opponent{}__rank".format(i)] = None
-                    opponent_dict["opponent{}__weapon".format(i)] = player["player"][
+                        opponent_dict["opponent{}_rank".format(i)] = None
+                    opponent_dict["opponent{}_weapon".format(i)] = player["player"][
                         "weapon"
                     ]["id"]
-                    opponent_dict["opponent{}__gender".format(i)] = player["player"][
+                    opponent_dict["opponent{}_gender".format(i)] = player["player"][
                         "player_type"
                     ]["style"]
-                    opponent_dict["opponent{}__species".format(i)] = player["player"][
+                    opponent_dict["opponent{}_species".format(i)] = player["player"][
                         "player_type"
                     ]["species"]
-                    opponent_dict["opponent{}__kills".format(i)] = player["kill_count"]
-                    opponent_dict["opponent{}__deaths".format(i)] = player[
-                        "death_count"
-                    ]
-                    opponent_dict["opponent{}__assists".format(i)] = player[
+                    opponent_dict["opponent{}_kills".format(i)] = player["kill_count"]
+                    opponent_dict["opponent{}_deaths".format(i)] = player["death_count"]
+                    opponent_dict["opponent{}_assists".format(i)] = player[
                         "assist_count"
                     ]
-                    opponent_dict["opponent{}__game_paint_point".format(i)] = player[
+                    opponent_dict["opponent{}_game_paint_point".format(i)] = player[
                         "game_paint_point"
                     ]
-                    opponent_dict["opponent{}__specials".format(i)] = player[
+                    opponent_dict["opponent{}_specials".format(i)] = player[
                         "special_count"
                     ]
                     # headgear
-                    opponent_dict["opponent{}__headgear".format(i)] = player["player"][
+                    opponent_dict["opponent{}_headgear".format(i)] = player["player"][
                         "head"
                     ]["id"]
-                    opponent_dict["opponent{}__headgear_main".format(i)] = player[
+                    opponent_dict["opponent{}_headgear_main".format(i)] = player[
                         "player"
                     ]["head_skills"]["main"]["id"]
                     subs = player["player"]["head_skills"]["subs"]
                     if subs[0] is not None:
-                        opponent_dict["opponent{}__headgear_sub0".format(i)] = subs[0][
+                        opponent_dict["opponent{}_headgear_sub0".format(i)] = subs[0][
                             "id"
                         ]
                         if subs[1] is not None:
-                            opponent_dict["opponent{}__headgear_sub1".format(i)] = subs[
+                            opponent_dict["opponent{}_headgear_sub1".format(i)] = subs[
                                 1
                             ]["id"]
                             if subs[2] is not None:
                                 opponent_dict[
-                                    "opponent{}__headgear_sub2".format(i)
+                                    "opponent{}_headgear_sub2".format(i)
                                 ] = subs[2]["id"]
                             else:
                                 opponent_dict[
-                                    "opponent{}__headgear_sub2".format(i)
+                                    "opponent{}_headgear_sub2".format(i)
                                 ] = None
                         else:
-                            opponent_dict["opponent{}__headgear_sub1".format(i)] = None
-                            opponent_dict["opponent{}__headgear_sub2".format(i)] = None
+                            opponent_dict["opponent{}_headgear_sub1".format(i)] = None
+                            opponent_dict["opponent{}_headgear_sub2".format(i)] = None
                     else:
-                        opponent_dict["opponent{}__headgear_sub0".format(i)] = None
-                        opponent_dict["opponent{}__headgear_sub1".format(i)] = None
-                        opponent_dict["opponent{}__headgear_sub2".format(i)] = None
+                        opponent_dict["opponent{}_headgear_sub0".format(i)] = None
+                        opponent_dict["opponent{}_headgear_sub1".format(i)] = None
+                        opponent_dict["opponent{}_headgear_sub2".format(i)] = None
                     # clothes
-                    opponent_dict["opponent{}__clothes".format(i)] = player["player"][
+                    opponent_dict["opponent{}_clothes".format(i)] = player["player"][
                         "clothes"
                     ]["id"]
-                    opponent_dict["opponent{}__clothes_main".format(i)] = player[
+                    opponent_dict["opponent{}_clothes_main".format(i)] = player[
                         "player"
                     ]["clothes_skills"]["main"]["id"]
                     subs = player["player"]["clothes_skills"]["subs"]
                     if subs[0] is not None:
-                        opponent_dict["opponent{}__clothes_sub0".format(i)] = subs[0][
+                        opponent_dict["opponent{}_clothes_sub0".format(i)] = subs[0][
                             "id"
                         ]
                         if subs[1] is not None:
-                            opponent_dict["opponent{}__clothes_sub1".format(i)] = subs[
+                            opponent_dict["opponent{}_clothes_sub1".format(i)] = subs[
                                 1
                             ]["id"]
                             if subs[2] is not None:
                                 opponent_dict[
-                                    "opponent{}__clothes_sub2".format(i)
+                                    "opponent{}_clothes_sub2".format(i)
                                 ] = subs[2]["id"]
                             else:
                                 opponent_dict[
-                                    "opponent{}__clothes_sub2".format(i)
+                                    "opponent{}_clothes_sub2".format(i)
                                 ] = None
                         else:
-                            opponent_dict["opponent{}__clothes_sub1".format(i)] = None
-                            opponent_dict["opponent{}__clothes_sub2".format(i)] = None
+                            opponent_dict["opponent{}_clothes_sub1".format(i)] = None
+                            opponent_dict["opponent{}_clothes_sub2".format(i)] = None
                     else:
-                        opponent_dict["opponent{}__clothes_sub0".format(i)] = None
-                        opponent_dict["opponent{}__clothes_sub1".format(i)] = None
-                        opponent_dict["opponent{}__clothes_sub2".format(i)] = None
+                        opponent_dict["opponent{}_clothes_sub0".format(i)] = None
+                        opponent_dict["opponent{}_clothes_sub1".format(i)] = None
+                        opponent_dict["opponent{}_clothes_sub2".format(i)] = None
                     # shoes
-                    opponent_dict["opponent{}__shoes".format(i)] = player["player"][
+                    opponent_dict["opponent{}_shoes".format(i)] = player["player"][
                         "shoes"
                     ]["id"]
-                    opponent_dict["opponent{}__shoes_main".format(i)] = player[
-                        "player"
-                    ]["shoes_skills"]["main"]["id"]
+                    opponent_dict["opponent{}_shoes_main".format(i)] = player["player"][
+                        "shoes_skills"
+                    ]["main"]["id"]
                     subs = player["player"]["shoes_skills"]["subs"]
                     if subs[0] is not None:
-                        opponent_dict["opponent{}__shoes_sub0".format(i)] = subs[0][
-                            "id"
-                        ]
+                        opponent_dict["opponent{}_shoes_sub0".format(i)] = subs[0]["id"]
                         if subs[1] is not None:
-                            opponent_dict["opponent{}__shoes_sub1".format(i)] = subs[1][
+                            opponent_dict["opponent{}_shoes_sub1".format(i)] = subs[1][
                                 "id"
                             ]
                             if subs[2] is not None:
-                                opponent_dict[
-                                    "opponent{}__shoes_sub2".format(i)
-                                ] = subs[2]["id"]
+                                opponent_dict["opponent{}_shoes_sub2".format(i)] = subs[
+                                    2
+                                ]["id"]
                             else:
-                                opponent_dict["opponent{}__shoes_sub2".format(i)] = None
+                                opponent_dict["opponent{}_shoes_sub2".format(i)] = None
                         else:
-                            opponent_dict["opponent{}__shoes_sub1".format(i)] = None
-                            opponent_dict["opponent{}__shoes_sub2".format(i)] = None
+                            opponent_dict["opponent{}_shoes_sub1".format(i)] = None
+                            opponent_dict["opponent{}_shoes_sub2".format(i)] = None
                     else:
-                        opponent_dict["opponent{}__shoes_sub0".format(i)] = None
-                        opponent_dict["opponent{}__shoes_sub1".format(i)] = None
-                        opponent_dict["opponent{}__shoes_sub2".format(i)] = None
+                        opponent_dict["opponent{}_shoes_sub0".format(i)] = None
+                        opponent_dict["opponent{}_shoes_sub1".format(i)] = None
+                        opponent_dict["opponent{}_shoes_sub2".format(i)] = None
                 while i < 4:
-                    opponent_dict["opponent{}__splatnet_id".format(i)] = None
-                    opponent_dict["opponent{}__name".format(i)] = None
-                    opponent_dict["opponent{}__level_star".format(i)] = None
-                    opponent_dict["opponent{}__level".format(i)] = None
-                    opponent_dict["opponent{}__rank".format(i)] = None
-                    opponent_dict["opponent{}__weapon".format(i)] = None
-                    opponent_dict["opponent{}__gender".format(i)] = None
-                    opponent_dict["opponent{}__species".format(i)] = None
-                    opponent_dict["opponent{}__kills".format(i)] = None
-                    opponent_dict["opponent{}__deaths".format(i)] = None
-                    opponent_dict["opponent{}__assists".format(i)] = None
-                    opponent_dict["opponent{}__game_paint_point".format(i)] = None
-                    opponent_dict["opponent{}__specials".format(i)] = None
-                    opponent_dict["opponent{}__headgear".format(i)] = None
-                    opponent_dict["opponent{}__headgear_main".format(i)] = None
-                    opponent_dict["opponent{}__headgear_sub0".format(i)] = None
-                    opponent_dict["opponent{}__headgear_sub1".format(i)] = None
-                    opponent_dict["opponent{}__headgear_sub2".format(i)] = None
-                    opponent_dict["opponent{}__clothes".format(i)] = None
-                    opponent_dict["opponent{}__clothes_main".format(i)] = None
-                    opponent_dict["opponent{}__clothes_sub0".format(i)] = None
-                    opponent_dict["opponent{}__clothes_sub1".format(i)] = None
-                    opponent_dict["opponent{}__clothes_sub2".format(i)] = None
-                    opponent_dict["opponent{}__shoes".format(i)] = None
-                    opponent_dict["opponent{}__shoes_main".format(i)] = None
-                    opponent_dict["opponent{}__shoes_sub0".format(i)] = None
-                    opponent_dict["opponent{}__shoes_sub1".format(i)] = None
-                    opponent_dict["opponent{}__shoes_sub2".format(i)] = None
+                    opponent_dict["opponent{}_splatnet_id".format(i)] = None
+                    opponent_dict["opponent{}_name".format(i)] = None
+                    opponent_dict["opponent{}_level_star".format(i)] = None
+                    opponent_dict["opponent{}_level".format(i)] = None
+                    opponent_dict["opponent{}_rank".format(i)] = None
+                    opponent_dict["opponent{}_weapon".format(i)] = None
+                    opponent_dict["opponent{}_gender".format(i)] = None
+                    opponent_dict["opponent{}_species".format(i)] = None
+                    opponent_dict["opponent{}_kills".format(i)] = None
+                    opponent_dict["opponent{}_deaths".format(i)] = None
+                    opponent_dict["opponent{}_assists".format(i)] = None
+                    opponent_dict["opponent{}_game_paint_point".format(i)] = None
+                    opponent_dict["opponent{}_specials".format(i)] = None
+                    opponent_dict["opponent{}_headgear".format(i)] = None
+                    opponent_dict["opponent{}_headgear_main".format(i)] = None
+                    opponent_dict["opponent{}_headgear_sub0".format(i)] = None
+                    opponent_dict["opponent{}_headgear_sub1".format(i)] = None
+                    opponent_dict["opponent{}_headgear_sub2".format(i)] = None
+                    opponent_dict["opponent{}_clothes".format(i)] = None
+                    opponent_dict["opponent{}_clothes_main".format(i)] = None
+                    opponent_dict["opponent{}_clothes_sub0".format(i)] = None
+                    opponent_dict["opponent{}_clothes_sub1".format(i)] = None
+                    opponent_dict["opponent{}_clothes_sub2".format(i)] = None
+                    opponent_dict["opponent{}_shoes".format(i)] = None
+                    opponent_dict["opponent{}_shoes_main".format(i)] = None
+                    opponent_dict["opponent{}_shoes_sub0".format(i)] = None
+                    opponent_dict["opponent{}_shoes_sub1".format(i)] = None
+                    opponent_dict["opponent{}_shoes_sub2".format(i)] = None
                     i += 1
             else:
                 opponent_dict["opponent0_splatnet_id"] = None
@@ -1640,262 +2011,286 @@ class Battle(models.Model):
             img_temp1.write(kwargs["image_gear"])
             img_temp1.flush()
 
-        battle = cls(
-            splatnet_json=splatnet_json,
-            stat_ink_json=stat_ink_json,
-            rule=rule,
-            match_type=match_type,
-            stage=stage,
-            player_weapon=player_weapon,
-            player_rank=player_rank,
-            win=win,
-            has_disconnected_player=has_disconnected_player,
-            time=time,
-            battle_number=battle_number,
-            win_meter=win_meter,
-            tag_id=tag_id,
-            player_x_power=player_x_power,
-            league_point=league_point,
-            splatfest_point=splatfest_point,
-            player_splatfest_title=player_splatfest_title,
-            splatfest_title_after=splatfest_title_after,
-            player_level=player_level,
-            my_team_count=my_team_count,
-            other_team_count=other_team_count,
-            player_kills=player_kills,
-            player_deaths=player_deaths,
-            player_assists=player_assists,
-            player_specials=player_specials,
-            player_game_paint_point=player_game_paint_point,
-            player_splatnet_id=player_splatnet_id,
-            player_name=player_name,
-            player_level_star=player_level_star,
-            elapsed_time=elapsed_time,
-            player_user=player_user,
-            player_gender=player_gender,
-            player_species=player_species,
-            player_headgear=player_headgear,
-            player_headgear_main=player_headgear_main,
-            player_headgear_sub0=player_headgear_sub0,
-            player_headgear_sub1=player_headgear_sub1,
-            player_headgear_sub2=player_headgear_sub2,
-            player_clothes=player_clothes,
-            player_clothes_main=player_clothes_main,
-            player_clothes_sub0=player_clothes_sub0,
-            player_clothes_sub1=player_clothes_sub1,
-            player_clothes_sub2=player_clothes_sub2,
-            player_shoes=player_shoes,
-            player_shoes_main=player_shoes_main,
-            player_shoes_sub0=player_shoes_sub0,
-            player_shoes_sub1=player_shoes_sub1,
-            player_shoes_sub2=player_shoes_sub2,
-            teammate0_splatnet_id=teammate_dict["teammate0_splatnet_id"],
-            teammate0_name=teammate_dict["teammate0_name"],
-            teammate0_level_star=teammate_dict["teammate0_level_star"],
-            teammate0_level=teammate_dict["teammate0_level"],
-            teammate0_rank=teammate_dict["teammate0_rank"],
-            teammate0_weapon=teammate_dict["teammate0_weapon"],
-            teammate0_gender=teammate_dict["teammate0_gender"],
-            teammate0_species=teammate_dict["teammate0_species"],
-            teammate0_kills=teammate_dict["teammate0_kills"],
-            teammate0_deaths=teammate_dict["teammate0_deaths"],
-            teammate0_assists=teammate_dict["teammate0_assists"],
-            teammate0_game_paint_point=teammate_dict["teammate0_game_paint_point"],
-            teammate0_specials=teammate_dict["teammate0_specials"],
-            teammate0_headgear=teammate_dict["teammate0_headgear"],
-            teammate0_headgear_main=teammate_dict["teammate0_headgear_main"],
-            teammate0_headgear_sub0=teammate_dict["teammate0_headgear_sub0"],
-            teammate0_headgear_sub1=teammate_dict["teammate0_headgear_sub1"],
-            teammate0_headgear_sub2=teammate_dict["teammate0_headgear_sub2"],
-            teammate0_clothes=teammate_dict["teammate0_clothes"],
-            teammate0_clothes_main=teammate_dict["teammate0_clothes_main"],
-            teammate0_clothes_sub0=teammate_dict["teammate0_clothes_sub0"],
-            teammate0_clothes_sub1=teammate_dict["teammate0_clothes_sub1"],
-            teammate0_clothes_sub2=teammate_dict["teammate0_clothes_sub2"],
-            teammate0_shoes=teammate_dict["teammate0_shoes"],
-            teammate0_shoes_main=teammate_dict["teammate0_shoes_main"],
-            teammate0_shoes_sub0=teammate_dict["teammate0_shoes_sub0"],
-            teammate0_shoes_sub1=teammate_dict["teammate0_shoes_sub1"],
-            teammate0_shoes_sub2=teammate_dict["teammate0_shoes_sub2"],
-            teammate1_splatnet_id=teammate_dict["teammate1_splatnet_id"],
-            teammate1_name=teammate_dict["teammate1_name"],
-            teammate1_level_star=teammate_dict["teammate1_level_star"],
-            teammate1_level=teammate_dict["teammate1_level"],
-            teammate1_rank=teammate_dict["teammate1_rank"],
-            teammate1_weapon=teammate_dict["teammate1_weapon"],
-            teammate1_gender=teammate_dict["teammate1_gender"],
-            teammate1_species=teammate_dict["teammate1_species"],
-            teammate1_kills=teammate_dict["teammate1_kills"],
-            teammate1_deaths=teammate_dict["teammate1_deaths"],
-            teammate1_assists=teammate_dict["teammate1_assists"],
-            teammate1_game_paint_point=teammate_dict["teammate1_game_paint_point"],
-            teammate1_specials=teammate_dict["teammate1_specials"],
-            teammate1_headgear=teammate_dict["teammate1_headgear"],
-            teammate1_headgear_main=teammate_dict["teammate1_headgear_main"],
-            teammate1_headgear_sub0=teammate_dict["teammate1_headgear_sub0"],
-            teammate1_headgear_sub1=teammate_dict["teammate1_headgear_sub1"],
-            teammate1_headgear_sub2=teammate_dict["teammate1_headgear_sub2"],
-            teammate1_clothes=teammate_dict["teammate1_clothes"],
-            teammate1_clothes_main=teammate_dict["teammate1_clothes_main"],
-            teammate1_clothes_sub0=teammate_dict["teammate1_clothes_sub0"],
-            teammate1_clothes_sub1=teammate_dict["teammate1_clothes_sub1"],
-            teammate1_clothes_sub2=teammate_dict["teammate1_clothes_sub2"],
-            teammate1_shoes=teammate_dict["teammate1_shoes"],
-            teammate1_shoes_main=teammate_dict["teammate1_shoes_main"],
-            teammate1_shoes_sub0=teammate_dict["teammate1_shoes_sub0"],
-            teammate1_shoes_sub1=teammate_dict["teammate1_shoes_sub1"],
-            teammate1_shoes_sub2=teammate_dict["teammate1_shoes_sub2"],
-            teammate2_splatnet_id=teammate_dict["teammate2_splatnet_id"],
-            teammate2_name=teammate_dict["teammate2_name"],
-            teammate2_level_star=teammate_dict["teammate2_level_star"],
-            teammate2_level=teammate_dict["teammate2_level"],
-            teammate2_rank=teammate_dict["teammate2_rank"],
-            teammate2_weapon=teammate_dict["teammate2_weapon"],
-            teammate2_gender=teammate_dict["teammate2_gender"],
-            teammate2_species=teammate_dict["teammate2_species"],
-            teammate2_kills=teammate_dict["teammate2_kills"],
-            teammate2_deaths=teammate_dict["teammate2_deaths"],
-            teammate2_assists=teammate_dict["teammate2_assists"],
-            teammate2_game_paint_point=teammate_dict["teammate2_game_paint_point"],
-            teammate2_specials=teammate_dict["teammate2_specials"],
-            teammate2_headgear=teammate_dict["teammate2_headgear"],
-            teammate2_headgear_main=teammate_dict["teammate2_headgear_main"],
-            teammate2_headgear_sub0=teammate_dict["teammate2_headgear_sub0"],
-            teammate2_headgear_sub1=teammate_dict["teammate2_headgear_sub1"],
-            teammate2_headgear_sub2=teammate_dict["teammate2_headgear_sub2"],
-            teammate2_clothes=teammate_dict["teammate2_clothes"],
-            teammate2_clothes_main=teammate_dict["teammate2_clothes_main"],
-            teammate2_clothes_sub0=teammate_dict["teammate2_clothes_sub0"],
-            teammate2_clothes_sub1=teammate_dict["teammate2_clothes_sub1"],
-            teammate2_clothes_sub2=teammate_dict["teammate2_clothes_sub2"],
-            teammate2_shoes=teammate_dict["teammate2_shoes"],
-            teammate2_shoes_main=teammate_dict["teammate2_shoes_main"],
-            teammate2_shoes_sub0=teammate_dict["teammate2_shoes_sub0"],
-            teammate2_shoes_sub1=teammate_dict["teammate2_shoes_sub1"],
-            teammate2_shoes_sub2=teammate_dict["teammate2_shoes_sub2"],
-            opponent0_splatnet_id=opponent_dict["opponent0_splatnet_id"],
-            opponent0_name=opponent_dict["opponent0_name"],
-            opponent0_level_star=opponent_dict["opponent0_level_star"],
-            opponent0_level=opponent_dict["opponent0_level"],
-            opponent0_rank=opponent_dict["opponent0_rank"],
-            opponent0_weapon=opponent_dict["opponent0_weapon"],
-            opponent0_gender=opponent_dict["opponent0_gender"],
-            opponent0_species=opponent_dict["opponent0_species"],
-            opponent0_kills=opponent_dict["opponent0_kills"],
-            opponent0_deaths=opponent_dict["opponent0_deaths"],
-            opponent0_assists=opponent_dict["opponent0_assists"],
-            opponent0_game_paint_point=opponent_dict["opponent0_game_paint_point"],
-            opponent0_specials=opponent_dict["opponent0_specials"],
-            opponent0_headgear=opponent_dict["opponent0_headgear"],
-            opponent0_headgear_main=opponent_dict["opponent0_headgear_main"],
-            opponent0_headgear_sub0=opponent_dict["opponent0_headgear_sub0"],
-            opponent0_headgear_sub1=opponent_dict["opponent0_headgear_sub1"],
-            opponent0_headgear_sub2=opponent_dict["opponent0_headgear_sub2"],
-            opponent0_clothes=opponent_dict["opponent0_clothes"],
-            opponent0_clothes_main=opponent_dict["opponent0_clothes_main"],
-            opponent0_clothes_sub0=opponent_dict["opponent0_clothes_sub0"],
-            opponent0_clothes_sub1=opponent_dict["opponent0_clothes_sub1"],
-            opponent0_clothes_sub2=opponent_dict["opponent0_clothes_sub2"],
-            opponent0_shoes=opponent_dict["opponent0_shoes"],
-            opponent0_shoes_main=opponent_dict["opponent0_shoes_main"],
-            opponent0_shoes_sub0=opponent_dict["opponent0_shoes_sub0"],
-            opponent0_shoes_sub1=opponent_dict["opponent0_shoes_sub1"],
-            opponent0_shoes_sub2=opponent_dict["opponent0_shoes_sub2"],
-            opponent1_splatnet_id=opponent_dict["opponent1_splatnet_id"],
-            opponent1_name=opponent_dict["opponent1_name"],
-            opponent1_level_star=opponent_dict["opponent1_level_star"],
-            opponent1_level=opponent_dict["opponent1_level"],
-            opponent1_rank=opponent_dict["opponent1_rank"],
-            opponent1_weapon=opponent_dict["opponent1_weapon"],
-            opponent1_gender=opponent_dict["opponent1_gender"],
-            opponent1_species=opponent_dict["opponent1_species"],
-            opponent1_kills=opponent_dict["opponent1_kills"],
-            opponent1_deaths=opponent_dict["opponent1_deaths"],
-            opponent1_assists=opponent_dict["opponent1_assists"],
-            opponent1_game_paint_point=opponent_dict["opponent1_game_paint_point"],
-            opponent1_specials=opponent_dict["opponent1_specials"],
-            opponent1_headgear=opponent_dict["opponent1_headgear"],
-            opponent1_headgear_main=opponent_dict["opponent1_headgear_main"],
-            opponent1_headgear_sub0=opponent_dict["opponent1_headgear_sub0"],
-            opponent1_headgear_sub1=opponent_dict["opponent1_headgear_sub1"],
-            opponent1_headgear_sub2=opponent_dict["opponent1_headgear_sub2"],
-            opponent1_clothes=opponent_dict["opponent1_clothes"],
-            opponent1_clothes_main=opponent_dict["opponent1_clothes_main"],
-            opponent1_clothes_sub0=opponent_dict["opponent1_clothes_sub0"],
-            opponent1_clothes_sub1=opponent_dict["opponent1_clothes_sub1"],
-            opponent1_clothes_sub2=opponent_dict["opponent1_clothes_sub2"],
-            opponent1_shoes=opponent_dict["opponent1_shoes"],
-            opponent1_shoes_main=opponent_dict["opponent1_shoes_main"],
-            opponent1_shoes_sub0=opponent_dict["opponent1_shoes_sub0"],
-            opponent1_shoes_sub1=opponent_dict["opponent1_shoes_sub1"],
-            opponent1_shoes_sub2=opponent_dict["opponent1_shoes_sub2"],
-            opponent2_splatnet_id=opponent_dict["opponent2_splatnet_id"],
-            opponent2_name=opponent_dict["opponent2_name"],
-            opponent2_level_star=opponent_dict["opponent2_level_star"],
-            opponent2_level=opponent_dict["opponent2_level"],
-            opponent2_rank=opponent_dict["opponent2_rank"],
-            opponent2_weapon=opponent_dict["opponent2_weapon"],
-            opponent2_gender=opponent_dict["opponent2_gender"],
-            opponent2_species=opponent_dict["opponent2_species"],
-            opponent2_kills=opponent_dict["opponent2_kills"],
-            opponent2_deaths=opponent_dict["opponent2_deaths"],
-            opponent2_assists=opponent_dict["opponent2_assists"],
-            opponent2_game_paint_point=opponent_dict["opponent2_game_paint_point"],
-            opponent2_specials=opponent_dict["opponent2_specials"],
-            opponent2_headgear=opponent_dict["opponent2_headgear"],
-            opponent2_headgear_main=opponent_dict["opponent2_headgear_main"],
-            opponent2_headgear_sub0=opponent_dict["opponent2_headgear_sub0"],
-            opponent2_headgear_sub1=opponent_dict["opponent2_headgear_sub1"],
-            opponent2_headgear_sub2=opponent_dict["opponent2_headgear_sub2"],
-            opponent2_clothes=opponent_dict["opponent2_clothes"],
-            opponent2_clothes_main=opponent_dict["opponent2_clothes_main"],
-            opponent2_clothes_sub0=opponent_dict["opponent2_clothes_sub0"],
-            opponent2_clothes_sub1=opponent_dict["opponent2_clothes_sub1"],
-            opponent2_clothes_sub2=opponent_dict["opponent2_clothes_sub2"],
-            opponent2_shoes=opponent_dict["opponent2_shoes"],
-            opponent2_shoes_main=opponent_dict["opponent2_shoes_main"],
-            opponent2_shoes_sub0=opponent_dict["opponent2_shoes_sub0"],
-            opponent2_shoes_sub1=opponent_dict["opponent2_shoes_sub1"],
-            opponent2_shoes_sub2=opponent_dict["opponent2_shoes_sub2"],
-            opponent3_splatnet_id=opponent_dict["opponent3_splatnet_id"],
-            opponent3_name=opponent_dict["opponent3_name"],
-            opponent3_level_star=opponent_dict["opponent3_level_star"],
-            opponent3_level=opponent_dict["opponent3_level"],
-            opponent3_rank=opponent_dict["opponent3_rank"],
-            opponent3_weapon=opponent_dict["opponent3_weapon"],
-            opponent3_gender=opponent_dict["opponent3_gender"],
-            opponent3_species=opponent_dict["opponent3_species"],
-            opponent3_kills=opponent_dict["opponent3_kills"],
-            opponent3_deaths=opponent_dict["opponent3_deaths"],
-            opponent3_assists=opponent_dict["opponent3_assists"],
-            opponent3_game_paint_point=opponent_dict["opponent3_game_paint_point"],
-            opponent3_specials=opponent_dict["opponent3_specials"],
-            opponent3_headgear=opponent_dict["opponent3_headgear"],
-            opponent3_headgear_main=opponent_dict["opponent3_headgear_main"],
-            opponent3_headgear_sub0=opponent_dict["opponent3_headgear_sub0"],
-            opponent3_headgear_sub1=opponent_dict["opponent3_headgear_sub1"],
-            opponent3_headgear_sub2=opponent_dict["opponent3_headgear_sub2"],
-            opponent3_clothes=opponent_dict["opponent3_clothes"],
-            opponent3_clothes_main=opponent_dict["opponent3_clothes_main"],
-            opponent3_clothes_sub0=opponent_dict["opponent3_clothes_sub0"],
-            opponent3_clothes_sub1=opponent_dict["opponent3_clothes_sub1"],
-            opponent3_clothes_sub2=opponent_dict["opponent3_clothes_sub2"],
-            opponent3_shoes=opponent_dict["opponent3_shoes"],
-            opponent3_shoes_main=opponent_dict["opponent3_shoes_main"],
-            opponent3_shoes_sub0=opponent_dict["opponent3_shoes_sub0"],
-            opponent3_shoes_sub1=opponent_dict["opponent3_shoes_sub1"],
-            opponent3_shoes_sub2=opponent_dict["opponent3_shoes_sub2"],
-        )
-        battle.save()
-        if kwargs["image_result"] is not None:
-            battle.image_result.save(
-                "data/{}_image_result.png".format(battle.id), File(img_temp0), save=True
+        if (
+            not Battle.objects.filter(
+                battle_number=battle_number, player_user=player_user
             )
-        if kwargs["image_gear"] is not None:
-            battle.image_gear.save(
-                "data/{}_image_gear.png".format(battle.id), File(img_temp1), save=True
+            or (
+                Battle.objects.get(
+                    battle_number=battle_number, player_user=player_user
+                ).splatnet_json
+                is None
+                and splatnet_json is not None
             )
-        return battle
+            or (
+                Battle.objects.get(
+                    battle_number=battle_number, player_user=player_user
+                ).stat_ink_json
+                is None
+                and stat_ink_json is not None
+            )
+        ):
+            battle = cls(
+                splatnet_json=splatnet_json,
+                stat_ink_json=stat_ink_json,
+                rule=rule,
+                match_type=match_type,
+                stage=stage,
+                player_weapon=player_weapon,
+                player_rank=player_rank,
+                win=win,
+                has_disconnected_player=has_disconnected_player,
+                time=time,
+                battle_number=battle_number,
+                win_meter=win_meter,
+                tag_id=tag_id,
+                player_x_power=player_x_power,
+                league_point=league_point,
+                splatfest_point=splatfest_point,
+                player_splatfest_title=player_splatfest_title,
+                splatfest_title_after=splatfest_title_after,
+                player_level=player_level,
+                my_team_count=my_team_count,
+                other_team_count=other_team_count,
+                player_kills=player_kills,
+                player_deaths=player_deaths,
+                player_assists=player_assists,
+                player_specials=player_specials,
+                player_game_paint_point=player_game_paint_point,
+                player_splatnet_id=player_splatnet_id,
+                player_name=player_name,
+                player_level_star=player_level_star,
+                elapsed_time=elapsed_time,
+                player_user=player_user,
+                player_gender=player_gender,
+                player_species=player_species,
+                player_headgear=player_headgear,
+                player_headgear_main=player_headgear_main,
+                player_headgear_sub0=player_headgear_sub0,
+                player_headgear_sub1=player_headgear_sub1,
+                player_headgear_sub2=player_headgear_sub2,
+                player_clothes=player_clothes,
+                player_clothes_main=player_clothes_main,
+                player_clothes_sub0=player_clothes_sub0,
+                player_clothes_sub1=player_clothes_sub1,
+                player_clothes_sub2=player_clothes_sub2,
+                player_shoes=player_shoes,
+                player_shoes_main=player_shoes_main,
+                player_shoes_sub0=player_shoes_sub0,
+                player_shoes_sub1=player_shoes_sub1,
+                player_shoes_sub2=player_shoes_sub2,
+                teammate0_splatnet_id=teammate_dict["teammate0_splatnet_id"],
+                teammate0_name=teammate_dict["teammate0_name"],
+                teammate0_level_star=teammate_dict["teammate0_level_star"],
+                teammate0_level=teammate_dict["teammate0_level"],
+                teammate0_rank=teammate_dict["teammate0_rank"],
+                teammate0_weapon=teammate_dict["teammate0_weapon"],
+                teammate0_gender=teammate_dict["teammate0_gender"],
+                teammate0_species=teammate_dict["teammate0_species"],
+                teammate0_kills=teammate_dict["teammate0_kills"],
+                teammate0_deaths=teammate_dict["teammate0_deaths"],
+                teammate0_assists=teammate_dict["teammate0_assists"],
+                teammate0_game_paint_point=teammate_dict["teammate0_game_paint_point"],
+                teammate0_specials=teammate_dict["teammate0_specials"],
+                teammate0_headgear=teammate_dict["teammate0_headgear"],
+                teammate0_headgear_main=teammate_dict["teammate0_headgear_main"],
+                teammate0_headgear_sub0=teammate_dict["teammate0_headgear_sub0"],
+                teammate0_headgear_sub1=teammate_dict["teammate0_headgear_sub1"],
+                teammate0_headgear_sub2=teammate_dict["teammate0_headgear_sub2"],
+                teammate0_clothes=teammate_dict["teammate0_clothes"],
+                teammate0_clothes_main=teammate_dict["teammate0_clothes_main"],
+                teammate0_clothes_sub0=teammate_dict["teammate0_clothes_sub0"],
+                teammate0_clothes_sub1=teammate_dict["teammate0_clothes_sub1"],
+                teammate0_clothes_sub2=teammate_dict["teammate0_clothes_sub2"],
+                teammate0_shoes=teammate_dict["teammate0_shoes"],
+                teammate0_shoes_main=teammate_dict["teammate0_shoes_main"],
+                teammate0_shoes_sub0=teammate_dict["teammate0_shoes_sub0"],
+                teammate0_shoes_sub1=teammate_dict["teammate0_shoes_sub1"],
+                teammate0_shoes_sub2=teammate_dict["teammate0_shoes_sub2"],
+                teammate1_splatnet_id=teammate_dict["teammate1_splatnet_id"],
+                teammate1_name=teammate_dict["teammate1_name"],
+                teammate1_level_star=teammate_dict["teammate1_level_star"],
+                teammate1_level=teammate_dict["teammate1_level"],
+                teammate1_rank=teammate_dict["teammate1_rank"],
+                teammate1_weapon=teammate_dict["teammate1_weapon"],
+                teammate1_gender=teammate_dict["teammate1_gender"],
+                teammate1_species=teammate_dict["teammate1_species"],
+                teammate1_kills=teammate_dict["teammate1_kills"],
+                teammate1_deaths=teammate_dict["teammate1_deaths"],
+                teammate1_assists=teammate_dict["teammate1_assists"],
+                teammate1_game_paint_point=teammate_dict["teammate1_game_paint_point"],
+                teammate1_specials=teammate_dict["teammate1_specials"],
+                teammate1_headgear=teammate_dict["teammate1_headgear"],
+                teammate1_headgear_main=teammate_dict["teammate1_headgear_main"],
+                teammate1_headgear_sub0=teammate_dict["teammate1_headgear_sub0"],
+                teammate1_headgear_sub1=teammate_dict["teammate1_headgear_sub1"],
+                teammate1_headgear_sub2=teammate_dict["teammate1_headgear_sub2"],
+                teammate1_clothes=teammate_dict["teammate1_clothes"],
+                teammate1_clothes_main=teammate_dict["teammate1_clothes_main"],
+                teammate1_clothes_sub0=teammate_dict["teammate1_clothes_sub0"],
+                teammate1_clothes_sub1=teammate_dict["teammate1_clothes_sub1"],
+                teammate1_clothes_sub2=teammate_dict["teammate1_clothes_sub2"],
+                teammate1_shoes=teammate_dict["teammate1_shoes"],
+                teammate1_shoes_main=teammate_dict["teammate1_shoes_main"],
+                teammate1_shoes_sub0=teammate_dict["teammate1_shoes_sub0"],
+                teammate1_shoes_sub1=teammate_dict["teammate1_shoes_sub1"],
+                teammate1_shoes_sub2=teammate_dict["teammate1_shoes_sub2"],
+                teammate2_splatnet_id=teammate_dict["teammate2_splatnet_id"],
+                teammate2_name=teammate_dict["teammate2_name"],
+                teammate2_level_star=teammate_dict["teammate2_level_star"],
+                teammate2_level=teammate_dict["teammate2_level"],
+                teammate2_rank=teammate_dict["teammate2_rank"],
+                teammate2_weapon=teammate_dict["teammate2_weapon"],
+                teammate2_gender=teammate_dict["teammate2_gender"],
+                teammate2_species=teammate_dict["teammate2_species"],
+                teammate2_kills=teammate_dict["teammate2_kills"],
+                teammate2_deaths=teammate_dict["teammate2_deaths"],
+                teammate2_assists=teammate_dict["teammate2_assists"],
+                teammate2_game_paint_point=teammate_dict["teammate2_game_paint_point"],
+                teammate2_specials=teammate_dict["teammate2_specials"],
+                teammate2_headgear=teammate_dict["teammate2_headgear"],
+                teammate2_headgear_main=teammate_dict["teammate2_headgear_main"],
+                teammate2_headgear_sub0=teammate_dict["teammate2_headgear_sub0"],
+                teammate2_headgear_sub1=teammate_dict["teammate2_headgear_sub1"],
+                teammate2_headgear_sub2=teammate_dict["teammate2_headgear_sub2"],
+                teammate2_clothes=teammate_dict["teammate2_clothes"],
+                teammate2_clothes_main=teammate_dict["teammate2_clothes_main"],
+                teammate2_clothes_sub0=teammate_dict["teammate2_clothes_sub0"],
+                teammate2_clothes_sub1=teammate_dict["teammate2_clothes_sub1"],
+                teammate2_clothes_sub2=teammate_dict["teammate2_clothes_sub2"],
+                teammate2_shoes=teammate_dict["teammate2_shoes"],
+                teammate2_shoes_main=teammate_dict["teammate2_shoes_main"],
+                teammate2_shoes_sub0=teammate_dict["teammate2_shoes_sub0"],
+                teammate2_shoes_sub1=teammate_dict["teammate2_shoes_sub1"],
+                teammate2_shoes_sub2=teammate_dict["teammate2_shoes_sub2"],
+                opponent0_splatnet_id=opponent_dict["opponent0_splatnet_id"],
+                opponent0_name=opponent_dict["opponent0_name"],
+                opponent0_level_star=opponent_dict["opponent0_level_star"],
+                opponent0_level=opponent_dict["opponent0_level"],
+                opponent0_rank=opponent_dict["opponent0_rank"],
+                opponent0_weapon=opponent_dict["opponent0_weapon"],
+                opponent0_gender=opponent_dict["opponent0_gender"],
+                opponent0_species=opponent_dict["opponent0_species"],
+                opponent0_kills=opponent_dict["opponent0_kills"],
+                opponent0_deaths=opponent_dict["opponent0_deaths"],
+                opponent0_assists=opponent_dict["opponent0_assists"],
+                opponent0_game_paint_point=opponent_dict["opponent0_game_paint_point"],
+                opponent0_specials=opponent_dict["opponent0_specials"],
+                opponent0_headgear=opponent_dict["opponent0_headgear"],
+                opponent0_headgear_main=opponent_dict["opponent0_headgear_main"],
+                opponent0_headgear_sub0=opponent_dict["opponent0_headgear_sub0"],
+                opponent0_headgear_sub1=opponent_dict["opponent0_headgear_sub1"],
+                opponent0_headgear_sub2=opponent_dict["opponent0_headgear_sub2"],
+                opponent0_clothes=opponent_dict["opponent0_clothes"],
+                opponent0_clothes_main=opponent_dict["opponent0_clothes_main"],
+                opponent0_clothes_sub0=opponent_dict["opponent0_clothes_sub0"],
+                opponent0_clothes_sub1=opponent_dict["opponent0_clothes_sub1"],
+                opponent0_clothes_sub2=opponent_dict["opponent0_clothes_sub2"],
+                opponent0_shoes=opponent_dict["opponent0_shoes"],
+                opponent0_shoes_main=opponent_dict["opponent0_shoes_main"],
+                opponent0_shoes_sub0=opponent_dict["opponent0_shoes_sub0"],
+                opponent0_shoes_sub1=opponent_dict["opponent0_shoes_sub1"],
+                opponent0_shoes_sub2=opponent_dict["opponent0_shoes_sub2"],
+                opponent1_splatnet_id=opponent_dict["opponent1_splatnet_id"],
+                opponent1_name=opponent_dict["opponent1_name"],
+                opponent1_level_star=opponent_dict["opponent1_level_star"],
+                opponent1_level=opponent_dict["opponent1_level"],
+                opponent1_rank=opponent_dict["opponent1_rank"],
+                opponent1_weapon=opponent_dict["opponent1_weapon"],
+                opponent1_gender=opponent_dict["opponent1_gender"],
+                opponent1_species=opponent_dict["opponent1_species"],
+                opponent1_kills=opponent_dict["opponent1_kills"],
+                opponent1_deaths=opponent_dict["opponent1_deaths"],
+                opponent1_assists=opponent_dict["opponent1_assists"],
+                opponent1_game_paint_point=opponent_dict["opponent1_game_paint_point"],
+                opponent1_specials=opponent_dict["opponent1_specials"],
+                opponent1_headgear=opponent_dict["opponent1_headgear"],
+                opponent1_headgear_main=opponent_dict["opponent1_headgear_main"],
+                opponent1_headgear_sub0=opponent_dict["opponent1_headgear_sub0"],
+                opponent1_headgear_sub1=opponent_dict["opponent1_headgear_sub1"],
+                opponent1_headgear_sub2=opponent_dict["opponent1_headgear_sub2"],
+                opponent1_clothes=opponent_dict["opponent1_clothes"],
+                opponent1_clothes_main=opponent_dict["opponent1_clothes_main"],
+                opponent1_clothes_sub0=opponent_dict["opponent1_clothes_sub0"],
+                opponent1_clothes_sub1=opponent_dict["opponent1_clothes_sub1"],
+                opponent1_clothes_sub2=opponent_dict["opponent1_clothes_sub2"],
+                opponent1_shoes=opponent_dict["opponent1_shoes"],
+                opponent1_shoes_main=opponent_dict["opponent1_shoes_main"],
+                opponent1_shoes_sub0=opponent_dict["opponent1_shoes_sub0"],
+                opponent1_shoes_sub1=opponent_dict["opponent1_shoes_sub1"],
+                opponent1_shoes_sub2=opponent_dict["opponent1_shoes_sub2"],
+                opponent2_splatnet_id=opponent_dict["opponent2_splatnet_id"],
+                opponent2_name=opponent_dict["opponent2_name"],
+                opponent2_level_star=opponent_dict["opponent2_level_star"],
+                opponent2_level=opponent_dict["opponent2_level"],
+                opponent2_rank=opponent_dict["opponent2_rank"],
+                opponent2_weapon=opponent_dict["opponent2_weapon"],
+                opponent2_gender=opponent_dict["opponent2_gender"],
+                opponent2_species=opponent_dict["opponent2_species"],
+                opponent2_kills=opponent_dict["opponent2_kills"],
+                opponent2_deaths=opponent_dict["opponent2_deaths"],
+                opponent2_assists=opponent_dict["opponent2_assists"],
+                opponent2_game_paint_point=opponent_dict["opponent2_game_paint_point"],
+                opponent2_specials=opponent_dict["opponent2_specials"],
+                opponent2_headgear=opponent_dict["opponent2_headgear"],
+                opponent2_headgear_main=opponent_dict["opponent2_headgear_main"],
+                opponent2_headgear_sub0=opponent_dict["opponent2_headgear_sub0"],
+                opponent2_headgear_sub1=opponent_dict["opponent2_headgear_sub1"],
+                opponent2_headgear_sub2=opponent_dict["opponent2_headgear_sub2"],
+                opponent2_clothes=opponent_dict["opponent2_clothes"],
+                opponent2_clothes_main=opponent_dict["opponent2_clothes_main"],
+                opponent2_clothes_sub0=opponent_dict["opponent2_clothes_sub0"],
+                opponent2_clothes_sub1=opponent_dict["opponent2_clothes_sub1"],
+                opponent2_clothes_sub2=opponent_dict["opponent2_clothes_sub2"],
+                opponent2_shoes=opponent_dict["opponent2_shoes"],
+                opponent2_shoes_main=opponent_dict["opponent2_shoes_main"],
+                opponent2_shoes_sub0=opponent_dict["opponent2_shoes_sub0"],
+                opponent2_shoes_sub1=opponent_dict["opponent2_shoes_sub1"],
+                opponent2_shoes_sub2=opponent_dict["opponent2_shoes_sub2"],
+                opponent3_splatnet_id=opponent_dict["opponent3_splatnet_id"],
+                opponent3_name=opponent_dict["opponent3_name"],
+                opponent3_level_star=opponent_dict["opponent3_level_star"],
+                opponent3_level=opponent_dict["opponent3_level"],
+                opponent3_rank=opponent_dict["opponent3_rank"],
+                opponent3_weapon=opponent_dict["opponent3_weapon"],
+                opponent3_gender=opponent_dict["opponent3_gender"],
+                opponent3_species=opponent_dict["opponent3_species"],
+                opponent3_kills=opponent_dict["opponent3_kills"],
+                opponent3_deaths=opponent_dict["opponent3_deaths"],
+                opponent3_assists=opponent_dict["opponent3_assists"],
+                opponent3_game_paint_point=opponent_dict["opponent3_game_paint_point"],
+                opponent3_specials=opponent_dict["opponent3_specials"],
+                opponent3_headgear=opponent_dict["opponent3_headgear"],
+                opponent3_headgear_main=opponent_dict["opponent3_headgear_main"],
+                opponent3_headgear_sub0=opponent_dict["opponent3_headgear_sub0"],
+                opponent3_headgear_sub1=opponent_dict["opponent3_headgear_sub1"],
+                opponent3_headgear_sub2=opponent_dict["opponent3_headgear_sub2"],
+                opponent3_clothes=opponent_dict["opponent3_clothes"],
+                opponent3_clothes_main=opponent_dict["opponent3_clothes_main"],
+                opponent3_clothes_sub0=opponent_dict["opponent3_clothes_sub0"],
+                opponent3_clothes_sub1=opponent_dict["opponent3_clothes_sub1"],
+                opponent3_clothes_sub2=opponent_dict["opponent3_clothes_sub2"],
+                opponent3_shoes=opponent_dict["opponent3_shoes"],
+                opponent3_shoes_main=opponent_dict["opponent3_shoes_main"],
+                opponent3_shoes_sub0=opponent_dict["opponent3_shoes_sub0"],
+                opponent3_shoes_sub1=opponent_dict["opponent3_shoes_sub1"],
+                opponent3_shoes_sub2=opponent_dict["opponent3_shoes_sub2"],
+            )
+            battle.save()
+            if kwargs["image_result"] is not None:
+                battle.image_result.save(
+                    "data/{}_image_result.png".format(battle.id),
+                    File(img_temp0),
+                    save=True,
+                )
+            if kwargs["image_gear"] is not None:
+                battle.image_gear.save(
+                    "data/{}_image_gear.png".format(battle.id),
+                    File(img_temp1),
+                    save=True,
+                )
+            return battle
+        return Battle.objects.get(battle_number=battle_number, player_user=player_user)
 
     def __str__(self):
         return str(self.id)

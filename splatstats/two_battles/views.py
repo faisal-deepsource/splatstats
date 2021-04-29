@@ -147,85 +147,109 @@ def detail(request, id):
             "two_battles/weapons/" + battle.teammate1_weapon + ".png"
         )
         teammate1_k_a = battle.teammate1_kills + battle.teammate1_assists
-        teammate1_headgear_main = static(
-            "two_battles/abilities/mains/" + battle.teammate1_headgear_main + ".png"
-        )
-        if battle.teammate1_headgear_sub0 is not None:
-            teammate1_headgear_sub0 = static(
-                "two_battles/abilities/subs/" + battle.teammate1_headgear_sub0 + ".png"
+        if battle.teammate1_headgear_main is not None:
+            teammate1_headgear_main = static(
+                "two_battles/abilities/mains/" + battle.teammate1_headgear_main + ".png"
             )
-            if battle.teammate1_headgear_sub1 is not None:
-                teammate1_headgear_sub1 = static(
+            if battle.teammate1_headgear_sub0 is not None:
+                teammate1_headgear_sub0 = static(
                     "two_battles/abilities/subs/"
-                    + battle.teammate1_headgear_sub1
+                    + battle.teammate1_headgear_sub0
                     + ".png"
                 )
-                if battle.teammate1_headgear_sub2 is not None:
-                    teammate1_headgear_sub2 = static(
+                if battle.teammate1_headgear_sub1 is not None:
+                    teammate1_headgear_sub1 = static(
                         "two_battles/abilities/subs/"
-                        + battle.teammate1_headgear_sub2
+                        + battle.teammate1_headgear_sub1
                         + ".png"
                     )
+                    if battle.teammate1_headgear_sub2 is not None:
+                        teammate1_headgear_sub2 = static(
+                            "two_battles/abilities/subs/"
+                            + battle.teammate1_headgear_sub2
+                            + ".png"
+                        )
+                    else:
+                        teammate1_headgear_sub2 = None
                 else:
+                    teammate1_headgear_sub1 = None
                     teammate1_headgear_sub2 = None
             else:
+                teammate1_headgear_sub0 = None
                 teammate1_headgear_sub1 = None
                 teammate1_headgear_sub2 = None
         else:
+            teammate1_headgear_main = None
             teammate1_headgear_sub0 = None
             teammate1_headgear_sub1 = None
             teammate1_headgear_sub2 = None
-        teammate1_clothes_main = static(
-            "two_battles/abilities/mains/" + battle.teammate1_clothes_main + ".png"
-        )
-        if battle.teammate1_clothes_sub0 is not None:
-            teammate1_clothes_sub0 = static(
-                "two_battles/abilities/subs/" + battle.teammate1_clothes_sub0 + ".png"
+        if battle.teammate1_clothes_main is not None:
+            teammate1_clothes_main = static(
+                "two_battles/abilities/mains/" + battle.teammate1_clothes_main + ".png"
             )
-            if battle.teammate1_clothes_sub1 is not None:
-                teammate1_clothes_sub1 = static(
+            if battle.teammate1_clothes_sub0 is not None:
+                teammate1_clothes_sub0 = static(
                     "two_battles/abilities/subs/"
-                    + battle.teammate1_clothes_sub1
+                    + battle.teammate1_clothes_sub0
                     + ".png"
                 )
-                if battle.teammate1_clothes_sub2 is not None:
-                    teammate1_clothes_sub2 = static(
+                if battle.teammate1_clothes_sub1 is not None:
+                    teammate1_clothes_sub1 = static(
                         "two_battles/abilities/subs/"
-                        + battle.teammate1_clothes_sub2
+                        + battle.teammate1_clothes_sub1
                         + ".png"
                     )
+                    if battle.teammate1_clothes_sub2 is not None:
+                        teammate1_clothes_sub2 = static(
+                            "two_battles/abilities/subs/"
+                            + battle.teammate1_clothes_sub2
+                            + ".png"
+                        )
+                    else:
+                        teammate1_clothes_sub2 = None
                 else:
+                    teammate1_clothes_sub1 = None
                     teammate1_clothes_sub2 = None
             else:
+                teammate1_clothes_sub0 = None
                 teammate1_clothes_sub1 = None
                 teammate1_clothes_sub2 = None
         else:
+            teammate1_clothes_main = None
             teammate1_clothes_sub0 = None
             teammate1_clothes_sub1 = None
             teammate1_clothes_sub2 = None
-        teammate1_shoes_main = static(
-            "two_battles/abilities/mains/" + battle.teammate1_shoes_main + ".png"
-        )
-        if battle.teammate1_shoes_sub0 is not None:
-            teammate1_shoes_sub0 = static(
-                "two_battles/abilities/subs/" + battle.teammate1_shoes_sub0 + ".png"
+        if battle.teammate1_shoes_main is not None:
+            teammate1_shoes_main = static(
+                "two_battles/abilities/mains/" + battle.teammate1_shoes_main + ".png"
             )
-            if battle.teammate1_shoes_sub1 is not None:
-                teammate1_shoes_sub1 = static(
-                    "two_battles/abilities/subs/" + battle.teammate1_shoes_sub1 + ".png"
+            if battle.teammate1_shoes_sub0 is not None:
+                teammate1_shoes_sub0 = static(
+                    "two_battles/abilities/subs/" + battle.teammate1_shoes_sub0 + ".png"
                 )
-                if battle.teammate1_shoes_sub2 is not None:
-                    teammate1_shoes_sub2 = static(
+                if battle.teammate1_shoes_sub1 is not None:
+                    teammate1_shoes_sub1 = static(
                         "two_battles/abilities/subs/"
-                        + battle.teammate1_shoes_sub2
+                        + battle.teammate1_shoes_sub1
                         + ".png"
                     )
+                    if battle.teammate1_shoes_sub2 is not None:
+                        teammate1_shoes_sub2 = static(
+                            "two_battles/abilities/subs/"
+                            + battle.teammate1_shoes_sub2
+                            + ".png"
+                        )
+                    else:
+                        teammate1_shoes_sub2 = None
                 else:
+                    teammate1_shoes_sub1 = None
                     teammate1_shoes_sub2 = None
             else:
+                teammate1_shoes_sub0 = None
                 teammate1_shoes_sub1 = None
                 teammate1_shoes_sub2 = None
         else:
+            teammate1_shoes_main = None
             teammate1_shoes_sub0 = None
             teammate1_shoes_sub1 = None
             teammate1_shoes_sub2 = None
@@ -262,85 +286,109 @@ def detail(request, id):
             "two_battles/weapons/" + battle.teammate2_weapon + ".png"
         )
         teammate2_k_a = battle.teammate2_kills + battle.teammate2_assists
-        teammate2_headgear_main = static(
-            "two_battles/abilities/mains/" + battle.teammate2_headgear_main + ".png"
-        )
-        if battle.teammate2_headgear_sub0 is not None:
-            teammate2_headgear_sub0 = static(
-                "two_battles/abilities/subs/" + battle.teammate2_headgear_sub0 + ".png"
+        if battle.teammate2_headgear_main is not None:
+            teammate2_headgear_main = static(
+                "two_battles/abilities/mains/" + battle.teammate2_headgear_main + ".png"
             )
-            if battle.teammate2_headgear_sub1 is not None:
-                teammate2_headgear_sub1 = static(
+            if battle.teammate2_headgear_sub0 is not None:
+                teammate2_headgear_sub0 = static(
                     "two_battles/abilities/subs/"
-                    + battle.teammate2_headgear_sub1
+                    + battle.teammate2_headgear_sub0
                     + ".png"
                 )
-                if battle.teammate2_headgear_sub2 is not None:
-                    teammate2_headgear_sub2 = static(
+                if battle.teammate2_headgear_sub1 is not None:
+                    teammate2_headgear_sub1 = static(
                         "two_battles/abilities/subs/"
-                        + battle.teammate2_headgear_sub2
+                        + battle.teammate2_headgear_sub1
                         + ".png"
                     )
+                    if battle.teammate2_headgear_sub2 is not None:
+                        teammate2_headgear_sub2 = static(
+                            "two_battles/abilities/subs/"
+                            + battle.teammate2_headgear_sub2
+                            + ".png"
+                        )
+                    else:
+                        teammate2_headgear_sub2 = None
                 else:
+                    teammate2_headgear_sub1 = None
                     teammate2_headgear_sub2 = None
             else:
+                teammate2_headgear_sub0 = None
                 teammate2_headgear_sub1 = None
                 teammate2_headgear_sub2 = None
         else:
+            teammate2_headgear_main = None
             teammate2_headgear_sub0 = None
             teammate2_headgear_sub1 = None
             teammate2_headgear_sub2 = None
-        teammate2_clothes_main = static(
-            "two_battles/abilities/mains/" + battle.teammate2_clothes_main + ".png"
-        )
-        if battle.teammate2_clothes_sub0 is not None:
-            teammate2_clothes_sub0 = static(
-                "two_battles/abilities/subs/" + battle.teammate2_clothes_sub0 + ".png"
+        if battle.teammate2_clothes_main is not None:
+            teammate2_clothes_main = static(
+                "two_battles/abilities/mains/" + battle.teammate2_clothes_main + ".png"
             )
-            if battle.teammate2_clothes_sub1 is not None:
-                teammate2_clothes_sub1 = static(
+            if battle.teammate2_clothes_sub0 is not None:
+                teammate2_clothes_sub0 = static(
                     "two_battles/abilities/subs/"
-                    + battle.teammate2_clothes_sub1
+                    + battle.teammate2_clothes_sub0
                     + ".png"
                 )
-                if battle.teammate2_clothes_sub2 is not None:
-                    teammate2_clothes_sub2 = static(
+                if battle.teammate2_clothes_sub1 is not None:
+                    teammate2_clothes_sub1 = static(
                         "two_battles/abilities/subs/"
-                        + battle.teammate2_clothes_sub2
+                        + battle.teammate2_clothes_sub1
                         + ".png"
                     )
+                    if battle.teammate2_clothes_sub2 is not None:
+                        teammate2_clothes_sub2 = static(
+                            "two_battles/abilities/subs/"
+                            + battle.teammate2_clothes_sub2
+                            + ".png"
+                        )
+                    else:
+                        teammate2_clothes_sub2 = None
                 else:
+                    teammate2_clothes_sub1 = None
                     teammate2_clothes_sub2 = None
             else:
+                teammate2_clothes_sub0 = None
                 teammate2_clothes_sub1 = None
                 teammate2_clothes_sub2 = None
         else:
+            teammate2_clothes_main = None
             teammate2_clothes_sub0 = None
             teammate2_clothes_sub1 = None
             teammate2_clothes_sub2 = None
-        teammate2_shoes_main = static(
-            "two_battles/abilities/mains/" + battle.teammate2_shoes_main + ".png"
-        )
-        if battle.teammate2_shoes_sub0 is not None:
-            teammate2_shoes_sub0 = static(
-                "two_battles/abilities/subs/" + battle.teammate2_shoes_sub0 + ".png"
+        if battle.teammate2_shoes_main is not None:
+            teammate2_shoes_main = static(
+                "two_battles/abilities/mains/" + battle.teammate2_shoes_main + ".png"
             )
-            if battle.teammate2_shoes_sub1 is not None:
-                teammate2_shoes_sub1 = static(
-                    "two_battles/abilities/subs/" + battle.teammate2_shoes_sub1 + ".png"
+            if battle.teammate2_shoes_sub0 is not None:
+                teammate2_shoes_sub0 = static(
+                    "two_battles/abilities/subs/" + battle.teammate2_shoes_sub0 + ".png"
                 )
-                if battle.teammate2_shoes_sub2 is not None:
-                    teammate2_shoes_sub2 = static(
+                if battle.teammate2_shoes_sub1 is not None:
+                    teammate2_shoes_sub1 = static(
                         "two_battles/abilities/subs/"
-                        + battle.teammate2_shoes_sub2
+                        + battle.teammate2_shoes_sub1
                         + ".png"
                     )
+                    if battle.teammate2_shoes_sub2 is not None:
+                        teammate2_shoes_sub2 = static(
+                            "two_battles/abilities/subs/"
+                            + battle.teammate2_shoes_sub2
+                            + ".png"
+                        )
+                    else:
+                        teammate2_shoes_sub2 = None
                 else:
+                    teammate2_shoes_sub1 = None
                     teammate2_shoes_sub2 = None
             else:
+                teammate2_shoes_sub0 = None
                 teammate2_shoes_sub1 = None
                 teammate2_shoes_sub2 = None
         else:
+            teammate2_shoes_main = None
             teammate2_shoes_sub0 = None
             teammate2_shoes_sub1 = None
             teammate2_shoes_sub2 = None
@@ -372,205 +420,256 @@ def detail(request, id):
             teammate2_shoes_sub2,
         )
         battle_players.append(teammate2)
-    if battle.teammate3_splatnet_id is not None:
-        teammate3_weapon = static(
-            "two_battles/weapons/" + battle.teammate3_weapon + ".png"
-        )
-        teammate3_k_a = battle.teammate3_kills + battle.teammate3_assists
-        teammate3_headgear_main = static(
-            "two_battles/abilities/mains/" + battle.teammate3_headgear_main + ".png"
-        )
-        if battle.teammate3_headgear_sub0 is not None:
-            teammate3_headgear_sub0 = static(
-                "two_battles/abilities/subs/" + battle.teammate3_headgear_sub0 + ".png"
+    if battle.teammate0_splatnet_id is not None:
+        if battle.teammate0_weapon is not None:
+            teammate0_weapon = static(
+                "two_battles/weapons/" + battle.teammate0_weapon + ".png"
             )
-            if battle.teammate3_headgear_sub1 is not None:
-                teammate3_headgear_sub1 = static(
+        else:
+            teammate0_weapon = ""
+        teammate0_k_a = battle.teammate0_kills + battle.teammate0_assists
+        if battle.teammate0_headgear_main is not None:
+            teammate0_headgear_main = static(
+                "two_battles/abilities/mains/" + battle.teammate0_headgear_main + ".png"
+            )
+            if battle.teammate0_headgear_sub0 is not None:
+                teammate0_headgear_sub0 = static(
                     "two_battles/abilities/subs/"
-                    + battle.teammate3_headgear_sub1
+                    + battle.teammate0_headgear_sub0
                     + ".png"
                 )
-                if battle.teammate3_headgear_sub2 is not None:
-                    teammate3_headgear_sub2 = static(
+                if battle.teammate0_headgear_sub1 is not None:
+                    teammate0_headgear_sub1 = static(
                         "two_battles/abilities/subs/"
-                        + battle.teammate3_headgear_sub2
+                        + battle.teammate0_headgear_sub1
                         + ".png"
                     )
+                    if battle.teammate0_headgear_sub2 is not None:
+                        teammate0_headgear_sub2 = static(
+                            "two_battles/abilities/subs/"
+                            + battle.teammate0_headgear_sub2
+                            + ".png"
+                        )
+                    else:
+                        teammate0_headgear_sub2 = None
                 else:
-                    teammate3_headgear_sub2 = None
+                    teammate0_headgear_sub1 = None
+                    teammate0_headgear_sub2 = None
             else:
-                teammate3_headgear_sub1 = None
-                teammate3_headgear_sub2 = None
+                teammate0_headgear_sub0 = None
+                teammate0_headgear_sub1 = None
+                teammate0_headgear_sub2 = None
         else:
-            teammate3_headgear_sub0 = None
-            teammate3_headgear_sub1 = None
-            teammate3_headgear_sub2 = None
-        teammate3_clothes_main = static(
-            "two_battles/abilities/mains/" + battle.teammate3_clothes_main + ".png"
-        )
-        if battle.teammate3_clothes_sub0 is not None:
-            teammate3_clothes_sub0 = static(
-                "two_battles/abilities/subs/" + battle.teammate3_clothes_sub0 + ".png"
+            teammate0_headgear_main = None
+            teammate0_headgear_sub0 = None
+            teammate0_headgear_sub1 = None
+            teammate0_headgear_sub2 = None
+        if battle.teammate0_clothes_main is not None:
+            teammate0_clothes_main = static(
+                "two_battles/abilities/mains/" + battle.teammate0_clothes_main + ".png"
             )
-            if battle.teammate3_clothes_sub1 is not None:
-                teammate3_clothes_sub1 = static(
+            if battle.teammate0_clothes_sub0 is not None:
+                teammate0_clothes_sub0 = static(
                     "two_battles/abilities/subs/"
-                    + battle.teammate3_clothes_sub1
+                    + battle.teammate0_clothes_sub0
                     + ".png"
                 )
-                if battle.teammate3_clothes_sub2 is not None:
-                    teammate3_clothes_sub2 = static(
+                if battle.teammate0_clothes_sub1 is not None:
+                    teammate0_clothes_sub1 = static(
                         "two_battles/abilities/subs/"
-                        + battle.teammate3_clothes_sub2
+                        + battle.teammate0_clothes_sub1
                         + ".png"
                     )
+                    if battle.teammate0_clothes_sub2 is not None:
+                        teammate0_clothes_sub2 = static(
+                            "two_battles/abilities/subs/"
+                            + battle.teammate0_clothes_sub2
+                            + ".png"
+                        )
+                    else:
+                        teammate0_clothes_sub2 = None
                 else:
-                    teammate3_clothes_sub2 = None
+                    teammate0_clothes_sub1 = None
+                    teammate0_clothes_sub2 = None
             else:
-                teammate3_clothes_sub1 = None
-                teammate3_clothes_sub2 = None
+                teammate0_clothes_sub0 = None
+                teammate0_clothes_sub1 = None
+                teammate0_clothes_sub2 = None
         else:
-            teammate3_clothes_sub0 = None
-            teammate3_clothes_sub1 = None
-            teammate3_clothes_sub2 = None
-        teammate3_shoes_main = static(
-            "two_battles/abilities/mains/" + battle.teammate3_shoes_main + ".png"
-        )
-        if battle.teammate3_shoes_sub0 is not None:
-            teammate3_shoes_sub0 = static(
-                "two_battles/abilities/subs/" + battle.teammate3_shoes_sub0 + ".png"
+            teammate0_clothes_main = None
+            teammate0_clothes_sub0 = None
+            teammate0_clothes_sub1 = None
+            teammate0_clothes_sub2 = None
+        if battle.teammate0_shoes_main is not None:
+            teammate0_shoes_main = static(
+                "two_battles/abilities/mains/" + battle.teammate0_shoes_main + ".png"
             )
-            if battle.teammate3_shoes_sub1 is not None:
-                teammate3_shoes_sub1 = static(
-                    "two_battles/abilities/subs/" + battle.teammate3_shoes_sub1 + ".png"
+            if battle.teammate0_shoes_sub0 is not None:
+                teammate0_shoes_sub0 = static(
+                    "two_battles/abilities/subs/" + battle.teammate0_shoes_sub0 + ".png"
                 )
-                if battle.teammate3_shoes_sub2 is not None:
-                    teammate3_shoes_sub2 = static(
+                if battle.teammate0_shoes_sub1 is not None:
+                    teammate0_shoes_sub1 = static(
                         "two_battles/abilities/subs/"
-                        + battle.teammate3_shoes_sub2
+                        + battle.teammate0_shoes_sub1
                         + ".png"
                     )
+                    if battle.teammate0_shoes_sub2 is not None:
+                        teammate0_shoes_sub2 = static(
+                            "two_battles/abilities/subs/"
+                            + battle.teammate0_shoes_sub2
+                            + ".png"
+                        )
+                    else:
+                        teammate0_shoes_sub2 = None
                 else:
-                    teammate3_shoes_sub2 = None
+                    teammate0_shoes_sub1 = None
+                    teammate0_shoes_sub2 = None
             else:
-                teammate3_shoes_sub1 = None
-                teammate3_shoes_sub2 = None
+                teammate0_shoes_sub0 = None
+                teammate0_shoes_sub1 = None
+                teammate0_shoes_sub2 = None
         else:
-            teammate3_shoes_sub0 = None
-            teammate3_shoes_sub1 = None
-            teammate3_shoes_sub2 = None
-        teammate3 = Player(
+            teammate0_shoes_main = None
+            teammate0_shoes_sub0 = None
+            teammate0_shoes_sub1 = None
+            teammate0_shoes_sub2 = None
+        teammate0 = Player(
             "row4",
-            battle.teammate3_name,
-            teammate3_weapon,
-            battle.get_teammate3_weapon_display(),
-            battle.teammate3_level_star,
-            battle.teammate3_level,
-            battle.get_teammate3_rank_display(),
-            battle.teammate3_game_paint_point,
-            teammate3_k_a,
-            battle.teammate3_assists,
-            battle.teammate3_specials,
-            battle.teammate3_kills,
-            battle.teammate3_deaths,
-            teammate3_headgear_main,
-            teammate3_headgear_sub0,
-            teammate3_headgear_sub1,
-            teammate3_headgear_sub2,
-            teammate3_clothes_main,
-            teammate3_clothes_sub0,
-            teammate3_clothes_sub1,
-            teammate3_clothes_sub2,
-            teammate3_shoes_main,
-            teammate3_shoes_sub0,
-            teammate3_shoes_sub1,
-            teammate3_shoes_sub2,
+            battle.teammate0_name,
+            teammate0_weapon,
+            battle.get_teammate0_weapon_display(),
+            battle.teammate0_level_star,
+            battle.teammate0_level,
+            battle.get_teammate0_rank_display(),
+            battle.teammate0_game_paint_point,
+            teammate0_k_a,
+            battle.teammate0_assists,
+            battle.teammate0_specials,
+            battle.teammate0_kills,
+            battle.teammate0_deaths,
+            teammate0_headgear_main,
+            teammate0_headgear_sub0,
+            teammate0_headgear_sub1,
+            teammate0_headgear_sub2,
+            teammate0_clothes_main,
+            teammate0_clothes_sub0,
+            teammate0_clothes_sub1,
+            teammate0_clothes_sub2,
+            teammate0_shoes_main,
+            teammate0_shoes_sub0,
+            teammate0_shoes_sub1,
+            teammate0_shoes_sub2,
         )
-        battle_players.append(teammate3)
+        battle_players.append(teammate0)
     if battle.opponent0_splatnet_id is not None:
         opponent0_weapon = static(
             "two_battles/weapons/" + battle.opponent0_weapon + ".png"
         )
         opponent0_k_a = battle.opponent0_kills + battle.opponent0_assists
-        opponent0_headgear_main = static(
-            "two_battles/abilities/mains/" + battle.opponent0_headgear_main + ".png"
-        )
-        if battle.opponent0_headgear_sub0 is not None:
-            opponent0_headgear_sub0 = static(
-                "two_battles/abilities/subs/" + battle.opponent0_headgear_sub0 + ".png"
+        if battle.opponent0_headgear_main is not None:
+            opponent0_headgear_main = static(
+                "two_battles/abilities/mains/" + battle.opponent0_headgear_main + ".png"
             )
-            if battle.opponent0_headgear_sub1 is not None:
-                opponent0_headgear_sub1 = static(
+            if battle.opponent0_headgear_sub0 is not None:
+                opponent0_headgear_sub0 = static(
                     "two_battles/abilities/subs/"
-                    + battle.opponent0_headgear_sub1
+                    + battle.opponent0_headgear_sub0
                     + ".png"
                 )
-                if battle.opponent0_headgear_sub2 is not None:
-                    opponent0_headgear_sub2 = static(
+                if battle.opponent0_headgear_sub1 is not None:
+                    opponent0_headgear_sub1 = static(
                         "two_battles/abilities/subs/"
-                        + battle.opponent0_headgear_sub2
+                        + battle.opponent0_headgear_sub1
                         + ".png"
                     )
+                    if battle.opponent0_headgear_sub2 is not None:
+                        opponent0_headgear_sub2 = static(
+                            "two_battles/abilities/subs/"
+                            + battle.opponent0_headgear_sub2
+                            + ".png"
+                        )
+                    else:
+                        opponent0_headgear_sub2 = None
                 else:
+                    opponent0_headgear_sub1 = None
                     opponent0_headgear_sub2 = None
             else:
+                opponent0_headgear_sub0 = None
                 opponent0_headgear_sub1 = None
                 opponent0_headgear_sub2 = None
         else:
+            opponent0_headgear_main = None
             opponent0_headgear_sub0 = None
             opponent0_headgear_sub1 = None
             opponent0_headgear_sub2 = None
-        opponent0_clothes_main = static(
-            "two_battles/abilities/mains/" + battle.opponent0_clothes_main + ".png"
-        )
-        if battle.opponent0_clothes_sub0 is not None:
-            opponent0_clothes_sub0 = static(
-                "two_battles/abilities/subs/" + battle.opponent0_clothes_sub0 + ".png"
+        if battle.opponent0_clothes_main is not None:
+            opponent0_clothes_main = static(
+                "two_battles/abilities/mains/" + battle.opponent0_clothes_main + ".png"
             )
-            if battle.opponent0_clothes_sub1 is not None:
-                opponent0_clothes_sub1 = static(
+            if battle.opponent0_clothes_sub0 is not None:
+                opponent0_clothes_sub0 = static(
                     "two_battles/abilities/subs/"
-                    + battle.opponent0_clothes_sub1
+                    + battle.opponent0_clothes_sub0
                     + ".png"
                 )
-                if battle.opponent0_clothes_sub2 is not None:
-                    opponent0_clothes_sub2 = static(
+                if battle.opponent0_clothes_sub1 is not None:
+                    opponent0_clothes_sub1 = static(
                         "two_battles/abilities/subs/"
-                        + battle.opponent0_clothes_sub2
+                        + battle.opponent0_clothes_sub1
                         + ".png"
                     )
+                    if battle.opponent0_clothes_sub2 is not None:
+                        opponent0_clothes_sub2 = static(
+                            "two_battles/abilities/subs/"
+                            + battle.opponent0_clothes_sub2
+                            + ".png"
+                        )
+                    else:
+                        opponent0_clothes_sub2 = None
                 else:
+                    opponent0_clothes_sub1 = None
                     opponent0_clothes_sub2 = None
             else:
+                opponent0_clothes_sub0 = None
                 opponent0_clothes_sub1 = None
                 opponent0_clothes_sub2 = None
         else:
+            opponent0_clothes_main = None
             opponent0_clothes_sub0 = None
             opponent0_clothes_sub1 = None
             opponent0_clothes_sub2 = None
-        opponent0_shoes_main = static(
-            "two_battles/abilities/mains/" + battle.opponent0_shoes_main + ".png"
-        )
-        if battle.opponent0_shoes_sub0 is not None:
-            opponent0_shoes_sub0 = static(
-                "two_battles/abilities/subs/" + battle.opponent0_shoes_sub0 + ".png"
+        if battle.opponent0_shoes_main is not None:
+            opponent0_shoes_main = static(
+                "two_battles/abilities/mains/" + battle.opponent0_shoes_main + ".png"
             )
-            if battle.opponent0_shoes_sub1 is not None:
-                opponent0_shoes_sub1 = static(
-                    "two_battles/abilities/subs/" + battle.opponent0_shoes_sub1 + ".png"
+            if battle.opponent0_shoes_sub0 is not None:
+                opponent0_shoes_sub0 = static(
+                    "two_battles/abilities/subs/" + battle.opponent0_shoes_sub0 + ".png"
                 )
-                if battle.opponent0_shoes_sub2 is not None:
-                    opponent0_shoes_sub2 = static(
+                if battle.opponent0_shoes_sub1 is not None:
+                    opponent0_shoes_sub1 = static(
                         "two_battles/abilities/subs/"
-                        + battle.opponent0_shoes_sub2
+                        + battle.opponent0_shoes_sub1
                         + ".png"
                     )
+                    if battle.opponent0_shoes_sub2 is not None:
+                        opponent0_shoes_sub2 = static(
+                            "two_battles/abilities/subs/"
+                            + battle.opponent0_shoes_sub2
+                            + ".png"
+                        )
+                    else:
+                        opponent0_shoes_sub2 = None
                 else:
+                    opponent0_shoes_sub1 = None
                     opponent0_shoes_sub2 = None
             else:
+                opponent0_shoes_sub0 = None
                 opponent0_shoes_sub1 = None
                 opponent0_shoes_sub2 = None
         else:
+            opponent0_shoes_main = None
             opponent0_shoes_sub0 = None
             opponent0_shoes_sub1 = None
             opponent0_shoes_sub2 = None
@@ -607,85 +706,109 @@ def detail(request, id):
             "two_battles/weapons/" + battle.opponent1_weapon + ".png"
         )
         opponent1_k_a = battle.opponent1_kills + battle.opponent1_assists
-        opponent1_headgear_main = static(
-            "two_battles/abilities/mains/" + battle.opponent1_headgear_main + ".png"
-        )
-        if battle.opponent1_headgear_sub0 is not None:
-            opponent1_headgear_sub0 = static(
-                "two_battles/abilities/subs/" + battle.opponent1_headgear_sub0 + ".png"
+        if battle.opponent1_headgear_main is not None:
+            opponent1_headgear_main = static(
+                "two_battles/abilities/mains/" + battle.opponent1_headgear_main + ".png"
             )
-            if battle.opponent1_headgear_sub1 is not None:
-                opponent1_headgear_sub1 = static(
+            if battle.opponent1_headgear_sub0 is not None:
+                opponent1_headgear_sub0 = static(
                     "two_battles/abilities/subs/"
-                    + battle.opponent1_headgear_sub1
+                    + battle.opponent1_headgear_sub0
                     + ".png"
                 )
-                if battle.opponent1_headgear_sub2 is not None:
-                    opponent1_headgear_sub2 = static(
+                if battle.opponent1_headgear_sub1 is not None:
+                    opponent1_headgear_sub1 = static(
                         "two_battles/abilities/subs/"
-                        + battle.opponent1_headgear_sub2
+                        + battle.opponent1_headgear_sub1
                         + ".png"
                     )
+                    if battle.opponent1_headgear_sub2 is not None:
+                        opponent1_headgear_sub2 = static(
+                            "two_battles/abilities/subs/"
+                            + battle.opponent1_headgear_sub2
+                            + ".png"
+                        )
+                    else:
+                        opponent1_headgear_sub2 = None
                 else:
+                    opponent1_headgear_sub1 = None
                     opponent1_headgear_sub2 = None
             else:
+                opponent1_headgear_sub0 = None
                 opponent1_headgear_sub1 = None
                 opponent1_headgear_sub2 = None
         else:
+            opponent1_headgear_main = None
             opponent1_headgear_sub0 = None
             opponent1_headgear_sub1 = None
             opponent1_headgear_sub2 = None
-        opponent1_clothes_main = static(
-            "two_battles/abilities/mains/" + battle.opponent1_clothes_main + ".png"
-        )
-        if battle.opponent1_clothes_sub0 is not None:
-            opponent1_clothes_sub0 = static(
-                "two_battles/abilities/subs/" + battle.opponent1_clothes_sub0 + ".png"
+        if battle.opponent1_clothes_main is not None:
+            opponent1_clothes_main = static(
+                "two_battles/abilities/mains/" + battle.opponent1_clothes_main + ".png"
             )
-            if battle.opponent1_clothes_sub1 is not None:
-                opponent1_clothes_sub1 = static(
+            if battle.opponent1_clothes_sub0 is not None:
+                opponent1_clothes_sub0 = static(
                     "two_battles/abilities/subs/"
-                    + battle.opponent1_clothes_sub1
+                    + battle.opponent1_clothes_sub0
                     + ".png"
                 )
-                if battle.opponent1_clothes_sub2 is not None:
-                    opponent1_clothes_sub2 = static(
+                if battle.opponent1_clothes_sub1 is not None:
+                    opponent1_clothes_sub1 = static(
                         "two_battles/abilities/subs/"
-                        + battle.opponent1_clothes_sub2
+                        + battle.opponent1_clothes_sub1
                         + ".png"
                     )
+                    if battle.opponent1_clothes_sub2 is not None:
+                        opponent1_clothes_sub2 = static(
+                            "two_battles/abilities/subs/"
+                            + battle.opponent1_clothes_sub2
+                            + ".png"
+                        )
+                    else:
+                        opponent1_clothes_sub2 = None
                 else:
+                    opponent1_clothes_sub1 = None
                     opponent1_clothes_sub2 = None
             else:
+                opponent1_clothes_sub0 = None
                 opponent1_clothes_sub1 = None
                 opponent1_clothes_sub2 = None
         else:
+            opponent1_clothes_main = None
             opponent1_clothes_sub0 = None
             opponent1_clothes_sub1 = None
             opponent1_clothes_sub2 = None
-        opponent1_shoes_main = static(
-            "two_battles/abilities/mains/" + battle.opponent1_shoes_main + ".png"
-        )
-        if battle.opponent1_shoes_sub0 is not None:
-            opponent1_shoes_sub0 = static(
-                "two_battles/abilities/subs/" + battle.opponent1_shoes_sub0 + ".png"
+        if battle.opponent1_shoes_main is not None:
+            opponent1_shoes_main = static(
+                "two_battles/abilities/mains/" + battle.opponent1_shoes_main + ".png"
             )
-            if battle.opponent1_shoes_sub1 is not None:
-                opponent1_shoes_sub1 = static(
-                    "two_battles/abilities/subs/" + battle.opponent1_shoes_sub1 + ".png"
+            if battle.opponent1_shoes_sub0 is not None:
+                opponent1_shoes_sub0 = static(
+                    "two_battles/abilities/subs/" + battle.opponent1_shoes_sub0 + ".png"
                 )
-                if battle.opponent1_shoes_sub2 is not None:
-                    opponent1_shoes_sub2 = static(
+                if battle.opponent1_shoes_sub1 is not None:
+                    opponent1_shoes_sub1 = static(
                         "two_battles/abilities/subs/"
-                        + battle.opponent1_shoes_sub2
+                        + battle.opponent1_shoes_sub1
                         + ".png"
                     )
+                    if battle.opponent1_shoes_sub2 is not None:
+                        opponent1_shoes_sub2 = static(
+                            "two_battles/abilities/subs/"
+                            + battle.opponent1_shoes_sub2
+                            + ".png"
+                        )
+                    else:
+                        opponent1_shoes_sub2 = None
                 else:
+                    opponent1_shoes_sub1 = None
                     opponent1_shoes_sub2 = None
             else:
+                opponent1_shoes_sub0 = None
                 opponent1_shoes_sub1 = None
                 opponent1_shoes_sub2 = None
         else:
+            opponent1_shoes_main = None
             opponent1_shoes_sub0 = None
             opponent1_shoes_sub1 = None
             opponent1_shoes_sub2 = None
@@ -722,85 +845,109 @@ def detail(request, id):
             "two_battles/weapons/" + battle.opponent2_weapon + ".png"
         )
         opponent2_k_a = battle.opponent2_kills + battle.opponent2_assists
-        opponent2_headgear_main = static(
-            "two_battles/abilities/mains/" + battle.opponent2_headgear_main + ".png"
-        )
-        if battle.opponent2_headgear_sub0 is not None:
-            opponent2_headgear_sub0 = static(
-                "two_battles/abilities/subs/" + battle.opponent2_headgear_sub0 + ".png"
+        if battle.opponent2_headgear_main is not None:
+            opponent2_headgear_main = static(
+                "two_battles/abilities/mains/" + battle.opponent2_headgear_main + ".png"
             )
-            if battle.opponent2_headgear_sub1 is not None:
-                opponent2_headgear_sub1 = static(
+            if battle.opponent2_headgear_sub0 is not None:
+                opponent2_headgear_sub0 = static(
                     "two_battles/abilities/subs/"
-                    + battle.opponent2_headgear_sub1
+                    + battle.opponent2_headgear_sub0
                     + ".png"
                 )
-                if battle.opponent2_headgear_sub2 is not None:
-                    opponent2_headgear_sub2 = static(
+                if battle.opponent2_headgear_sub1 is not None:
+                    opponent2_headgear_sub1 = static(
                         "two_battles/abilities/subs/"
-                        + battle.opponent2_headgear_sub2
+                        + battle.opponent2_headgear_sub1
                         + ".png"
                     )
+                    if battle.opponent2_headgear_sub2 is not None:
+                        opponent2_headgear_sub2 = static(
+                            "two_battles/abilities/subs/"
+                            + battle.opponent2_headgear_sub2
+                            + ".png"
+                        )
+                    else:
+                        opponent2_headgear_sub2 = None
                 else:
+                    opponent2_headgear_sub1 = None
                     opponent2_headgear_sub2 = None
             else:
+                opponent2_headgear_sub0 = None
                 opponent2_headgear_sub1 = None
                 opponent2_headgear_sub2 = None
         else:
+            opponent2_headgear_main = None
             opponent2_headgear_sub0 = None
             opponent2_headgear_sub1 = None
             opponent2_headgear_sub2 = None
-        opponent2_clothes_main = static(
-            "two_battles/abilities/mains/" + battle.opponent2_clothes_main + ".png"
-        )
-        if battle.opponent2_clothes_sub0 is not None:
-            opponent2_clothes_sub0 = static(
-                "two_battles/abilities/subs/" + battle.opponent2_clothes_sub0 + ".png"
+        if battle.opponent2_clothes_main is not None:
+            opponent2_clothes_main = static(
+                "two_battles/abilities/mains/" + battle.opponent2_clothes_main + ".png"
             )
-            if battle.opponent2_clothes_sub1 is not None:
-                opponent2_clothes_sub1 = static(
+            if battle.opponent2_clothes_sub0 is not None:
+                opponent2_clothes_sub0 = static(
                     "two_battles/abilities/subs/"
-                    + battle.opponent2_clothes_sub1
+                    + battle.opponent2_clothes_sub0
                     + ".png"
                 )
-                if battle.opponent2_clothes_sub2 is not None:
-                    opponent2_clothes_sub2 = static(
+                if battle.opponent2_clothes_sub1 is not None:
+                    opponent2_clothes_sub1 = static(
                         "two_battles/abilities/subs/"
-                        + battle.opponent2_clothes_sub2
+                        + battle.opponent2_clothes_sub1
                         + ".png"
                     )
+                    if battle.opponent2_clothes_sub2 is not None:
+                        opponent2_clothes_sub2 = static(
+                            "two_battles/abilities/subs/"
+                            + battle.opponent2_clothes_sub2
+                            + ".png"
+                        )
+                    else:
+                        opponent2_clothes_sub2 = None
                 else:
+                    opponent2_clothes_sub1 = None
                     opponent2_clothes_sub2 = None
             else:
+                opponent2_clothes_sub0 = None
                 opponent2_clothes_sub1 = None
                 opponent2_clothes_sub2 = None
         else:
+            opponent2_clothes_main = None
             opponent2_clothes_sub0 = None
             opponent2_clothes_sub1 = None
             opponent2_clothes_sub2 = None
-        opponent2_shoes_main = static(
-            "two_battles/abilities/mains/" + battle.opponent2_shoes_main + ".png"
-        )
-        if battle.opponent2_shoes_sub0 is not None:
-            opponent2_shoes_sub0 = static(
-                "two_battles/abilities/subs/" + battle.opponent2_shoes_sub0 + ".png"
+        if battle.opponent2_shoes_main is not None:
+            opponent2_shoes_main = static(
+                "two_battles/abilities/mains/" + battle.opponent2_shoes_main + ".png"
             )
-            if battle.opponent2_shoes_sub1 is not None:
-                opponent2_shoes_sub1 = static(
-                    "two_battles/abilities/subs/" + battle.opponent2_shoes_sub1 + ".png"
+            if battle.opponent2_shoes_sub0 is not None:
+                opponent2_shoes_sub0 = static(
+                    "two_battles/abilities/subs/" + battle.opponent2_shoes_sub0 + ".png"
                 )
-                if battle.opponent2_shoes_sub2 is not None:
-                    opponent2_shoes_sub2 = static(
+                if battle.opponent2_shoes_sub1 is not None:
+                    opponent2_shoes_sub1 = static(
                         "two_battles/abilities/subs/"
-                        + battle.opponent2_shoes_sub2
+                        + battle.opponent2_shoes_sub1
                         + ".png"
                     )
+                    if battle.opponent2_shoes_sub2 is not None:
+                        opponent2_shoes_sub2 = static(
+                            "two_battles/abilities/subs/"
+                            + battle.opponent2_shoes_sub2
+                            + ".png"
+                        )
+                    else:
+                        opponent2_shoes_sub2 = None
                 else:
+                    opponent2_shoes_sub1 = None
                     opponent2_shoes_sub2 = None
             else:
+                opponent2_shoes_sub0 = None
                 opponent2_shoes_sub1 = None
                 opponent2_shoes_sub2 = None
         else:
+            opponent2_shoes_main = None
             opponent2_shoes_sub0 = None
             opponent2_shoes_sub1 = None
             opponent2_shoes_sub2 = None
@@ -837,85 +984,109 @@ def detail(request, id):
             "two_battles/weapons/" + battle.opponent3_weapon + ".png"
         )
         opponent3_k_a = battle.opponent3_kills + battle.opponent3_assists
-        opponent3_headgear_main = static(
-            "two_battles/abilities/mains/" + battle.opponent3_headgear_main + ".png"
-        )
-        if battle.opponent3_headgear_sub0 is not None:
-            opponent3_headgear_sub0 = static(
-                "two_battles/abilities/subs/" + battle.opponent3_headgear_sub0 + ".png"
+        if battle.opponent3_headgear_main is not None:
+            opponent3_headgear_main = static(
+                "two_battles/abilities/mains/" + battle.opponent3_headgear_main + ".png"
             )
-            if battle.opponent3_headgear_sub1 is not None:
-                opponent3_headgear_sub1 = static(
+            if battle.opponent3_headgear_sub0 is not None:
+                opponent3_headgear_sub0 = static(
                     "two_battles/abilities/subs/"
-                    + battle.opponent3_headgear_sub1
+                    + battle.opponent3_headgear_sub0
                     + ".png"
                 )
-                if battle.opponent3_headgear_sub2 is not None:
-                    opponent3_headgear_sub2 = static(
+                if battle.opponent3_headgear_sub1 is not None:
+                    opponent3_headgear_sub1 = static(
                         "two_battles/abilities/subs/"
-                        + battle.opponent3_headgear_sub2
+                        + battle.opponent3_headgear_sub1
                         + ".png"
                     )
+                    if battle.opponent3_headgear_sub2 is not None:
+                        opponent3_headgear_sub2 = static(
+                            "two_battles/abilities/subs/"
+                            + battle.opponent3_headgear_sub2
+                            + ".png"
+                        )
+                    else:
+                        opponent3_headgear_sub2 = None
                 else:
+                    opponent3_headgear_sub1 = None
                     opponent3_headgear_sub2 = None
             else:
+                opponent3_headgear_sub0 = None
                 opponent3_headgear_sub1 = None
                 opponent3_headgear_sub2 = None
         else:
+            opponent3_headgear_main = None
             opponent3_headgear_sub0 = None
             opponent3_headgear_sub1 = None
             opponent3_headgear_sub2 = None
-        opponent3_clothes_main = static(
-            "two_battles/abilities/mains/" + battle.opponent3_clothes_main + ".png"
-        )
-        if battle.opponent3_clothes_sub0 is not None:
-            opponent3_clothes_sub0 = static(
-                "two_battles/abilities/subs/" + battle.opponent3_clothes_sub0 + ".png"
+        if battle.opponent3_clothes_main is not None:
+            opponent3_clothes_main = static(
+                "two_battles/abilities/mains/" + battle.opponent3_clothes_main + ".png"
             )
-            if battle.opponent3_clothes_sub1 is not None:
-                opponent3_clothes_sub1 = static(
+            if battle.opponent3_clothes_sub0 is not None:
+                opponent3_clothes_sub0 = static(
                     "two_battles/abilities/subs/"
-                    + battle.opponent3_clothes_sub1
+                    + battle.opponent3_clothes_sub0
                     + ".png"
                 )
-                if battle.opponent3_clothes_sub2 is not None:
-                    opponent3_clothes_sub2 = static(
+                if battle.opponent3_clothes_sub1 is not None:
+                    opponent3_clothes_sub1 = static(
                         "two_battles/abilities/subs/"
-                        + battle.opponent3_clothes_sub2
+                        + battle.opponent3_clothes_sub1
                         + ".png"
                     )
+                    if battle.opponent3_clothes_sub2 is not None:
+                        opponent3_clothes_sub2 = static(
+                            "two_battles/abilities/subs/"
+                            + battle.opponent3_clothes_sub2
+                            + ".png"
+                        )
+                    else:
+                        opponent3_clothes_sub2 = None
                 else:
+                    opponent3_clothes_sub1 = None
                     opponent3_clothes_sub2 = None
             else:
+                opponent3_clothes_sub0 = None
                 opponent3_clothes_sub1 = None
                 opponent3_clothes_sub2 = None
         else:
+            opponent3_clothes_main = None
             opponent3_clothes_sub0 = None
             opponent3_clothes_sub1 = None
             opponent3_clothes_sub2 = None
-        opponent3_shoes_main = static(
-            "two_battles/abilities/mains/" + battle.opponent3_shoes_main + ".png"
-        )
-        if battle.opponent3_shoes_sub0 is not None:
-            opponent3_shoes_sub0 = static(
-                "two_battles/abilities/subs/" + battle.opponent3_shoes_sub0 + ".png"
+        if battle.opponent3_shoes_main is not None:
+            opponent3_shoes_main = static(
+                "two_battles/abilities/mains/" + battle.opponent3_shoes_main + ".png"
             )
-            if battle.opponent3_shoes_sub1 is not None:
-                opponent3_shoes_sub1 = static(
-                    "two_battles/abilities/subs/" + battle.opponent3_shoes_sub1 + ".png"
+            if battle.opponent3_shoes_sub0 is not None:
+                opponent3_shoes_sub0 = static(
+                    "two_battles/abilities/subs/" + battle.opponent3_shoes_sub0 + ".png"
                 )
-                if battle.opponent3_shoes_sub2 is not None:
-                    opponent3_shoes_sub2 = static(
+                if battle.opponent3_shoes_sub1 is not None:
+                    opponent3_shoes_sub1 = static(
                         "two_battles/abilities/subs/"
-                        + battle.opponent3_shoes_sub2
+                        + battle.opponent3_shoes_sub1
                         + ".png"
                     )
+                    if battle.opponent3_shoes_sub2 is not None:
+                        opponent3_shoes_sub2 = static(
+                            "two_battles/abilities/subs/"
+                            + battle.opponent3_shoes_sub2
+                            + ".png"
+                        )
+                    else:
+                        opponent3_shoes_sub2 = None
                 else:
+                    opponent3_shoes_sub1 = None
                     opponent3_shoes_sub2 = None
             else:
+                opponent3_shoes_sub0 = None
                 opponent3_shoes_sub1 = None
                 opponent3_shoes_sub2 = None
         else:
+            opponent3_shoes_main = None
             opponent3_shoes_sub0 = None
             opponent3_shoes_sub1 = None
             opponent3_shoes_sub2 = None
