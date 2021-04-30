@@ -1017,8 +1017,9 @@ class Battle(models.Model):
                 else:
                     player_clothes_main = None
                 if (
-                    stat_ink_json["gears"]["clothing"]["secondary_abilities"] is not None and
-                    stat_ink_json["gears"]["clothing"]["secondary_abilities"][0]
+                    stat_ink_json["gears"]["clothing"]["secondary_abilities"]
+                    is not None
+                    and stat_ink_json["gears"]["clothing"]["secondary_abilities"][0]                    
                     is not None
                 ):
                     player_clothes_sub0 = sub_abilities.get(
