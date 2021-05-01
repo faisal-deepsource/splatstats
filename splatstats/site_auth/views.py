@@ -47,8 +47,7 @@ def activate(request, uidb64, token):
         user.save()
         login(request, user)
         return redirect("")
-    else:
-        return render(request, "site_auth/account_activation_invalid.html")
+    return render(request, "site_auth/account_activation_invalid.html")
 
 
 def account_activation_sent(request):
