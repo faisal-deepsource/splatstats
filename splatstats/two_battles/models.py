@@ -2101,7 +2101,7 @@ class Battle(models.Model):
                     save=True,
                 )
             return battle
-        elif (
+        if (
             Battle.objects.filter(battle_number=battle_number, player_user=player_user)[
                 0
             ].splatnet_json
