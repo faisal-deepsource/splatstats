@@ -16,10 +16,19 @@
                     <li><a href="/two_battles">Battles</a></li>
                     <li><a href="/two_salmon">Salmon Run</a></li>
                 </ul>
+                <!-- Dropdown Structure -->
+                <ul id='dropdown_accounts' class='dropdown-content'>
+                    <li><a href="/account/login">Login</a></li>
+                    <li><a href="/two_salmon">Salmon Run</a></li>
+                </ul>
                 <ul class="right">
                     <li>
                         <!-- Dropdown Trigger -->
                         <a class='dropdown-trigger btn' href='#' data-target='dropdown1'>Splatoon 2</a>
+                    </li>
+                    <li>
+                        <!-- Dropdown Trigger -->
+                        <a class='dropdown-trigger btn' href="#" data-target='dropdown_accounts'>User</a>
                     </li>
                 </ul>
               <ul id="nav-mobile" class="sidenav">
@@ -34,5 +43,6 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
         {% load static %}
         <script src="{% static 'core/js/base.js' %}"></script>
+        {% block aftercontent %}{% endblock aftercontent %}
     </body>
 </html>

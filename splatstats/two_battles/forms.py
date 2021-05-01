@@ -1,4 +1,5 @@
 from django import forms
+from .models import Rule, Match_Type, Ranks, Stage, Weapons
 
 
 class BattleForm(forms.Form):
@@ -14,3 +15,15 @@ class BattleForm(forms.Form):
             msg = "Must enter at least one form of data."
             self.add_error("splatnet_json", msg)
             self.add_error("stat_ink_json", msg)
+
+
+class FilterForm(forms.Form):
+    rule = forms.ChoiceField(choices=Rule.choices)
+    match_type = forms.ChoiceField(choices=Match_Type.choices)
+    stage = forms.ChoiceField(choices=Stage.choices)
+    rank = forms.ChoiceField(choices=Ranks.choices)
+    weapon = forms.ChoiceField(choices=Weapons.choices)
+
+
+class AdvancedFilterForm(forms.Form):
+    query = forms.CharField()

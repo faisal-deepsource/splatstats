@@ -5,46 +5,79 @@ from rest_framework.parsers import JSONParser
 from rest_framework.response import Response
 from time import gmtime
 from time import strftime
-from .forms import BattleForm
+from .forms import BattleForm, FilterForm, AdvancedFilterForm
 import base64
 from .models import Battle
 from .objects import Player
 from django.templatetags.static import static
 import json
 from datetime import datetime
+from django.core.paginator import Paginator
 
 
 def index(request):
-    latest_battles = Battle.objects.order_by("-time")
+    if request.method == "POST":
+        form = FilterForm(request.POST)
+        if form.is_valid():
+            battles = Battle.objects
+            if form.cleaned_data["rule"] != "all":
+                battles = battles.filter(rule=form.cleaned_data["rule"])
+            if form.cleaned_data["match_type"] != "all":
+                battles = battles.filter(match_type=form.cleaned_data["match_type"])
+            if form.cleaned_data["stage"] != "all":
+                battles = battles.filter(stage=form.cleaned_data["stage"])
+            if form.cleaned_data["rank"] != "all":
+                battles = battles.filter(player_rank=form.cleaned_data["rank"])
+            if form.cleaned_data["weapon"] != "all":
+                battles = battles.filter(player_weapon=form.cleaned_data["weapon"])
+            battles = battles.order_by("-time")
+    else:
+        form = FilterForm()
+        battles = Battle.objects.order_by("-time")
+    paginator = Paginator(battles, 50)  # Show 50 battles per page
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
     results = []
     time_vals = []
     player_weapons = []
-    for battle in latest_battles:
+    for battle in page_obj:
         results.append("Win" if battle.win else "Lose")
-        time_vals.append(
-            datetime.utcfromtimestamp(battle.time).strftime("%Y-%m-%d %H:%M:%S")
-        )
+        if battle.time is not None:
+            time_vals.append(
+                datetime.utcfromtimestamp(battle.time).strftime("%Y-%m-%d %H:%M:%S")
+            )
+        else:
+            time_vals.append(None)
         player_weapons.append(
             static("two_battles/weapons/" + battle.player_weapon + ".png")
         )
     context = {
+        "page_obj": page_obj,
         "my_list": zip(
-            latest_battles,
+            page_obj,
             results,
             time_vals,
             player_weapons,
-        )
+        ),
+        "form": form,
+        "query": form.cleaned_data["query"],
     }
     return render(request, "two_battles/index.html", context)
 
 
 def detail(request, id):
     battle = get_object_or_404(Battle, pk=id)
-    player_k_a = battle.player_kills + battle.player_assists
+    if battle.player_kills is not None and battle.player_assists is not None:
+        player_k_a = battle.player_kills + battle.player_assists
+    else:
+        player_k_a = None
     player_weapon = static("two_battles/weapons/" + battle.player_weapon + ".png")
-    player_headgear_main = static(
-        "two_battles/abilities/mains/" + battle.player_headgear_main + ".png"
-    )
+    if battle.player_headgear_main is not None:
+        player_headgear_main = static(
+            "two_battles/abilities/mains/" + battle.player_headgear_main + ".png"
+        )
+    else:
+        player_headgear_main = None
     if battle.player_headgear_sub0 is not None:
         player_headgear_sub0 = static(
             "two_battles/abilities/subs/" + battle.player_headgear_sub0 + ".png"
@@ -66,9 +99,12 @@ def detail(request, id):
         player_headgear_sub0 = None
         player_headgear_sub1 = None
         player_headgear_sub2 = None
-    player_clothes_main = static(
-        "two_battles/abilities/mains/" + battle.player_clothes_main + ".png"
-    )
+    if battle.player_clothes_main is not None:
+        player_clothes_main = static(
+            "two_battles/abilities/mains/" + battle.player_clothes_main + ".png"
+        )
+    else:
+        player_clothes_main = None
     if battle.player_clothes_sub0 is not None:
         player_clothes_sub0 = static(
             "two_battles/abilities/subs/" + battle.player_clothes_sub0 + ".png"
@@ -90,9 +126,12 @@ def detail(request, id):
         player_clothes_sub0 = None
         player_clothes_sub1 = None
         player_clothes_sub2 = None
-    player_shoes_main = static(
-        "two_battles/abilities/mains/" + battle.player_shoes_main + ".png"
-    )
+    if battle.player_shoes_main is not None:
+        player_shoes_main = static(
+            "two_battles/abilities/mains/" + battle.player_shoes_main + ".png"
+        )
+    else:
+        player_shoes_main = None
     if battle.player_shoes_sub0 is not None:
         player_shoes_sub0 = static(
             "two_battles/abilities/subs/" + battle.player_shoes_sub0 + ".png"
@@ -1130,11 +1169,17 @@ def detail(request, id):
             else "Knockout",
             "start_time": datetime.utcfromtimestamp(battle.time).strftime(
                 "%Y-%m-%d %H:%M:%S"
-            ),
+            )
+            if battle.time is not None
+            else None,
             "end_time": datetime.utcfromtimestamp(
                 battle.time + battle.elapsed_time
-            ).strftime("%Y-%m-%d %H:%M:%S"),
-            "elapsed_time_min_sec": strftime("%M:%S", gmtime(battle.elapsed_time)),
+            ).strftime("%Y-%m-%d %H:%M:%S")
+            if battle.time is not None and battle.elapsed_time is not None
+            else None,
+            "elapsed_time_min_sec": strftime("%M:%S", gmtime(battle.elapsed_time))
+            if battle.elapsed_time is not None
+            else None,
         },
     )
 
@@ -1209,3 +1254,67 @@ class BattleAPIView(views.APIView):
                 user=request.user,
             )
         return Response(data=None, status=status.HTTP_200_OK)
+
+
+def advanced_search(request):
+    form = AdvancedFilterForm(request.GET)
+    if form.is_valid():
+        tokens = form.cleaned_data["query"].split()
+        current_attribute = None
+        past_tokens = []
+        mapping = {}
+        for token in tokens:
+            if current_attribute is None:
+                current_attribute = token
+            else:
+                if len(past_tokens) > 0:
+                    if token[-1] == '"':
+                        past_tokens.append(token)
+                        mapping[current_attribute] = "".join(past_tokens)
+                        past_tokens = []
+                        current_attribute = None
+                    else:
+                        past_tokens.append(token)
+                else:
+                    if token[0] == '"':
+                        past_tokens.append(token)
+                    else:
+                        past_tokens.append(token)
+                        if current_attribute == "player_rank":
+                            mapping[current_attribute] = int("".join(past_tokens))
+                        else:
+                            mapping[current_attribute] = "".join(past_tokens)
+                        past_tokens = []
+                        current_attribute = None
+        battles = Battle.objects.filter(**mapping).order_by("-time")
+        paginator = Paginator(battles, 50)  # Show 50 battles per page
+        page_number = request.GET.get("page")
+        page_obj = paginator.get_page(page_number)
+        results = []
+        time_vals = []
+        player_weapons = []
+        for battle in page_obj:
+            results.append("Win" if battle.win else "Lose")
+            if battle.time is not None:
+                time_vals.append(
+                    datetime.utcfromtimestamp(battle.time).strftime("%Y-%m-%d %H:%M:%S")
+                )
+            else:
+                time_vals.append(None)
+            player_weapons.append(
+                static("two_battles/weapons/" + battle.player_weapon + ".png")
+            )
+        context = {
+            "page_obj": page_obj,
+            "my_list": zip(
+                page_obj,
+                results,
+                time_vals,
+                player_weapons,
+            ),
+            "form": form,
+            "search_status": True,
+            "query": form.cleaned_data["query"],
+        }
+        return render(request, "two_battles/index.html", context)
+    return render(request, "two_battles/advanced_search.html", {"form": form})
