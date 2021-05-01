@@ -12,6 +12,7 @@ from .objects import Player
 from django.templatetags.static import static
 import json
 from datetime import datetime
+import re
 from django.core.paginator import Paginator
 
 
@@ -51,6 +52,10 @@ def index(request):
         player_weapons.append(
             static("two_battles/weapons/" + battle.player_weapon + ".png")
         )
+    if "cleaned_data" in form:
+        query = form.cleaned_data["query"]
+    else:
+        query = None
     context = {
         "page_obj": page_obj,
         "my_list": zip(
@@ -60,7 +65,7 @@ def index(request):
             player_weapons,
         ),
         "form": form,
-        "query": form.cleaned_data["query"],
+        "query": query,
     }
     return render(request, "two_battles/index.html", context)
 
@@ -1256,6 +1261,22 @@ class BattleAPIView(views.APIView):
         return Response(data=None, status=status.HTTP_200_OK)
 
 
+def attribute_cast(attr, val):
+    lookups = (
+        ("(win)|(has_disconnected_player)", "bool"),
+        ("((elapsed_)?time)|(win_meter)|(((player)|(teammate_[a-c])|(opponent_[a-d]))_((rank)|(level(_star)?)|(kills)|(deaths)|(assists)|(specials)|(game_paint_point)))", "int"),
+        ("(((my)|(other))_team_count)|(((league)|(splatfest))_point)|(player_x_power)", "float")
+    )
+    switch = {
+        "bool": bool(val),
+        "int": int(val),
+        "float": float(val)
+    }
+    for pattern, value in lookups:
+        if re.search(pattern, attr):
+            return switch.get(value)
+    return None
+
 def advanced_search(request):
     form = AdvancedFilterForm(request.GET)
     if form.is_valid():
@@ -1270,7 +1291,7 @@ def advanced_search(request):
                 if len(past_tokens) > 0:
                     if token[-1] == '"':
                         past_tokens.append(token)
-                        mapping[current_attribute] = "".join(past_tokens)
+                        mapping[current_attribute] = attribute_cast(current_attribute, "".join(past_tokens))
                         past_tokens = []
                         current_attribute = None
                     else:
@@ -1280,10 +1301,7 @@ def advanced_search(request):
                         past_tokens.append(token)
                     else:
                         past_tokens.append(token)
-                        if current_attribute == "player_rank":
-                            mapping[current_attribute] = int("".join(past_tokens))
-                        else:
-                            mapping[current_attribute] = "".join(past_tokens)
+                        mapping[current_attribute] = attribute_cast(current_attribute, "".join(past_tokens))
                         past_tokens = []
                         current_attribute = None
         battles = Battle.objects.filter(**mapping).order_by("-time")
@@ -1304,6 +1322,10 @@ def advanced_search(request):
             player_weapons.append(
                 static("two_battles/weapons/" + battle.player_weapon + ".png")
             )
+        if "cleaned_data" in form:
+            query = form.cleaned_data["query"]
+        else:
+            query = None
         context = {
             "page_obj": page_obj,
             "my_list": zip(
@@ -1314,7 +1336,7 @@ def advanced_search(request):
             ),
             "form": form,
             "search_status": True,
-            "query": form.cleaned_data["query"],
+            "query": query,
         }
         return render(request, "two_battles/index.html", context)
     return render(request, "two_battles/advanced_search.html", {"form": form})

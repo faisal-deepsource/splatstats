@@ -55,9 +55,7 @@
                     <br>
                     win_meter
                     <br>
-                    my_team_count
-                    <br>
-                    other_team_count
+                    ((my)|(other))_team_count
                     <br>
                     elapsed_time
                     <br>
@@ -71,35 +69,29 @@
                     <br>
                     player_x_power
                     <br>
-                    (player)|(teammate[0-2])|(opponent[0-3])_weapon
+                    ((player)|(teammate_[a-c])|(opponent_[a-d]))_weapon
                     <br>
-                    (player)|(teammate[0-2])|(opponent[0-3])_rank
+                    ((player)|(teammate_[a-c])|(opponent_[a-d]))_rank
                     <br>
-                    (player)|(teammate[0-2])|(opponent[0-3])_level
+                    ((player)|(teammate_[a-c])|(opponent_[a-d]))_level(_star)?
                     <br>
-                    (player)|(teammate[0-2])|(opponent[0-3])_level_star
+                    ((player)|(teammate_[a-c])|(opponent_[a-d]))_((kills)|(deaths)|(assists))
                     <br>
-                    (player)|(teammate[0-2])|(opponent[0-3])_kills
+                    ((player)|(teammate_[a-c])|(opponent_[a-d]))_((specials)|(game_paint_point))
                     <br>
-                    (player)|(teammate[0-2])|(opponent[0-3])_deaths
+                    ((player)|(teammate_[a-c])|(opponent_[a-d]))
                     <br>
-                    (player)|(teammate[0-2])|(opponent[0-3])_assists
+                    ((player)|(teammate_[a-c])|(opponent_[a-d]))_splatfest_title
                     <br>
-                    (player)|(teammate[0-2])|(opponent[0-3])_specials
+                    ((player)|(teammate_[a-c])|(opponent_[a-d]))_((name)|(splatnet_id))
                     <br>
-                    (player)|(teammate[0-2])|(opponent[0-3])_game_paint_point
+                    ((player)|(teammate_[a-c])|(opponent_[a-d]))_((gender)|(species))
                     <br>
-                    (player)|(teammate[0-2])|(opponent[0-3])_splatfest_title
+                    ((player)|(teammate_[a-c])|(opponent_[a-d]))_((headgear)|(clothes)|(shoes))
                     <br>
-                    (player)|(teammate[0-2])|(opponent[0-3])_splatnet_id
+                    ((player)|(teammate_[a-c])|(opponent_[a-d]))_((headgear)|(clothes)|(shoes))_sub[0-2]
                     <br>
-                    (player)|(teammate[0-2])|(opponent[0-3])_name
-                    <br>
-                    (player)|(teammate[0-2])|(opponent[0-3])_gender
-                    <br>
-                    (player)|(teammate[0-2])|(opponent[0-3])_species
-                    <br>
-                    ((player)|(teammate[0-2])|(opponent[0-3]))_((headgear)|(clothes)|(shoes))((_sub[0-2])|(_main))?
+                    ((player)|(teammate_[a-c])|(opponent_[a-d]))_((headgear)|(clothes)|(shoes))_main
                 </div>
             </div>
         </div>

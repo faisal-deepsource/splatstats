@@ -1505,7 +1505,6 @@ class Battle(models.Model):
             i = 0
             if "my_team_members" in splatnet_json:
                 for player in splatnet_json["my_team_members"]:
-                    i = splatnet_json["my_team_members"].index(player)
                     # basic stats
                     teammate_dict["teammate{}_splatnet_id".format(i)] = player[
                         "player"
@@ -1634,6 +1633,7 @@ class Battle(models.Model):
                         teammate_dict["teammate{}_shoes_sub0".format(i)] = None
                         teammate_dict["teammate{}_shoes_sub1".format(i)] = None
                         teammate_dict["teammate{}_shoes_sub2".format(i)] = None
+                    i += 1
             while i < 3:
                 teammate_dict["teammate{}_splatnet_id".format(i)] = None
                 teammate_dict["teammate{}_name".format(i)] = None
@@ -1668,7 +1668,6 @@ class Battle(models.Model):
             i = 0
             if "other_team_members" in splatnet_json:
                 for player in splatnet_json["other_team_members"]:
-                    i = splatnet_json["other_team_members"].index(player)
                     # basic stats
                     opponent_dict["opponent{}_splatnet_id".format(i)] = player[
                         "player"
@@ -1797,6 +1796,7 @@ class Battle(models.Model):
                         opponent_dict["opponent{}_shoes_sub0".format(i)] = None
                         opponent_dict["opponent{}_shoes_sub1".format(i)] = None
                         opponent_dict["opponent{}_shoes_sub2".format(i)] = None
+                    i += 1
             while i < 4:
                 opponent_dict["opponent{}_splatnet_id".format(i)] = None
                 opponent_dict["opponent{}_name".format(i)] = None
