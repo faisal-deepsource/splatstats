@@ -5,7 +5,7 @@ colorama==0.4.4
 decorator==4.4.2
 Django==3.2
 django-formtools==2.3
-django-otp==1.0.3
+django-otp==1.0.4
 django-otp-yubikey==1.0.0.post1
 django-phonenumber-field==5.1.0
 django-two-factor-auth==1.13.1
