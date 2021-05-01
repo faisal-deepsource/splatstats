@@ -974,7 +974,8 @@ class Battle(models.Model):
                 )
                 if stat_ink_json["gears"]["headgear"]["primary_ability"] is not None:
                     player_headgear_main = main_abilities.get(
-                        stat_ink_json["gears"]["headgear"]["primary_ability"]["key"])
+                        stat_ink_json["gears"]["headgear"]["primary_ability"]["key"]
+                    )
                 else:
                     player_headgear_main = None
                 if (
@@ -984,7 +985,8 @@ class Battle(models.Model):
                     player_headgear_sub0 = sub_abilities.get(
                         stat_ink_json["gears"]["headgear"]["secondary_abilities"][0][
                             "key"
-                        ])
+                        ]
+                    )
                     if (
                         stat_ink_json["gears"]["headgear"]["secondary_abilities"][1]
                         is not None
@@ -992,7 +994,8 @@ class Battle(models.Model):
                         player_headgear_sub1 = sub_abilities.get(
                             stat_ink_json["gears"]["headgear"]["secondary_abilities"][
                                 1
-                            ]["key"])
+                            ]["key"]
+                        )
                         if (
                             stat_ink_json["gears"]["headgear"]["secondary_abilities"][2]
                             is not None
@@ -1000,7 +1003,8 @@ class Battle(models.Model):
                             player_headgear_sub2 = sub_abilities.get(
                                 stat_ink_json["gears"]["headgear"][
                                     "secondary_abilities"
-                                ][2]["key"])
+                                ][2]["key"]
+                            )
                         else:
                             player_headgear_sub2 = None
                     else:
@@ -1025,7 +1029,8 @@ class Battle(models.Model):
                     player_clothes = None
                 if stat_ink_json["gears"]["clothing"]["primary_ability"] is not None:
                     player_clothes_main = main_abilities.get(
-                        stat_ink_json["gears"]["clothing"]["primary_ability"]["key"])
+                        stat_ink_json["gears"]["clothing"]["primary_ability"]["key"]
+                    )
                 else:
                     player_clothes_main = None
                 if (
@@ -1037,7 +1042,8 @@ class Battle(models.Model):
                     player_clothes_sub0 = sub_abilities.get(
                         stat_ink_json["gears"]["clothing"]["secondary_abilities"][0][
                             "key"
-                        ])
+                        ]
+                    )
                     if (
                         stat_ink_json["gears"]["clothing"]["secondary_abilities"][1]
                         is not None
@@ -1045,7 +1051,8 @@ class Battle(models.Model):
                         player_clothes_sub1 = sub_abilities.get(
                             stat_ink_json["gears"]["clothing"]["secondary_abilities"][
                                 1
-                            ]["key"])
+                            ]["key"]
+                        )
                         if (
                             stat_ink_json["gears"]["clothing"]["secondary_abilities"][2]
                             is not None
@@ -1053,7 +1060,8 @@ class Battle(models.Model):
                             player_clothes_sub2 = sub_abilities.get(
                                 stat_ink_json["gears"]["clothing"][
                                     "secondary_abilities"
-                                ][2]["key"])
+                                ][2]["key"]
+                            )
                         else:
                             player_clothes_sub2 = None
                     else:
@@ -1078,7 +1086,8 @@ class Battle(models.Model):
                     player_shoes = None
                 if stat_ink_json["gears"]["shoes"]["primary_ability"] is not None:
                     player_shoes_main = main_abilities.get(
-                        stat_ink_json["gears"]["shoes"]["primary_ability"]["key"])
+                        stat_ink_json["gears"]["shoes"]["primary_ability"]["key"]
+                    )
                 else:
                     player_shoes_main = None
                 if (
@@ -1087,9 +1096,8 @@ class Battle(models.Model):
                     is not None
                 ):
                     player_shoes_sub0 = sub_abilities.get(
-                        stat_ink_json["gears"]["shoes"]["secondary_abilities"][0][
-                            "key"
-                        ])
+                        stat_ink_json["gears"]["shoes"]["secondary_abilities"][0]["key"]
+                    )
                     if (
                         stat_ink_json["gears"]["shoes"]["secondary_abilities"][1]
                         is not None
@@ -1097,7 +1105,8 @@ class Battle(models.Model):
                         player_shoes_sub1 = sub_abilities.get(
                             stat_ink_json["gears"]["shoes"]["secondary_abilities"][1][
                                 "key"
-                            ])
+                            ]
+                        )
                         if (
                             stat_ink_json["gears"]["shoes"]["secondary_abilities"][2]
                             is not None
@@ -1105,7 +1114,8 @@ class Battle(models.Model):
                             player_shoes_sub2 = sub_abilities.get(
                                 stat_ink_json["gears"]["shoes"]["secondary_abilities"][
                                     2
-                                ]["key"])
+                                ]["key"]
+                            )
                         else:
                             player_shoes_sub2 = None
                     else:
