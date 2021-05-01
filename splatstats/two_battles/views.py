@@ -17,24 +17,38 @@ from django.core.paginator import Paginator
 
 
 def index(request):
-    if request.method == "POST":
-        form = FilterForm(request.POST)
-        if form.is_valid():
-            battles = Battle.objects
+    form = FilterForm(request.GET)
+    attributes = ""
+    if form.is_valid():
+        battles = Battle.objects
+        print(form.cleaned_data)
+        if "query" in form.cleaned_data and form.cleaned_data["query"] != "":
+            battles = get_query(form)
+            query = form.cleaned_data["query"]
+            attributes = ""
+        else:
+            attributes = ""
             if form.cleaned_data["rule"] != "all":
                 battles = battles.filter(rule=form.cleaned_data["rule"])
             if form.cleaned_data["match_type"] != "all":
                 battles = battles.filter(match_type=form.cleaned_data["match_type"])
             if form.cleaned_data["stage"] != "all":
                 battles = battles.filter(stage=form.cleaned_data["stage"])
-            if form.cleaned_data["rank"] != "all":
-                battles = battles.filter(player_rank=form.cleaned_data["rank"])
+            if form.cleaned_data["rank"] != "21":
+                battles = battles.filter(player_rank=int(form.cleaned_data["rank"]))
             if form.cleaned_data["weapon"] != "all":
                 battles = battles.filter(player_weapon=form.cleaned_data["weapon"])
-            battles = battles.order_by("-time")
+            query = ""
+            attributes += "&rule=" + form.cleaned_data["rule"]
+            attributes += "&match_type=" + form.cleaned_data["match_type"]
+            attributes += "&stage=" + form.cleaned_data["stage"]
+            attributes += "&rank=" + form.cleaned_data["rank"]
+            attributes += "&weapon=" + form.cleaned_data["weapon"]
+        battles = battles.order_by("-time")
     else:
-        form = FilterForm()
+        query = ""
         battles = Battle.objects.order_by("-time")
+        attributes = ""
     paginator = Paginator(battles, 50)  # Show 50 battles per page
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
@@ -52,10 +66,6 @@ def index(request):
         player_weapons.append(
             static("two_battles/weapons/" + battle.player_weapon + ".png")
         )
-    if "cleaned_data" in form:
-        query = form.cleaned_data["query"]
-    else:
-        query = None
     context = {
         "page_obj": page_obj,
         "my_list": zip(
@@ -66,6 +76,7 @@ def index(request):
         ),
         "form": form,
         "query": query,
+        "attributes": attributes,
     }
     return render(request, "two_battles/index.html", context)
 
@@ -1261,50 +1272,264 @@ class BattleAPIView(views.APIView):
         return Response(data=None, status=status.HTTP_200_OK)
 
 
+def to_int(value):
+    try:
+        return int(value)
+    except:
+        return None
+
+def to_bool(value):
+    return value == "True"
+
+def to_float(value):
+    try:
+        return float(value)
+    except:
+        return None
+
+
+def find_2nd(string, substring):
+   return string.find(substring, string.find(substring) + 1)
+
+
 def attribute_cast(attr, val):
     lookups = (
         ("(win)|(has_disconnected_player)", "bool"),
         ("((elapsed_)?time)|(win_meter)|(((player)|(teammate_[a-c])|(opponent_[a-d]))_((rank)|(level(_star)?)|(kills)|(deaths)|(assists)|(specials)|(game_paint_point)))", "int"),
-        ("(((my)|(other))_team_count)|(((league)|(splatfest))_point)|(player_x_power)", "float")
+        ("(((my)|(other))_team_count)|(((league)|(splatfest))_point)|(player_x_power)", "float"),
     )
     switch = {
-        "bool": bool(val),
-        "int": int(val),
-        "float": float(val)
+        "bool": to_bool(val),
+        "int": to_int(val),
+        "float": to_float(val)
     }
     for pattern, value in lookups:
         if re.search(pattern, attr):
             return switch.get(value)
-    return None
+    return val
+
+def get_query(form):
+    tokens = form.cleaned_data["query"].split()
+    current_attribute = None
+    past_tokens = []
+    mapping = {
+        "abcd-abc": {},
+        "abcd-acb": {},
+        "abcd-bac": {},
+        "abcd-bca": {},
+        "abcd-cab": {},
+        "abcd-cba": {},
+
+        "abdc-abc": {},
+        "abdc-acb": {},
+        "abdc-bac": {},
+        "abdc-bca": {},
+        "abdc-cab": {},
+        "abdc-cba": {},
+
+        "acbd-abc": {},
+        "acbd-acb": {},
+        "acbd-bac": {},
+        "acbd-bca": {},
+        "acbd-cab": {},
+        "acbd-cba": {},
+
+        "acdb-abc": {},
+        "acdb-acb": {},
+        "acdb-bac": {},
+        "acdb-bca": {},
+        "acdb-cab": {},
+        "acdb-cba": {},
+
+        "adbc-abc": {},
+        "adbc-acb": {},
+        "adbc-bac": {},
+        "adbc-bca": {},
+        "adbc-cab": {},
+        "adbc-cba": {},
+
+        "adcb-abc": {},
+        "adcb-acb": {},
+        "adcb-bac": {},
+        "adcb-bca": {},
+        "adcb-cab": {},
+        "adcb-cba": {},
+
+
+        "bacd-abc": {},
+        "bacd-acb": {},
+        "bacd-bac": {},
+        "bacd-bca": {},
+        "bacd-cab": {},
+        "bacd-cba": {},
+
+        "badc-abc": {},
+        "badc-acb": {},
+        "badc-bac": {},
+        "badc-bca": {},
+        "badc-cab": {},
+        "badc-cba": {},
+
+        "bcad-abc": {},
+        "bcad-acb": {},
+        "bcad-bac": {},
+        "bcad-bca": {},
+        "bcad-cab": {},
+        "bcad-cba": {},
+
+        "bcda-abc": {},
+        "bcda-acb": {},
+        "bcda-bac": {},
+        "bcda-bca": {},
+        "bcda-cab": {},
+        "bcda-cba": {},
+
+        "bdac-abc": {},
+        "bdac-acb": {},
+        "bdac-bac": {},
+        "bdac-bca": {},
+        "bdac-cab": {},
+        "bdac-cba": {},
+
+        "bdca-abc": {},
+        "bdca-acb": {},
+        "bdca-bac": {},
+        "bdca-bca": {},
+        "bdca-cab": {},
+        "bdca-cba": {},
+
+
+        "cabd-abc": {},
+        "cabd-acb": {},
+        "cabd-bac": {},
+        "cabd-bca": {},
+        "cabd-cab": {},
+        "cabd-cba": {},
+
+        "cadb-abc": {},
+        "cadb-acb": {},
+        "cadb-bac": {},
+        "cadb-bca": {},
+        "cadb-cab": {},
+        "cadb-cba": {},
+
+        "cbad-abc": {},
+        "cbad-acb": {},
+        "cbad-bac": {},
+        "cbad-bca": {},
+        "cbad-cab": {},
+        "cbad-cba": {},
+
+        "cbda-abc": {},
+        "cbda-acb": {},
+        "cbda-bac": {},
+        "cbda-bca": {},
+        "cbda-cab": {},
+        "cbda-cba": {},
+
+        "cdab-abc": {},
+        "cdab-acb": {},
+        "cdab-bac": {},
+        "cdab-bca": {},
+        "cdab-cab": {},
+        "cdab-cba": {},
+
+        "cdba-abc": {},
+        "cdba-acb": {},
+        "cdba-bac": {},
+        "cdba-bca": {},
+        "cdba-cab": {},
+        "cdba-cba": {},
+
+
+        "dabc-abc": {},
+        "dabc-acb": {},
+        "dabc-bac": {},
+        "dabc-bca": {},
+        "dabc-cab": {},
+        "dabc-cba": {},
+
+        "dacb-abc": {},
+        "dacb-acb": {},
+        "dacb-bac": {},
+        "dacb-bca": {},
+        "dacb-cab": {},
+        "dacb-cba": {},
+
+        "dbac-abc": {},
+        "dbac-acb": {},
+        "dbac-bac": {},
+        "dbac-bca": {},
+        "dbac-cab": {},
+        "dbac-cba": {},
+
+        "dbca-abc": {},
+        "dbca-acb": {},
+        "dbca-bac": {},
+        "dbca-bca": {},
+        "dbca-cab": {},
+        "dbca-cba": {},
+
+        "dcab-abc": {},
+        "dcab-acb": {},
+        "dcab-bac": {},
+        "dcab-bca": {},
+        "dcab-cab": {},
+        "dcab-cba": {},
+
+        "dcba-abc": {},
+        "dcba-acb": {},
+        "dcba-bac": {},
+        "dcba-bca": {},
+        "dcba-cab": {},
+        "dcba-cba": {},
+    }
+    for token in tokens:
+        if current_attribute is None:
+            current_attribute = token
+        else:
+            if len(past_tokens) > 0:
+                if token[-1] == '"':
+                    past_tokens.append(token[:len(token) - 1])
+                    if re.search("((teammate_[a-c])|(opponent_[a-d]))_[0-z_]*", current_attribute):
+                        for key in mapping:
+                            if current_attribute[0:8] == "teammate":
+                                mapping[key]["{}{}{}".format(current_attribute[0:8], find_2nd(key, current_attribute[9])-5, current_attribute[10:])] = attribute_cast(current_attribute, "".join(past_tokens))
+                            else:
+                                mapping[key]["{}{}{}".format(current_attribute[0:8], key.index(current_attribute[9]), current_attribute[10:])] = attribute_cast(current_attribute, "".join(past_tokens))
+                    else:
+                        for key in mapping:
+                            mapping[key][current_attribute] = attribute_cast(current_attribute, "".join(past_tokens))
+                    past_tokens = []
+                    current_attribute = None
+                else:
+                    past_tokens.append(token)
+            else:
+                if token[0] == '"':
+                    past_tokens.append(token[1:])
+                    past_tokens.append(" ")
+                else:
+                    past_tokens.append(token)
+                    if re.search("((teammate_[a-c])|(opponent_[a-d]))_[0-z_]*", current_attribute):
+                        for key in mapping:
+                            if current_attribute[0:8] == "teammate":
+                                mapping[key]["{}{}{}".format(current_attribute[0:8], find_2nd(key, current_attribute[9])-5, current_attribute[10:])] = attribute_cast(current_attribute, "".join(past_tokens))
+                            else:
+                                mapping[key]["{}{}{}".format(current_attribute[0:8], key.index(current_attribute[9]), current_attribute[10:])] = attribute_cast(current_attribute, "".join(past_tokens))
+                    else:
+                        for key in mapping:
+                            mapping[key][current_attribute] = attribute_cast(current_attribute, "".join(past_tokens))
+                    past_tokens = []
+                    current_attribute = None
+    battles = Battle.objects.none()
+    for key in mapping:
+        battles = battles | Battle.objects.filter(**(mapping[key])).order_by("-time")
+    return battles
 
 def advanced_search(request):
     form = AdvancedFilterForm(request.GET)
     if form.is_valid():
-        tokens = form.cleaned_data["query"].split()
-        current_attribute = None
-        past_tokens = []
-        mapping = {}
-        for token in tokens:
-            if current_attribute is None:
-                current_attribute = token
-            else:
-                if len(past_tokens) > 0:
-                    if token[-1] == '"':
-                        past_tokens.append(token)
-                        mapping[current_attribute] = attribute_cast(current_attribute, "".join(past_tokens))
-                        past_tokens = []
-                        current_attribute = None
-                    else:
-                        past_tokens.append(token)
-                else:
-                    if token[0] == '"':
-                        past_tokens.append(token)
-                    else:
-                        past_tokens.append(token)
-                        mapping[current_attribute] = attribute_cast(current_attribute, "".join(past_tokens))
-                        past_tokens = []
-                        current_attribute = None
-        battles = Battle.objects.filter(**mapping).order_by("-time")
+        battles = get_query(form)
         paginator = Paginator(battles, 50)  # Show 50 battles per page
         page_number = request.GET.get("page")
         page_obj = paginator.get_page(page_number)
@@ -1322,10 +1547,7 @@ def advanced_search(request):
             player_weapons.append(
                 static("two_battles/weapons/" + battle.player_weapon + ".png")
             )
-        if "cleaned_data" in form:
-            query = form.cleaned_data["query"]
-        else:
-            query = None
+        query = form.cleaned_data["query"]
         context = {
             "page_obj": page_obj,
             "my_list": zip(
@@ -1337,6 +1559,7 @@ def advanced_search(request):
             "form": form,
             "search_status": True,
             "query": query,
+            "attributes": "",
         }
         return render(request, "two_battles/index.html", context)
     return render(request, "two_battles/advanced_search.html", {"form": form})
