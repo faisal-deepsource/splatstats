@@ -59,238 +59,502 @@ class Ranks(models.IntegerChoices):
     x_rank = 20, _("X")
 
 
-class Weapons(models.TextChoices):
-    all_weapons = "all", _("All Weapons")
-    bold = "0", _("Sploosh-o-matic")
-    bold_neo = "1", _("Neo Sploosh-o-matic")
-    bold_7 = "2", _("Sploosh-o-matic 7")
-    wakaba = "10", _("Splattershot Jr.")
-    momiji = "11", _("Custom Splattershot Jr.")
-    ochiba = "12", _("Kensa Splattershot Jr.")
-    sharp = "20", _("Splash-o-matic")
-    sharp_neo = "21", _("Neo Splash-o-matic")
-    promodeler_mg = "30", _("Aerospray MG")
-    promodeler_rg = "31", _("Aerospray RG")
-    promodeler_pg = "32", _("Aerospray PG")
-    sshooter = "40", _("Splattershot")
-    sshooter_collabo = "41", _("Tentatek Splattershot")
-    sshooter_becchu = "42", _("Kensa Splattershot")
-    heroshooter_replica = "45", _("Hero Shot Replica")
-    octoshooter_replica = "46", _("Octo Shot Replica")
-    five2gal = "50", _(".52 Gal")
-    five2gal_deco = "51", _(".52 Gal Deco")
-    five2gal_becchu = "52", _("Kensa .52 Gal")
-    nzap85 = "60", _("N-ZAP '85")
-    nzap89 = "61", _("N-ZAP '89")
-    nzap83 = "62", _("N-ZAP '83")
-    prime = "70", _("Splattershot Pro")
-    prime_collabo = "71", _("Forge Splattershot Pro")
-    prime_becchu = "72", _("Kensa Splattershot Pro")
-    nine6gal = "80", _(".96 Gal")
-    nine6gal_deco = "81", _(".96 Gal Deco")
-    jetsweeper = "90", _("Jet Squelcher")
-    jetsweeper_custom = "91", _("Custom Jet Squelcher")
-    nova = "200", _("Luna Blaster")
-    nova_neo = "201", _("Luna Blaster Neo")
-    nova_becchu = "202", _("Kensa Luna Blaster")
-    hotblaster = "210", _("Blaster")
-    hotblaster_custom = "211", _("Custom Blaster")
-    heroblaster_replica = "215", _("Hero Blaster Replica")
-    longblaster = "220", _("Range Blaster")
-    longblaster_custom = "221", _("Custom Range Blaster")
-    longblaster_necro = "222", _("Grim Range Blaster")
-    clashblaster = "230", _("Clash Blaster")
-    clashblaster_neo = "231", _("Clash Blaster Neo")
-    rapid = "240", _("Rapid Blaster")
-    rapid_deco = "241", _("Rapid Blaster Deco")
-    rapid_becchu = "242", _("Kensa Rapid Blaster")
-    rapid_elite = "250", _("Rapid Blaster Pro")
-    rapid_elite_deco = "251", _("Rapid Blaster Pro Deco")
-    l3reelgun = "300", _("L-3 Nozzlenose")
-    l3reelgun_d = "301", _("L-3 Nozzlenose D")
-    l3reelgun_becchu = "302", _("Kensa L-3 Nozzlenose")
-    h3reelgun = "310", _("H-3 Nozzlenose")
-    h3reelgun_d = "311", _("H-3 Nozzlenose D")
-    h3reelgun_cherry = "312", _("Cherry H-3 Nozzlenose")
-    bottlegeyser = "400", _("Squeezer")
-    bottlegeyser_foil = "401", _("Foil Squeezer")
-    carbon = "1000", _("Carbon Roller")
-    carbon_deco = "1001", _("Carbon Roller Deco")
-    splatroller = "1010", _("Splat Roller")
-    splatroller_collabu = "1011", _("Krak-On Splat Roller")
-    splatroller_becchu = "1012", _("Kensa Splat Roller")
-    heroroller_replica = "1015", _("Hero Roller Replica")
-    dynamo = "1020", _("Dynamo Roller")
-    dynamo_tesla = "1021", _("Gold Dynamo Roller")
-    dynamo_becchu = "1022", _("Kensa Dynamo Roller")
-    variableroller = "1030", _("Flingza Roller")
-    variableroller_foil = "1031", _("Foil Flingza Roller")
-    pablo = "1100", _("Inkbrush")
-    pablo_hue = "1101", _("Inkbrush Nouveau")
-    pablo_permanent = "1102", _("Permanent Inkbrush")
-    hokusai = "1110", _("Octobrush")
-    hokusai_hue = "1111", _("Octobrush Nouveau")
-    hokusai_becchu = "1112", _("Kensa Octobrush")
-    herobrush_replica = "1115", _("Herobrush Replica")
-    squiclean_a = "2000", _("Classic Squiffer")
-    squiclean_b = "2001", _("New Squiffer")
-    squiclean_g = "2002", _("Fresh Squiffer")
-    splatcharger = "2010", _("Splat Charger")
-    splatcharger_collabo = "2011", _("Firefin Splat Charger")
-    splatcharger_becchu = "2012", _("Kensa Charger")
-    herocharger_replica = "2015", _("Hero Charger Replica")
-    splatscope = "2020", _("Splatterscope")
-    splatscope_colalbo = "2021", _("Firefin Splatterscope")
-    splatscope_becchu = "2022", _("Kensa Splatterscope")
-    liter4k = "2030", _("E-liter 4K")
-    liter4k_custom = "2031", _("Custom E-liter 4K")
-    liter4k_scope = "2040", _("E-liter 4K Scope")
-    liter4k_scope_custom = "2041", _("Custom E-liter 4K Scope")
-    bamboo14mk1 = "2050", _("Bamboozler 14 Mk I")
-    bamboo14mk2 = "2051", _("Bamboozler 14 Mk II")
-    bamboo14mk3 = "2052", _("Bamboozler 14 Mk III")
-    soytuber = "2060", _("Goo Tuber")
-    soytuber_custom = "2061", _("Custom Goo Tuber")
-    bucketslosher = "3000", _("Slosher")
-    bucketslosher_deco = "3001", _("Slosher Deco")
-    bucketslosher_soda = "3002", _("Soda Slosher")
-    heroslosher_replica = "3005", _("Hero Slosher Replica")
-    hissen = "3010", _("Tri-Slosher")
-    hissen_hue = "3011", _("Tri-Slosher Nouveau")
-    screwslosher = "3020", _("Sloshing Machine")
-    screwslosher_neo = "3021", _("Sloshing Machine Neo")
-    screwslosher_becchu = "3022", _("Kensa Sloshing Machine")
-    furo = "3030", _("Bloblobber")
-    furo_deco = "3031", _("Bloblobber Deco")
-    explosher = "3040", _("Explosher")
-    explosher_custom = "3041", _("Custom Explosher")
-    splatspinner = "4000", _("Mini Splatling")
-    splatspinner_collabo = "4001", _("Zink Mini Splatling")
-    splatspinner_becchu = "4002", _("Kensa Mini Splatling")
-    barrelspinner = "4010", _("Heavy Splatling")
-    barrelspinner_deco = "4011", _("Heavy Splating Deco")
-    barrelspinner_remix = "4012", _("Heavy Splatling Remix")
-    herospinner_replica = "4015", _("Hero Splatling Replica")
-    hydra = "4020", _("Hydra Splatling")
-    hydra_custom = "4021", _("Custom Hydra Splatling")
-    kugelschreiber = "4030", _("Ballpoint Splatling")
-    kugelschreiber_hue = "4031", _("Ballpoint Splatling Nouveau")
-    nautilus47 = "4040", _("Nautilus 47")
-    nautilus79 = "4041", _("Nautilus 79")
-    sputtery = "5000", _("Dapple Dualies")
-    sputtery_hue = "5001", _("Daple Dualies Nouveau")
-    sputtery_clear = "5002", _("Clear Dapple Dualies")
-    maneuver = "5010", _("Splat Dualies")
-    maneuver_collabo = "5011", _("Enperry Splat Dualies")
-    maneuver_becchu = "5012", _("Kensa Splat Dualies")
-    heromaneuiver_replica = "5015", _("Hero Dualie Replicas")
-    kelvin525 = "5020", _("Glooga Dualies")
-    kelvin525_deco = "5021", _("Glooga Dualies Deco")
-    kelvin525_becchu = "5022", _("Kensa Glooga Dualies")
-    dualsweeper = "5030", _("Dualie Squelchers")
-    dualsweeper_custom = "5031", _("Custom Dualie Squelchers")
-    quadhopper_black = "5040", _("Dark Tetra Dualies")
-    quadhopper_white = "5041", _("Light Tetra Dualies")
-    parashelter = "6000", _("Splat Brella")
-    parashelter_sorella = "6001", _("Sorella Brella")
-    heroshelter_replica = "6005", _("Hero Brella Replica")
-    campingshelter = "6010", _("Tenta Brella")
-    campingshelter_sorella = "6011", _("Tenta Sorella Brella")
-    campingshelter_camo = "6012", _("Tenta Camo Brella")
-    spygadget = "6020", _("Undercover Brella")
-    spygadget_sorella = "6021", _("Undercover Sorella Brella")
-    spygadget_becchu = "6022", _("Kensa Undercover Brella")
+Weapons = (
+    ("all", _("All Weapons")),
+    ("0", _("Sploosh-o-matic")),
+    ("1", _("Neo Sploosh-o-matic")),
+    ("2", _("Sploosh-o-matic 7")),
+    ("10", _("Splattershot Jr.")),
+    ("11", _("Custom Splattershot Jr.")),
+    ("12", _("Kensa Splattershot Jr.")),
+    ("20", _("Splash-o-matic")),
+    ("21", _("Neo Splash-o-matic")),
+    ("30", _("Aerospray MG")),
+    ("31", _("Aerospray RG")),
+    ("32", _("Aerospray PG")),
+    ("40", _("Splattershot")),
+    ("41", _("Tentatek Splattershot")),
+    ("42", _("Kensa Splattershot")),
+    ("45", _("Hero Shot Replica")),
+    ("46", _("Octo Shot Replica")),
+    ("50", _(".52 Gal")),
+    ("51", _(".52 Gal Deco")),
+    ("52", _("Kensa .52 Gal")),
+    ("60", _("N-ZAP '85")),
+    ("61", _("N-ZAP '89")),
+    ("62", _("N-ZAP '83")),
+    ("70", _("Splattershot Pro")),
+    ("71", _("Forge Splattershot Pro")),
+    ("72", _("Kensa Splattershot Pro")),
+    ("80", _(".96 Gal")),
+    ("81", _(".96 Gal Deco")),
+    ("90", _("Jet Squelcher")),
+    ("91", _("Custom Jet Squelcher")),
+    ("200", _("Luna Blaster")),
+    ("201", _("Luna Blaster Neo")),
+    ("202", _("Kensa Luna Blaster")),
+    ("210", _("Blaster")),
+    ("211", _("Custom Blaster")),
+    ("215", _("Hero Blaster Replica")),
+    ("220", _("Range Blaster")),
+    ("221", _("Custom Range Blaster")),
+    ("222", _("Grim Range Blaster")),
+    ("230", _("Clash Blaster")),
+    ("231", _("Clash Blaster Neo")),
+    ("240", _("Rapid Blaster")),
+    ("241", _("Rapid Blaster Deco")),
+    ("242", _("Kensa Rapid Blaster")),
+    ("250", _("Rapid Blaster Pro")),
+    ("251", _("Rapid Blaster Pro Deco")),
+    ("300", _("L-3 Nozzlenose")),
+    ("301", _("L-3 Nozzlenose D")),
+    ("302", _("Kensa L-3 Nozzlenose")),
+    ("310", _("H-3 Nozzlenose")),
+    ("311", _("H-3 Nozzlenose D")),
+    ("312", _("Cherry H-3 Nozzlenose")),
+    ("400", _("Squeezer")),
+    ("401", _("Foil Squeezer")),
+    ("1000", _("Carbon Roller")),
+    ("1001", _("Carbon Roller Deco")),
+    ("1010", _("Splat Roller")),
+    ("1011", _("Krak-On Splat Roller")),
+    ("1012", _("Kensa Splat Roller")),
+    ("1015", _("Hero Roller Replica")),
+    ("1020", _("Dynamo Roller")),
+    ("1021", _("Gold Dynamo Roller")),
+    ("1022", _("Kensa Dynamo Roller")),
+    ("1030", _("Flingza Roller")),
+    ("1031", _("Foil Flingza Roller")),
+    ("1100", _("Inkbrush")),
+    ("1101", _("Inkbrush Nouveau")),
+    ("1102", _("Permanent Inkbrush")),
+    ("1110", _("Octobrush")),
+    ("1111", _("Octobrush Nouveau")),
+    ("1112", _("Kensa Octobrush")),
+    ("1115", _("Herobrush Replica")),
+    ("2000", _("Classic Squiffer")),
+    ("2001", _("New Squiffer")),
+    ("2002", _("Fresh Squiffer")),
+    ("2010", _("Splat Charger")),
+    ("2011", _("Firefin Splat Charger")),
+    ("2012", _("Kensa Charger")),
+    ("2015", _("Hero Charger Replica")),
+    ("2020", _("Splatterscope")),
+    ("2021", _("Firefin Splatterscope")),
+    ("2022", _("Kensa Splatterscope")),
+    ("2030", _("E-liter 4K")),
+    ("2031", _("Custom E-liter 4K")),
+    ("2040", _("E-liter 4K Scope")),
+    ("2041", _("Custom E-liter 4K Scope")),
+    ("2050", _("Bamboozler 14 Mk I")),
+    ("2051", _("Bamboozler 14 Mk II")),
+    ("2052", _("Bamboozler 14 Mk III")),
+    ("2060", _("Goo Tuber")),
+    ("2061", _("Custom Goo Tuber")),
+    ("3000", _("Slosher")),
+    ("3001", _("Slosher Deco")),
+    ("3002", _("Soda Slosher")),
+    ("3005", _("Hero Slosher Replica")),
+    ("3010", _("Tri-Slosher")),
+    ("3011", _("Tri-Slosher Nouveau")),
+    ("3020", _("Sloshing Machine")),
+    ("3021", _("Sloshing Machine Neo")),
+    ("3022", _("Kensa Sloshing Machine")),
+    ("3030", _("Bloblobber")),
+    ("3031", _("Bloblobber Deco")),
+    ("3040", _("Explosher")),
+    ("3041", _("Custom Explosher")),
+    ("4000", _("Mini Splatling")),
+    ("4001", _("Zink Mini Splatling")),
+    ("4002", _("Kensa Mini Splatling")),
+    ("4010", _("Heavy Splatling")),
+    ("4011", _("Heavy Splating Deco")),
+    ("4012", _("Heavy Splatling Remix")),
+    ("4015", _("Hero Splatling Replica")),
+    ("4020", _("Hydra Splatling")),
+    ("4021", _("Custom Hydra Splatling")),
+    ("4030", _("Ballpoint Splatling")),
+    ("4031", _("Ballpoint Splatling Nouveau")),
+    ("4040", _("Nautilus 47")),
+    ("4041", _("Nautilus 79")),
+    ("5000", _("Dapple Dualies")),
+    ("5001", _("Daple Dualies Nouveau")),
+    ("5002", _("Clear Dapple Dualies")),
+    ("5010", _("Splat Dualies")),
+    ("5011", _("Enperry Splat Dualies")),
+    ("5012", _("Kensa Splat Dualies")),
+    ("5015", _("Hero Dualie Replicas")),
+    ("5020", _("Glooga Dualies")),
+    ("5021", _("Glooga Dualies Deco")),
+    ("5022", _("Kensa Glooga Dualies")),
+    ("5030", _("Dualie Squelchers")),
+    ("5031", _("Custom Dualie Squelchers")),
+    ("5040", _("Dark Tetra Dualies")),
+    ("5041", _("Light Tetra Dualies")),
+    ("6000", _("Splat Brella")),
+    ("6001", _("Sorella Brella")),
+    ("6005", _("Hero Brella Replica")),
+    ("6010", _("Tenta Brella")),
+    ("6011", _("Tenta Sorella Brella")),
+    ("6012", _("Tenta Camo Brella")),
+    ("6020", _("Undercover Brella")),
+    ("6021", _("Undercover Sorella Brella")),
+    ("6022", _("Kensa Undercover Brella")),
+)
+
+Stage = (
+    ("all", _("All Stages")),
+    ("0", _("The Reef")),
+    ("1", _("Musselforge Fitness")),
+    ("2", _("Starfish Mainstage")),
+    ("3", _("Sturgeon Shipyard")),
+    ("4", _("Inkblot Art Academy")),
+    ("5", _("Humpback Pump Track")),
+    ("6", _("Manta Maria")),
+    ("7", _("Port Mackerel")),
+    ("8", _("Moray Towers")),
+    ("9", _("Snapper Canal")),
+    ("10", _("Kelp Dome")),
+    ("11", _("Blackbelly Skatepark")),
+    ("12", _("Shellendorf Institute")),
+    ("13", _("MakoMart")),
+    ("14", _("Walleye Warehouse")),
+    ("15", _("Arowana Mall")),
+    ("16", _("Camp Triggerfish")),
+    ("17", _("Piranha Pit")),
+    ("18", _("Goby Arena")),
+    ("19", _("New Albacore Hotel")),
+    ("20", _("Wahoo World")),
+    ("21", _("Ancho-V Games")),
+    ("22", _("Skipper Pavillion")),
+    ("109", _("Zappy Longshocking")),
+    ("112", _("The Switches")),
+    ("113", _("Sweet Valley Tentacles")),
+    ("115", _("Railway Chillin'")),
+    ("118", _("Flooders in the Attic")),
+    ("119", _("The Splat in Our Zones")),
+    ("120", _("The Ink is Spreading")),
+    ("121", _("Bridge to Tentaswitchia")),
+    ("122", _("The Chronicles of Rolonium")),
+    ("9999", _("Shifty Station")),
+)
 
 
-class Stage(models.TextChoices):
-    all_stages = "all", _("All Stages")
-    reef = "0", _("The Reef")
-    musselforge = "1", _("Musselforge Fitness")
-    mainstage = "2", _("Starfish Mainstage")
-    sturgeon = "3", _("Sturgeon Shipyard")
-    inkblot = "4", _("Inkblot Art Academy")
-    humpback = "5", _("Humpback Pump Track")
-    manta = "6", _("Manta Maria")
-    port = "7", _("Port Mackerel")
-    moray = "8", _("Moray Towers")
-    snapper = "9", _("Snapper Canal")
-    dome = "10", _("Kelp Dome")
-    blackbelly = "11", _("Blackbelly Skatepark")
-    shellendorf = "12", _("Shellendorf Institute")
-    mart = "13", _("MakoMart")
-    walleye = "14", _("Walleye Warehouse")
-    mall = "15", _("Arowana Mall")
-    camp = "16", _("Camp Triggerfish")
-    pit = "17", _("Piranha Pit")
-    goby = "18", _("Goby Arena")
-    albacore = "19", _("New Albacore Hotel")
-    wahoo = "20", _("Wahoo World")
-    anchov = "21", _("Ancho-V Games")
-    skipper = "22", _("Skipper Pavillion")
-    zappy = "109", _("Zappy Longshocking")
-    switches = "112", _("The Switches")
-    valley = "113", _("Sweet Valley Tentacles")
-    railway = "115", _("Railway Chillin'")
-    attic = "118", _("Flooders in the Attic")
-    our = "119", _("The Splat in Our Zones")
-    spreading = "120", _("The Ink is Spreading")
-    bridge = "121", _("Bridge to Tentaswitchia")
-    chronicles = "122", _("The Chronicles of Rolonium")
-    shifty = "9999", _("Shifty Station")
+MainAbilities = (
+    ("0", _("Ink Saver (Main)")),
+    ("1", _("Ink Saver (Sub")),
+    ("2", _("Ink Recovery Up")),
+    ("3", _("Run Speed Up")),
+    ("4", _("Swim Speed Up")),
+    ("5", _("Special Charge Up")),
+    ("6", _("Special Saver")),
+    ("7", _("Special Power Up")),
+    ("8", _("Quick Respawn")),
+    ("9", _("Quick Super Jump")),
+    ("10", _("Sub Power Up")),
+    ("11", _("Ink Resistance Up")),
+    ("100", _("Opening Gambit")),
+    ("101", _("Last Ditch Effort")),
+    ("102", _("Tenacity")),
+    ("103", _("Comeback")),
+    ("104", _("Ninja Squid")),
+    ("105", _("Haunt")),
+    ("106", _("Thermal Ink")),
+    ("107", _("Respawn Punisher")),
+    ("108", _("Ability Doubler")),
+    ("109", _("Stealth Jump")),
+    ("110", _("Object Shredder")),
+    ("111", _("Drop Roller")),
+    ("200", _("Bomb Defense Up DX")),
+    ("201", _("Main Power Up")),
+)
+
+SubAbilities = (
+    ("0", _("Ink Saver (Main)")),
+    ("1", _("Ink Saver (Sub")),
+    ("2", _("Ink Recovery Up")),
+    ("3", _("Run Speed Up")),
+    ("4", _("Swim Speed Up")),
+    ("5", _("Special Charge Up")),
+    ("6", _("Special Saver")),
+    ("7", _("Special Power Up")),
+    ("8", _("Quick Respawn")),
+    ("9", _("Quick Super Jump")),
+    ("10", _("Sub Power Up")),
+    ("11", _("Ink Resistance Up")),
+    ("200", _("Bomb Defense Up DX")),
+    ("201", _("Main Power Up")),
+    ("255", _("Question Mark")),
+)
+
+
+Clothes = (
+    ("2", _("Basic Tee")),
+    ("3", _("Fresh Octo Tee")),
+    ("1000", _("White Tee")),
+    ("1001", _("Black Squideye")),
+    ("1003", _("Sky Blue Squideye")),
+    ("1004", _("Rockenberg White")),
+    ("1005", _("Rockenberg Black")),
+    ("1006", _("Black Tee")),
+    ("1007", _("Sunny-Day Tee")),
+    ("1008", _("Rainy-Day Tee")),
+    ("1009", _("Reggae Tee")),
+    ("1010", _("Fugu Tee")),
+    ("1011", _("Mint Tee")),
+    ("1012", _("Grape Tee")),
+    ("1013", _("Red Vector Tee")),
+    ("1014", _("Gray Vector Tee")),
+    ("1015", _("Blue Peaks Tee")),
+    ("1016", _("Ivory Peaks Tee")),
+    ("1017", _("Squid-Stitch Tee")),
+    ("1018", _("Pirate-Stripe Tee")),
+    ("1019", _("Sailor-Stripe Tee")),
+    ("1020", _("White 8-Bit FishFry")),
+    ("1021", _("Black 8-Bit FishFry")),
+    ("1022", _("White Anchor Tee")),
+    ("1023", _("Black Anchor Tee")),
+    ("1026", _("Carnivore Tee")),
+    ("1027", _("Pearl Tee")),
+    ("1028", _("Octo Tee")),
+    ("1029", _("Herbivore Tee")),
+    ("1030", _("Black V-Neck Tee")),
+    ("1031", _("White Deca Logo Tee")),
+    ("1032", _("Half-Sleeve Sweater")),
+    ("1033", _("King Jersey")),
+    ("1034", _("Gray 8-Bit FishFry")),
+    ("1035", _("White V-Neck Tee")),
+    ("1036", _("White Urchin Rock Tee")),
+    ("1037", _("Black Urchin Rock Tee")),
+    ("1038", _("Wet Floor Band Tee")),
+    ("1039", _("Squid Squad Band Tee")),
+    ("1040", _("Navy Deca Logo Tee")),
+    ("1041", _("Mister Shrug Tee")),
+    ("1042", _("Chirpy Chips Band Tee")),
+    ("1043", _("Hightide Era Band Tee")),
+    ("1044", _("Red V-Neck Limited Tee")),
+    ("1045", _("Green V-Neck Limited Tee")),
+    ("1046", _("ω-3 Tee")),
+    ("1047", _("Annaki Polpo-Pic Tee")),
+    ("1048", _("Firewave Tee")),
+    ("1049", _("Takoroka Galactic Tie Dye")),
+    ("1050", _("Takoroka Rainbow Tie Dye")),
+    ("1051", _("Missus Shrug Tee")),
+    ("1052", _("League Tee")),
+    ("1053", _("Friend Tee")),
+    ("1054", _("Tentatek Slogan Tee")),
+    ("1055", _("Icewave Tee")),
+    ("1056", _("Octoking HK Jersey")),
+    ("1057", _("Dakro Nana Tee")),
+    ("1058", _("Dakro Golden Tee")),
+    ("1059", ("Black Velour Octoking Tee")),
+    ("1060", _("Green Velour Octoking Tee")),
+    ("1061", _("SWC Logo Tee")),
+    ("2000", _("White Striped LS")),
+    ("2001", _("Black LS")),
+    ("2002", _("Purple Camo LS")),
+    ("2003", _("Navy Striped LS")),
+    ("2004", _("Zekko Baseball LS")),
+    ("2005", _("Varsity Baseball LS")),
+    ("2006", _("Black Baseball LS")),
+    ("2007", _("White Baseball LS")),
+    ("2008", _("White LS")),
+    ("2009", _("Green Striped LS")),
+    ("2010", _("Squidmark LS")),
+    ("2011", _("Zink LS")),
+    ("2012", _("Striped Peaks LS")),
+    ("2013", _("Pink Easy-Stripe Shirt")),
+    ("2014", _("Inkopolis Squaps Jersey")),
+    ("2015", _("Annaki Drive Tee")),
+    ("2016", _("Lime Easy-Stripe Shirt")),
+    ("2017", _("Annaki Evolution Tee")),
+    ("2018", _("Zekko Long Carrot Tee")),
+    ("2019", _("Zekko Long Radish Tee")),
+    ("2020", _("Black Cuttlegear LS")),
+    ("2021", _("Takoroka Crazy Baseball LS")),
+    ("2022", _("Red Cuttlegear LS")),
+    ("2023", _("Khaki 16-Bit FishFry")),
+    ("2024", _("Blue 16-Bit FishFry")),
+    ("3000", _("White Layered LS")),
+    ("3001", _("Yellow Layered LS")),
+    ("3002", _("Camo Layered LS")),
+    ("3003", _("Black Layered LS")),
+    ("3004", _("Zink Layered LS")),
+    ("3005", _("Layered Anchor LS")),
+    ("3006", _("Choco Layered LS")),
+    ("3007", _("Part-Time Pirate")),
+    ("3008", _("Layered Vector LS")),
+    ("3009", _("Green Tee")),
+    ("3010", _("Red Tentatek Tee")),
+    ("3011", _("Blue Tentatek Tee")),
+    ("3012", _("Octo Layered LS")),
+    ("3013", _("Squid Yellow Layered LS")),
+    ("4000", _("Shrimp-Pink Polo")),
+    ("4001", _("Striped Rugby")),
+    ("4002", _("Tricolor Rugby")),
+    ("4003", _("Sage Polo")),
+    ("4004", _("Black Polo")),
+    ("4005", _("Cycling Shirt")),
+    ("4006", _("Cycle King Jersey")),
+    ("4007", _("Slipstream United")),
+    ("4008", _("FC Albacore")),
+    ("5000", _("Olive Ski Jacket")),
+    ("5001", _("Takoroka Nylon Vintage")),
+    ("5002", _("Berry Ski Jacket")),
+    ("5003", _("Varsity Jacket")),
+    ("5004", _("School Jersey")),
+    ("5005", _("Green Cardigan")),
+    ("5006", _("Black Inky Rider")),
+    ("5007", _("White Inky Rider")),
+    ("5008", _("Retro Gamer Jersey")),
+    ("5009", _("Orange Cardigan")),
+    ("5010", _("Forge Inkling Parka")),
+    ("5011", _("Forge Octarian Jacket")),
+    ("5012", _("Blue Sailor Suit")),
+    ("5013", _("White Sailor Suit")),
+    ("5014", _("Squid Satin Jacket")),
+    ("5015", _("Zapfish Satin Jacket")),
+    ("5016", _("Krak-On 528")),
+    ("5017", _("Chilly Mountain Coat")),
+    ("5018", _("Takoroka Windcrusher")),
+    ("5019", _("Matcha Down Jacket")),
+    ("5020", _("FA-01 Jacket")),
+    ("5021", _("FA-01 Reversed")),
+    ("5022", _("Pullover Coat")),
+    ("5023", _("Kensa Coat")),
+    ("5024", _("Birded Corduroy Jacket")),
+    ("5025", _("Deep-Octo Satin Jacket")),
+    ("5026", _("Zekko Redleaf Coat")),
+    ("5027", _("Eggplant Mountain Coat")),
+    ("5028", _("Zekko Jade Coat")),
+    ("5029", _("Light Bomber Jacket")),
+    ("5030", _("Brown FA-11 Bomber")),
+    ("5031", _("Gray FA-11 Bomber")),
+    ("5032", _("Milky Eminence Jacket")),
+    ("5033", _("Navy Eminence Jacket")),
+    ("5034", _("Tumeric Zekko Coat")),
+    ("5035", _("Custom Painted F-3")),
+    ("5036", _("Dark Bomber Jacket")),
+    ("5037", _("Moist Ghillie Suit")),
+    ("5038", _("White Leather F-3")),
+    ("5039", _("Chili-Pepper Ski Jacket")),
+    ("5040", _("Whale-Knit Sweater")),
+    ("5041", _("Rockin' Leather Jacket")),
+    ("5042", _("Kung-Fu Zip-Up")),
+    ("5043", _("Panda Kung-Fu Zip-Up")),
+    ("5044", _("Sennyu Suit")),
+    ("6000", _("B-ball Jersey (Home)")),
+    ("6001", _("B-ball Jersey (Away)")),
+    ("6003", _("White King Tank")),
+    ("6004", _("Slash King Tank")),
+    ("6005", _("Navy King Tank")),
+    ("6006", _("Lob-Stars Jersey")),
+    ("7000", _("Gray College Sweat")),
+    ("7001", _("Squidmark Sweat")),
+    ("7002", _("Retro Sweat")),
+    ("7003", _("Firefin Navy Sweat")),
+    ("7004", _("Navy College Sweat")),
+    ("7005", _("Reel Sweat")),
+    ("7006", _("Anchor Sweat")),
+    ("7007", _("Negative Longcuff Sweater")),
+    ("7008", _("Short Knit Layers")),
+    ("7009", _("Positive Longcuff Sweater")),
+    ("7010", _("Annaki Blue Cuff")),
+    ("7011", _("Annaki Yellow Cuff")),
+    ("7012", _("Annaki Red Cuff")),
+    ("7013", _("N-Pacer Sweat")),
+    ("7014", _("Octarian Retro")),
+    ("7015", _("Takoroka Jersey")),
+    ("8000", _("Lumberjack Shirt")),
+    ("8001", _("Rodeo Shirt")),
+    ("8002", _("Green-Check Shirt")),
+    ("8003", _("White Shirt")),
+    ("8004", _("Urchins Jersey")),
+    ("8005", _("Aloha Shirt")),
+    ("8006", _("Red-Check Shirt")),
+    ("8007", _("Baby-Jelly Shirt")),
+    ("8008", _("Baseball Jersey")),
+    ("8009", _("Gray Mixed Shirt")),
+    ("8010", _("Vintage Check Shirt")),
+    ("8011", _("Round-Collar Shirt")),
+    ("8012", _("Logo Aloha Shirt")),
+    ("8013", _("Striped Shirt")),
+    ("8014", _("Linen Shirt")),
+    ("8015", _("Shirt and Tie")),
+    ("8017", _("Hula Punk Shirt")),
+    ("8018", _("Octobowler Shirt")),
+    ("8019", _("Inkfall Shirt")),
+    ("8020", _("Crimson Parashooter")),
+    ("8021", _("Baby-Jelly Shirt and Tie")),
+    ("8022", _("Prune Parashooter")),
+    ("8023", _("Red Hula Punk with Tie")),
+    ("8024", _("Chili Octo Aloha")),
+    ("8025", _("Annaki Flannel Hoodie")),
+    ("8026", _("Ink-Wash Shirt")),
+    ("8027", _("Dots-On-Dots Shirt")),
+    ("8028", _("Toni K. Baseball Jersey")),
+    ("8029", _("Online Jersey")),
+    ("9000", _("Mountain Vest")),
+    ("9001", _("Forest Vest")),
+    ("9002", _("Dark Urban Vest")),
+    ("9003", _("Yellow Urban Vest")),
+    ("9004", _("Squid-Pattern Waistcoat")),
+    ("9005", _("Squidstar Waistcoat")),
+    ("9007", _("Fishing Vest")),
+    ("9008", _("Front Zip Vest")),
+    ("9009", _("Silver Tentatek Vest")),
+    ("10000", _("Camo Zip Hoodie")),
+    ("10001", _("Green Zip Hoodie")),
+    ("10002", _("Zekko Hoodie")),
+    ("10004", _("Shirt with Blue Hoodie")),
+    ("10005", _("Grape Hoodie")),
+    ("10006", _("Gray Hoodie")),
+    ("10007", _("Hothouse Hoodie")),
+    ("10008", _("Pink Hoodie")),
+    ("10009", _("Olive Zekko Parka")),
+    ("10010", _("Black Hoodie")),
+    ("10011", _("Octo Support Hoodie")),
+    ("21000", _("Squiddor Polo")),
+    ("21001", _("Anchor Life Vest")),
+    ("21002", _("Juice Parka")),
+    ("21003", _("Garden Gear")),
+    ("21004", _("Crustwear XXL")),
+    ("21005", _("North-Country Parka")),
+    ("21006", _("Octoleet Armor")),
+    ("21007", _("Record Shop Look EP")),
+    ("21008", _("Dev Uniform")),
+    ("21009", _("Office Attire")),
+    ("21010", _("SRL Coat")),
+    ("22000", _("Mecha Body - AKM")),
+    ("23000", _("Splatfest Tee Replica")),
+    ("25000", _("School Uniform")),
+    ("25001", _("Samurai Jacket")),
+    ("25002", _("Power Armor")),
+    ("25003", _("School Cardigan")),
+    ("25004", _("Squinja Suit")),
+    ("25005", _("Power Armor Mk I")),
+    ("25006", _("Pearlescent Hoodie")),
+    ("25007", _("Marinated Top")),
+    ("25008", _("Enchanted Robe")),
+    ("25009", _("Steel Platemail")),
+    ("25010", _("Fresh Fish Gloves")),
+    ("26000", _("Splatfest Tee")),
+    ("27000", _("Hero Jacket Replica")),
+    ("27004", _("Armor Jacket Replica")),
+    ("27101", _("Hero Hoodie Replica")),
+    ("27104", _("Neo Octoling Armor")),
+    ("27015", _("Null Armor Replica")),
+    ("27106", _("Old-Timey Clothes")),
+)
 
 
 class Battle(models.Model):
-    class MainAbilities(models.TextChoices):
-        ink_saver_main = "0"
-        ink_saver_sub = "1"
-        ink_recovery_up = "2"
-        run_speed_up = "3"
-        swim_speed_up = "4"
-        special_charge_up = "5"
-        special_saver = "6"
-        special_power_up = "7"
-        quick_respawn = "8"
-        quick_super_jump = "9"
-        sub_power_up = "10"
-        ink_resistance_up = "11"
-        opening_gambit = "100"
-        last_ditch_effort = "101"
-        tenacity = "102"
-        comeback = "103"
-        ninja_squid = "104"
-        haunt = "105"
-        thermal_ink = "106"
-        respawn_punisher = "107"
-        ability_doubler = "108"
-        stealth_jump = "109"
-        object_shredder = "110"
-        drop_roller = "111"
-        bomb_defense_up_dx = "200"
-        main_power_up = "201"
-
-    class SubAbilities(models.TextChoices):
-        ink_saver_main = "0"
-        ink_saver_sub = "1"
-        ink_recovery_up = "2"
-        run_speed_up = "3"
-        swim_speed_up = "4"
-        special_charge_up = "5"
-        special_saver = "6"
-        special_power_up = "7"
-        quick_respawn = "8"
-        quick_super_jump = "9"
-        sub_power_up = "10"
-        ink_resistance_up = "11"
-        bomb_defense_up_dx = "200"
-        main_power_up = "201"
-        question_mark = "255"
-
     # general match stats
     splatnet_json = models.JSONField("splatNet 2 JSON file", blank=True, null=True)
     stat_ink_json = models.JSONField("stat.ink JSON file", blank=True, null=True)
     rule = models.CharField(max_length=13, choices=Rule.choices)
     match_type = models.CharField(max_length=11, choices=Match_Type.choices)
-    stage = models.CharField(max_length=4, choices=Stage.choices)
+    stage = models.CharField(max_length=4, choices=Stage)
     win = models.BooleanField(null=True)
     has_disconnected_player = models.BooleanField(null=True)
     time = models.PositiveIntegerField(null=True)
@@ -322,7 +586,7 @@ class Battle(models.Model):
         blank=True, null=True, decimal_places=1, max_digits=5
     )
     player_user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
-    player_weapon = models.CharField(max_length=4, choices=Weapons.choices)
+    player_weapon = models.CharField(max_length=4, choices=Weapons)
     player_rank = models.PositiveSmallIntegerField(null=True, choices=Ranks.choices)
     player_level = models.PositiveSmallIntegerField(null=True)
     player_level_star = models.PositiveSmallIntegerField(null=True)
@@ -339,45 +603,37 @@ class Battle(models.Model):
     # headgear
     player_headgear = models.CharField(null=True, max_length=5)
     player_headgear_main = models.CharField(
-        null=True, max_length=3, choices=MainAbilities.choices
+        null=True, max_length=3, choices=MainAbilities
     )
     player_headgear_sub0 = models.CharField(
-        null=True, max_length=3, choices=SubAbilities.choices
+        null=True, max_length=3, choices=SubAbilities
     )
     player_headgear_sub1 = models.CharField(
-        null=True, max_length=3, choices=SubAbilities.choices
+        null=True, max_length=3, choices=SubAbilities
     )
     player_headgear_sub2 = models.CharField(
-        null=True, max_length=3, choices=SubAbilities.choices
+        null=True, max_length=3, choices=SubAbilities
     )
     # clothes
-    player_clothes = models.CharField(null=True, max_length=5)
+    player_clothes = models.CharField(null=True, max_length=5, choices=Clothes)
     player_clothes_main = models.CharField(
-        null=True, max_length=3, choices=MainAbilities.choices
+        null=True, max_length=3, choices=MainAbilities
     )
     player_clothes_sub0 = models.CharField(
-        null=True, max_length=3, choices=SubAbilities.choices
+        null=True, max_length=3, choices=SubAbilities
     )
     player_clothes_sub1 = models.CharField(
-        null=True, max_length=3, choices=SubAbilities.choices
+        null=True, max_length=3, choices=SubAbilities
     )
     player_clothes_sub2 = models.CharField(
-        null=True, max_length=3, choices=SubAbilities.choices
+        null=True, max_length=3, choices=SubAbilities
     )
     # shoes
     player_shoes = models.CharField(null=True, max_length=5)
-    player_shoes_main = models.CharField(
-        null=True, max_length=3, choices=MainAbilities.choices
-    )
-    player_shoes_sub0 = models.CharField(
-        null=True, max_length=3, choices=SubAbilities.choices
-    )
-    player_shoes_sub1 = models.CharField(
-        null=True, max_length=3, choices=SubAbilities.choices
-    )
-    player_shoes_sub2 = models.CharField(
-        null=True, max_length=3, choices=SubAbilities.choices
-    )
+    player_shoes_main = models.CharField(null=True, max_length=3, choices=MainAbilities)
+    player_shoes_sub0 = models.CharField(null=True, max_length=3, choices=SubAbilities)
+    player_shoes_sub1 = models.CharField(null=True, max_length=3, choices=SubAbilities)
+    player_shoes_sub2 = models.CharField(null=True, max_length=3, choices=SubAbilities)
 
     # teammate 1
     # basic stats
@@ -386,9 +642,7 @@ class Battle(models.Model):
     teammate1_level_star = models.PositiveSmallIntegerField(null=True)
     teammate1_level = models.PositiveSmallIntegerField(null=True)
     teammate1_rank = models.PositiveSmallIntegerField(null=True, choices=Ranks.choices)
-    teammate1_weapon = models.CharField(
-        null=True, max_length=4, choices=Weapons.choices
-    )
+    teammate1_weapon = models.CharField(null=True, max_length=4, choices=Weapons)
     teammate1_gender = models.CharField(max_length=4, null=True, choices=Gender.choices)
     teammate1_species = models.CharField(
         max_length=9, null=True, choices=Species.choices
@@ -401,44 +655,44 @@ class Battle(models.Model):
     # headgear
     teammate1_headgear = models.CharField(null=True, max_length=5)
     teammate1_headgear_main = models.CharField(
-        null=True, max_length=3, choices=MainAbilities.choices
+        null=True, max_length=3, choices=MainAbilities
     )
     teammate1_headgear_sub0 = models.CharField(
-        null=True, max_length=3, choices=SubAbilities.choices
+        null=True, max_length=3, choices=SubAbilities
     )
     teammate1_headgear_sub1 = models.CharField(
-        null=True, max_length=3, choices=SubAbilities.choices
+        null=True, max_length=3, choices=SubAbilities
     )
     teammate1_headgear_sub2 = models.CharField(
-        null=True, max_length=3, choices=SubAbilities.choices
+        null=True, max_length=3, choices=SubAbilities
     )
     # clothes
-    teammate1_clothes = models.CharField(null=True, max_length=5)
+    teammate1_clothes = models.CharField(null=True, max_length=5, choices=Clothes)
     teammate1_clothes_main = models.CharField(
-        null=True, max_length=3, choices=MainAbilities.choices
+        null=True, max_length=3, choices=MainAbilities
     )
     teammate1_clothes_sub0 = models.CharField(
-        null=True, max_length=3, choices=SubAbilities.choices
+        null=True, max_length=3, choices=SubAbilities
     )
     teammate1_clothes_sub1 = models.CharField(
-        null=True, max_length=3, choices=SubAbilities.choices
+        null=True, max_length=3, choices=SubAbilities
     )
     teammate1_clothes_sub2 = models.CharField(
-        null=True, max_length=3, choices=SubAbilities.choices
+        null=True, max_length=3, choices=SubAbilities
     )
     # shoes
     teammate1_shoes = models.CharField(null=True, max_length=5)
     teammate1_shoes_main = models.CharField(
-        null=True, max_length=3, choices=MainAbilities.choices
+        null=True, max_length=3, choices=MainAbilities
     )
     teammate1_shoes_sub0 = models.CharField(
-        null=True, max_length=3, choices=SubAbilities.choices
+        null=True, max_length=3, choices=SubAbilities
     )
     teammate1_shoes_sub1 = models.CharField(
-        null=True, max_length=3, choices=SubAbilities.choices
+        null=True, max_length=3, choices=SubAbilities
     )
     teammate1_shoes_sub2 = models.CharField(
-        null=True, max_length=3, choices=SubAbilities.choices
+        null=True, max_length=3, choices=SubAbilities
     )
 
     # teammate 2
@@ -448,9 +702,7 @@ class Battle(models.Model):
     teammate2_level_star = models.PositiveSmallIntegerField(null=True)
     teammate2_level = models.PositiveSmallIntegerField(null=True)
     teammate2_rank = models.PositiveSmallIntegerField(null=True, choices=Ranks.choices)
-    teammate2_weapon = models.CharField(
-        null=True, max_length=4, choices=Weapons.choices
-    )
+    teammate2_weapon = models.CharField(null=True, max_length=4, choices=Weapons)
     teammate2_gender = models.CharField(max_length=4, null=True, choices=Gender.choices)
     teammate2_species = models.CharField(
         max_length=9, null=True, choices=Species.choices
@@ -463,44 +715,44 @@ class Battle(models.Model):
     # headgear
     teammate2_headgear = models.CharField(null=True, max_length=5)
     teammate2_headgear_main = models.CharField(
-        null=True, max_length=3, choices=MainAbilities.choices
+        null=True, max_length=3, choices=MainAbilities
     )
     teammate2_headgear_sub0 = models.CharField(
-        null=True, max_length=3, choices=SubAbilities.choices
+        null=True, max_length=3, choices=SubAbilities
     )
     teammate2_headgear_sub1 = models.CharField(
-        null=True, max_length=3, choices=SubAbilities.choices
+        null=True, max_length=3, choices=SubAbilities
     )
     teammate2_headgear_sub2 = models.CharField(
-        null=True, max_length=3, choices=SubAbilities.choices
+        null=True, max_length=3, choices=SubAbilities
     )
     # clothes
-    teammate2_clothes = models.CharField(null=True, max_length=5)
+    teammate2_clothes = models.CharField(null=True, max_length=5, choices=Clothes)
     teammate2_clothes_main = models.CharField(
-        null=True, max_length=3, choices=MainAbilities.choices
+        null=True, max_length=3, choices=MainAbilities
     )
     teammate2_clothes_sub0 = models.CharField(
-        null=True, max_length=3, choices=SubAbilities.choices
+        null=True, max_length=3, choices=SubAbilities
     )
     teammate2_clothes_sub1 = models.CharField(
-        null=True, max_length=3, choices=SubAbilities.choices
+        null=True, max_length=3, choices=SubAbilities
     )
     teammate2_clothes_sub2 = models.CharField(
-        null=True, max_length=3, choices=SubAbilities.choices
+        null=True, max_length=3, choices=SubAbilities
     )
     # shoes
     teammate2_shoes = models.CharField(null=True, max_length=5)
     teammate2_shoes_main = models.CharField(
-        null=True, max_length=3, choices=MainAbilities.choices
+        null=True, max_length=3, choices=MainAbilities
     )
     teammate2_shoes_sub0 = models.CharField(
-        null=True, max_length=3, choices=SubAbilities.choices
+        null=True, max_length=3, choices=SubAbilities
     )
     teammate2_shoes_sub1 = models.CharField(
-        null=True, max_length=3, choices=SubAbilities.choices
+        null=True, max_length=3, choices=SubAbilities
     )
     teammate2_shoes_sub2 = models.CharField(
-        null=True, max_length=3, choices=SubAbilities.choices
+        null=True, max_length=3, choices=SubAbilities
     )
 
     # teammate 0
@@ -510,9 +762,7 @@ class Battle(models.Model):
     teammate0_level_star = models.PositiveSmallIntegerField(null=True)
     teammate0_level = models.PositiveSmallIntegerField(null=True)
     teammate0_rank = models.PositiveSmallIntegerField(null=True, choices=Ranks.choices)
-    teammate0_weapon = models.CharField(
-        null=True, max_length=4, choices=Weapons.choices
-    )
+    teammate0_weapon = models.CharField(null=True, max_length=4, choices=Weapons)
     teammate0_gender = models.CharField(max_length=4, null=True, choices=Gender.choices)
     teammate0_species = models.CharField(
         max_length=9, null=True, choices=Species.choices
@@ -525,44 +775,44 @@ class Battle(models.Model):
     # headgear
     teammate0_headgear = models.CharField(null=True, max_length=5)
     teammate0_headgear_main = models.CharField(
-        null=True, max_length=3, choices=MainAbilities.choices
+        null=True, max_length=3, choices=MainAbilities
     )
     teammate0_headgear_sub0 = models.CharField(
-        null=True, max_length=3, choices=SubAbilities.choices
+        null=True, max_length=3, choices=SubAbilities
     )
     teammate0_headgear_sub1 = models.CharField(
-        null=True, max_length=3, choices=SubAbilities.choices
+        null=True, max_length=3, choices=SubAbilities
     )
     teammate0_headgear_sub2 = models.CharField(
-        null=True, max_length=3, choices=SubAbilities.choices
+        null=True, max_length=3, choices=SubAbilities
     )
     # clothes
-    teammate0_clothes = models.CharField(null=True, max_length=5)
+    teammate0_clothes = models.CharField(null=True, max_length=5, choices=Clothes)
     teammate0_clothes_main = models.CharField(
-        null=True, max_length=3, choices=MainAbilities.choices
+        null=True, max_length=3, choices=MainAbilities
     )
     teammate0_clothes_sub0 = models.CharField(
-        null=True, max_length=3, choices=SubAbilities.choices
+        null=True, max_length=3, choices=SubAbilities
     )
     teammate0_clothes_sub1 = models.CharField(
-        null=True, max_length=3, choices=SubAbilities.choices
+        null=True, max_length=3, choices=SubAbilities
     )
     teammate0_clothes_sub2 = models.CharField(
-        null=True, max_length=3, choices=SubAbilities.choices
+        null=True, max_length=3, choices=SubAbilities
     )
     # shoes
     teammate0_shoes = models.CharField(null=True, max_length=5)
     teammate0_shoes_main = models.CharField(
-        null=True, max_length=3, choices=MainAbilities.choices
+        null=True, max_length=3, choices=MainAbilities
     )
     teammate0_shoes_sub0 = models.CharField(
-        null=True, max_length=3, choices=SubAbilities.choices
+        null=True, max_length=3, choices=SubAbilities
     )
     teammate0_shoes_sub1 = models.CharField(
-        null=True, max_length=3, choices=SubAbilities.choices
+        null=True, max_length=3, choices=SubAbilities
     )
     teammate0_shoes_sub2 = models.CharField(
-        null=True, max_length=3, choices=SubAbilities.choices
+        null=True, max_length=3, choices=SubAbilities
     )
 
     # opponent 0
@@ -572,9 +822,7 @@ class Battle(models.Model):
     opponent0_level_star = models.PositiveSmallIntegerField(null=True)
     opponent0_level = models.PositiveSmallIntegerField(null=True)
     opponent0_rank = models.PositiveSmallIntegerField(null=True, choices=Ranks.choices)
-    opponent0_weapon = models.CharField(
-        null=True, max_length=4, choices=Weapons.choices
-    )
+    opponent0_weapon = models.CharField(null=True, max_length=4, choices=Weapons)
     opponent0_gender = models.CharField(max_length=4, null=True, choices=Gender.choices)
     opponent0_species = models.CharField(
         max_length=9, null=True, choices=Species.choices
@@ -587,44 +835,44 @@ class Battle(models.Model):
     # headgear
     opponent0_headgear = models.CharField(null=True, max_length=5)
     opponent0_headgear_main = models.CharField(
-        null=True, max_length=3, choices=MainAbilities.choices
+        null=True, max_length=3, choices=MainAbilities
     )
     opponent0_headgear_sub0 = models.CharField(
-        null=True, max_length=3, choices=SubAbilities.choices
+        null=True, max_length=3, choices=SubAbilities
     )
     opponent0_headgear_sub1 = models.CharField(
-        null=True, max_length=3, choices=SubAbilities.choices
+        null=True, max_length=3, choices=SubAbilities
     )
     opponent0_headgear_sub2 = models.CharField(
-        null=True, max_length=3, choices=SubAbilities.choices
+        null=True, max_length=3, choices=SubAbilities
     )
     # clothes
-    opponent0_clothes = models.CharField(null=True, max_length=5)
+    opponent0_clothes = models.CharField(null=True, max_length=5, choices=Clothes)
     opponent0_clothes_main = models.CharField(
-        null=True, max_length=3, choices=MainAbilities.choices
+        null=True, max_length=3, choices=MainAbilities
     )
     opponent0_clothes_sub0 = models.CharField(
-        null=True, max_length=3, choices=SubAbilities.choices
+        null=True, max_length=3, choices=SubAbilities
     )
     opponent0_clothes_sub1 = models.CharField(
-        null=True, max_length=3, choices=SubAbilities.choices
+        null=True, max_length=3, choices=SubAbilities
     )
     opponent0_clothes_sub2 = models.CharField(
-        null=True, max_length=3, choices=SubAbilities.choices
+        null=True, max_length=3, choices=SubAbilities
     )
     # shoes
     opponent0_shoes = models.CharField(null=True, max_length=5)
     opponent0_shoes_main = models.CharField(
-        null=True, max_length=3, choices=MainAbilities.choices
+        null=True, max_length=3, choices=MainAbilities
     )
     opponent0_shoes_sub0 = models.CharField(
-        null=True, max_length=3, choices=SubAbilities.choices
+        null=True, max_length=3, choices=SubAbilities
     )
     opponent0_shoes_sub1 = models.CharField(
-        null=True, max_length=3, choices=SubAbilities.choices
+        null=True, max_length=3, choices=SubAbilities
     )
     opponent0_shoes_sub2 = models.CharField(
-        null=True, max_length=3, choices=SubAbilities.choices
+        null=True, max_length=3, choices=SubAbilities
     )
 
     # opponent 1
@@ -634,9 +882,7 @@ class Battle(models.Model):
     opponent1_level_star = models.PositiveSmallIntegerField(null=True)
     opponent1_level = models.PositiveSmallIntegerField(null=True)
     opponent1_rank = models.PositiveSmallIntegerField(null=True, choices=Ranks.choices)
-    opponent1_weapon = models.CharField(
-        null=True, max_length=4, choices=Weapons.choices
-    )
+    opponent1_weapon = models.CharField(null=True, max_length=4, choices=Weapons)
     opponent1_gender = models.CharField(max_length=4, null=True, choices=Gender.choices)
     opponent1_species = models.CharField(
         max_length=9, null=True, choices=Species.choices
@@ -649,44 +895,44 @@ class Battle(models.Model):
     # headgear
     opponent1_headgear = models.CharField(null=True, max_length=5)
     opponent1_headgear_main = models.CharField(
-        null=True, max_length=3, choices=MainAbilities.choices
+        null=True, max_length=3, choices=MainAbilities
     )
     opponent1_headgear_sub0 = models.CharField(
-        null=True, max_length=3, choices=SubAbilities.choices
+        null=True, max_length=3, choices=SubAbilities
     )
     opponent1_headgear_sub1 = models.CharField(
-        null=True, max_length=3, choices=SubAbilities.choices
+        null=True, max_length=3, choices=SubAbilities
     )
     opponent1_headgear_sub2 = models.CharField(
-        null=True, max_length=3, choices=SubAbilities.choices
+        null=True, max_length=3, choices=SubAbilities
     )
     # clothes
-    opponent1_clothes = models.CharField(null=True, max_length=5)
+    opponent1_clothes = models.CharField(null=True, max_length=5, choices=Clothes)
     opponent1_clothes_main = models.CharField(
-        null=True, max_length=3, choices=MainAbilities.choices
+        null=True, max_length=3, choices=MainAbilities
     )
     opponent1_clothes_sub0 = models.CharField(
-        null=True, max_length=3, choices=SubAbilities.choices
+        null=True, max_length=3, choices=SubAbilities
     )
     opponent1_clothes_sub1 = models.CharField(
-        null=True, max_length=3, choices=SubAbilities.choices
+        null=True, max_length=3, choices=SubAbilities
     )
     opponent1_clothes_sub2 = models.CharField(
-        null=True, max_length=3, choices=SubAbilities.choices
+        null=True, max_length=3, choices=SubAbilities
     )
     # shoes
     opponent1_shoes = models.CharField(null=True, max_length=5)
     opponent1_shoes_main = models.CharField(
-        null=True, max_length=3, choices=MainAbilities.choices
+        null=True, max_length=3, choices=MainAbilities
     )
     opponent1_shoes_sub0 = models.CharField(
-        null=True, max_length=3, choices=SubAbilities.choices
+        null=True, max_length=3, choices=SubAbilities
     )
     opponent1_shoes_sub1 = models.CharField(
-        null=True, max_length=3, choices=SubAbilities.choices
+        null=True, max_length=3, choices=SubAbilities
     )
     opponent1_shoes_sub2 = models.CharField(
-        null=True, max_length=3, choices=SubAbilities.choices
+        null=True, max_length=3, choices=SubAbilities
     )
 
     # opponent 2
@@ -696,9 +942,7 @@ class Battle(models.Model):
     opponent2_level_star = models.PositiveSmallIntegerField(null=True)
     opponent2_level = models.PositiveSmallIntegerField(null=True)
     opponent2_rank = models.PositiveSmallIntegerField(null=True, choices=Ranks.choices)
-    opponent2_weapon = models.CharField(
-        null=True, max_length=4, choices=Weapons.choices
-    )
+    opponent2_weapon = models.CharField(null=True, max_length=4, choices=Weapons)
     opponent2_gender = models.CharField(max_length=4, null=True, choices=Gender.choices)
     opponent2_species = models.CharField(
         max_length=9, null=True, choices=Species.choices
@@ -711,44 +955,44 @@ class Battle(models.Model):
     # headgear
     opponent2_headgear = models.CharField(null=True, max_length=5)
     opponent2_headgear_main = models.CharField(
-        null=True, max_length=3, choices=MainAbilities.choices
+        null=True, max_length=3, choices=MainAbilities
     )
     opponent2_headgear_sub0 = models.CharField(
-        null=True, max_length=3, choices=SubAbilities.choices
+        null=True, max_length=3, choices=SubAbilities
     )
     opponent2_headgear_sub1 = models.CharField(
-        null=True, max_length=3, choices=SubAbilities.choices
+        null=True, max_length=3, choices=SubAbilities
     )
     opponent2_headgear_sub2 = models.CharField(
-        null=True, max_length=3, choices=SubAbilities.choices
+        null=True, max_length=3, choices=SubAbilities
     )
     # clothes
-    opponent2_clothes = models.CharField(null=True, max_length=5)
+    opponent2_clothes = models.CharField(null=True, max_length=5, choices=Clothes)
     opponent2_clothes_main = models.CharField(
-        null=True, max_length=3, choices=MainAbilities.choices
+        null=True, max_length=3, choices=MainAbilities
     )
     opponent2_clothes_sub0 = models.CharField(
-        null=True, max_length=3, choices=SubAbilities.choices
+        null=True, max_length=3, choices=SubAbilities
     )
     opponent2_clothes_sub1 = models.CharField(
-        null=True, max_length=3, choices=SubAbilities.choices
+        null=True, max_length=3, choices=SubAbilities
     )
     opponent2_clothes_sub2 = models.CharField(
-        null=True, max_length=3, choices=SubAbilities.choices
+        null=True, max_length=3, choices=SubAbilities
     )
     # shoes
     opponent2_shoes = models.CharField(null=True, max_length=5)
     opponent2_shoes_main = models.CharField(
-        null=True, max_length=3, choices=MainAbilities.choices
+        null=True, max_length=3, choices=MainAbilities
     )
     opponent2_shoes_sub0 = models.CharField(
-        null=True, max_length=3, choices=SubAbilities.choices
+        null=True, max_length=3, choices=SubAbilities
     )
     opponent2_shoes_sub1 = models.CharField(
-        null=True, max_length=3, choices=SubAbilities.choices
+        null=True, max_length=3, choices=SubAbilities
     )
     opponent2_shoes_sub2 = models.CharField(
-        null=True, max_length=3, choices=SubAbilities.choices
+        null=True, max_length=3, choices=SubAbilities
     )
 
     # opponent 3
@@ -758,9 +1002,7 @@ class Battle(models.Model):
     opponent3_level_star = models.PositiveSmallIntegerField(null=True)
     opponent3_level = models.PositiveSmallIntegerField(null=True)
     opponent3_rank = models.PositiveSmallIntegerField(null=True, choices=Ranks.choices)
-    opponent3_weapon = models.CharField(
-        null=True, max_length=4, choices=Weapons.choices
-    )
+    opponent3_weapon = models.CharField(null=True, max_length=4, choices=Weapons)
     opponent3_gender = models.CharField(max_length=4, null=True, choices=Gender.choices)
     opponent3_species = models.CharField(
         max_length=9, null=True, choices=Species.choices
@@ -773,44 +1015,44 @@ class Battle(models.Model):
     # headgear
     opponent3_headgear = models.CharField(null=True, max_length=5)
     opponent3_headgear_main = models.CharField(
-        null=True, max_length=3, choices=MainAbilities.choices
+        null=True, max_length=3, choices=MainAbilities
     )
     opponent3_headgear_sub0 = models.CharField(
-        null=True, max_length=3, choices=SubAbilities.choices
+        null=True, max_length=3, choices=SubAbilities
     )
     opponent3_headgear_sub1 = models.CharField(
-        null=True, max_length=3, choices=SubAbilities.choices
+        null=True, max_length=3, choices=SubAbilities
     )
     opponent3_headgear_sub2 = models.CharField(
-        null=True, max_length=3, choices=SubAbilities.choices
+        null=True, max_length=3, choices=SubAbilities
     )
     # clothes
-    opponent3_clothes = models.CharField(null=True, max_length=5)
+    opponent3_clothes = models.CharField(null=True, max_length=5, choices=Clothes)
     opponent3_clothes_main = models.CharField(
-        null=True, max_length=3, choices=MainAbilities.choices
+        null=True, max_length=3, choices=MainAbilities
     )
     opponent3_clothes_sub0 = models.CharField(
-        null=True, max_length=3, choices=SubAbilities.choices
+        null=True, max_length=3, choices=SubAbilities
     )
     opponent3_clothes_sub1 = models.CharField(
-        null=True, max_length=3, choices=SubAbilities.choices
+        null=True, max_length=3, choices=SubAbilities
     )
     opponent3_clothes_sub2 = models.CharField(
-        null=True, max_length=3, choices=SubAbilities.choices
+        null=True, max_length=3, choices=SubAbilities
     )
     # shoes
     opponent3_shoes = models.CharField(null=True, max_length=5)
     opponent3_shoes_main = models.CharField(
-        null=True, max_length=3, choices=MainAbilities.choices
+        null=True, max_length=3, choices=MainAbilities
     )
     opponent3_shoes_sub0 = models.CharField(
-        null=True, max_length=3, choices=SubAbilities.choices
+        null=True, max_length=3, choices=SubAbilities
     )
     opponent3_shoes_sub1 = models.CharField(
-        null=True, max_length=3, choices=SubAbilities.choices
+        null=True, max_length=3, choices=SubAbilities
     )
     opponent3_shoes_sub2 = models.CharField(
-        null=True, max_length=3, choices=SubAbilities.choices
+        null=True, max_length=3, choices=SubAbilities
     )
 
     @classmethod

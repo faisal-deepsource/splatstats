@@ -1,5 +1,6 @@
+from django.utils.translation import gettext_lazy as _
 import regex
-from .models import Battle
+from .models import Battle, Weapons, MainAbilities, SubAbilities, Stage, Clothes
 
 (
     ATTR,
@@ -155,6 +156,7 @@ class Lexer(object):
                 return Token(ATTR, self.attr())
 
             if self.current_char == '"':
+                self.advance()
                 return Token(STRING, self.string())
 
             if self.current_char.isdigit():
@@ -258,7 +260,7 @@ class Interpreter(object):
         """expr   : STRING (GREATERTHAN | GREATEREQUAL | LESSTHAN | LESSEQUAL | EQUAL) VALUE"""
         attribute = self.value()
         if regex.search(
-            "(rule)|(match_type)|(stage)|(win(_meter)?)|(has_disconnected_player)|(((my)|(other))_team_count)|((elapsed_)?time)|(tag_id)|(battle_number)|(((league)|(splatfest))_point)|(splatfest_title_after)|(player_x_power)|(((player)|(teammate_[a-c])|(opponent_[a-d]))_(((headgear)|(clothes)|(shoes))_((sub[0-2])|(main))?|(weapon)|(rank)|(level(_star)?)|(kills)|(deaths)|(assists)|(specials)|(game_paint_point)|(splatfest_title)|(name)|(splatnet_id)|(gender)|(species)))",
+            "(rule)|(match_type)|(stage)|(win(_meter)?)|(has_disconnected_player)|(((my)|(other))_team_count)|((elapsed_)?time)|(tag_id)|(battle_number)|(((league)|(splatfest))_point)|(splatfest_title_after)|(player_x_power)|(((player)|(teammate_[a-c])|(opponent_[a-d]))_(((headgear)|(clothes)|(shoes))(_((sub[0-2])|(main)))?|(weapon)|(rank)|(level(_star)?)|(kills)|(deaths)|(assists)|(specials)|(game_paint_point)|(splatfest_title)|(name)|(splatnet_id)|(gender)|(species)))",
             attribute,
         ):
             mapping = {
@@ -417,6 +419,37 @@ class Interpreter(object):
             token = self.current_token
             self.eat(token.type)
             value = self.value()
+            if regex.search(
+                "((player)|(teammate_[a-c])|(opponent_[a-d]))_weapon",
+                attribute,
+            ):
+                value_a = [x for (x, y) in Weapons if y == value]
+                if len(value_a) > 0:
+                    value = value_a[0]
+            elif regex.search(
+                "((player)|(teammate_[a-c])|(opponent_[a-c]))_((headgear)|(clothes)|(shoes))_main",
+                attribute,
+            ):
+                value_a = [x for (x, y) in MainAbilities if y == value]
+                if len(value_a) > 0:
+                    value = value_a[0]
+            elif regex.search(
+                "((player)|(teammate_[a-c])|(opponent_[a-c]))_((headgear)|(clothes)|(shoes))_sub[0-2]",
+                attribute,
+            ):
+                value_a = [x for (x, y) in SubAbilities if y == value]
+                if len(value_a) > 0:
+                    value = value_a[0]
+            elif regex.search("stage", attribute):
+                value_a = [x for (x, y) in Stage if y == value]
+                if len(value_a) > 0:
+                    value = value_a[0]
+            elif regex.search(
+                "((player)|(teammate_[a-c])|(opponent_[a-c]))_clothes", attribute
+            ):
+                value_a = [x for (x, y) in Clothes if y == value]
+                if len(value_a) > 0:
+                    value = value_a[0]
             if regex.search(
                 "((teammate_[a-c])|(opponent_[a-d]))_[0-z_]*",
                 attribute,
