@@ -39,7 +39,7 @@ from .models import Battle, Weapons, MainAbilities, SubAbilities, Stage, Clothes
 )
 
 
-class Token():
+class Token:
     def __init__(self, type, value):
         self.type = type
         self.value = value
@@ -52,7 +52,7 @@ class Token():
         return self.__str__()
 
 
-class Lexer():
+class Lexer:
     def __init__(self, text):
         # client string input, e.g. "4 + 2 * 3 - 6 / 2"
         self.text = text
@@ -60,7 +60,8 @@ class Lexer():
         self.pos = 0
         self.current_char = self.text[self.pos]
 
-    def error(self):
+    @staticmethod
+    def error():
         raise Exception("Invalid character")
 
     def advance(self):
@@ -203,7 +204,7 @@ def find_2nd(string, substring):
     return string.find(substring, string.find(substring) + 1)
 
 
-class Interpreter():
+class Interpreter:
     """
     expr   : STRING (GREATERTHAN | GREATEREQUAL | LESSTHAN | LESSEQUAL | EQUAL) VALUE
     term   : (expr) | (LPAREN term (OR | AND) term RPAREN) | (NOT LPAREN term RPAREN)
@@ -215,7 +216,8 @@ class Interpreter():
         # set current token to the first token taken from the input
         self.current_token = self.lexer.get_next_token()
 
-    def error(self):
+    @staticmethod
+    def error():
         raise Exception("Invalid syntax")
 
     def eat(self, token_type):
