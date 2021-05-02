@@ -1,3 +1,4 @@
+from .advanced_search_language import Interpreter, Lexer
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect
 from rest_framework import views, status, permissions
@@ -12,7 +13,7 @@ from .objects import Player
 from django.templatetags.static import static
 import json
 from datetime import datetime
-import re
+import regex
 from django.core.paginator import Paginator
 
 
@@ -21,7 +22,6 @@ def index(request):
     attributes = ""
     if form.is_valid():
         battles = Battle.objects
-        print(form.cleaned_data)
         if "query" in form.cleaned_data and form.cleaned_data["query"] != "":
             battles = get_query(form)
             query = form.cleaned_data["query"]
@@ -1308,7 +1308,7 @@ def attribute_cast(attr, val):
     )
     switch = {"bool": to_bool(val), "int": to_int(val), "float": to_float(val)}
     for pattern, value in lookups:
-        if re.search(pattern, attr):
+        if regex.search(pattern, attr):
             return switch.get(value)
     return val
 
@@ -1470,37 +1470,44 @@ def get_query(form):
             if len(past_tokens) > 0:
                 if token[-1] == '"':
                     past_tokens.append(token[: len(token) - 1])
-                    if re.search(
-                        "((teammate_[a-c])|(opponent_[a-d]))_[0-z_]*", current_attribute
+                    if regex.search(
+                        "(rule)|(match_type)|(stage)|(win(_meter)?)|(has_disconnected_player)|(((my)|(other))_team_count)|((elapsed_)?time)|(tag_id)|(battle_number)|(((league)|(splatfest))_point)|(splatfest_title_after)|(player_x_power)|(((player)|(teammate_[a-c])|(opponent_[a-d]))_(((headgear)|(clothes)|(shoes))_((sub[0-2])|(main))?|(weapon)|(rank)|(level(_star)?)|(kills)|(deaths)|(assists)|(specials)|(game_paint_point)|(splatfest_title)|(name)|(splatnet_id)|(gender)|(species)))",
+                        current_attribute,
                     ):
-                        for key in mapping:
-                            if current_attribute[0:8] == "teammate":
-                                mapping[key][
-                                    "{}{}{}".format(
-                                        current_attribute[0:8],
-                                        find_2nd(key, current_attribute[9]) - 5,
-                                        current_attribute[10:],
+                        if regex.search(
+                            "((teammate_[a-c])|(opponent_[a-d]))_[0-z_]*",
+                            current_attribute,
+                        ):
+                            for key in mapping:
+                                if current_attribute[0:8] == "teammate":
+                                    mapping[key][
+                                        "{}{}{}".format(
+                                            current_attribute[0:8],
+                                            find_2nd(key, current_attribute[9]) - 5,
+                                            current_attribute[10:],
+                                        )
+                                    ] = attribute_cast(
+                                        current_attribute, "".join(past_tokens)
                                     )
-                                ] = attribute_cast(
+                                else:
+                                    mapping[key][
+                                        "{}{}{}".format(
+                                            current_attribute[0:8],
+                                            key.index(current_attribute[9]),
+                                            current_attribute[10:],
+                                        )
+                                    ] = attribute_cast(
+                                        current_attribute, "".join(past_tokens)
+                                    )
+                        else:
+                            for key in mapping:
+                                mapping[key][current_attribute] = attribute_cast(
                                     current_attribute, "".join(past_tokens)
                                 )
-                            else:
-                                mapping[key][
-                                    "{}{}{}".format(
-                                        current_attribute[0:8],
-                                        key.index(current_attribute[9]),
-                                        current_attribute[10:],
-                                    )
-                                ] = attribute_cast(
-                                    current_attribute, "".join(past_tokens)
-                                )
+                        past_tokens = []
+                        current_attribute = None
                     else:
-                        for key in mapping:
-                            mapping[key][current_attribute] = attribute_cast(
-                                current_attribute, "".join(past_tokens)
-                            )
-                    past_tokens = []
-                    current_attribute = None
+                        return Battle.objects.none()
                 else:
                     past_tokens.append(token)
             else:
@@ -1509,37 +1516,44 @@ def get_query(form):
                     past_tokens.append(" ")
                 else:
                     past_tokens.append(token)
-                    if re.search(
-                        "((teammate_[a-c])|(opponent_[a-d]))_[0-z_]*", current_attribute
+                    if regex.search(
+                        "(rule)|(match_type)|(stage)|(win(_meter)?)|(has_disconnected_player)|(((my)|(other))_team_count)|((elapsed_)?time)|(tag_id)|(battle_number)|(((league)|(splatfest))_point)|(splatfest_title_after)|(player_x_power)|(((player)|(teammate_[a-c])|(opponent_[a-d]))_(((headgear)|(clothes)|(shoes))_((sub[0-2])|(main))?|(weapon)|(rank)|(level(_star)?)|(kills)|(deaths)|(assists)|(specials)|(game_paint_point)|(splatfest_title)|(name)|(splatnet_id)|(gender)|(species)))",
+                        current_attribute,
                     ):
-                        for key in mapping:
-                            if current_attribute[0:8] == "teammate":
-                                mapping[key][
-                                    "{}{}{}".format(
-                                        current_attribute[0:8],
-                                        find_2nd(key, current_attribute[9]) - 5,
-                                        current_attribute[10:],
+                        if regex.search(
+                            "((teammate_[a-c])|(opponent_[a-d]))_[0-z_]*",
+                            current_attribute,
+                        ):
+                            for key in mapping:
+                                if current_attribute[0:8] == "teammate":
+                                    mapping[key][
+                                        "{}{}{}".format(
+                                            current_attribute[0:8],
+                                            find_2nd(key, current_attribute[9]) - 5,
+                                            current_attribute[10:],
+                                        )
+                                    ] = attribute_cast(
+                                        current_attribute, "".join(past_tokens)
                                     )
-                                ] = attribute_cast(
+                                else:
+                                    mapping[key][
+                                        "{}{}{}".format(
+                                            current_attribute[0:8],
+                                            key.index(current_attribute[9]),
+                                            current_attribute[10:],
+                                        )
+                                    ] = attribute_cast(
+                                        current_attribute, "".join(past_tokens)
+                                    )
+                        else:
+                            for key in mapping:
+                                mapping[key][current_attribute] = attribute_cast(
                                     current_attribute, "".join(past_tokens)
                                 )
-                            else:
-                                mapping[key][
-                                    "{}{}{}".format(
-                                        current_attribute[0:8],
-                                        key.index(current_attribute[9]),
-                                        current_attribute[10:],
-                                    )
-                                ] = attribute_cast(
-                                    current_attribute, "".join(past_tokens)
-                                )
+                        past_tokens = []
+                        current_attribute = None
                     else:
-                        for key in mapping:
-                            mapping[key][current_attribute] = attribute_cast(
-                                current_attribute, "".join(past_tokens)
-                            )
-                    past_tokens = []
-                    current_attribute = None
+                        return Battle.objects.none()
     battles = Battle.objects.none()
     for key in mapping:
         battles = battles | Battle.objects.filter(**(mapping[key])).order_by("-time")
@@ -1549,7 +1563,9 @@ def get_query(form):
 def advanced_search(request):
     form = AdvancedFilterForm(request.GET)
     if form.is_valid():
-        battles = get_query(form)
+        lexer = Lexer(form.cleaned_data["query"])
+        interpreter = Interpreter(lexer)
+        battles = interpreter.term()
         paginator = Paginator(battles, 50)  # Show 50 battles per page
         page_number = request.GET.get("page")
         page_obj = paginator.get_page(page_number)
