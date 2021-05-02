@@ -227,7 +227,7 @@ class Interpreter(object):
             self.error()
 
     def term(self):
-        """term : (expr) | (LPAREN term (OR | AND) term RPAREN) | (NOT LPAREN term RPAREN) """
+        """term : (expr) | (LPAREN term (OR | AND) term RPAREN) | (NOT LPAREN term RPAREN)"""
         if self.current_token.type is NOT:
             self.eat(NOT)
             self.eat(LPAREN)
