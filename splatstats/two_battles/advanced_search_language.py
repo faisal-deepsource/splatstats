@@ -8,6 +8,7 @@ from .models import (
     Stage,
     Clothes,
     Headgear,
+    Shoes,
 )
 
 (
@@ -464,6 +465,12 @@ class Interpreter:
                 "((player)|(teammate_[a-c])|(opponent_[a-c]))_clothes", attribute
             ):
                 value_a = [x for (x, y) in Clothes if y == value]
+                if len(value_a) > 0:
+                    value = value_a[0]
+            elif regex.search(
+                "((player)|(teammate_[a-c])|(opponent_[a-c]))_shoes", attribute
+            ):
+                value_a = [x for (x, y) in Shoes if y == value]
                 if len(value_a) > 0:
                     value = value_a[0]
             if regex.search(
