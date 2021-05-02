@@ -108,7 +108,7 @@ class Lexer(object):
         while self.current_char is not None and not self.current_char.isspace():
             result += self.current_char
             self.advance()
-        return result == "True" or result == "true"
+        return result == "True"
 
     def get_next_token(self):
         """Lexical analyzer (also known as scanner or tokenizer)
@@ -122,7 +122,7 @@ class Lexer(object):
                 self.skip_whitespace()
                 continue
 
-            if self.current_char == "T" or self.current_char == "F":
+            if self.current_char in ("T", "F"):
                 return Token(BOOL, self.boolean())
 
             if self.current_char == "A":
