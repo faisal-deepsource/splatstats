@@ -60,7 +60,8 @@ class Lexer():
         self.pos = 0
         self.current_char = self.text[self.pos]
 
-    def error(self):
+    @staticmethod
+    def error():
         raise Exception("Invalid character")
 
     def advance(self):
@@ -215,7 +216,8 @@ class Interpreter():
         # set current token to the first token taken from the input
         self.current_token = self.lexer.get_next_token()
 
-    def error(self):
+    @staticmethod
+    def error():
         raise Exception("Invalid syntax")
 
     def eat(self, token_type):

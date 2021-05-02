@@ -1228,10 +1228,12 @@ class BattleAPIView(views.APIView):
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     parser_classes = (JSONParser,)
 
-    def get(self, request):
+    @staticmethod
+    def get(request):
         return HttpResponseRedirect("/two_battles/")
 
-    def post(self, request, format=None):
+    @staticmethod
+    def post(request, format=None):
         image_result = (
             base64.b64decode(
                 request.data.get("image_result", None).encode(encoding="ascii")
