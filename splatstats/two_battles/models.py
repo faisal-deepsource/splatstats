@@ -239,7 +239,6 @@ Stage = (
     ("9999", _("Shifty Station")),
 )
 
-
 MainAbilities = (
     ("0", _("Ink Saver (Main)")),
     ("1", _("Ink Saver (Sub")),
@@ -287,6 +286,164 @@ SubAbilities = (
     ("255", _("Question Mark")),
 )
 
+Headgear = (
+    ("1", _("White Headband")),
+    ("1000", _("Urchins Cap")),
+    ("1001", _("Lightweight Cap")),
+    ("1002", _("Takoroka Mesh")),
+    ("1003", _("Streetstyle Cap")),
+    ("1004", _("Squid-Stitch Cap")),
+    ("1005", _("Squidvader Cap")),
+    ("1006", _("Camo Mesh")),
+    ("1007", _("Five-Panel Cap")),
+    ("1008", _("Zekko Mesh")),
+    ("1009", _("Backwards Cap")),
+    ("1010", _("Two-Stripe Mesh")),
+    ("1011", _("Jet Cap")),
+    ("1012", _("Cycling Cap")),
+    ("1014", _("Cycle King Cap")),
+    ("1018", _("Long-Billed Cap")),
+    ("1019", _("King Flip Mesh")),
+    ("1020", _("Hickory Work Cap")),
+    ("1021", _("Wooly Urchins Classic")),
+    ("1023", _("Jellyvader Cap")),
+    ("1024", _("House-Tag Denim Cap")),
+    ("1025", _("Blowfish Newsie")),
+    ("1026", _("Do-Rag, Cap, and Glasses")),
+    ("1027", _("Pilot Hat")),
+    ("2000", _("Bobble Hat")),
+    ("2001", _("Short Beanie")),
+    ("2002", _("Striped Beanie")),
+    ("2003", _("Sporty Bobble Hat")),
+    ("2004", _("Special Forces Beret")),
+    ("2005", _("Squid Nordic")),
+    ("2006", _("Sennyu Bon Bon Beanie")),
+    ("2008", _("Knitted Hat")),
+    ("2009", _("Annaki Beret")),
+    ("2010", _("Yamagiri Beanie")),
+    ("2011", _("Sneaky Beanie")),
+    ("3000", _("Retro Specs")),
+    ("3001", _("Splash Goggles")),
+    ("3002", _("Pilot Goggles")),
+    ("3003", _("Tinted Shades")),
+    ("3004", _("Black Arrowbands")),
+    ("3005", _("Snorkel Mask")),
+    ("3006", _("White Arrowbands")),
+    ("3007", _("Fake Contacts")),
+    ("3008", _("18K Aviators")),
+    ("3009", _("Full Moon Glasses")),
+    ("3010", _("Octoglasses")),
+    ("3011", _("Half-Rim Glasses")),
+    ("3012", _("Double Egg Shades")),
+    ("3013", _("Zekko Cap")),
+    ("3014", _("SV925 Circle Shades")),
+    ("3015", _("Annaki Beret and Glasses")),
+    ("3016", _("Swim Goggles")),
+    ("3017", _("Ink-Guard Goggles")),
+    ("3018", _("Toni Kensa Goggles")),
+    ("3019", _("Sennyu Goggles")),
+    ("3020", _("Sennyu Specs")),
+    ("4000", _("Safari Hat")),
+    ("4001", _("Jungle Hat")),
+    ("4002", _("Camping Hat")),
+    ("4003", _("Blowfish Bell Hat")),
+    ("4004", _("Bamboo Hat")),
+    ("4005", _("Straw Boater")),
+    ("4006", _("Classic Straw Boater")),
+    ("4007", _("Treasure Hunter")),
+    ("4008", _("Bucket Hat")),
+    ("4009", _("Patched Hat")),
+    ("4010", _("Tulip Parasol")),
+    ("4011", _("Fugu Bell Hat")),
+    ("4012", _("Seashell Bamboo Hat")),
+    ("4013", _("Hothouse Hat")),
+    ("4014", _("Mountie Hat")),
+    ("5000", _("Studio Headphones")),
+    ("5001", _("Designer Headphones")),
+    ("5002", _("Noise Cancelers")),
+    ("5003", _("Squidfin Hook Cans")),
+    ("5004", _("Squidlife Headphones")),
+    ("5005", _("Studio Octophones")),
+    ("5006", _("Sennyu Headphones")),
+    ("6000", _("Golf Visor")),
+    ("6001", _("FishFry Visor")),
+    ("6002", _("Sun Visor")),
+    ("6003", _("Takoroka Visor")),
+    ("6004", _("Face Visor")),
+    ("7000", _("Bike Helmet")),
+    ("7002", _("Stealth Goggles")),
+    ("7004", _("Skate Helmet")),
+    ("7005", _("Visor Skate Helmet")),
+    ("7006", _("MTB Helmet")),
+    ("7007", _("Hockey Helmet")),
+    ("7008", _("Matte Bike Helmet")),
+    ("7009", _("Octo Tackle Helmet Deco")),
+    ("7010", _("Moist Ghillie Helmet")),
+    ("7011", _("Deca Tackle Visor Helmet")),
+    ("8000", _("Gas Mask")),
+    ("8001", _("Paintball Mask")),
+    ("8002", _("Paisley Bandana")),
+    ("8003", _("Skull Bandana")),
+    ("8004", _("Painter's Mask")),
+    ("8005", _("Annaki Mask")),
+    ("8006", _("Octoking Facemask")),
+    ("8007", _("Squid Facemask")),
+    ("8008", _("Firefin Facemask")),
+    ("8009", _("King Facemask")),
+    ("8010", _("Motocross Nose Guard")),
+    ("8011", _("Forge Mask")),
+    ("8012", _("Digi-Camo Forge Mask")),
+    ("8013", _("Koshien Bandana")),
+    ("9001", _("B-ball Headband")),
+    ("9002", _("Squash Headband")),
+    ("9003", _("Tennis Headband")),
+    ("9004", _("Jogging Headband")),
+    ("9005", _("Soccer Headband")),
+    ("9007", _("FishFry Biscuit Bandana")),
+    ("9008", _("Black FishFry Bandana")),
+    ("10000", _("Eminence Cuff")),
+    ("21000", _("Headlamp Helmet")),
+    ("21001", _("Dust Blocker 2000")),
+    ("21002", _("Welding Mask")),
+    ("21003", _("Beekeeper Hat")),
+    ("21004", _("Octoleet Goggles")),
+    ("21005", _("Cap of Legend")),
+    ("21006", _("Oceanic Hard Hat")),
+    ("21007", _("Worker's Head Towel")),
+    ("21009", _("Sailor Cap")),
+    ("22000", _("Mecha Head - HTR")),
+    ("24000", _("Kyonshi Hat")),
+    ("24001", _("Li'l Devil Horns")),
+    ("24002", _("Hockey Mask")),
+    ("24003", _("Anglerfish Mask")),
+    ("24004", _("Festive Party Cone")),
+    ("24005", _("New Year's Glasses DX")),
+    ("24006", _("Twisty Headband")),
+    ("24007", _("Eel-Cake Hat")),
+    ("24008", ("Purple Novelty Visor")),
+    ("24009", _("Green Novelty Visor")),
+    ("24010", _("Orange Novelty Visor")),
+    ("24011", _("Pink Novelty Visor")),
+    ("25000", _("Squid Hairclip")),
+    ("25001", _("Samurai Helmet")),
+    ("25002", _("Power Mask")),
+    ("25003", _("Squid Clip-Ons")),
+    ("25004", _("Squinja Mask")),
+    ("25005", _("Power Mask Mk I")),
+    ("25006", _("Pearlescent Crown")),
+    ("25007", _("Marinated Headphones")),
+    ("25008", _("Enchanted Hat")),
+    ("25009", _("Steel Helm")),
+    ("25010", _("Fresh Fish Head")),
+    ("27000", _("Hero Headset Replica")),
+    ("27004", _("Armor Helmet Replica")),
+    ("27101", _("Hero Headphones Replica")),
+    ("27104", _("Octoling Shades")),
+    ("27105", _("Null Visor Replica")),
+    ("27106", _("Old-Timey Hat")),
+    ("27107", _("Conductor Cap")),
+    ("27108", _("Golden Toothpick")),
+)
 
 Clothes = (
     ("2", _("Basic Tee")),
@@ -547,6 +704,174 @@ Clothes = (
     ("27106", _("Old-Timey Clothes")),
 )
 
+Shoes = (
+    ("1", _("Cream Basics")),
+    ("1000", _("Blue Lo-Tops")),
+    ("1001", _("Banana Basics")),
+    ("1002", _("LE Lo-Tops")),
+    ("1003", _("White Seahorses")),
+    ("1004", _("Orange Lo-Tops")),
+    ("1005", _("Black Seahorses")),
+    ("1006", _("Clownfish Basics")),
+    ("1007", _("Yellow Seahorses")),
+    ("1008", _("Strapping Whites")),
+    ("1009", _("Strapping Reds")),
+    ("1010", _("Soccer Shoes")),
+    ("1011", _("LE Soccer Shoes")),
+    ("1012", _("Sunny Climbing Shoes")),
+    ("1013", _("Birch Climbing Shoes")),
+    ("1014", _("Green Laceups")),
+    ("1015", _("White Laceless Dakroniks")),
+    ("1016", _("Blue Laceless Dakroniks")),
+    ("1017", _("Suede Gray Lace-Ups")),
+    ("1018", ("Suede Nation Lace-Ups")),
+    ("1019", _("Suede Marine Lace-Ups")),
+    ("1020", _("Toni Kensa Soccer Shoes")),
+    ("2000", _("Red Hi-Horses")),
+    ("2001", _("Zombie Hi-Horses")),
+    ("2002", _("Cream Hi-Tops")),
+    ("2003", _("Purple Hi-Horses")),
+    ("2004", _("Hunter Hi-Tops")),
+    ("2005", _("Red Hi-Tops")),
+    ("2006", _("Gold Hi-Horses")),
+    ("2008", _("Shark Moccasins")),
+    ("2009", _("Mawcasins")),
+    ("2010", _("Chocolate Dakroniks")),
+    ("2011", _("Mint Dakroniks")),
+    ("2012", _("Black Dakroniks")),
+    ("2013", _("Piranha Moccasins")),
+    ("2014", _("White Norimaki 750s")),
+    ("2015", _("Black Norimaki 750s")),
+    ("2016", _("Sunset Orca Hi-Tops")),
+    ("2017", _("Red and Black Squidkid IV")),
+    ("2018", _("Blue and Black Squidkd IV")),
+    ("2019", _("Gray Sea-Slug Hi-Tops")),
+    ("2020", _("Orca Hi-Tops")),
+    ("2021", _("Milky Enperrials")),
+    ("2022", _("Navy Enperrials")),
+    ("2023", _("Amber Sea Slug Hi-Tops")),
+    ("2024", _("Yellow Iromaki 750s")),
+    ("2025", _("Red and White Squidkid V")),
+    ("2026", _("Honey and Orange Squidkid V")),
+    ("2027", _("Sun and Shade Squidkid IV")),
+    ("2028", _("Orca Woven Hi-Tops")),
+    ("2029", _("Green Iromaki 750s")),
+    ("2030", _("Purple Iromaki 750s")),
+    ("2031", _("Red Iromaki 750s")),
+    ("2032", _("Blue Iromaki 750s")),
+    ("2033", _("Orange Iromaki 750s")),
+    ("2034", _("Red Power Stripes")),
+    ("2035", _("Blue Power Stripes")),
+    ("2036", _("Toni Kensa Black Hi-Tops")),
+    ("2037", _("Sesame Salt 270s")),
+    ("2038", _("Black and Blue Squidkid V")),
+    ("2039", _("Orca Passion Hi-Tops")),
+    ("2040", _("Truffle Canvas Hi-Tops")),
+    ("2041", _("Online Squidkid V")),
+    ("3000", _("Pink Trainers")),
+    ("3001", _("Orange Arrows")),
+    ("3002", _("Neon Sea Slugs")),
+    ("3003", _("White Arrows")),
+    ("3004", _("Cyan Trainers")),
+    ("3005", _("Blue Sea Slugs")),
+    ("3006", _("Red Sea Slugs")),
+    ("3007", _("Purple Sea Slugs")),
+    ("3008", _("Crazy Arrows")),
+    ("3009", _("Black Trainers")),
+    ("3010", _("Violet Trainers")),
+    ("3011", _("Canary Trainers")),
+    ("3012", _("Yellow-Mesh Sneakers")),
+    ("3013", _("Arrow Pull-Ons")),
+    ("3014", _("Red-Mesh Sneakers")),
+    ("3015", _("N-Pacer CaO")),
+    ("3016", _("N-Pacer Ag")),
+    ("3017", _("N-Pacer Au")),
+    ("3018", _("Sea Slug Volt 95s")),
+    ("3019", _("Athletic Arrows")),
+    ("4000", _("Oyster Clogs")),
+    ("4001", _("Choco Clogs")),
+    ("4002", _("Blueberry Casuals")),
+    ("4003", _("Plum Casuals")),
+    ("4007", _("Neon Delta Straps")),
+    ("4008", _("Black Flip-Flops")),
+    ("4009", _("Snow Delta Straps")),
+    ("4010", _("Luminous Delta Straps")),
+    ("4011", _("Red FishFry Sandals")),
+    ("4012", _("Yellow FishFry Sandals")),
+    ("4013", _("Musselforge Flip-Flops")),
+    ("5000", _("Trail Boots")),
+    ("5001", _("Custom Trail Boots")),
+    ("5002", _("Pro Trail Boots")),
+    ("6000", _("Moto Boots")),
+    ("6001", _("Tan Work Boots")),
+    ("6002", _("Red Work Boots")),
+    ("6003", _("Blue Moto Boots")),
+    ("6004", _("Green Rain Boots")),
+    ("6005", _("Acerola Rain Boots")),
+    ("6006", _("Punk Whites")),
+    ("6007", _("Punk Cherries")),
+    ("6008", _("Punk Yellows")),
+    ("6009", _("Bubble Rain Boots")),
+    ("6010", _("Snowy Down Boots")),
+    ("6011", _("Icy Down Boots")),
+    ("6012", _("Hunting Boots")),
+    ("6013", _("Punk Blacks")),
+    ("6014", _("Deepsea Leather Boots")),
+    ("6015", _("Moist Ghillie Boots")),
+    ("6016", _("Annaki Arachno Boots")),
+    ("6017", _("New-Leaf Leather Boots")),
+    ("6018", _("Tea-Green Hunting Boots")),
+    ("7000", _("Blue Slip-Ons")),
+    ("7001", _("Red Slip-Ons")),
+    ("7002", _("Squid-Stitch Slip-Ons")),
+    ("7003", _("Polka-dot Slip-Ons")),
+    ("8000", _("White Kicks")),
+    ("8001", _("Cherry Kicks")),
+    ("8002", _("Turquois Kicks")),
+    ("8003", _("Squink Wingtips")),
+    ("8004", _("Roasted Brogues")),
+    ("8005", _("Kid Clams")),
+    ("8006", _("Smoky Wingtips")),
+    ("8007", _("Navy Red-Soled Wingtips")),
+    ("8008", _("Gray Yellow-Soled Wingtips")),
+    ("8009", _("Inky Kid Clams")),
+    ("8010", _("Annaki Habaneros")),
+    ("8011", _("Annaki Tigers")),
+    ("8012", _("Sennyu Inksoles")),
+    ("21001", _("Angry Rain Boots")),
+    ("21002", _("Non-slip Senseis")),
+    ("21003", _("Octoleet Boots")),
+    ("21004", _("Friendship Bracelet")),
+    ("21005", _("Flipper Floppers")),
+    ("21006", _("Wooden Sandals")),
+    ("22000", _("Mecha Legs - LBS")),
+    ("23000", _("Pearl-Scout Lace-Ups")),
+    ("23001", _("Pearlescent Squidkid IV")),
+    ("23002", _("Pearl Punk Crowns")),
+    ("23003", _("New-Day Arrows")),
+    ("23004", _("Marination Lace-Ups")),
+    ("23005", _("Rina Squidkid IV")),
+    ("23006", _("Trooper Power Stripes")),
+    ("23007", _("Midnight Slip-Ons")),
+    ("25000", _("School Shoes")),
+    ("25001", _("Samurai Shoes")),
+    ("25002", _("Power Boots")),
+    ("25003", _("Fringed Loafers")),
+    ("25004", _("Squinja Boots")),
+    ("25005", _("Power Boots Mk I")),
+    ("25006", _("Pearlescent Kicks")),
+    ("25007", _("Marinated Slip-Ons")),
+    ("25008", _("Enchanted Boots")),
+    ("25009", _("Steel Greaves")),
+    ("25010", _("Fresh Fish Feet")),
+    ("27000", _("Hero Runner Replicas")),
+    ("27004", _("Armor Boot Replicas")),
+    ("27101", _("Hero Snowboots Replicas")),
+    ("27104", _("Neo Octoling Boots")),
+    ("27105", _("Null Boots Replica")),
+    ("27106", _("Old-Timey Shoes")),
+)
+
 
 class Battle(models.Model):
     # general match stats
@@ -601,7 +926,7 @@ class Battle(models.Model):
     player_gender = models.CharField(max_length=4, null=True, choices=Gender.choices)
     player_species = models.CharField(max_length=9, null=True, choices=Species.choices)
     # headgear
-    player_headgear = models.CharField(null=True, max_length=5)
+    player_headgear = models.CharField(null=True, max_length=5, choices=Headgear)
     player_headgear_main = models.CharField(
         null=True, max_length=3, choices=MainAbilities
     )
@@ -629,7 +954,7 @@ class Battle(models.Model):
         null=True, max_length=3, choices=SubAbilities
     )
     # shoes
-    player_shoes = models.CharField(null=True, max_length=5)
+    player_shoes = models.CharField(null=True, max_length=5, choices=Shoes)
     player_shoes_main = models.CharField(null=True, max_length=3, choices=MainAbilities)
     player_shoes_sub0 = models.CharField(null=True, max_length=3, choices=SubAbilities)
     player_shoes_sub1 = models.CharField(null=True, max_length=3, choices=SubAbilities)
@@ -653,7 +978,7 @@ class Battle(models.Model):
     teammate1_game_paint_point = models.PositiveSmallIntegerField(null=True)
     teammate1_specials = models.PositiveSmallIntegerField(null=True)
     # headgear
-    teammate1_headgear = models.CharField(null=True, max_length=5)
+    teammate1_headgear = models.CharField(null=True, max_length=5, choices=Headgear)
     teammate1_headgear_main = models.CharField(
         null=True, max_length=3, choices=MainAbilities
     )
@@ -681,7 +1006,7 @@ class Battle(models.Model):
         null=True, max_length=3, choices=SubAbilities
     )
     # shoes
-    teammate1_shoes = models.CharField(null=True, max_length=5)
+    teammate1_shoes = models.CharField(null=True, max_length=5, choices=Shoes)
     teammate1_shoes_main = models.CharField(
         null=True, max_length=3, choices=MainAbilities
     )
@@ -713,7 +1038,7 @@ class Battle(models.Model):
     teammate2_game_paint_point = models.PositiveSmallIntegerField(null=True)
     teammate2_specials = models.PositiveSmallIntegerField(null=True)
     # headgear
-    teammate2_headgear = models.CharField(null=True, max_length=5)
+    teammate2_headgear = models.CharField(null=True, max_length=5, choices=Headgear)
     teammate2_headgear_main = models.CharField(
         null=True, max_length=3, choices=MainAbilities
     )
@@ -741,7 +1066,7 @@ class Battle(models.Model):
         null=True, max_length=3, choices=SubAbilities
     )
     # shoes
-    teammate2_shoes = models.CharField(null=True, max_length=5)
+    teammate2_shoes = models.CharField(null=True, max_length=5, choices=Shoes)
     teammate2_shoes_main = models.CharField(
         null=True, max_length=3, choices=MainAbilities
     )
@@ -773,7 +1098,7 @@ class Battle(models.Model):
     teammate0_game_paint_point = models.PositiveSmallIntegerField(null=True)
     teammate0_specials = models.PositiveSmallIntegerField(null=True)
     # headgear
-    teammate0_headgear = models.CharField(null=True, max_length=5)
+    teammate0_headgear = models.CharField(null=True, max_length=5, choices=Headgear)
     teammate0_headgear_main = models.CharField(
         null=True, max_length=3, choices=MainAbilities
     )
@@ -801,7 +1126,7 @@ class Battle(models.Model):
         null=True, max_length=3, choices=SubAbilities
     )
     # shoes
-    teammate0_shoes = models.CharField(null=True, max_length=5)
+    teammate0_shoes = models.CharField(null=True, max_length=5, choices=Shoes)
     teammate0_shoes_main = models.CharField(
         null=True, max_length=3, choices=MainAbilities
     )
@@ -833,7 +1158,7 @@ class Battle(models.Model):
     opponent0_game_paint_point = models.PositiveSmallIntegerField(null=True)
     opponent0_specials = models.PositiveSmallIntegerField(null=True)
     # headgear
-    opponent0_headgear = models.CharField(null=True, max_length=5)
+    opponent0_headgear = models.CharField(null=True, max_length=5, choices=Headgear)
     opponent0_headgear_main = models.CharField(
         null=True, max_length=3, choices=MainAbilities
     )
@@ -861,7 +1186,7 @@ class Battle(models.Model):
         null=True, max_length=3, choices=SubAbilities
     )
     # shoes
-    opponent0_shoes = models.CharField(null=True, max_length=5)
+    opponent0_shoes = models.CharField(null=True, max_length=5, choices=Shoes)
     opponent0_shoes_main = models.CharField(
         null=True, max_length=3, choices=MainAbilities
     )
@@ -893,7 +1218,7 @@ class Battle(models.Model):
     opponent1_game_paint_point = models.PositiveSmallIntegerField(null=True)
     opponent1_specials = models.PositiveSmallIntegerField(null=True)
     # headgear
-    opponent1_headgear = models.CharField(null=True, max_length=5)
+    opponent1_headgear = models.CharField(null=True, max_length=5, choices=Headgear)
     opponent1_headgear_main = models.CharField(
         null=True, max_length=3, choices=MainAbilities
     )
@@ -921,7 +1246,7 @@ class Battle(models.Model):
         null=True, max_length=3, choices=SubAbilities
     )
     # shoes
-    opponent1_shoes = models.CharField(null=True, max_length=5)
+    opponent1_shoes = models.CharField(null=True, max_length=5, choices=Shoes)
     opponent1_shoes_main = models.CharField(
         null=True, max_length=3, choices=MainAbilities
     )
@@ -953,7 +1278,7 @@ class Battle(models.Model):
     opponent2_game_paint_point = models.PositiveSmallIntegerField(null=True)
     opponent2_specials = models.PositiveSmallIntegerField(null=True)
     # headgear
-    opponent2_headgear = models.CharField(null=True, max_length=5)
+    opponent2_headgear = models.CharField(null=True, max_length=5, choices=Headgear)
     opponent2_headgear_main = models.CharField(
         null=True, max_length=3, choices=MainAbilities
     )
@@ -981,7 +1306,7 @@ class Battle(models.Model):
         null=True, max_length=3, choices=SubAbilities
     )
     # shoes
-    opponent2_shoes = models.CharField(null=True, max_length=5)
+    opponent2_shoes = models.CharField(null=True, max_length=5, choices=Shoes)
     opponent2_shoes_main = models.CharField(
         null=True, max_length=3, choices=MainAbilities
     )
@@ -1013,7 +1338,7 @@ class Battle(models.Model):
     opponent3_game_paint_point = models.PositiveSmallIntegerField(null=True)
     opponent3_specials = models.PositiveSmallIntegerField(null=True)
     # headgear
-    opponent3_headgear = models.CharField(null=True, max_length=5)
+    opponent3_headgear = models.CharField(null=True, max_length=5, choices=Headgear)
     opponent3_headgear_main = models.CharField(
         null=True, max_length=3, choices=MainAbilities
     )
@@ -1041,7 +1366,7 @@ class Battle(models.Model):
         null=True, max_length=3, choices=SubAbilities
     )
     # shoes
-    opponent3_shoes = models.CharField(null=True, max_length=5)
+    opponent3_shoes = models.CharField(null=True, max_length=5, choices=Shoes)
     opponent3_shoes_main = models.CharField(
         null=True, max_length=3, choices=MainAbilities
     )

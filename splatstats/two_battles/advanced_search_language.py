@@ -1,6 +1,14 @@
 from django.utils.translation import gettext_lazy as _
 import regex
-from .models import Battle, Weapons, MainAbilities, SubAbilities, Stage, Clothes
+from .models import (
+    Battle,
+    Weapons,
+    MainAbilities,
+    SubAbilities,
+    Stage,
+    Clothes,
+    Headgear,
+)
 
 (
     ATTR,
@@ -39,7 +47,7 @@ from .models import Battle, Weapons, MainAbilities, SubAbilities, Stage, Clothes
 )
 
 
-class Token():
+class Token:
     def __init__(self, type, value):
         self.type = type
         self.value = value
@@ -52,7 +60,7 @@ class Token():
         return self.__str__()
 
 
-class Lexer():
+class Lexer:
     def __init__(self, text):
         # client string input, e.g. "4 + 2 * 3 - 6 / 2"
         self.text = text
@@ -203,7 +211,7 @@ def find_2nd(string, substring):
     return string.find(substring, string.find(substring) + 1)
 
 
-class Interpreter():
+class Interpreter:
     """
     expr   : STRING (GREATERTHAN | GREATEREQUAL | LESSTHAN | LESSEQUAL | EQUAL) VALUE
     term   : (expr) | (LPAREN term (OR | AND) term RPAREN) | (NOT LPAREN term RPAREN)
@@ -442,6 +450,12 @@ class Interpreter():
                     value = value_a[0]
             elif regex.search("stage", attribute):
                 value_a = [x for (x, y) in Stage if y == value]
+                if len(value_a) > 0:
+                    value = value_a[0]
+            elif regex.search(
+                "((player)|(teammate_[a-c])|(opponent_[a-c]))_headgear", attribute
+            ):
+                value_a = [x for (x, y) in Headgear if y == value]
                 if len(value_a) > 0:
                     value = value_a[0]
             elif regex.search(
