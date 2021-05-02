@@ -170,3 +170,6 @@ from rest_framework.settings import api_settings
 api_settings.UNICODE_JSON = False
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 DATA_UPLOAD_MAX_NUMBER_FIELDS = 10000
+
+MEDIA_URL = "/splatstats/data/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "splatstats/data")
