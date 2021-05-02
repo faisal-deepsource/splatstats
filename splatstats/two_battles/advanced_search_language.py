@@ -39,7 +39,7 @@ from .models import Battle, Weapons, MainAbilities, SubAbilities, Stage, Clothes
 )
 
 
-class Token(object):
+class Token():
     def __init__(self, type, value):
         self.type = type
         self.value = value
@@ -52,7 +52,7 @@ class Token(object):
         return self.__str__()
 
 
-class Lexer(object):
+class Lexer():
     def __init__(self, text):
         # client string input, e.g. "4 + 2 * 3 - 6 / 2"
         self.text = text
@@ -203,7 +203,7 @@ def find_2nd(string, substring):
     return string.find(substring, string.find(substring) + 1)
 
 
-class Interpreter(object):
+class Interpreter():
     """
     expr   : STRING (GREATERTHAN | GREATEREQUAL | LESSTHAN | LESSEQUAL | EQUAL) VALUE
     term   : (expr) | (LPAREN term (OR | AND) term RPAREN) | (NOT LPAREN term RPAREN)
@@ -457,7 +457,7 @@ class Interpreter(object):
                 for key in mapping:
                     if attribute[0:8] == "teammate":
                         mapping[key][
-                            "{}{}{}()".format(
+                            "{}{}{}{}".format(
                                 attribute[0:8],
                                 find_2nd(key, attribute[9]) - 5,
                                 attribute[10:],
