@@ -39,7 +39,7 @@ from .models import Battle, Weapons, MainAbilities, SubAbilities, Stage, Clothes
 )
 
 
-class Token():
+class Token:
     def __init__(self, type, value):
         self.type = type
         self.value = value
@@ -52,7 +52,7 @@ class Token():
         return self.__str__()
 
 
-class Lexer():
+class Lexer:
     def __init__(self, text):
         # client string input, e.g. "4 + 2 * 3 - 6 / 2"
         self.text = text
@@ -204,7 +204,7 @@ def find_2nd(string, substring):
     return string.find(substring, string.find(substring) + 1)
 
 
-class Interpreter():
+class Interpreter:
     """
     expr   : STRING (GREATERTHAN | GREATEREQUAL | LESSTHAN | LESSEQUAL | EQUAL) VALUE
     term   : (expr) | (LPAREN term (OR | AND) term RPAREN) | (NOT LPAREN term RPAREN)
