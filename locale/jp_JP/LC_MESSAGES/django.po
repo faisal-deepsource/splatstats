@@ -607,84 +607,84 @@ msgstr "ヒーローブラシ レプリカ"
 
 #: .\splatstats\two_battles\models.py:135 .\splatstats\two_salmon\models.py:36
 msgid "Classic Squiffer"
-msgstr ""
+msgstr "スクイックリンα"
 
 #: .\splatstats\two_battles\models.py:136
 msgid "New Squiffer"
-msgstr ""
+msgstr "スクイックリンβ"
 
 #: .\splatstats\two_battles\models.py:137
 msgid "Fresh Squiffer"
-msgstr ""
+msgstr "スクイックリンγ"
 
 #: .\splatstats\two_battles\models.py:138
 #: .\splatstats\two_battles\models.py:233 .\splatstats\two_salmon\models.py:37
 msgid "Splat Charger"
-msgstr ""
+msgstr "スプラチャージャー"
 
 #: .\splatstats\two_battles\models.py:139
 msgid "Firefin Splat Charger"
-msgstr ""
+msgstr "スプラチャージャーコラボ"
 
 #: .\splatstats\two_battles\models.py:140
 msgid "Kensa Charger"
-msgstr ""
+msgstr "スプラチャージャーベッチュー"
 
 #: .\splatstats\two_battles\models.py:141
 msgid "Hero Charger Replica"
-msgstr ""
+msgstr "ヒーローチャージャー レプリカ"
 
 #: .\splatstats\two_battles\models.py:142
 #: .\splatstats\two_battles\models.py:234 .\splatstats\two_salmon\models.py:38
 msgid "Splatterscope"
-msgstr ""
+msgstr "スプラスコープ"
 
 #: .\splatstats\two_battles\models.py:143
 msgid "Firefin Splatterscope"
-msgstr ""
+msgstr "スプラスコープコラボ"
 
 #: .\splatstats\two_battles\models.py:144
 msgid "Kensa Splatterscope"
-msgstr ""
+msgstr "スプラスコープベッチュー"
 
 #: .\splatstats\two_battles\models.py:145
 #: .\splatstats\two_battles\models.py:235 .\splatstats\two_salmon\models.py:39
 msgid "E-liter 4K"
-msgstr ""
+msgstr "リッター4K"
 
 #: .\splatstats\two_battles\models.py:146
 msgid "Custom E-liter 4K"
-msgstr ""
+msgstr "リッター4Kカスタム"
 
 #: .\splatstats\two_battles\models.py:147
 #: .\splatstats\two_battles\models.py:236 .\splatstats\two_salmon\models.py:40
 msgid "E-liter 4K Scope"
-msgstr ""
+msgstr "4Kスコープ'"
 
 #: .\splatstats\two_battles\models.py:148
 msgid "Custom E-liter 4K Scope"
-msgstr ""
+msgstr "4Kスコープカスタム"
 
 #: .\splatstats\two_battles\models.py:149 .\splatstats\two_salmon\models.py:41
 msgid "Bamboozler 14 Mk I"
-msgstr ""
+msgstr "14式竹筒銃・甲"
 
 #: .\splatstats\two_battles\models.py:150
 msgid "Bamboozler 14 Mk II"
-msgstr ""
+msgstr "14式竹筒銃・乙"
 
 #: .\splatstats\two_battles\models.py:151
 msgid "Bamboozler 14 Mk III"
-msgstr ""
+msgstr "14式竹筒銃・丙"
 
 #: .\splatstats\two_battles\models.py:152
 #: .\splatstats\two_battles\models.py:238 .\splatstats\two_salmon\models.py:42
 msgid "Goo Tuber"
-msgstr ""
+msgstr "ソイチューバー"
 
 #: .\splatstats\two_battles\models.py:153
 msgid "Custom Goo Tuber"
-msgstr ""
+msgstr "ソイチューバーカスタム"
 
 #: .\splatstats\two_battles\models.py:154
 #: .\splatstats\two_battles\models.py:239 .\splatstats\two_salmon\models.py:43
