@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-03 10:55-0400\n"
+"POT-Creation-Date: 2021-05-03 11:39-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -795,7 +795,8 @@ msgstr "クーゲルシュライバー"
 msgid "Ballpoint Splatling Nouveau"
 msgstr "クーゲルシュライバー・ヒュー"
 
-#: .\splatstats\two_battles\models.py:178 .\splatstats\two_salmon\models.py:52
+#: .\splatstats\two_battles\models.py:178
+#: .\splatstats\two_battles\models.py:248 .\splatstats\two_salmon\models.py:52
 msgid "Nautilus 47"
 msgstr "ノーチラス47"
 
@@ -956,2556 +957,2628 @@ msgid "Fizzy Bomb"
 msgstr "タンサンボム"
 
 #: .\splatstats\two_battles\models.py:408
-msgid "All Stages"
-msgstr ""
+#, fuzzy
+#| msgid "Autobomb"
+msgid "Autobomb Launcher"
+msgstr "ロボットボム"
 
 #: .\splatstats\two_battles\models.py:409
-msgid "The Reef"
+msgid "Baller"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:410
-msgid "Musselforge Fitness"
+msgid "Booyah Bomb"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:411
-msgid "Starfish Mainstage"
+msgid "Bubble Blower"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:412
-msgid "Sturgeon Shipyard"
-msgstr ""
+#, fuzzy
+#| msgid "Burst Bomb"
+msgid "Burst-Bomb Launcher"
+msgstr "クイックボム"
 
 #: .\splatstats\two_battles\models.py:413
-msgid "Inkblot Art Academy"
-msgstr ""
+#, fuzzy
+#| msgid "Curling Bomb"
+msgid "Curling-Bomb Launcher"
+msgstr "カーリングボム"
 
 #: .\splatstats\two_battles\models.py:414
-msgid "Humpback Pump Track"
+msgid "Ink Armor"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:415
-msgid "Manta Maria"
+msgid "Ink Storm"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:416
-msgid "Port Mackerel"
+msgid "Inkjet"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:417
-msgid "Moray Towers"
-msgstr ""
+#, fuzzy
+#| msgid "Splattershot"
+msgid "Splashdown"
+msgstr "スプラシューター"
 
 #: .\splatstats\two_battles\models.py:418
-msgid "Snapper Canal"
-msgstr ""
+#, fuzzy
+#| msgid "Splat Bomb"
+msgid "Splat-Bomb Launcher"
+msgstr "スプラッシュボム"
 
 #: .\splatstats\two_battles\models.py:419
-msgid "Kelp Dome"
+msgid "Sting Ray"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:420
-msgid "Blackbelly Skatepark"
-msgstr ""
+#, fuzzy
+#| msgid "Suction Bomb"
+msgid "Suction-Bomb Launcher"
+msgstr "キューバンボム"
 
 #: .\splatstats\two_battles\models.py:421
-msgid "Shellendorf Institute"
+msgid "Tenta Missiles"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:422
-msgid "MakoMart"
-msgstr ""
-
-#: .\splatstats\two_battles\models.py:423
-msgid "Walleye Warehouse"
-msgstr ""
-
-#: .\splatstats\two_battles\models.py:424
-msgid "Arowana Mall"
-msgstr ""
-
-#: .\splatstats\two_battles\models.py:425
-msgid "Camp Triggerfish"
+msgid "Ultra Stamp"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:426
-msgid "Piranha Pit"
+msgid "All Stages"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:427
-msgid "Goby Arena"
+msgid "The Reef"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:428
-msgid "New Albacore Hotel"
+msgid "Musselforge Fitness"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:429
-msgid "Wahoo World"
+msgid "Starfish Mainstage"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:430
-msgid "Ancho-V Games"
+msgid "Sturgeon Shipyard"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:431
-msgid "Skipper Pavillion"
+msgid "Inkblot Art Academy"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:432
-msgid "Zappy Longshocking"
+msgid "Humpback Pump Track"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:433
-msgid "The Switches"
+msgid "Manta Maria"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:434
-msgid "Sweet Valley Tentacles"
+msgid "Port Mackerel"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:435
-msgid "Railway Chillin'"
+msgid "Moray Towers"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:436
-msgid "Flooders in the Attic"
+msgid "Snapper Canal"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:437
-msgid "The Splat in Our Zones"
+msgid "Kelp Dome"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:438
-msgid "The Ink is Spreading"
+msgid "Blackbelly Skatepark"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:439
-msgid "Bridge to Tentaswitchia"
+msgid "Shellendorf Institute"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:440
-msgid "The Chronicles of Rolonium"
+msgid "MakoMart"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:441
-msgid "Shifty Station"
+msgid "Walleye Warehouse"
+msgstr ""
+
+#: .\splatstats\two_battles\models.py:442
+msgid "Arowana Mall"
+msgstr ""
+
+#: .\splatstats\two_battles\models.py:443
+msgid "Camp Triggerfish"
+msgstr ""
+
+#: .\splatstats\two_battles\models.py:444
+msgid "Piranha Pit"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:445
-#: .\splatstats\two_battles\models.py:474
-msgid "Ink Saver (Main)"
+msgid "Goby Arena"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:446
-#: .\splatstats\two_battles\models.py:475
-msgid "Ink Saver (Sub"
+msgid "New Albacore Hotel"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:447
-#: .\splatstats\two_battles\models.py:476
-msgid "Ink Recovery Up"
+msgid "Wahoo World"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:448
-#: .\splatstats\two_battles\models.py:477
-msgid "Run Speed Up"
+msgid "Ancho-V Games"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:449
-#: .\splatstats\two_battles\models.py:478
-msgid "Swim Speed Up"
+msgid "Skipper Pavillion"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:450
-#: .\splatstats\two_battles\models.py:479
-msgid "Special Charge Up"
+msgid "Zappy Longshocking"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:451
-#: .\splatstats\two_battles\models.py:480
-msgid "Special Saver"
+msgid "The Switches"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:452
-#: .\splatstats\two_battles\models.py:481
-msgid "Special Power Up"
+msgid "Sweet Valley Tentacles"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:453
-#: .\splatstats\two_battles\models.py:482
-msgid "Quick Respawn"
+msgid "Railway Chillin'"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:454
-#: .\splatstats\two_battles\models.py:483
-msgid "Quick Super Jump"
+msgid "Flooders in the Attic"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:455
-#: .\splatstats\two_battles\models.py:484
-msgid "Sub Power Up"
+msgid "The Splat in Our Zones"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:456
-#: .\splatstats\two_battles\models.py:485
-msgid "Ink Resistance Up"
+msgid "The Ink is Spreading"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:457
-msgid "Opening Gambit"
+msgid "Bridge to Tentaswitchia"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:458
-msgid "Last Ditch Effort"
+msgid "The Chronicles of Rolonium"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:459
-msgid "Tenacity"
-msgstr ""
-
-#: .\splatstats\two_battles\models.py:460
-msgid "Comeback"
-msgstr ""
-
-#: .\splatstats\two_battles\models.py:461
-msgid "Ninja Squid"
-msgstr ""
-
-#: .\splatstats\two_battles\models.py:462
-msgid "Haunt"
+msgid "Shifty Station"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:463
-msgid "Thermal Ink"
+#: .\splatstats\two_battles\models.py:492
+msgid "Ink Saver (Main)"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:464
-msgid "Respawn Punisher"
+#: .\splatstats\two_battles\models.py:493
+msgid "Ink Saver (Sub"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:465
-msgid "Ability Doubler"
+#: .\splatstats\two_battles\models.py:494
+msgid "Ink Recovery Up"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:466
-msgid "Stealth Jump"
+#: .\splatstats\two_battles\models.py:495
+msgid "Run Speed Up"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:467
-msgid "Object Shredder"
+#: .\splatstats\two_battles\models.py:496
+msgid "Swim Speed Up"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:468
-msgid "Drop Roller"
+#: .\splatstats\two_battles\models.py:497
+msgid "Special Charge Up"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:469
-#: .\splatstats\two_battles\models.py:486
-msgid "Bomb Defense Up DX"
+#: .\splatstats\two_battles\models.py:498
+msgid "Special Saver"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:470
+#: .\splatstats\two_battles\models.py:499
+msgid "Special Power Up"
+msgstr ""
+
+#: .\splatstats\two_battles\models.py:471
+#: .\splatstats\two_battles\models.py:500
+msgid "Quick Respawn"
+msgstr ""
+
+#: .\splatstats\two_battles\models.py:472
+#: .\splatstats\two_battles\models.py:501
+msgid "Quick Super Jump"
+msgstr ""
+
+#: .\splatstats\two_battles\models.py:473
+#: .\splatstats\two_battles\models.py:502
+msgid "Sub Power Up"
+msgstr ""
+
+#: .\splatstats\two_battles\models.py:474
+#: .\splatstats\two_battles\models.py:503
+msgid "Ink Resistance Up"
+msgstr ""
+
+#: .\splatstats\two_battles\models.py:475
+msgid "Opening Gambit"
+msgstr ""
+
+#: .\splatstats\two_battles\models.py:476
+msgid "Last Ditch Effort"
+msgstr ""
+
+#: .\splatstats\two_battles\models.py:477
+msgid "Tenacity"
+msgstr ""
+
+#: .\splatstats\two_battles\models.py:478
+msgid "Comeback"
+msgstr ""
+
+#: .\splatstats\two_battles\models.py:479
+msgid "Ninja Squid"
+msgstr ""
+
+#: .\splatstats\two_battles\models.py:480
+msgid "Haunt"
+msgstr ""
+
+#: .\splatstats\two_battles\models.py:481
+msgid "Thermal Ink"
+msgstr ""
+
+#: .\splatstats\two_battles\models.py:482
+msgid "Respawn Punisher"
+msgstr ""
+
+#: .\splatstats\two_battles\models.py:483
+msgid "Ability Doubler"
+msgstr ""
+
+#: .\splatstats\two_battles\models.py:484
+msgid "Stealth Jump"
+msgstr ""
+
+#: .\splatstats\two_battles\models.py:485
+msgid "Object Shredder"
+msgstr ""
+
+#: .\splatstats\two_battles\models.py:486
+msgid "Drop Roller"
+msgstr ""
+
 #: .\splatstats\two_battles\models.py:487
-msgid "Main Power Up"
+#: .\splatstats\two_battles\models.py:504
+msgid "Bomb Defense Up DX"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:488
-msgid "Question Mark"
-msgstr ""
-
-#: .\splatstats\two_battles\models.py:492
-msgid "White Headband"
-msgstr ""
-
-#: .\splatstats\two_battles\models.py:493
-msgid "Urchins Cap"
-msgstr ""
-
-#: .\splatstats\two_battles\models.py:494
-msgid "Lightweight Cap"
-msgstr ""
-
-#: .\splatstats\two_battles\models.py:495
-msgid "Takoroka Mesh"
-msgstr ""
-
-#: .\splatstats\two_battles\models.py:496
-msgid "Streetstyle Cap"
-msgstr ""
-
-#: .\splatstats\two_battles\models.py:497
-msgid "Squid-Stitch Cap"
-msgstr ""
-
-#: .\splatstats\two_battles\models.py:498
-msgid "Squidvader Cap"
-msgstr ""
-
-#: .\splatstats\two_battles\models.py:499
-msgid "Camo Mesh"
-msgstr ""
-
-#: .\splatstats\two_battles\models.py:500
-msgid "Five-Panel Cap"
-msgstr ""
-
-#: .\splatstats\two_battles\models.py:501
-msgid "Zekko Mesh"
-msgstr ""
-
-#: .\splatstats\two_battles\models.py:502
-msgid "Backwards Cap"
-msgstr ""
-
-#: .\splatstats\two_battles\models.py:503
-msgid "Two-Stripe Mesh"
-msgstr ""
-
-#: .\splatstats\two_battles\models.py:504
-msgid "Jet Cap"
-msgstr ""
-
 #: .\splatstats\two_battles\models.py:505
-msgid "Cycling Cap"
+msgid "Main Power Up"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:506
-msgid "Cycle King Cap"
-msgstr ""
-
-#: .\splatstats\two_battles\models.py:507
-msgid "Long-Billed Cap"
-msgstr ""
-
-#: .\splatstats\two_battles\models.py:508
-msgid "King Flip Mesh"
-msgstr ""
-
-#: .\splatstats\two_battles\models.py:509
-msgid "Hickory Work Cap"
+msgid "Question Mark"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:510
-msgid "Wooly Urchins Classic"
+msgid "White Headband"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:511
-msgid "Jellyvader Cap"
+msgid "Urchins Cap"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:512
-msgid "House-Tag Denim Cap"
+msgid "Lightweight Cap"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:513
-msgid "Blowfish Newsie"
+msgid "Takoroka Mesh"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:514
-msgid "Do-Rag, Cap, and Glasses"
+msgid "Streetstyle Cap"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:515
-msgid "Pilot Hat"
+msgid "Squid-Stitch Cap"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:516
-msgid "Bobble Hat"
+msgid "Squidvader Cap"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:517
-msgid "Short Beanie"
+msgid "Camo Mesh"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:518
-msgid "Striped Beanie"
+msgid "Five-Panel Cap"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:519
-msgid "Sporty Bobble Hat"
+msgid "Zekko Mesh"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:520
-msgid "Special Forces Beret"
+msgid "Backwards Cap"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:521
-msgid "Squid Nordic"
+msgid "Two-Stripe Mesh"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:522
-msgid "Sennyu Bon Bon Beanie"
+msgid "Jet Cap"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:523
-msgid "Knitted Hat"
+msgid "Cycling Cap"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:524
-msgid "Annaki Beret"
+msgid "Cycle King Cap"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:525
-msgid "Yamagiri Beanie"
+msgid "Long-Billed Cap"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:526
-msgid "Sneaky Beanie"
+msgid "King Flip Mesh"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:527
-msgid "Retro Specs"
+msgid "Hickory Work Cap"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:528
-msgid "Splash Goggles"
+msgid "Wooly Urchins Classic"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:529
-msgid "Pilot Goggles"
+msgid "Jellyvader Cap"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:530
-msgid "Tinted Shades"
+msgid "House-Tag Denim Cap"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:531
-msgid "Black Arrowbands"
+msgid "Blowfish Newsie"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:532
-msgid "Snorkel Mask"
+msgid "Do-Rag, Cap, and Glasses"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:533
-msgid "White Arrowbands"
+msgid "Pilot Hat"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:534
-msgid "Fake Contacts"
+msgid "Bobble Hat"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:535
-msgid "18K Aviators"
+msgid "Short Beanie"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:536
-msgid "Full Moon Glasses"
+msgid "Striped Beanie"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:537
-msgid "Octoglasses"
+msgid "Sporty Bobble Hat"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:538
-msgid "Half-Rim Glasses"
+msgid "Special Forces Beret"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:539
-msgid "Double Egg Shades"
+msgid "Squid Nordic"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:540
-msgid "Zekko Cap"
+msgid "Sennyu Bon Bon Beanie"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:541
-msgid "SV925 Circle Shades"
+msgid "Knitted Hat"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:542
-msgid "Annaki Beret and Glasses"
+msgid "Annaki Beret"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:543
-msgid "Swim Goggles"
+msgid "Yamagiri Beanie"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:544
-msgid "Ink-Guard Goggles"
+msgid "Sneaky Beanie"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:545
-msgid "Toni Kensa Goggles"
+msgid "Retro Specs"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:546
-msgid "Sennyu Goggles"
+msgid "Splash Goggles"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:547
-msgid "Sennyu Specs"
+msgid "Pilot Goggles"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:548
-msgid "Safari Hat"
+msgid "Tinted Shades"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:549
-msgid "Jungle Hat"
+msgid "Black Arrowbands"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:550
-msgid "Camping Hat"
+msgid "Snorkel Mask"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:551
-msgid "Blowfish Bell Hat"
+msgid "White Arrowbands"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:552
-msgid "Bamboo Hat"
+msgid "Fake Contacts"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:553
-msgid "Straw Boater"
+msgid "18K Aviators"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:554
-msgid "Classic Straw Boater"
+msgid "Full Moon Glasses"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:555
-msgid "Treasure Hunter"
+msgid "Octoglasses"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:556
-msgid "Bucket Hat"
+msgid "Half-Rim Glasses"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:557
-msgid "Patched Hat"
+msgid "Double Egg Shades"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:558
-msgid "Tulip Parasol"
+msgid "Zekko Cap"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:559
-msgid "Fugu Bell Hat"
+msgid "SV925 Circle Shades"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:560
-msgid "Seashell Bamboo Hat"
+msgid "Annaki Beret and Glasses"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:561
-msgid "Hothouse Hat"
+msgid "Swim Goggles"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:562
-msgid "Mountie Hat"
+msgid "Ink-Guard Goggles"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:563
-msgid "Studio Headphones"
+msgid "Toni Kensa Goggles"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:564
-msgid "Designer Headphones"
+msgid "Sennyu Goggles"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:565
-msgid "Noise Cancelers"
+msgid "Sennyu Specs"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:566
-msgid "Squidfin Hook Cans"
+msgid "Safari Hat"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:567
-msgid "Squidlife Headphones"
+msgid "Jungle Hat"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:568
-msgid "Studio Octophones"
+msgid "Camping Hat"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:569
-msgid "Sennyu Headphones"
+msgid "Blowfish Bell Hat"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:570
-msgid "Golf Visor"
+msgid "Bamboo Hat"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:571
-msgid "FishFry Visor"
+msgid "Straw Boater"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:572
-msgid "Sun Visor"
+msgid "Classic Straw Boater"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:573
-msgid "Takoroka Visor"
+msgid "Treasure Hunter"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:574
-msgid "Face Visor"
+msgid "Bucket Hat"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:575
-msgid "Bike Helmet"
+msgid "Patched Hat"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:576
-msgid "Stealth Goggles"
+msgid "Tulip Parasol"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:577
-msgid "Skate Helmet"
+msgid "Fugu Bell Hat"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:578
-msgid "Visor Skate Helmet"
+msgid "Seashell Bamboo Hat"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:579
-msgid "MTB Helmet"
+msgid "Hothouse Hat"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:580
-msgid "Hockey Helmet"
+msgid "Mountie Hat"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:581
-msgid "Matte Bike Helmet"
+msgid "Studio Headphones"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:582
-msgid "Octo Tackle Helmet Deco"
+msgid "Designer Headphones"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:583
-msgid "Moist Ghillie Helmet"
+msgid "Noise Cancelers"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:584
-msgid "Deca Tackle Visor Helmet"
+msgid "Squidfin Hook Cans"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:585
-msgid "Gas Mask"
+msgid "Squidlife Headphones"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:586
-msgid "Paintball Mask"
+msgid "Studio Octophones"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:587
-msgid "Paisley Bandana"
+msgid "Sennyu Headphones"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:588
-msgid "Skull Bandana"
+msgid "Golf Visor"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:589
-msgid "Painter's Mask"
+msgid "FishFry Visor"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:590
-msgid "Annaki Mask"
+msgid "Sun Visor"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:591
-msgid "Octoking Facemask"
+msgid "Takoroka Visor"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:592
-msgid "Squid Facemask"
+msgid "Face Visor"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:593
-msgid "Firefin Facemask"
+msgid "Bike Helmet"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:594
-msgid "King Facemask"
+msgid "Stealth Goggles"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:595
-msgid "Motocross Nose Guard"
+msgid "Skate Helmet"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:596
-msgid "Forge Mask"
+msgid "Visor Skate Helmet"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:597
-msgid "Digi-Camo Forge Mask"
+msgid "MTB Helmet"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:598
-msgid "Koshien Bandana"
+msgid "Hockey Helmet"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:599
-msgid "B-ball Headband"
+msgid "Matte Bike Helmet"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:600
-msgid "Squash Headband"
+msgid "Octo Tackle Helmet Deco"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:601
-msgid "Tennis Headband"
+msgid "Moist Ghillie Helmet"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:602
-msgid "Jogging Headband"
+msgid "Deca Tackle Visor Helmet"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:603
-msgid "Soccer Headband"
+msgid "Gas Mask"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:604
-msgid "FishFry Biscuit Bandana"
+msgid "Paintball Mask"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:605
-msgid "Black FishFry Bandana"
+msgid "Paisley Bandana"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:606
-msgid "Eminence Cuff"
+msgid "Skull Bandana"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:607
-msgid "Headlamp Helmet"
+msgid "Painter's Mask"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:608
-msgid "Dust Blocker 2000"
+msgid "Annaki Mask"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:609
-msgid "Welding Mask"
+msgid "Octoking Facemask"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:610
-msgid "Beekeeper Hat"
+msgid "Squid Facemask"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:611
-msgid "Octoleet Goggles"
+msgid "Firefin Facemask"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:612
-msgid "Cap of Legend"
+msgid "King Facemask"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:613
-msgid "Oceanic Hard Hat"
+msgid "Motocross Nose Guard"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:614
-msgid "Worker's Head Towel"
+msgid "Forge Mask"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:615
-msgid "Sailor Cap"
+msgid "Digi-Camo Forge Mask"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:616
-msgid "Mecha Head - HTR"
+msgid "Koshien Bandana"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:617
-msgid "Kyonshi Hat"
+msgid "B-ball Headband"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:618
-msgid "Li'l Devil Horns"
+msgid "Squash Headband"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:619
-msgid "Hockey Mask"
+msgid "Tennis Headband"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:620
-msgid "Anglerfish Mask"
+msgid "Jogging Headband"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:621
-msgid "Festive Party Cone"
+msgid "Soccer Headband"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:622
-msgid "New Year's Glasses DX"
+msgid "FishFry Biscuit Bandana"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:623
-msgid "Twisty Headband"
+msgid "Black FishFry Bandana"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:624
-msgid "Eel-Cake Hat"
+msgid "Eminence Cuff"
+msgstr ""
+
+#: .\splatstats\two_battles\models.py:625
+msgid "Headlamp Helmet"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:626
-msgid "Green Novelty Visor"
+msgid "Dust Blocker 2000"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:627
-msgid "Orange Novelty Visor"
+msgid "Welding Mask"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:628
-msgid "Pink Novelty Visor"
+msgid "Beekeeper Hat"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:629
-msgid "Squid Hairclip"
+msgid "Octoleet Goggles"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:630
-msgid "Samurai Helmet"
+msgid "Cap of Legend"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:631
-msgid "Power Mask"
+msgid "Oceanic Hard Hat"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:632
-msgid "Squid Clip-Ons"
+msgid "Worker's Head Towel"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:633
-msgid "Squinja Mask"
+msgid "Sailor Cap"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:634
-msgid "Power Mask Mk I"
+msgid "Mecha Head - HTR"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:635
-msgid "Pearlescent Crown"
+msgid "Kyonshi Hat"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:636
-msgid "Marinated Headphones"
+msgid "Li'l Devil Horns"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:637
-msgid "Enchanted Hat"
+msgid "Hockey Mask"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:638
-msgid "Steel Helm"
+msgid "Anglerfish Mask"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:639
-msgid "Fresh Fish Head"
+msgid "Festive Party Cone"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:640
-msgid "Hero Headset Replica"
+msgid "New Year's Glasses DX"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:641
-msgid "Armor Helmet Replica"
+msgid "Twisty Headband"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:642
-msgid "Hero Headphones Replica"
-msgstr ""
-
-#: .\splatstats\two_battles\models.py:643
-msgid "Octoling Shades"
+msgid "Eel-Cake Hat"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:644
-msgid "Null Visor Replica"
+msgid "Green Novelty Visor"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:645
-msgid "Old-Timey Hat"
+msgid "Orange Novelty Visor"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:646
-msgid "Conductor Cap"
+msgid "Pink Novelty Visor"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:647
-msgid "Golden Toothpick"
+msgid "Squid Hairclip"
+msgstr ""
+
+#: .\splatstats\two_battles\models.py:648
+msgid "Samurai Helmet"
+msgstr ""
+
+#: .\splatstats\two_battles\models.py:649
+msgid "Power Mask"
+msgstr ""
+
+#: .\splatstats\two_battles\models.py:650
+msgid "Squid Clip-Ons"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:651
-msgid "Basic Tee"
+msgid "Squinja Mask"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:652
-msgid "Fresh Octo Tee"
+msgid "Power Mask Mk I"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:653
-msgid "White Tee"
+msgid "Pearlescent Crown"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:654
-msgid "Black Squideye"
+msgid "Marinated Headphones"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:655
-msgid "Sky Blue Squideye"
+msgid "Enchanted Hat"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:656
-msgid "Rockenberg White"
+msgid "Steel Helm"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:657
-msgid "Rockenberg Black"
+msgid "Fresh Fish Head"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:658
-msgid "Black Tee"
+msgid "Hero Headset Replica"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:659
-msgid "Sunny-Day Tee"
+msgid "Armor Helmet Replica"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:660
-msgid "Rainy-Day Tee"
+msgid "Hero Headphones Replica"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:661
-msgid "Reggae Tee"
+msgid "Octoling Shades"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:662
-msgid "Fugu Tee"
+msgid "Null Visor Replica"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:663
-msgid "Mint Tee"
+msgid "Old-Timey Hat"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:664
-msgid "Grape Tee"
+msgid "Conductor Cap"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:665
-msgid "Red Vector Tee"
-msgstr ""
-
-#: .\splatstats\two_battles\models.py:666
-msgid "Gray Vector Tee"
-msgstr ""
-
-#: .\splatstats\two_battles\models.py:667
-msgid "Blue Peaks Tee"
-msgstr ""
-
-#: .\splatstats\two_battles\models.py:668
-msgid "Ivory Peaks Tee"
+msgid "Golden Toothpick"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:669
-msgid "Squid-Stitch Tee"
+msgid "Basic Tee"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:670
-msgid "Pirate-Stripe Tee"
+msgid "Fresh Octo Tee"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:671
-msgid "Sailor-Stripe Tee"
+msgid "White Tee"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:672
-msgid "White 8-Bit FishFry"
+msgid "Black Squideye"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:673
-msgid "Black 8-Bit FishFry"
+msgid "Sky Blue Squideye"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:674
-msgid "White Anchor Tee"
+msgid "Rockenberg White"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:675
-msgid "Black Anchor Tee"
+msgid "Rockenberg Black"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:676
-msgid "Carnivore Tee"
+msgid "Black Tee"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:677
-msgid "Pearl Tee"
+msgid "Sunny-Day Tee"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:678
-msgid "Octo Tee"
+msgid "Rainy-Day Tee"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:679
-msgid "Herbivore Tee"
+msgid "Reggae Tee"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:680
-msgid "Black V-Neck Tee"
+msgid "Fugu Tee"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:681
-msgid "White Deca Logo Tee"
+msgid "Mint Tee"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:682
-msgid "Half-Sleeve Sweater"
+msgid "Grape Tee"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:683
-msgid "King Jersey"
+msgid "Red Vector Tee"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:684
-msgid "Gray 8-Bit FishFry"
+msgid "Gray Vector Tee"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:685
-msgid "White V-Neck Tee"
+msgid "Blue Peaks Tee"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:686
-msgid "White Urchin Rock Tee"
+msgid "Ivory Peaks Tee"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:687
-msgid "Black Urchin Rock Tee"
+msgid "Squid-Stitch Tee"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:688
-msgid "Wet Floor Band Tee"
+msgid "Pirate-Stripe Tee"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:689
-msgid "Squid Squad Band Tee"
+msgid "Sailor-Stripe Tee"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:690
-msgid "Navy Deca Logo Tee"
+msgid "White 8-Bit FishFry"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:691
-msgid "Mister Shrug Tee"
+msgid "Black 8-Bit FishFry"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:692
-msgid "Chirpy Chips Band Tee"
+msgid "White Anchor Tee"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:693
-msgid "Hightide Era Band Tee"
+msgid "Black Anchor Tee"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:694
-msgid "Red V-Neck Limited Tee"
+msgid "Carnivore Tee"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:695
-msgid "Green V-Neck Limited Tee"
+msgid "Pearl Tee"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:696
-msgid "ω-3 Tee"
+msgid "Octo Tee"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:697
-msgid "Annaki Polpo-Pic Tee"
+msgid "Herbivore Tee"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:698
-msgid "Firewave Tee"
+msgid "Black V-Neck Tee"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:699
-msgid "Takoroka Galactic Tie Dye"
+msgid "White Deca Logo Tee"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:700
-msgid "Takoroka Rainbow Tie Dye"
+msgid "Half-Sleeve Sweater"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:701
-msgid "Missus Shrug Tee"
+msgid "King Jersey"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:702
-msgid "League Tee"
+msgid "Gray 8-Bit FishFry"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:703
-msgid "Friend Tee"
+msgid "White V-Neck Tee"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:704
-msgid "Tentatek Slogan Tee"
+msgid "White Urchin Rock Tee"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:705
-msgid "Icewave Tee"
+msgid "Black Urchin Rock Tee"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:706
-msgid "Octoking HK Jersey"
+msgid "Wet Floor Band Tee"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:707
-msgid "Dakro Nana Tee"
+msgid "Squid Squad Band Tee"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:708
-msgid "Dakro Golden Tee"
+msgid "Navy Deca Logo Tee"
+msgstr ""
+
+#: .\splatstats\two_battles\models.py:709
+msgid "Mister Shrug Tee"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:710
-msgid "Green Velour Octoking Tee"
+msgid "Chirpy Chips Band Tee"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:711
-msgid "SWC Logo Tee"
+msgid "Hightide Era Band Tee"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:712
-msgid "White Striped LS"
+msgid "Red V-Neck Limited Tee"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:713
-msgid "Black LS"
+msgid "Green V-Neck Limited Tee"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:714
-msgid "Purple Camo LS"
+msgid "ω-3 Tee"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:715
-msgid "Navy Striped LS"
+msgid "Annaki Polpo-Pic Tee"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:716
-msgid "Zekko Baseball LS"
+msgid "Firewave Tee"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:717
-msgid "Varsity Baseball LS"
+msgid "Takoroka Galactic Tie Dye"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:718
-msgid "Black Baseball LS"
+msgid "Takoroka Rainbow Tie Dye"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:719
-msgid "White Baseball LS"
+msgid "Missus Shrug Tee"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:720
-msgid "White LS"
+msgid "League Tee"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:721
-msgid "Green Striped LS"
+msgid "Friend Tee"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:722
-msgid "Squidmark LS"
+msgid "Tentatek Slogan Tee"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:723
-msgid "Zink LS"
+msgid "Icewave Tee"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:724
-msgid "Striped Peaks LS"
+msgid "Octoking HK Jersey"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:725
-msgid "Pink Easy-Stripe Shirt"
+msgid "Dakro Nana Tee"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:726
-msgid "Inkopolis Squaps Jersey"
-msgstr ""
-
-#: .\splatstats\two_battles\models.py:727
-msgid "Annaki Drive Tee"
+msgid "Dakro Golden Tee"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:728
-msgid "Lime Easy-Stripe Shirt"
+msgid "Green Velour Octoking Tee"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:729
-msgid "Annaki Evolution Tee"
+msgid "SWC Logo Tee"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:730
-msgid "Zekko Long Carrot Tee"
+msgid "White Striped LS"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:731
-msgid "Zekko Long Radish Tee"
+msgid "Black LS"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:732
-msgid "Black Cuttlegear LS"
+msgid "Purple Camo LS"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:733
-msgid "Takoroka Crazy Baseball LS"
+msgid "Navy Striped LS"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:734
-msgid "Red Cuttlegear LS"
+msgid "Zekko Baseball LS"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:735
-msgid "Khaki 16-Bit FishFry"
+msgid "Varsity Baseball LS"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:736
-msgid "Blue 16-Bit FishFry"
+msgid "Black Baseball LS"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:737
-msgid "White Layered LS"
+msgid "White Baseball LS"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:738
-msgid "Yellow Layered LS"
+msgid "White LS"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:739
-msgid "Camo Layered LS"
+msgid "Green Striped LS"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:740
-msgid "Black Layered LS"
+msgid "Squidmark LS"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:741
-msgid "Zink Layered LS"
+msgid "Zink LS"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:742
-msgid "Layered Anchor LS"
+msgid "Striped Peaks LS"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:743
-msgid "Choco Layered LS"
+msgid "Pink Easy-Stripe Shirt"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:744
-msgid "Part-Time Pirate"
+msgid "Inkopolis Squaps Jersey"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:745
-msgid "Layered Vector LS"
+msgid "Annaki Drive Tee"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:746
-msgid "Green Tee"
+msgid "Lime Easy-Stripe Shirt"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:747
-msgid "Red Tentatek Tee"
+msgid "Annaki Evolution Tee"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:748
-msgid "Blue Tentatek Tee"
+msgid "Zekko Long Carrot Tee"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:749
-msgid "Octo Layered LS"
+msgid "Zekko Long Radish Tee"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:750
-msgid "Squid Yellow Layered LS"
+msgid "Black Cuttlegear LS"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:751
-msgid "Shrimp-Pink Polo"
+msgid "Takoroka Crazy Baseball LS"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:752
-msgid "Striped Rugby"
+msgid "Red Cuttlegear LS"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:753
-msgid "Tricolor Rugby"
+msgid "Khaki 16-Bit FishFry"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:754
-msgid "Sage Polo"
+msgid "Blue 16-Bit FishFry"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:755
-msgid "Black Polo"
+msgid "White Layered LS"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:756
-msgid "Cycling Shirt"
+msgid "Yellow Layered LS"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:757
-msgid "Cycle King Jersey"
+msgid "Camo Layered LS"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:758
-msgid "Slipstream United"
+msgid "Black Layered LS"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:759
-msgid "FC Albacore"
+msgid "Zink Layered LS"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:760
-msgid "Olive Ski Jacket"
+msgid "Layered Anchor LS"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:761
-msgid "Takoroka Nylon Vintage"
+msgid "Choco Layered LS"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:762
-msgid "Berry Ski Jacket"
+msgid "Part-Time Pirate"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:763
-msgid "Varsity Jacket"
+msgid "Layered Vector LS"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:764
-msgid "School Jersey"
+msgid "Green Tee"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:765
-msgid "Green Cardigan"
+msgid "Red Tentatek Tee"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:766
-msgid "Black Inky Rider"
+msgid "Blue Tentatek Tee"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:767
-msgid "White Inky Rider"
+msgid "Octo Layered LS"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:768
-msgid "Retro Gamer Jersey"
+msgid "Squid Yellow Layered LS"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:769
-msgid "Orange Cardigan"
+msgid "Shrimp-Pink Polo"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:770
-msgid "Forge Inkling Parka"
+msgid "Striped Rugby"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:771
-msgid "Forge Octarian Jacket"
+msgid "Tricolor Rugby"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:772
-msgid "Blue Sailor Suit"
+msgid "Sage Polo"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:773
-msgid "White Sailor Suit"
+msgid "Black Polo"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:774
-msgid "Squid Satin Jacket"
+msgid "Cycling Shirt"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:775
-msgid "Zapfish Satin Jacket"
+msgid "Cycle King Jersey"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:776
-msgid "Krak-On 528"
+msgid "Slipstream United"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:777
-msgid "Chilly Mountain Coat"
+msgid "FC Albacore"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:778
-msgid "Takoroka Windcrusher"
+msgid "Olive Ski Jacket"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:779
-msgid "Matcha Down Jacket"
+msgid "Takoroka Nylon Vintage"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:780
-msgid "FA-01 Jacket"
+msgid "Berry Ski Jacket"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:781
-msgid "FA-01 Reversed"
+msgid "Varsity Jacket"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:782
-msgid "Pullover Coat"
+msgid "School Jersey"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:783
-msgid "Kensa Coat"
+msgid "Green Cardigan"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:784
-msgid "Birded Corduroy Jacket"
+msgid "Black Inky Rider"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:785
-msgid "Deep-Octo Satin Jacket"
+msgid "White Inky Rider"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:786
-msgid "Zekko Redleaf Coat"
+msgid "Retro Gamer Jersey"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:787
-msgid "Eggplant Mountain Coat"
+msgid "Orange Cardigan"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:788
-msgid "Zekko Jade Coat"
+msgid "Forge Inkling Parka"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:789
-msgid "Light Bomber Jacket"
+msgid "Forge Octarian Jacket"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:790
-msgid "Brown FA-11 Bomber"
+msgid "Blue Sailor Suit"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:791
-msgid "Gray FA-11 Bomber"
+msgid "White Sailor Suit"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:792
-msgid "Milky Eminence Jacket"
+msgid "Squid Satin Jacket"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:793
-msgid "Navy Eminence Jacket"
+msgid "Zapfish Satin Jacket"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:794
-msgid "Tumeric Zekko Coat"
+msgid "Krak-On 528"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:795
-msgid "Custom Painted F-3"
+msgid "Chilly Mountain Coat"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:796
-msgid "Dark Bomber Jacket"
+msgid "Takoroka Windcrusher"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:797
-msgid "Moist Ghillie Suit"
+msgid "Matcha Down Jacket"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:798
-msgid "White Leather F-3"
+msgid "FA-01 Jacket"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:799
-msgid "Chili-Pepper Ski Jacket"
+msgid "FA-01 Reversed"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:800
-msgid "Whale-Knit Sweater"
+msgid "Pullover Coat"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:801
-msgid "Rockin' Leather Jacket"
+msgid "Kensa Coat"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:802
-msgid "Kung-Fu Zip-Up"
+msgid "Birded Corduroy Jacket"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:803
-msgid "Panda Kung-Fu Zip-Up"
+msgid "Deep-Octo Satin Jacket"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:804
-msgid "Sennyu Suit"
+msgid "Zekko Redleaf Coat"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:805
-msgid "B-ball Jersey (Home)"
+msgid "Eggplant Mountain Coat"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:806
-msgid "B-ball Jersey (Away)"
+msgid "Zekko Jade Coat"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:807
-msgid "White King Tank"
+msgid "Light Bomber Jacket"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:808
-msgid "Slash King Tank"
+msgid "Brown FA-11 Bomber"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:809
-msgid "Navy King Tank"
+msgid "Gray FA-11 Bomber"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:810
-msgid "Lob-Stars Jersey"
+msgid "Milky Eminence Jacket"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:811
-msgid "Gray College Sweat"
+msgid "Navy Eminence Jacket"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:812
-msgid "Squidmark Sweat"
+msgid "Tumeric Zekko Coat"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:813
-msgid "Retro Sweat"
+msgid "Custom Painted F-3"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:814
-msgid "Firefin Navy Sweat"
+msgid "Dark Bomber Jacket"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:815
-msgid "Navy College Sweat"
+msgid "Moist Ghillie Suit"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:816
-msgid "Reel Sweat"
+msgid "White Leather F-3"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:817
-msgid "Anchor Sweat"
+msgid "Chili-Pepper Ski Jacket"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:818
-msgid "Negative Longcuff Sweater"
+msgid "Whale-Knit Sweater"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:819
-msgid "Short Knit Layers"
+msgid "Rockin' Leather Jacket"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:820
-msgid "Positive Longcuff Sweater"
+msgid "Kung-Fu Zip-Up"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:821
-msgid "Annaki Blue Cuff"
+msgid "Panda Kung-Fu Zip-Up"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:822
-msgid "Annaki Yellow Cuff"
+msgid "Sennyu Suit"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:823
-msgid "Annaki Red Cuff"
+msgid "B-ball Jersey (Home)"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:824
-msgid "N-Pacer Sweat"
+msgid "B-ball Jersey (Away)"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:825
-msgid "Octarian Retro"
+msgid "White King Tank"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:826
-msgid "Takoroka Jersey"
+msgid "Slash King Tank"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:827
-msgid "Lumberjack Shirt"
+msgid "Navy King Tank"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:828
-msgid "Rodeo Shirt"
+msgid "Lob-Stars Jersey"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:829
-msgid "Green-Check Shirt"
+msgid "Gray College Sweat"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:830
-msgid "White Shirt"
+msgid "Squidmark Sweat"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:831
-msgid "Urchins Jersey"
+msgid "Retro Sweat"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:832
-msgid "Aloha Shirt"
+msgid "Firefin Navy Sweat"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:833
-msgid "Red-Check Shirt"
+msgid "Navy College Sweat"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:834
-msgid "Baby-Jelly Shirt"
+msgid "Reel Sweat"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:835
-msgid "Baseball Jersey"
+msgid "Anchor Sweat"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:836
-msgid "Gray Mixed Shirt"
+msgid "Negative Longcuff Sweater"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:837
-msgid "Vintage Check Shirt"
+msgid "Short Knit Layers"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:838
-msgid "Round-Collar Shirt"
+msgid "Positive Longcuff Sweater"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:839
-msgid "Logo Aloha Shirt"
+msgid "Annaki Blue Cuff"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:840
-msgid "Striped Shirt"
+msgid "Annaki Yellow Cuff"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:841
-msgid "Linen Shirt"
+msgid "Annaki Red Cuff"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:842
-msgid "Shirt and Tie"
+msgid "N-Pacer Sweat"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:843
-msgid "Hula Punk Shirt"
+msgid "Octarian Retro"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:844
-msgid "Octobowler Shirt"
+msgid "Takoroka Jersey"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:845
-msgid "Inkfall Shirt"
+msgid "Lumberjack Shirt"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:846
-msgid "Crimson Parashooter"
+msgid "Rodeo Shirt"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:847
-msgid "Baby-Jelly Shirt and Tie"
+msgid "Green-Check Shirt"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:848
-msgid "Prune Parashooter"
+msgid "White Shirt"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:849
-msgid "Red Hula Punk with Tie"
+msgid "Urchins Jersey"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:850
-msgid "Chili Octo Aloha"
+msgid "Aloha Shirt"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:851
-msgid "Annaki Flannel Hoodie"
+msgid "Red-Check Shirt"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:852
-msgid "Ink-Wash Shirt"
+msgid "Baby-Jelly Shirt"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:853
-msgid "Dots-On-Dots Shirt"
+msgid "Baseball Jersey"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:854
-msgid "Toni K. Baseball Jersey"
+msgid "Gray Mixed Shirt"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:855
-msgid "Online Jersey"
+msgid "Vintage Check Shirt"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:856
-msgid "Mountain Vest"
+msgid "Round-Collar Shirt"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:857
-msgid "Forest Vest"
+msgid "Logo Aloha Shirt"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:858
-msgid "Dark Urban Vest"
+msgid "Striped Shirt"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:859
-msgid "Yellow Urban Vest"
+msgid "Linen Shirt"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:860
-msgid "Squid-Pattern Waistcoat"
+msgid "Shirt and Tie"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:861
-msgid "Squidstar Waistcoat"
+msgid "Hula Punk Shirt"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:862
-msgid "Fishing Vest"
+msgid "Octobowler Shirt"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:863
-msgid "Front Zip Vest"
+msgid "Inkfall Shirt"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:864
-msgid "Silver Tentatek Vest"
+msgid "Crimson Parashooter"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:865
-msgid "Camo Zip Hoodie"
+msgid "Baby-Jelly Shirt and Tie"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:866
-msgid "Green Zip Hoodie"
+msgid "Prune Parashooter"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:867
-msgid "Zekko Hoodie"
+msgid "Red Hula Punk with Tie"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:868
-msgid "Shirt with Blue Hoodie"
+msgid "Chili Octo Aloha"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:869
-msgid "Grape Hoodie"
+msgid "Annaki Flannel Hoodie"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:870
-msgid "Gray Hoodie"
+msgid "Ink-Wash Shirt"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:871
-msgid "Hothouse Hoodie"
+msgid "Dots-On-Dots Shirt"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:872
-msgid "Pink Hoodie"
+msgid "Toni K. Baseball Jersey"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:873
-msgid "Olive Zekko Parka"
+msgid "Online Jersey"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:874
-msgid "Black Hoodie"
+msgid "Mountain Vest"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:875
-msgid "Octo Support Hoodie"
+msgid "Forest Vest"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:876
-msgid "Squiddor Polo"
+msgid "Dark Urban Vest"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:877
-msgid "Anchor Life Vest"
+msgid "Yellow Urban Vest"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:878
-msgid "Juice Parka"
+msgid "Squid-Pattern Waistcoat"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:879
-msgid "Garden Gear"
+msgid "Squidstar Waistcoat"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:880
-msgid "Crustwear XXL"
+msgid "Fishing Vest"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:881
-msgid "North-Country Parka"
+msgid "Front Zip Vest"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:882
-msgid "Octoleet Armor"
+msgid "Silver Tentatek Vest"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:883
-msgid "Record Shop Look EP"
+msgid "Camo Zip Hoodie"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:884
-msgid "Dev Uniform"
+msgid "Green Zip Hoodie"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:885
-msgid "Office Attire"
+msgid "Zekko Hoodie"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:886
-msgid "SRL Coat"
+msgid "Shirt with Blue Hoodie"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:887
-msgid "Mecha Body - AKM"
+msgid "Grape Hoodie"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:888
-msgid "Splatfest Tee Replica"
+msgid "Gray Hoodie"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:889
-msgid "School Uniform"
+msgid "Hothouse Hoodie"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:890
-msgid "Samurai Jacket"
+msgid "Pink Hoodie"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:891
-msgid "Power Armor"
+msgid "Olive Zekko Parka"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:892
-msgid "School Cardigan"
+msgid "Black Hoodie"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:893
-msgid "Squinja Suit"
+msgid "Octo Support Hoodie"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:894
-msgid "Power Armor Mk I"
+msgid "Squiddor Polo"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:895
-msgid "Pearlescent Hoodie"
+msgid "Anchor Life Vest"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:896
-msgid "Marinated Top"
+msgid "Juice Parka"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:897
-msgid "Enchanted Robe"
+msgid "Garden Gear"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:898
-msgid "Steel Platemail"
+msgid "Crustwear XXL"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:899
-msgid "Fresh Fish Gloves"
+msgid "North-Country Parka"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:900
-msgid "Splatfest Tee"
+msgid "Octoleet Armor"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:901
-msgid "Hero Jacket Replica"
+msgid "Record Shop Look EP"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:902
-msgid "Armor Jacket Replica"
+msgid "Dev Uniform"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:903
-msgid "Hero Hoodie Replica"
+msgid "Office Attire"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:904
-msgid "Neo Octoling Armor"
+msgid "SRL Coat"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:905
-msgid "Null Armor Replica"
+msgid "Mecha Body - AKM"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:906
-msgid "Old-Timey Clothes"
+msgid "Splatfest Tee Replica"
+msgstr ""
+
+#: .\splatstats\two_battles\models.py:907
+msgid "School Uniform"
+msgstr ""
+
+#: .\splatstats\two_battles\models.py:908
+msgid "Samurai Jacket"
+msgstr ""
+
+#: .\splatstats\two_battles\models.py:909
+msgid "Power Armor"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:910
-msgid "Cream Basics"
+msgid "School Cardigan"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:911
-msgid "Blue Lo-Tops"
+msgid "Squinja Suit"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:912
-msgid "Banana Basics"
+msgid "Power Armor Mk I"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:913
-msgid "LE Lo-Tops"
+msgid "Pearlescent Hoodie"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:914
-msgid "White Seahorses"
+msgid "Marinated Top"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:915
-msgid "Orange Lo-Tops"
+msgid "Enchanted Robe"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:916
-msgid "Black Seahorses"
+msgid "Steel Platemail"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:917
-msgid "Clownfish Basics"
+msgid "Fresh Fish Gloves"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:918
-msgid "Yellow Seahorses"
+msgid "Splatfest Tee"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:919
-msgid "Strapping Whites"
+msgid "Hero Jacket Replica"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:920
-msgid "Strapping Reds"
+msgid "Armor Jacket Replica"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:921
-msgid "Soccer Shoes"
+msgid "Hero Hoodie Replica"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:922
-msgid "LE Soccer Shoes"
+msgid "Neo Octoling Armor"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:923
-msgid "Sunny Climbing Shoes"
+msgid "Null Armor Replica"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:924
-msgid "Birch Climbing Shoes"
-msgstr ""
-
-#: .\splatstats\two_battles\models.py:925
-msgid "Green Laceups"
-msgstr ""
-
-#: .\splatstats\two_battles\models.py:926
-msgid "White Laceless Dakroniks"
-msgstr ""
-
-#: .\splatstats\two_battles\models.py:927
-msgid "Blue Laceless Dakroniks"
+msgid "Old-Timey Clothes"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:928
-msgid "Suede Gray Lace-Ups"
+msgid "Cream Basics"
+msgstr ""
+
+#: .\splatstats\two_battles\models.py:929
+msgid "Blue Lo-Tops"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:930
-msgid "Suede Marine Lace-Ups"
+msgid "Banana Basics"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:931
-msgid "Toni Kensa Soccer Shoes"
+msgid "LE Lo-Tops"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:932
-msgid "Red Hi-Horses"
+msgid "White Seahorses"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:933
-msgid "Zombie Hi-Horses"
+msgid "Orange Lo-Tops"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:934
-msgid "Cream Hi-Tops"
+msgid "Black Seahorses"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:935
-msgid "Purple Hi-Horses"
+msgid "Clownfish Basics"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:936
-msgid "Hunter Hi-Tops"
+msgid "Yellow Seahorses"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:937
-msgid "Red Hi-Tops"
+msgid "Strapping Whites"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:938
-msgid "Gold Hi-Horses"
+msgid "Strapping Reds"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:939
-msgid "Shark Moccasins"
+msgid "Soccer Shoes"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:940
-msgid "Mawcasins"
+msgid "LE Soccer Shoes"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:941
-msgid "Chocolate Dakroniks"
+msgid "Sunny Climbing Shoes"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:942
-msgid "Mint Dakroniks"
+msgid "Birch Climbing Shoes"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:943
-msgid "Black Dakroniks"
+msgid "Green Laceups"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:944
-msgid "Piranha Moccasins"
+msgid "White Laceless Dakroniks"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:945
-msgid "White Norimaki 750s"
+msgid "Blue Laceless Dakroniks"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:946
-msgid "Black Norimaki 750s"
-msgstr ""
-
-#: .\splatstats\two_battles\models.py:947
-msgid "Sunset Orca Hi-Tops"
+msgid "Suede Gray Lace-Ups"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:948
-msgid "Red and Black Squidkid IV"
+msgid "Suede Marine Lace-Ups"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:949
-msgid "Blue and Black Squidkd IV"
+msgid "Toni Kensa Soccer Shoes"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:950
-msgid "Gray Sea-Slug Hi-Tops"
+msgid "Red Hi-Horses"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:951
-msgid "Orca Hi-Tops"
+msgid "Zombie Hi-Horses"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:952
-msgid "Milky Enperrials"
+msgid "Cream Hi-Tops"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:953
-msgid "Navy Enperrials"
+msgid "Purple Hi-Horses"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:954
-msgid "Amber Sea Slug Hi-Tops"
+msgid "Hunter Hi-Tops"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:955
-msgid "Yellow Iromaki 750s"
+msgid "Red Hi-Tops"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:956
-msgid "Red and White Squidkid V"
+msgid "Gold Hi-Horses"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:957
-msgid "Honey and Orange Squidkid V"
+msgid "Shark Moccasins"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:958
-msgid "Sun and Shade Squidkid IV"
+msgid "Mawcasins"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:959
-msgid "Orca Woven Hi-Tops"
+msgid "Chocolate Dakroniks"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:960
-msgid "Green Iromaki 750s"
+msgid "Mint Dakroniks"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:961
-msgid "Purple Iromaki 750s"
+msgid "Black Dakroniks"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:962
-msgid "Red Iromaki 750s"
+msgid "Piranha Moccasins"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:963
-msgid "Blue Iromaki 750s"
+msgid "White Norimaki 750s"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:964
-msgid "Orange Iromaki 750s"
+msgid "Black Norimaki 750s"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:965
-msgid "Red Power Stripes"
+msgid "Sunset Orca Hi-Tops"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:966
-msgid "Blue Power Stripes"
+msgid "Red and Black Squidkid IV"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:967
-msgid "Toni Kensa Black Hi-Tops"
+msgid "Blue and Black Squidkd IV"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:968
-msgid "Sesame Salt 270s"
+msgid "Gray Sea-Slug Hi-Tops"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:969
-msgid "Black and Blue Squidkid V"
+msgid "Orca Hi-Tops"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:970
-msgid "Orca Passion Hi-Tops"
+msgid "Milky Enperrials"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:971
-msgid "Truffle Canvas Hi-Tops"
+msgid "Navy Enperrials"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:972
-msgid "Online Squidkid V"
+msgid "Amber Sea Slug Hi-Tops"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:973
-msgid "Pink Trainers"
+msgid "Yellow Iromaki 750s"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:974
-msgid "Orange Arrows"
+msgid "Red and White Squidkid V"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:975
-msgid "Neon Sea Slugs"
+msgid "Honey and Orange Squidkid V"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:976
-msgid "White Arrows"
+msgid "Sun and Shade Squidkid IV"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:977
-msgid "Cyan Trainers"
+msgid "Orca Woven Hi-Tops"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:978
-msgid "Blue Sea Slugs"
+msgid "Green Iromaki 750s"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:979
-msgid "Red Sea Slugs"
+msgid "Purple Iromaki 750s"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:980
-msgid "Purple Sea Slugs"
+msgid "Red Iromaki 750s"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:981
-msgid "Crazy Arrows"
+msgid "Blue Iromaki 750s"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:982
-msgid "Black Trainers"
+msgid "Orange Iromaki 750s"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:983
-msgid "Violet Trainers"
+msgid "Red Power Stripes"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:984
-msgid "Canary Trainers"
+msgid "Blue Power Stripes"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:985
-msgid "Yellow-Mesh Sneakers"
+msgid "Toni Kensa Black Hi-Tops"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:986
-msgid "Arrow Pull-Ons"
+msgid "Sesame Salt 270s"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:987
-msgid "Red-Mesh Sneakers"
+msgid "Black and Blue Squidkid V"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:988
-msgid "N-Pacer CaO"
+msgid "Orca Passion Hi-Tops"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:989
-msgid "N-Pacer Ag"
+msgid "Truffle Canvas Hi-Tops"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:990
-msgid "N-Pacer Au"
+msgid "Online Squidkid V"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:991
-msgid "Sea Slug Volt 95s"
+msgid "Pink Trainers"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:992
-msgid "Athletic Arrows"
+msgid "Orange Arrows"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:993
-msgid "Oyster Clogs"
+msgid "Neon Sea Slugs"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:994
-msgid "Choco Clogs"
+msgid "White Arrows"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:995
-msgid "Blueberry Casuals"
+msgid "Cyan Trainers"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:996
-msgid "Plum Casuals"
+msgid "Blue Sea Slugs"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:997
-msgid "Neon Delta Straps"
+msgid "Red Sea Slugs"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:998
-msgid "Black Flip-Flops"
+msgid "Purple Sea Slugs"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:999
-msgid "Snow Delta Straps"
+msgid "Crazy Arrows"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:1000
-msgid "Luminous Delta Straps"
+msgid "Black Trainers"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:1001
-msgid "Red FishFry Sandals"
+msgid "Violet Trainers"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:1002
-msgid "Yellow FishFry Sandals"
+msgid "Canary Trainers"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:1003
-msgid "Musselforge Flip-Flops"
+msgid "Yellow-Mesh Sneakers"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:1004
-msgid "Trail Boots"
+msgid "Arrow Pull-Ons"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:1005
-msgid "Custom Trail Boots"
+msgid "Red-Mesh Sneakers"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:1006
-msgid "Pro Trail Boots"
+msgid "N-Pacer CaO"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:1007
-msgid "Moto Boots"
+msgid "N-Pacer Ag"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:1008
-msgid "Tan Work Boots"
+msgid "N-Pacer Au"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:1009
-msgid "Red Work Boots"
+msgid "Sea Slug Volt 95s"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:1010
-msgid "Blue Moto Boots"
+msgid "Athletic Arrows"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:1011
-msgid "Green Rain Boots"
+msgid "Oyster Clogs"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:1012
-msgid "Acerola Rain Boots"
+msgid "Choco Clogs"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:1013
-msgid "Punk Whites"
+msgid "Blueberry Casuals"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:1014
-msgid "Punk Cherries"
+msgid "Plum Casuals"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:1015
-msgid "Punk Yellows"
+msgid "Neon Delta Straps"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:1016
-msgid "Bubble Rain Boots"
+msgid "Black Flip-Flops"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:1017
-msgid "Snowy Down Boots"
+msgid "Snow Delta Straps"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:1018
-msgid "Icy Down Boots"
+msgid "Luminous Delta Straps"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:1019
-msgid "Hunting Boots"
+msgid "Red FishFry Sandals"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:1020
-msgid "Punk Blacks"
+msgid "Yellow FishFry Sandals"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:1021
-msgid "Deepsea Leather Boots"
+msgid "Musselforge Flip-Flops"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:1022
-msgid "Moist Ghillie Boots"
+msgid "Trail Boots"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:1023
-msgid "Annaki Arachno Boots"
+msgid "Custom Trail Boots"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:1024
-msgid "New-Leaf Leather Boots"
+msgid "Pro Trail Boots"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:1025
-msgid "Tea-Green Hunting Boots"
+msgid "Moto Boots"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:1026
-msgid "Blue Slip-Ons"
+msgid "Tan Work Boots"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:1027
-msgid "Red Slip-Ons"
+msgid "Red Work Boots"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:1028
-msgid "Squid-Stitch Slip-Ons"
+msgid "Blue Moto Boots"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:1029
-msgid "Polka-dot Slip-Ons"
+msgid "Green Rain Boots"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:1030
-msgid "White Kicks"
+msgid "Acerola Rain Boots"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:1031
-msgid "Cherry Kicks"
+msgid "Punk Whites"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:1032
-msgid "Turquois Kicks"
+msgid "Punk Cherries"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:1033
-msgid "Squink Wingtips"
+msgid "Punk Yellows"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:1034
-msgid "Roasted Brogues"
+msgid "Bubble Rain Boots"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:1035
-msgid "Kid Clams"
+msgid "Snowy Down Boots"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:1036
-msgid "Smoky Wingtips"
+msgid "Icy Down Boots"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:1037
-msgid "Navy Red-Soled Wingtips"
+msgid "Hunting Boots"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:1038
-msgid "Gray Yellow-Soled Wingtips"
+msgid "Punk Blacks"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:1039
-msgid "Inky Kid Clams"
+msgid "Deepsea Leather Boots"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:1040
-msgid "Annaki Habaneros"
+msgid "Moist Ghillie Boots"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:1041
-msgid "Annaki Tigers"
+msgid "Annaki Arachno Boots"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:1042
-msgid "Sennyu Inksoles"
+msgid "New-Leaf Leather Boots"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:1043
-msgid "Angry Rain Boots"
+msgid "Tea-Green Hunting Boots"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:1044
-msgid "Non-slip Senseis"
+msgid "Blue Slip-Ons"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:1045
-msgid "Octoleet Boots"
+msgid "Red Slip-Ons"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:1046
-msgid "Friendship Bracelet"
+msgid "Squid-Stitch Slip-Ons"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:1047
-msgid "Flipper Floppers"
+msgid "Polka-dot Slip-Ons"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:1048
-msgid "Wooden Sandals"
+msgid "White Kicks"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:1049
-msgid "Mecha Legs - LBS"
+msgid "Cherry Kicks"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:1050
-msgid "Pearl-Scout Lace-Ups"
+msgid "Turquois Kicks"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:1051
-msgid "Pearlescent Squidkid IV"
+msgid "Squink Wingtips"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:1052
-msgid "Pearl Punk Crowns"
+msgid "Roasted Brogues"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:1053
-msgid "New-Day Arrows"
+msgid "Kid Clams"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:1054
-msgid "Marination Lace-Ups"
+msgid "Smoky Wingtips"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:1055
-msgid "Rina Squidkid IV"
+msgid "Navy Red-Soled Wingtips"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:1056
-msgid "Trooper Power Stripes"
+msgid "Gray Yellow-Soled Wingtips"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:1057
-msgid "Midnight Slip-Ons"
+msgid "Inky Kid Clams"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:1058
-msgid "School Shoes"
+msgid "Annaki Habaneros"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:1059
-msgid "Samurai Shoes"
+msgid "Annaki Tigers"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:1060
-msgid "Power Boots"
+msgid "Sennyu Inksoles"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:1061
-msgid "Fringed Loafers"
+msgid "Angry Rain Boots"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:1062
-msgid "Squinja Boots"
+msgid "Non-slip Senseis"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:1063
-msgid "Power Boots Mk I"
+msgid "Octoleet Boots"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:1064
-msgid "Pearlescent Kicks"
+msgid "Friendship Bracelet"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:1065
-msgid "Marinated Slip-Ons"
+msgid "Flipper Floppers"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:1066
-msgid "Enchanted Boots"
+msgid "Wooden Sandals"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:1067
-msgid "Steel Greaves"
+msgid "Mecha Legs - LBS"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:1068
-msgid "Fresh Fish Feet"
+msgid "Pearl-Scout Lace-Ups"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:1069
-msgid "Hero Runner Replicas"
+msgid "Pearlescent Squidkid IV"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:1070
-msgid "Armor Boot Replicas"
+msgid "Pearl Punk Crowns"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:1071
-msgid "Hero Snowboots Replicas"
+msgid "New-Day Arrows"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:1072
-msgid "Neo Octoling Boots"
+msgid "Marination Lace-Ups"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:1073
-msgid "Null Boots Replica"
+msgid "Rina Squidkid IV"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:1074
+msgid "Trooper Power Stripes"
+msgstr ""
+
+#: .\splatstats\two_battles\models.py:1075
+msgid "Midnight Slip-Ons"
+msgstr ""
+
+#: .\splatstats\two_battles\models.py:1076
+msgid "School Shoes"
+msgstr ""
+
+#: .\splatstats\two_battles\models.py:1077
+msgid "Samurai Shoes"
+msgstr ""
+
+#: .\splatstats\two_battles\models.py:1078
+msgid "Power Boots"
+msgstr ""
+
+#: .\splatstats\two_battles\models.py:1079
+msgid "Fringed Loafers"
+msgstr ""
+
+#: .\splatstats\two_battles\models.py:1080
+msgid "Squinja Boots"
+msgstr ""
+
+#: .\splatstats\two_battles\models.py:1081
+msgid "Power Boots Mk I"
+msgstr ""
+
+#: .\splatstats\two_battles\models.py:1082
+msgid "Pearlescent Kicks"
+msgstr ""
+
+#: .\splatstats\two_battles\models.py:1083
+msgid "Marinated Slip-Ons"
+msgstr ""
+
+#: .\splatstats\two_battles\models.py:1084
+msgid "Enchanted Boots"
+msgstr ""
+
+#: .\splatstats\two_battles\models.py:1085
+msgid "Steel Greaves"
+msgstr ""
+
+#: .\splatstats\two_battles\models.py:1086
+msgid "Fresh Fish Feet"
+msgstr ""
+
+#: .\splatstats\two_battles\models.py:1087
+msgid "Hero Runner Replicas"
+msgstr ""
+
+#: .\splatstats\two_battles\models.py:1088
+msgid "Armor Boot Replicas"
+msgstr ""
+
+#: .\splatstats\two_battles\models.py:1089
+msgid "Hero Snowboots Replicas"
+msgstr ""
+
+#: .\splatstats\two_battles\models.py:1090
+msgid "Neo Octoling Boots"
+msgstr ""
+
+#: .\splatstats\two_battles\models.py:1091
+msgid "Null Boots Replica"
+msgstr ""
+
+#: .\splatstats\two_battles\models.py:1092
 msgid "Old-Timey Shoes"
 msgstr ""
 
