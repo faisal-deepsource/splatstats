@@ -689,59 +689,59 @@ msgstr "ソイチューバーカスタム"
 #: .\splatstats\two_battles\models.py:154
 #: .\splatstats\two_battles\models.py:239 .\splatstats\two_salmon\models.py:43
 msgid "Slosher"
-msgstr ""
+msgstr "バケットスロッシャー"
 
 #: .\splatstats\two_battles\models.py:155
 msgid "Slosher Deco"
-msgstr ""
+msgstr "バケットスロッシャーデコ"
 
 #: .\splatstats\two_battles\models.py:156
 msgid "Soda Slosher"
-msgstr ""
+msgstr "バケットスロッシャーソーダ"
 
 #: .\splatstats\two_battles\models.py:157
 msgid "Hero Slosher Replica"
-msgstr ""
+msgstr "ヒーロースロッシャー レプリカ"
 
 #: .\splatstats\two_battles\models.py:158
 #: .\splatstats\two_battles\models.py:240 .\splatstats\two_salmon\models.py:44
 msgid "Tri-Slosher"
-msgstr ""
+msgstr "ヒッセン"
 
 #: .\splatstats\two_battles\models.py:159
 msgid "Tri-Slosher Nouveau"
-msgstr ""
+msgstr "ヒッセン・ヒュー"
 
 #: .\splatstats\two_battles\models.py:160
 #: .\splatstats\two_battles\models.py:241 .\splatstats\two_salmon\models.py:45
 msgid "Sloshing Machine"
-msgstr ""
+msgstr "スクリュースロッシャー"
 
 #: .\splatstats\two_battles\models.py:161
 msgid "Sloshing Machine Neo"
-msgstr ""
+msgstr "スクリュースロッシャーネオ"
 
 #: .\splatstats\two_battles\models.py:162
 msgid "Kensa Sloshing Machine"
-msgstr ""
+msgstr "スクリュースロッシャーベッチュー"
 
 #: .\splatstats\two_battles\models.py:163
 #: .\splatstats\two_battles\models.py:242 .\splatstats\two_salmon\models.py:46
 msgid "Bloblobber"
-msgstr ""
+msgstr "オーバーフロッシャー"
 
 #: .\splatstats\two_battles\models.py:164
 msgid "Bloblobber Deco"
-msgstr ""
+msgstr "オーバーフロッシャーデコ"
 
 #: .\splatstats\two_battles\models.py:165
 #: .\splatstats\two_battles\models.py:243 .\splatstats\two_salmon\models.py:47
 msgid "Explosher"
-msgstr ""
+msgstr "エクスプロッシャー"
 
 #: .\splatstats\two_battles\models.py:166
 msgid "Custom Explosher"
-msgstr ""
+msgstr "エクスプロッシャーカスタム"
 
 #: .\splatstats\two_battles\models.py:167
 #: .\splatstats\two_battles\models.py:244 .\splatstats\two_salmon\models.py:48
