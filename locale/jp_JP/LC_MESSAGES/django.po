@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-03 10:26-0400\n"
+"POT-Creation-Date: 2021-05-03 10:55-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -333,7 +333,8 @@ msgstr "シャープマーカー"
 msgid "Neo Splash-o-matic"
 msgstr "シャープマーカーネオ"
 
-#: .\splatstats\two_battles\models.py:72 .\splatstats\two_salmon\models.py:14
+#: .\splatstats\two_battles\models.py:72 .\splatstats\two_battles\models.py:210
+#: .\splatstats\two_salmon\models.py:14
 msgid "Aerospray MG"
 msgstr "プロモデラーMG"
 
@@ -379,7 +380,8 @@ msgstr ".52ガロンデコ"
 msgid "Kensa .52 Gal"
 msgstr ".52ガロンベッチュー"
 
-#: .\splatstats\two_battles\models.py:83 .\splatstats\two_salmon\models.py:17
+#: .\splatstats\two_battles\models.py:83 .\splatstats\two_battles\models.py:213
+#: .\splatstats\two_salmon\models.py:17
 msgid "N-ZAP '85"
 msgstr "N-ZAP85"
 
@@ -605,7 +607,8 @@ msgstr "ホクサイベッチュー"
 msgid "Herobrush Replica"
 msgstr "ヒーローブラシ レプリカ"
 
-#: .\splatstats\two_battles\models.py:135 .\splatstats\two_salmon\models.py:36
+#: .\splatstats\two_battles\models.py:135
+#: .\splatstats\two_battles\models.py:232 .\splatstats\two_salmon\models.py:36
 msgid "Classic Squiffer"
 msgstr "スクイックリンα"
 
@@ -665,7 +668,8 @@ msgstr "4Kスコープ'"
 msgid "Custom E-liter 4K Scope"
 msgstr "4Kスコープカスタム"
 
-#: .\splatstats\two_battles\models.py:149 .\splatstats\two_salmon\models.py:41
+#: .\splatstats\two_battles\models.py:149
+#: .\splatstats\two_battles\models.py:237 .\splatstats\two_salmon\models.py:41
 msgid "Bamboozler 14 Mk I"
 msgstr "14式竹筒銃・甲"
 
@@ -851,7 +855,8 @@ msgstr "デュアルスイーパー"
 msgid "Custom Dualie Squelchers"
 msgstr "デュアルスイーパーカスタム"
 
-#: .\splatstats\two_battles\models.py:192 .\splatstats\two_salmon\models.py:57
+#: .\splatstats\two_battles\models.py:192
+#: .\splatstats\two_battles\models.py:253 .\splatstats\two_salmon\models.py:57
 msgid "Dark Tetra Dualies"
 msgstr "クアッドホッパーブラック"
 
@@ -888,38 +893,18 @@ msgstr "キャンピングシェルターカーモ"
 #: .\splatstats\two_battles\models.py:200
 #: .\splatstats\two_battles\models.py:256 .\splatstats\two_salmon\models.py:60
 msgid "Undercover Brella"
-msgstr ""
+msgstr "スパイガジェット"
 
 #: .\splatstats\two_battles\models.py:201
 msgid "Undercover Sorella Brella"
-msgstr ""
+msgstr "スパイガジェットソレーラ"
 
 #: .\splatstats\two_battles\models.py:202
 msgid "Kensa Undercover Brella"
-msgstr ""
-
-#: .\splatstats\two_battles\models.py:210
-msgid "Aerospray"
-msgstr ""
-
-#: .\splatstats\two_battles\models.py:213
-msgid "N-ZAP"
-msgstr ""
-
-#: .\splatstats\two_battles\models.py:232
-msgid "Squiffer"
-msgstr ""
-
-#: .\splatstats\two_battles\models.py:237
-msgid "Bamboozler 14 Mk"
-msgstr ""
+msgstr "スパイガジェットベッチュー"
 
 #: .\splatstats\two_battles\models.py:248
 msgid "Nautilus"
-msgstr ""
-
-#: .\splatstats\two_battles\models.py:253
-msgid "Tetra Dualies"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:274
