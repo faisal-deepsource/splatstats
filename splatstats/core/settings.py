@@ -13,6 +13,23 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 import os.path
 import os
+from google.cloud import secretmanager
+
+
+PROJECT_ID = "splatstats-312616"
+
+def access_secret_version(secret_id, version_id="latest"):
+    # Create the Secret Manager client.
+    client = secretmanager.SecretManagerServiceClient()
+
+    # Build the resource name of the secret version.
+    name = f"projects/{PROJECT_ID}/secrets/{secret_id}/versions/{version_id}"
+
+    # Access the secret version.
+    response = client.access_secret_version(name=name)
+
+    # Return the decoded payload.
+    return response.payload.data.decode('UTF-8')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -21,13 +38,15 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DJANGO_DEBUG") == "True"
 
-ALLOWED_HOSTS = []
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY") if DEBUG else access_secret_version("DJANGO_SECRET_KEY")
+
+
+ALLOWED_HOSTS = ['https://splatstats-312616.uc.r.appspot.com']
 
 
 # Application definition
@@ -94,8 +113,8 @@ DATABASES = {
         "ENGINE": "django.db.backends.mysql",
         "NAME": "db",
         "USER": "django_database_user",
-        "PASSWORD": os.environ.get("DJANGO_DATABASE_PASSWORD"),
-        "HOST": "localhost",
+        "PASSWORD": os.environ.get("DJANGO_DATABASE_PASSWORD") if DEBUG else access_secret_version("DJANGO_DATABASE_PASSWORD"),
+        "HOST": "localhost" if DEBUG else access_secret_version("DJANGO_DATABASE_HOST"),
         "PORT": "3306",
     }
 }
