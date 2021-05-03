@@ -404,6 +404,24 @@ WeaponSubs = (
     (("202", "2052", "3022", "5022"), _("Fizzy Bomb")),
 )
 
+WeaponSpecials = (
+    ((), _("Autobomb Launcher")),
+    (("31", "50", "300"), _("Baller")),
+    (("32", "52", "72"), _("Booyah Bomb"))
+    (("12", "71", "312", "401"), _("Bubble Blower")),
+    ((), _("Burst-Bomb Launcher")),
+    (("30"), _("Curling-Bomb Launcher")),
+    (("10", "60", "80", "311"), _("Ink Armor")),
+    (("11", "62", "70"), _("Ink Storm")),
+    (("20", "41", "46", "301"), _("Inkjet")),
+    (("0", "40", "45", "81"), _("Splashdown")),
+    ((), _("Splat-Bomb Launcher")),
+    (("51", "91", "400"), _("Sting Ray")),
+    (("21"), _("Suction-Bomb Launcher"))
+    (("1", "42", "61", "90", "310"), _("Tenta Missiles")),
+    (("2", "302"), _("Ultra Stamp")),
+)
+
 Stage = (
     ("all", _("All Stages")),
     ("0", _("The Reef")),
