@@ -802,62 +802,62 @@ msgstr "ノーチラス79"
 #: .\splatstats\two_battles\models.py:180
 #: .\splatstats\two_battles\models.py:249 .\splatstats\two_salmon\models.py:53
 msgid "Dapple Dualies"
-msgstr ""
+msgstr "スパッタリー"
 
 #: .\splatstats\two_battles\models.py:181
 msgid "Daple Dualies Nouveau"
-msgstr ""
+msgstr "スパッタリー・ヒュー"
 
 #: .\splatstats\two_battles\models.py:182
 msgid "Clear Dapple Dualies"
-msgstr ""
+msgstr "スパッタリークリア"
 
 #: .\splatstats\two_battles\models.py:183
 #: .\splatstats\two_battles\models.py:250 .\splatstats\two_salmon\models.py:54
 msgid "Splat Dualies"
-msgstr ""
+msgstr "スプラマニューバー"
 
 #: .\splatstats\two_battles\models.py:184
 msgid "Enperry Splat Dualies"
-msgstr ""
+msgstr "スプラマニューバーコラボ"
 
 #: .\splatstats\two_battles\models.py:185
 msgid "Kensa Splat Dualies"
-msgstr ""
+msgstr "スプラマニューバーベッチュー"
 
 #: .\splatstats\two_battles\models.py:186
 msgid "Hero Dualie Replicas"
-msgstr ""
+msgstr "ヒーローマニューバー レプリカ"
 
 #: .\splatstats\two_battles\models.py:187
 #: .\splatstats\two_battles\models.py:251 .\splatstats\two_salmon\models.py:55
 msgid "Glooga Dualies"
-msgstr ""
+msgstr "ケルビン525"
 
 #: .\splatstats\two_battles\models.py:188
 msgid "Glooga Dualies Deco"
-msgstr ""
+msgstr "ケルビン525デコ"
 
 #: .\splatstats\two_battles\models.py:189
 msgid "Kensa Glooga Dualies"
-msgstr ""
+msgstr "ケルビン525ベッチュー"
 
 #: .\splatstats\two_battles\models.py:190
 #: .\splatstats\two_battles\models.py:252 .\splatstats\two_salmon\models.py:56
 msgid "Dualie Squelchers"
-msgstr ""
+msgstr "デュアルスイーパー"
 
 #: .\splatstats\two_battles\models.py:191
 msgid "Custom Dualie Squelchers"
-msgstr ""
+msgstr "デュアルスイーパーカスタム"
 
 #: .\splatstats\two_battles\models.py:192 .\splatstats\two_salmon\models.py:57
 msgid "Dark Tetra Dualies"
-msgstr ""
+msgstr "クアッドホッパーブラック"
 
 #: .\splatstats\two_battles\models.py:193
 msgid "Light Tetra Dualies"
-msgstr ""
+msgstr "クアッドホッパーホワイト"
 
 #: .\splatstats\two_battles\models.py:194
 #: .\splatstats\two_battles\models.py:254 .\splatstats\two_salmon\models.py:58
