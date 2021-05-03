@@ -41,12 +41,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True  # os.environ.get("DJANGO_DEBUG") == "True"
+DEBUG = os.environ.get("DJANGO_DEBUG") == "True"
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = access_secret_version(
-    "DJANGO_SECRET_KEY"
-)  # os.environ.get("DJANGO_SECRET_KEY") if DEBUG else access_secret_version("DJANGO_SECRET_KEY")
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY") if DEBUG else access_secret_version("DJANGO_SECRET_KEY")
 
 
 ALLOWED_HOSTS = [
@@ -121,12 +119,8 @@ DATABASES = {
         "ENGINE": "django.db.backends.mysql",
         "NAME": "db",
         "USER": "django_database_user",
-        "PASSWORD": access_secret_version(
-            "DJANGO_DATABASE_PASSWORD"
-        ),  # os.environ.get("DJANGO_DATABASE_PASSWORD") if DEBUG else access_secret_version("DJANGO_DATABASE_PASSWORD"),
-        "HOST": access_secret_version(
-            "DJANGO_DATABASE_HOST"
-        ),  # "localhost" if DEBUG else access_secret_version("DJANGO_DATABASE_HOST"),
+        "PASSWORD": os.environ.get("DJANGO_DATABASE_PASSWORD") if DEBUG else access_secret_version("DJANGO_DATABASE_PASSWORD"),
+        "HOST": "localhost" if DEBUG else access_secret_version("DJANGO_DATABASE_HOST"),
         "PORT": "3306",
     }
 }
