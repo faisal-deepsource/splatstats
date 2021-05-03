@@ -1,5 +1,6 @@
 runtime: python38
-entrypoint: gunicorn -b :$PORT <your app name>.wsgi
+
+instance_class: F2
 
 handlers:
 # This configures Google App Engine to serve the files in the app's static

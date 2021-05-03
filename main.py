@@ -1,2 +1,3 @@
-from core.wsgi import application
+from splatstats.wsgi import application
+
 app = application

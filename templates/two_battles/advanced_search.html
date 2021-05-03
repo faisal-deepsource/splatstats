@@ -1,0 +1,169 @@
+{% extends "base.html" %}
+
+{% block content_wrapper %}
+    <div class="card darken-1">
+        <form action="" method="get">
+            <div class="card-content">
+                {% for field in form %}
+                <div class="fieldWrapper">
+                    {{ field.errors }}
+                    {{ field }}
+                </div>
+            {% endfor %}
+            </div>
+            <div class="card-action">
+                <input type="submit" value="Filter">
+            </div>
+        </form>
+    </div>
+    <div class=row>
+        <div class="col s6">
+            <div class="card blue-grey darken-1">
+                <div class="card-content white-text">
+                    <span class="card-title">
+                        Query format
+                    </span>
+                    term: (expr) | (LPAREN term (OR | AND) term RPAREN) | (NOT LPAREN term RPAREN)
+                    <br>
+                    expr: ATTR (> | >= | < | <= | ==) value
+                    <br>
+                    value: INTEGER | FLOAT | STRING | BOOL
+                    <br>
+                    INTEGER: Any whole number
+                    <br>
+                    FLOAT: Any number expressed in decimal format
+                    <br>
+                    STRING: Any sequence of characters, surrounded by quotation marks
+                    <br>
+                    BOOL: either True or False
+                    <br>
+                    ATTR: see attribute list below
+                </div>
+            </div>
+            <div class="card blue-grey darken-1">
+                <div class="card-content white-text">
+                    <span class="card-title">
+                        Available Attributes
+                    </span>
+                    List below uses RegEx for conciseness.
+                    Do not type in the RegEx exactly, but instead use a string that it would match.
+                    <br>
+                    <br>
+                    rule
+                    <br>
+                    match_type
+                    <br>
+                    stage
+                    <br>
+                    win
+                    <br>
+                    has_disconnected_player
+                    <br>
+                    time
+                    <br>
+                    battle_number
+                    <br>
+                    win_meter
+                    <br>
+                    /((my)|(other))_team_count/
+                    <br>
+                    elapsed_time
+                    <br>
+                    tag_id
+                    <br>
+                    league_point
+                    <br>
+                    splatfest_point
+                    <br>
+                    splatfest_title_after
+                    <br>
+                    player_x_power
+                    <br>
+                    /((player)|(teammate_[a-c])|(opponent_[a-d]))_weapon/
+                    <br>
+                    /((player)|(teammate_[a-c])|(opponent_[a-d]))_rank/
+                    <br>
+                    /((player)|(teammate_[a-c])|(opponent_[a-d]))_level(_star)?/
+                    <br>
+                    /((player)|(teammate_[a-c])|(opponent_[a-d]))_((kills)|(deaths)|(assists))/
+                    <br>
+                    /((player)|(teammate_[a-c])|(opponent_[a-d]))_((specials)|(game_paint_point))/
+                    <br>
+                    /((player)|(teammate_[a-c])|(opponent_[a-d]))_splatfest_title/
+                    <br>
+                    /((player)|(teammate_[a-c])|(opponent_[a-d]))_((name)|(splatnet_id))
+                    <br>
+                    /((player)|(teammate_[a-c])|(opponent_[a-d]))_((gender)|(species))/
+                    <br>
+                    /((player)|(teammate_[a-c])|(opponent_[a-d]))_((headgear)|(clothes)|(shoes))/
+                    <br>
+                    /((player)|(teammate_[a-c])|(opponent_[a-d]))_((headgear)|(clothes)|(shoes))_sub[0-2]/
+                    <br>
+                    /((player)|(teammate_[a-c])|(opponent_[a-d]))_((headgear)|(clothes)|(shoes))_main/
+                </div>
+            </div>
+        </div>
+        <div class="col s6">
+            <div class="card blue-grey darken-1">
+                <div class="card-content white-text">
+                    <span class="card-title">
+                        species
+                    </span>
+                    inklings
+                    <br>
+                    octolings
+                </div>
+            </div>
+            <div class="card blue-grey darken-1">
+                <div class="card-content white-text">
+                    <span class="card-title">
+                        gender
+                    </span>
+                    girl
+                    <br>
+                    boy
+                </div>
+            </div>
+            <div class="card blue-grey darken-1">
+                <div class="card-content white-text">
+                    <span class="card-title">
+                        rule
+                    </span>
+                    splat_zones
+                    <br>
+                    rainmaker
+                    <br>
+                    clam_blitz
+                    <br>
+                    tower_control
+                    <br>
+                    turf_war
+                </div>
+            </div>
+            <div class="card blue-grey darken-1">
+                <div class="card-content white-text">
+                    <span class="card-title">
+                        match_type
+                    </span>
+                    league_pair
+                    <br>
+                    league_team
+                    <br>
+                    gachi (ranked)
+                    <br>
+                    private
+                    <br>
+                    turf_war
+                    <br>
+                    fes_solo
+                    <br>
+                    fes_team
+                    <br>
+                    fest
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content_wrapper %}
+{% block aftercontent %}
+{% endblock aftercontent %}
