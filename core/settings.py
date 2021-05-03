@@ -40,13 +40,17 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get("DJANGO_DEBUG") == "True"
+DEBUG = False #os.environ.get("DJANGO_DEBUG") == "True"
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY") if DEBUG else access_secret_version("DJANGO_SECRET_KEY")
 
 
-ALLOWED_HOSTS = ['https://splatstats-312616.uc.r.appspot.com']
+ALLOWED_HOSTS = ['https://splatstats-312616.uc.r.appspot.com',
+    '127.0.0.1',
+    'localhost',
+    '2607:f8b0:4023:1006::99'
+]
 
 
 # Application definition
@@ -88,7 +92,7 @@ TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": [
-            "D:\\Programming\\splatstats\\splatstats\\core\\templates\\core\\",
+            "core\\templates\\core\\",
         ],
         "APP_DIRS": True,
         "OPTIONS": {
@@ -158,8 +162,8 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 STATIC_ROOT = "static/"
-STATICFILES_DIRS = ("D:/Programming/splatstats/splatstats/core/static",)
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+STATICFILES_DIRS = ("core/static",)
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
 
 # Default primary key field type
