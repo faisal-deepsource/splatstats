@@ -46,9 +46,8 @@ DEBUG = os.environ.get("DJANGO_DEBUG") == "True"
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY") if DEBUG else access_secret_version("DJANGO_SECRET_KEY")
 
-
 ALLOWED_HOSTS = [
-    "https://splatstats-312616.uc.r.appspot.com",
+    "splatstats-312616.uc.r.appspot.com",
     "127.0.0.1",
     "localhost",
     "2607:f8b0:4023:1006::99",
@@ -85,7 +84,6 @@ MIDDLEWARE = [
     "django_otp.middleware.OTPMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
 
 ROOT_URLCONF = "splatstats.urls"
@@ -162,10 +160,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_URL = "/static/"
+STATIC_URL = "static/"
 STATIC_ROOT = "static/"
-STATICFILES_DIRS = ("core/static",)
-STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
+DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
+GS_BUCKET_NAME = 'static-splatstats'
+STATICFILES_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
 
 
 # Default primary key field type
