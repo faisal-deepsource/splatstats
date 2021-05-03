@@ -862,28 +862,28 @@ msgstr "クアッドホッパーホワイト"
 #: .\splatstats\two_battles\models.py:194
 #: .\splatstats\two_battles\models.py:254 .\splatstats\two_salmon\models.py:58
 msgid "Splat Brella"
-msgstr ""
+msgstr "パラシェルター"
 
 #: .\splatstats\two_battles\models.py:195
 msgid "Sorella Brella"
-msgstr ""
+msgstr "パラシェルターソレーラ"
 
 #: .\splatstats\two_battles\models.py:196
 msgid "Hero Brella Replica"
-msgstr ""
+msgstr "ヒーローシェルター レプリカ"
 
 #: .\splatstats\two_battles\models.py:197
 #: .\splatstats\two_battles\models.py:255 .\splatstats\two_salmon\models.py:59
 msgid "Tenta Brella"
-msgstr ""
+msgstr "キャンピングシェルター"
 
 #: .\splatstats\two_battles\models.py:198
 msgid "Tenta Sorella Brella"
-msgstr ""
+msgstr "キャンピングシェルターソレーラ"
 
 #: .\splatstats\two_battles\models.py:199
 msgid "Tenta Camo Brella"
-msgstr ""
+msgstr "キャンピングシェルターカーモ"
 
 #: .\splatstats\two_battles\models.py:200
 #: .\splatstats\two_battles\models.py:256 .\splatstats\two_salmon\models.py:60
