@@ -173,3 +173,5 @@ DATA_UPLOAD_MAX_NUMBER_FIELDS = 10000
 
 MEDIA_URL = "/data/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "data")
+
+LOCALE_PATHS = (BASE_DIR, "locale")
