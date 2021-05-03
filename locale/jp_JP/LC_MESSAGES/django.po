@@ -746,58 +746,58 @@ msgstr "エクスプロッシャーカスタム"
 #: .\splatstats\two_battles\models.py:167
 #: .\splatstats\two_battles\models.py:244 .\splatstats\two_salmon\models.py:48
 msgid "Mini Splatling"
-msgstr ""
+msgstr "スプラスピナー"
 
 #: .\splatstats\two_battles\models.py:168
 msgid "Zink Mini Splatling"
-msgstr ""
+msgstr "スプラスピナーコラボ"
 
 #: .\splatstats\two_battles\models.py:169
 msgid "Kensa Mini Splatling"
-msgstr ""
+msgstr "スプラスピナーベッチュー"
 
 #: .\splatstats\two_battles\models.py:170
 #: .\splatstats\two_battles\models.py:245 .\splatstats\two_salmon\models.py:49
 msgid "Heavy Splatling"
-msgstr ""
+msgstr "バレルスピナー"
 
 #: .\splatstats\two_battles\models.py:171
 msgid "Heavy Splating Deco"
-msgstr ""
+msgstr "バレルスピナーデコ"
 
 #: .\splatstats\two_battles\models.py:172
 msgid "Heavy Splatling Remix"
-msgstr ""
+msgstr "バレルスピナーリミックス"
 
 #: .\splatstats\two_battles\models.py:173
 msgid "Hero Splatling Replica"
-msgstr ""
+msgstr "ヒーロースピナー レプリカ"
 
 #: .\splatstats\two_battles\models.py:174
 #: .\splatstats\two_battles\models.py:246 .\splatstats\two_salmon\models.py:50
 msgid "Hydra Splatling"
-msgstr ""
+msgstr "ハイドラント"
 
 #: .\splatstats\two_battles\models.py:175
 msgid "Custom Hydra Splatling"
-msgstr ""
+msgstr "ハイドラントカスタム"
 
 #: .\splatstats\two_battles\models.py:176
 #: .\splatstats\two_battles\models.py:247 .\splatstats\two_salmon\models.py:51
 msgid "Ballpoint Splatling"
-msgstr ""
+msgstr "クーゲルシュライバー"
 
 #: .\splatstats\two_battles\models.py:177
 msgid "Ballpoint Splatling Nouveau"
-msgstr ""
+msgstr "クーゲルシュライバー・ヒュー"
 
 #: .\splatstats\two_battles\models.py:178 .\splatstats\two_salmon\models.py:52
 msgid "Nautilus 47"
-msgstr ""
+msgstr "ノーチラス47"
 
 #: .\splatstats\two_battles\models.py:179
 msgid "Nautilus 79"
-msgstr ""
+msgstr "ノーチラス79"
 
 #: .\splatstats\two_battles\models.py:180
 #: .\splatstats\two_battles\models.py:249 .\splatstats\two_salmon\models.py:53
