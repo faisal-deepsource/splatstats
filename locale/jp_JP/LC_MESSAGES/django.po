@@ -903,61 +903,57 @@ msgstr "スパイガジェットソレーラ"
 msgid "Kensa Undercover Brella"
 msgstr "スパイガジェットベッチュー"
 
-#: .\splatstats\two_battles\models.py:248
-msgid "Nautilus"
-msgstr ""
-
 #: .\splatstats\two_battles\models.py:274
 msgid "Curling Bomb"
-msgstr ""
+msgstr "カーリングボム"
 
 #: .\splatstats\two_battles\models.py:276
 msgid "Squid Beakon"
-msgstr ""
+msgstr "ジャンプビーコン"
 
 #: .\splatstats\two_battles\models.py:298
 msgid "Splat Bomb"
-msgstr ""
+msgstr "スプラッシュボム"
 
 #: .\splatstats\two_battles\models.py:314
 msgid "Autobomb"
-msgstr ""
+msgstr "ロボットボム"
 
 #: .\splatstats\two_battles\models.py:316
 msgid "Torpedo"
-msgstr ""
+msgstr "トーピード"
 
 #: .\splatstats\two_battles\models.py:319
 msgid "Toxic Mist"
-msgstr ""
+msgstr "ポイズンミスト"
 
 #: .\splatstats\two_battles\models.py:336
 msgid "Burst Bomb"
-msgstr ""
+msgstr "クイックボム"
 
 #: .\splatstats\two_battles\models.py:356
 msgid "Suction Bomb"
-msgstr ""
+msgstr "キューバンボム"
 
 #: .\splatstats\two_battles\models.py:376
 msgid "Sprinkler"
-msgstr ""
+msgstr "スプリンクラー"
 
 #: .\splatstats\two_battles\models.py:380
 msgid "Point Sensor"
-msgstr ""
+msgstr "ポイントセンサー"
 
 #: .\splatstats\two_battles\models.py:398
 msgid "Splash Wall"
-msgstr ""
+msgstr "スプラッシュシールド"
 
 #: .\splatstats\two_battles\models.py:402
 msgid "Ink Mine"
-msgstr ""
+msgstr "トラップ"
 
 #: .\splatstats\two_battles\models.py:404
 msgid "Fizzy Bomb"
-msgstr ""
+msgstr "タンサンボム"
 
 #: .\splatstats\two_battles\models.py:408
 msgid "All Stages"

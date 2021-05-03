@@ -245,7 +245,7 @@ WeaponFamily = (
     (("4010", "4011", "4012", "4015"), _("Heavy Splatling")),
     (("4020", "4021"), _("Hydra Splatling")),
     (("4030", "4031"), _("Ballpoint Splatling")),
-    (("4040", "4041"), _("Nautilus")),
+    (("4040", "4041"), _("Nautilus 47")),
     (("5000", "5001", "5002"), _("Dapple Dualies")),
     (("5010", "5011", "5012", "5015"), _("Splat Dualies")),
     (("5020", "5021", "5022"), _("Glooga Dualies")),
