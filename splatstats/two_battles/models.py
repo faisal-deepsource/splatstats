@@ -461,7 +461,7 @@ Stage = (
 
 MainAbilities = (
     ("0", _("Ink Saver (Main)")),
-    ("1", _("Ink Saver (Sub")),
+    ("1", _("Ink Saver (Sub)")),
     ("2", _("Ink Recovery Up")),
     ("3", _("Run Speed Up")),
     ("4", _("Swim Speed Up")),
@@ -490,7 +490,7 @@ MainAbilities = (
 
 SubAbilities = (
     ("0", _("Ink Saver (Main)")),
-    ("1", _("Ink Saver (Sub")),
+    ("1", _("Ink Saver (Sub)")),
     ("2", _("Ink Recovery Up")),
     ("3", _("Run Speed Up")),
     ("4", _("Swim Speed Up")),

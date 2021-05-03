@@ -1171,7 +1171,7 @@ msgstr ""
 
 #: .\splatstats\two_battles\models.py:464
 #: .\splatstats\two_battles\models.py:493
-msgid "Ink Saver (Sub"
+msgid "Ink Saver (Sub)"
 msgstr ""
 
 #: .\splatstats\two_battles\models.py:465
