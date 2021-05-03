@@ -35,6 +35,6 @@ toml==0.10.2
 typing-extensions==3.7.4.3
 ujson==4.0.2
 urllib3==1.26.4
-watchdog==1.0.2
+watchdog==2.0.3
 whitenoise==5.2.0
 YubiOTP==1.0.0
