@@ -530,50 +530,50 @@ msgstr "ボトルガイザーフォイル"
 #: .\splatstats\two_battles\models.py:117
 #: .\splatstats\two_battles\models.py:226 .\splatstats\two_salmon\models.py:30
 msgid "Carbon Roller"
-msgstr ""
+msgstr "カーボンローラー"
 
 #: .\splatstats\two_battles\models.py:118
 msgid "Carbon Roller Deco"
-msgstr ""
+msgstr "カーボンローラーデコ"
 
 #: .\splatstats\two_battles\models.py:119
 #: .\splatstats\two_battles\models.py:227 .\splatstats\two_salmon\models.py:31
 msgid "Splat Roller"
-msgstr ""
+msgstr "スプラローラー"
 
 #: .\splatstats\two_battles\models.py:120
 msgid "Krak-On Splat Roller"
-msgstr ""
+msgstr "スプラローラーコラボ"
 
 #: .\splatstats\two_battles\models.py:121
 msgid "Kensa Splat Roller"
-msgstr ""
+msgstr "スプラローラーベッチュー"
 
 #: .\splatstats\two_battles\models.py:122
 msgid "Hero Roller Replica"
-msgstr ""
+msgstr "ヒーローローラー レプリカ"
 
 #: .\splatstats\two_battles\models.py:123
 #: .\splatstats\two_battles\models.py:228 .\splatstats\two_salmon\models.py:32
 msgid "Dynamo Roller"
-msgstr ""
+msgstr "ダイナモローラー"
 
 #: .\splatstats\two_battles\models.py:124
 msgid "Gold Dynamo Roller"
-msgstr ""
+msgstr "ダイナモローラーテスラ"
 
 #: .\splatstats\two_battles\models.py:125
 msgid "Kensa Dynamo Roller"
-msgstr ""
+msgstr "ダイナモローラーベッチュー"
 
 #: .\splatstats\two_battles\models.py:126
 #: .\splatstats\two_battles\models.py:229 .\splatstats\two_salmon\models.py:33
 msgid "Flingza Roller"
-msgstr ""
+msgstr "ヴァリアブルローラー"
 
 #: .\splatstats\two_battles\models.py:127
 msgid "Foil Flingza Roller"
-msgstr ""
+msgstr "ヴァリアブルローラーフォイル"
 
 #: .\splatstats\two_battles\models.py:128
 #: .\splatstats\two_battles\models.py:230 .\splatstats\two_salmon\models.py:34
