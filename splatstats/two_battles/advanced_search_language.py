@@ -9,6 +9,8 @@ from .models import (
     Clothes,
     Headgear,
     Shoes,
+    WeaponFamily,
+    WeaponSubs,
 )
 
 (
@@ -271,7 +273,7 @@ class Interpreter:
         """expr   : STRING (GREATERTHAN | GREATEREQUAL | LESSTHAN | LESSEQUAL | EQUAL) VALUE"""
         attribute = self.value()
         if regex.search(
-            "(rule)|(match_type)|(stage)|(win(_meter)?)|(has_disconnected_player)|(((my)|(other))_team_count)|((elapsed_)?time)|(tag_id)|(battle_number)|(((league)|(splatfest))_point)|(splatfest_title_after)|(player_x_power)|(((player)|(teammate_[a-c])|(opponent_[a-d]))_(((headgear)|(clothes)|(shoes))(_((sub[0-2])|(main)))?|(weapon)|(rank)|(level(_star)?)|(kills)|(deaths)|(assists)|(specials)|(game_paint_point)|(splatfest_title)|(name)|(splatnet_id)|(gender)|(species)))",
+            "(rule)|(match_type)|(stage)|(win(_meter)?)|(has_disconnected_player)|(((my)|(other))_team_count)|((elapsed_)?time)|(tag_id)|(battle_number)|(((league)|(splatfest))_point)|(splatfest_title_after)|(player_x_power)|(((player)|(teammate_[a-c])|(opponent_[a-d]))_(((headgear)|(clothes)|(shoes))(_((sub[0-2])|(main)))?|(weapon)|(rank)|(level(_star)?)|(kills)|(deaths)|(assists)|(specials)|(game_paint_point)|(splatfest_title)|(name)|(splatnet_id)|(gender)|(species)))$",
             attribute,
         ):
             mapping = {
@@ -504,5 +506,365 @@ class Interpreter:
                 battles = battles | Battle.objects.filter(**(mapping[key])).order_by(
                     "-time"
                 )
+            return battles
+        elif regex.search(
+            "((player)|(teammate_[a-c])|(oppponent_[a-d]))_weapon_family", attribute
+        ):
+            token = self.current_token
+            self.eat(token.type)
+            value = self.value()
+            value_a = [x for (x, y) in WeaponFamily if y == value]
+            if len(value_a) > 0:
+                value = value_a[0]
+            mapping = {
+                "abcd-abc": [],
+                "abcd-acb": [],
+                "abcd-bac": [],
+                "abcd-bca": [],
+                "abcd-cab": [],
+                "abcd-cba": [],
+                "abdc-abc": [],
+                "abdc-acb": [],
+                "abdc-bac": [],
+                "abdc-bca": [],
+                "abdc-cab": [],
+                "abdc-cba": [],
+                "acbd-abc": [],
+                "acbd-acb": [],
+                "acbd-bac": [],
+                "acbd-bca": [],
+                "acbd-cab": [],
+                "acbd-cba": [],
+                "acdb-abc": [],
+                "acdb-acb": [],
+                "acdb-bac": [],
+                "acdb-bca": [],
+                "acdb-cab": [],
+                "acdb-cba": [],
+                "adbc-abc": [],
+                "adbc-acb": [],
+                "adbc-bac": [],
+                "adbc-bca": [],
+                "adbc-cab": [],
+                "adbc-cba": [],
+                "adcb-abc": [],
+                "adcb-acb": [],
+                "adcb-bac": [],
+                "adcb-bca": [],
+                "adcb-cab": [],
+                "adcb-cba": [],
+                "bacd-abc": [],
+                "bacd-acb": [],
+                "bacd-bac": [],
+                "bacd-bca": [],
+                "bacd-cab": [],
+                "bacd-cba": [],
+                "badc-abc": [],
+                "badc-acb": [],
+                "badc-bac": [],
+                "badc-bca": [],
+                "badc-cab": [],
+                "badc-cba": [],
+                "bcad-abc": [],
+                "bcad-acb": [],
+                "bcad-bac": [],
+                "bcad-bca": [],
+                "bcad-cab": [],
+                "bcad-cba": [],
+                "bcda-abc": [],
+                "bcda-acb": [],
+                "bcda-bac": [],
+                "bcda-bca": [],
+                "bcda-cab": [],
+                "bcda-cba": [],
+                "bdac-abc": [],
+                "bdac-acb": [],
+                "bdac-bac": [],
+                "bdac-bca": [],
+                "bdac-cab": [],
+                "bdac-cba": [],
+                "bdca-abc": [],
+                "bdca-acb": [],
+                "bdca-bac": [],
+                "bdca-bca": [],
+                "bdca-cab": [],
+                "bdca-cba": [],
+                "cabd-abc": [],
+                "cabd-acb": [],
+                "cabd-bac": [],
+                "cabd-bca": [],
+                "cabd-cab": [],
+                "cabd-cba": [],
+                "cadb-abc": [],
+                "cadb-acb": [],
+                "cadb-bac": [],
+                "cadb-bca": [],
+                "cadb-cab": [],
+                "cadb-cba": [],
+                "cbad-abc": [],
+                "cbad-acb": [],
+                "cbad-bac": [],
+                "cbad-bca": [],
+                "cbad-cab": [],
+                "cbad-cba": [],
+                "cbda-abc": [],
+                "cbda-acb": [],
+                "cbda-bac": [],
+                "cbda-bca": [],
+                "cbda-cab": [],
+                "cbda-cba": [],
+                "cdab-abc": [],
+                "cdab-acb": [],
+                "cdab-bac": [],
+                "cdab-bca": [],
+                "cdab-cab": [],
+                "cdab-cba": [],
+                "cdba-abc": [],
+                "cdba-acb": [],
+                "cdba-bac": [],
+                "cdba-bca": [],
+                "cdba-cab": [],
+                "cdba-cba": [],
+                "dabc-abc": [],
+                "dabc-acb": [],
+                "dabc-bac": [],
+                "dabc-bca": [],
+                "dabc-cab": [],
+                "dabc-cba": [],
+                "dacb-abc": [],
+                "dacb-acb": [],
+                "dacb-bac": [],
+                "dacb-bca": [],
+                "dacb-cab": [],
+                "dacb-cba": [],
+                "dbac-abc": [],
+                "dbac-acb": [],
+                "dbac-bac": [],
+                "dbac-bca": [],
+                "dbac-cab": [],
+                "dbac-cba": [],
+                "dbca-abc": [],
+                "dbca-acb": [],
+                "dbca-bac": [],
+                "dbca-bca": [],
+                "dbca-cab": [],
+                "dbca-cba": [],
+                "dcab-abc": [],
+                "dcab-acb": [],
+                "dcab-bac": [],
+                "dcab-bca": [],
+                "dcab-cab": [],
+                "dcab-cba": [],
+                "dcba-abc": [],
+                "dcba-acb": [],
+                "dcba-bac": [],
+                "dcba-bca": [],
+                "dcba-cab": [],
+                "dcba-cba": [],
+            }
+            for key in mapping:
+                for val in value:
+                    if attribute[0:8] == "teammate":
+                        mapping[key].append(
+                            {
+                                "teammate{}_weapon".format(
+                                    find_2nd(key, attribute[9]) - 5
+                                ): val
+                            }
+                        )
+                    elif attribute[0:8] == "opponent":
+                        mapping[key].append(
+                            {
+                                "opponent{}_weapon".format(
+                                    key.index(attribute[9]),
+                                ): val
+                            }
+                        )
+                    else:
+                        mapping[key].append({"player_weapon": val})
+            battles = Battle.objects.none()
+            for key in mapping:
+                for query in mapping[key]:
+                    battles = battles | Battle.objects.filter(**query).order_by("-time")
+            return battles
+        elif regex.search(
+            "((player)|(teammate_[a-c])|(oppponent_[a-d]))_weapon_sub", attribute
+        ):
+            token = self.current_token
+            self.eat(token.type)
+            value = self.value()
+            value_a = [x for (x, y) in WeaponSubs if y == value]
+            if len(value_a) > 0:
+                value = value_a[0]
+            mapping = {
+                "abcd-abc": [],
+                "abcd-acb": [],
+                "abcd-bac": [],
+                "abcd-bca": [],
+                "abcd-cab": [],
+                "abcd-cba": [],
+                "abdc-abc": [],
+                "abdc-acb": [],
+                "abdc-bac": [],
+                "abdc-bca": [],
+                "abdc-cab": [],
+                "abdc-cba": [],
+                "acbd-abc": [],
+                "acbd-acb": [],
+                "acbd-bac": [],
+                "acbd-bca": [],
+                "acbd-cab": [],
+                "acbd-cba": [],
+                "acdb-abc": [],
+                "acdb-acb": [],
+                "acdb-bac": [],
+                "acdb-bca": [],
+                "acdb-cab": [],
+                "acdb-cba": [],
+                "adbc-abc": [],
+                "adbc-acb": [],
+                "adbc-bac": [],
+                "adbc-bca": [],
+                "adbc-cab": [],
+                "adbc-cba": [],
+                "adcb-abc": [],
+                "adcb-acb": [],
+                "adcb-bac": [],
+                "adcb-bca": [],
+                "adcb-cab": [],
+                "adcb-cba": [],
+                "bacd-abc": [],
+                "bacd-acb": [],
+                "bacd-bac": [],
+                "bacd-bca": [],
+                "bacd-cab": [],
+                "bacd-cba": [],
+                "badc-abc": [],
+                "badc-acb": [],
+                "badc-bac": [],
+                "badc-bca": [],
+                "badc-cab": [],
+                "badc-cba": [],
+                "bcad-abc": [],
+                "bcad-acb": [],
+                "bcad-bac": [],
+                "bcad-bca": [],
+                "bcad-cab": [],
+                "bcad-cba": [],
+                "bcda-abc": [],
+                "bcda-acb": [],
+                "bcda-bac": [],
+                "bcda-bca": [],
+                "bcda-cab": [],
+                "bcda-cba": [],
+                "bdac-abc": [],
+                "bdac-acb": [],
+                "bdac-bac": [],
+                "bdac-bca": [],
+                "bdac-cab": [],
+                "bdac-cba": [],
+                "bdca-abc": [],
+                "bdca-acb": [],
+                "bdca-bac": [],
+                "bdca-bca": [],
+                "bdca-cab": [],
+                "bdca-cba": [],
+                "cabd-abc": [],
+                "cabd-acb": [],
+                "cabd-bac": [],
+                "cabd-bca": [],
+                "cabd-cab": [],
+                "cabd-cba": [],
+                "cadb-abc": [],
+                "cadb-acb": [],
+                "cadb-bac": [],
+                "cadb-bca": [],
+                "cadb-cab": [],
+                "cadb-cba": [],
+                "cbad-abc": [],
+                "cbad-acb": [],
+                "cbad-bac": [],
+                "cbad-bca": [],
+                "cbad-cab": [],
+                "cbad-cba": [],
+                "cbda-abc": [],
+                "cbda-acb": [],
+                "cbda-bac": [],
+                "cbda-bca": [],
+                "cbda-cab": [],
+                "cbda-cba": [],
+                "cdab-abc": [],
+                "cdab-acb": [],
+                "cdab-bac": [],
+                "cdab-bca": [],
+                "cdab-cab": [],
+                "cdab-cba": [],
+                "cdba-abc": [],
+                "cdba-acb": [],
+                "cdba-bac": [],
+                "cdba-bca": [],
+                "cdba-cab": [],
+                "cdba-cba": [],
+                "dabc-abc": [],
+                "dabc-acb": [],
+                "dabc-bac": [],
+                "dabc-bca": [],
+                "dabc-cab": [],
+                "dabc-cba": [],
+                "dacb-abc": [],
+                "dacb-acb": [],
+                "dacb-bac": [],
+                "dacb-bca": [],
+                "dacb-cab": [],
+                "dacb-cba": [],
+                "dbac-abc": [],
+                "dbac-acb": [],
+                "dbac-bac": [],
+                "dbac-bca": [],
+                "dbac-cab": [],
+                "dbac-cba": [],
+                "dbca-abc": [],
+                "dbca-acb": [],
+                "dbca-bac": [],
+                "dbca-bca": [],
+                "dbca-cab": [],
+                "dbca-cba": [],
+                "dcab-abc": [],
+                "dcab-acb": [],
+                "dcab-bac": [],
+                "dcab-bca": [],
+                "dcab-cab": [],
+                "dcab-cba": [],
+                "dcba-abc": [],
+                "dcba-acb": [],
+                "dcba-bac": [],
+                "dcba-bca": [],
+                "dcba-cab": [],
+                "dcba-cba": [],
+            }
+            for key in mapping:
+                for val in value:
+                    if attribute[0:8] == "teammate":
+                        mapping[key].append(
+                            {
+                                "teammate{}_weapon".format(
+                                    find_2nd(key, attribute[9]) - 5
+                                ): val
+                            }
+                        )
+                    elif attribute[0:8] == "opponent":
+                        mapping[key].append(
+                            {
+                                "opponent{}_weapon".format(
+                                    key.index(attribute[9]),
+                                ): val
+                            }
+                        )
+                    else:
+                        mapping[key].append({"player_weapon": val})
+            battles = Battle.objects.none()
+            for key in mapping:
+                for query in mapping[key]:
+                    battles = battles | Battle.objects.filter(**query).order_by("-time")
             return battles
         self.error()
