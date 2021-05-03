@@ -258,10 +258,10 @@ WeaponFamilies = (
 
 WeaponSubs = (
     (("0", "51", "300"), _("Curling Bomb")),
-    (("1", ), _("Squid Beakon")),
+    (("1",), _("Squid Beakon")),
     (("2", "10", "41", "46", "72", "401"), _("Splat Bomb")),
     (("11", "61"), _("Autobomb")),
-    (("12", ), _("Torpedo")),
+    (("12",), _("Torpedo")),
     (("20", "90"), _("Toxic Mist")),
     (("21", "32", "40", "45", "91", "301"), _("Burst Bomb")),
     (("30", "42", "60", "71", "311"), _("Suction Bomb")),
