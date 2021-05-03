@@ -507,7 +507,7 @@ class Interpreter:
                     "-time"
                 )
             return battles
-        elif regex.search(
+        if regex.search(
             "((player)|(teammate_[a-c])|(oppponent_[a-d]))_weapon_family", attribute
         ):
             token = self.current_token
@@ -687,7 +687,7 @@ class Interpreter:
                 for query in mapping[key]:
                     battles = battles | Battle.objects.filter(**query).order_by("-time")
             return battles
-        elif regex.search(
+        if regex.search(
             "((player)|(teammate_[a-c])|(oppponent_[a-d]))_weapon_sub", attribute
         ):
             token = self.current_token
