@@ -578,32 +578,32 @@ msgstr "ヴァリアブルローラーフォイル"
 #: .\splatstats\two_battles\models.py:128
 #: .\splatstats\two_battles\models.py:230 .\splatstats\two_salmon\models.py:34
 msgid "Inkbrush"
-msgstr ""
+msgstr "パブロ"
 
 #: .\splatstats\two_battles\models.py:129
 msgid "Inkbrush Nouveau"
-msgstr ""
+msgstr "パブロ・ヒュー"
 
 #: .\splatstats\two_battles\models.py:130
 msgid "Permanent Inkbrush"
-msgstr ""
+msgstr "パーマネント・パブロ"
 
 #: .\splatstats\two_battles\models.py:131
 #: .\splatstats\two_battles\models.py:231 .\splatstats\two_salmon\models.py:35
 msgid "Octobrush"
-msgstr ""
+msgstr "ホクサイ"
 
 #: .\splatstats\two_battles\models.py:132
 msgid "Octobrush Nouveau"
-msgstr ""
+msgstr "ホクサイ・ヒュー"
 
 #: .\splatstats\two_battles\models.py:133
 msgid "Kensa Octobrush"
-msgstr ""
+msgstr "ホクサイベッチュー"
 
 #: .\splatstats\two_battles\models.py:134
 msgid "Herobrush Replica"
-msgstr ""
+msgstr "ヒーローブラシ レプリカ"
 
 #: .\splatstats\two_battles\models.py:135 .\splatstats\two_salmon\models.py:36
 msgid "Classic Squiffer"
