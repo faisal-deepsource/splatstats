@@ -30,6 +30,9 @@ from .models import (
     NOT,
     LPAREN,
     RPAREN,
+    SETNAME,
+    ASSIGN,
+    NEWLINE,
     EOL,
 ) = (
     "ATTR",
@@ -47,6 +50,9 @@ from .models import (
     "NOT",
     "(",
     ")",
+    "SETNAME",
+    ":=",
+    "\n",
     "",
 )
 
@@ -71,6 +77,7 @@ class Lexer:
         # self.pos is an index into self.text
         self.pos = 0
         self.current_char = self.text[self.pos]
+        self.prev_char = None
 
     @staticmethod
     def error():
@@ -79,6 +86,7 @@ class Lexer:
     def advance(self):
         """Advance the `pos` pointer and set the `current_char` variable."""
         self.pos += 1
+        self.prev_char = self.current_char
         if self.pos > len(self.text) - 1:
             self.current_char = None  # Indicates end of input
         else:
@@ -96,9 +104,10 @@ class Lexer:
         ):
             result += self.current_char
             self.advance()
-        if float(result) == int(result):
+        try:
             return int(result)
-        return float(result)
+        except:
+            return float(result)
 
     def string(self):
         """Return a string consumed from the input."""
@@ -109,12 +118,17 @@ class Lexer:
         self.advance()
         return result
 
-    def attr(self):
+    def attr_set(self):
         result = ""
         while self.current_char is not None and not self.current_char.isspace():
             result += self.current_char
             self.advance()
-        return result
+        if regex.search(
+            "(rule)|(match_type)|(stage)|(win(_meter)?)|(has_disconnected_player)|(((my)|(other))_team_count)|((elapsed_)?time)|(tag_id)|(battle_number)|(((league)|(splatfest))_point)|(splatfest_title_after)|(player_x_power)|(((player)|(teammate_[a-c])|(opponent_[a-d]))_(((headgear)|(clothes)|(shoes))(_((sub[0-2])|(main)))?|(weapon)|(rank)|(level(_star)?)|(kills)|(deaths)|(assists)|(specials)|(game_paint_point)|(splatfest_title)|(name)|(splatnet_id)|(gender)|(species)))$",
+            result,
+        ):
+            return Token(ATTR, result)
+        return Token(SETNAME, result)
 
     def boolean(self):
         """Returns a boolean value consumed from the input."""
@@ -131,6 +145,16 @@ class Lexer:
         apart into tokens. One token at a time.
         """
         while self.current_char is not None:
+
+            if self.current_char == "\n":
+                self.advance()
+                return Token(NEWLINE, "\n")
+                
+            if self.current_char == "\r":
+                self.advance()
+                if self.current_char == "\n":
+                    self.advance()
+                    return Token(NEWLINE, "\r\n")
 
             if self.current_char.isspace():
                 self.skip_whitespace()
@@ -167,7 +191,7 @@ class Lexer:
                 self.error()
 
             if self.current_char.isalpha():
-                return Token(ATTR, self.attr())
+                return self.attr_set()
 
             if self.current_char == '"':
                 self.advance()
@@ -184,6 +208,13 @@ class Lexer:
                 if self.current_char == "=":
                     self.advance()
                     return Token(EQUAL, "==")
+                self.error()
+
+            if self.current_char == ":":
+                self.advance()
+                if self.current_char == "=":
+                    self.advance()
+                    return Token(ASSIGN, ":=")
                 self.error()
 
             if self.current_char == ">":
@@ -228,6 +259,7 @@ class Interpreter:
         self.lexer = lexer
         # set current token to the first token taken from the input
         self.current_token = self.lexer.get_next_token()
+        self.sets = {}
 
     @staticmethod
     def error():
@@ -243,25 +275,73 @@ class Interpreter:
         else:
             self.error()
 
+    def line(self):
+        """line : set( = (expr)|(term))?"""
+        set_name = self.current_token.value
+        self.eat(SETNAME)
+        if self.current_token.type is ASSIGN:
+            self.eat(ASSIGN)
+            if self.current_token.type is NOT or self.current_token.type is LPAREN:
+                self.sets[set_name] = self.term()
+            else:
+                self.sets[set_name] = self.expr()
+            self.eat(NEWLINE)
+            return self.line()
+        else:
+            if set_name in self.sets:
+                return self.sets[set_name]
+            return Battle.objects.none()
+
     def term(self):
-        """term : (expr) | (LPAREN term (OR | AND) term RPAREN) | (NOT LPAREN term RPAREN)"""
+        """term : (LPAREN (set | term) (OR | AND) (set | term) RPAREN) | (NOT LPAREN (set | term) RPAREN)"""
         if self.current_token.type is NOT:
             self.eat(NOT)
             self.eat(LPAREN)
-            to_exclude = self.term()
+            if self.current_token.type is SETNAME:
+                if self.current_token.value not in self.sets:
+                    self.eat(SETNAME)
+                    self.eat(RPAREN)
+                    return Battle.objects.none()
+                to_exclude = self.sets[self.current_token.value]
+                self.eat(SETNAME)
+            else:
+                to_exclude = self.term()
             result = Battle.objects.all().exclude(id__in=to_exclude)
             self.eat(RPAREN)
         elif self.current_token.type is LPAREN:
             self.eat(LPAREN)
-            set_a = self.term()
+            if self.current_token.type is SETNAME:
+                if self.current_token.value not in self.sets:
+                    set_a = Battle.objects.none()
+                else:
+                    set_a = self.sets[self.current_token.value]
+                self.eat(SETNAME)
+            else:
+                set_a = self.term()
             token = self.current_token
             if token.type == OR:
                 self.eat(OR)
-                result = set_a | self.term()
+                if self.current_token.type is SETNAME:
+                    if self.current_token.value not in self.sets:
+                        set_b = Battle.objects.none()
+                    else:
+                        set_b = self.sets[self.current_token.value]
+                    self.eat(SETNAME)
+                else:
+                    set_b = self.term()
+                result = set_a | set_b
                 self.eat(RPAREN)
             elif token.type == AND:
                 self.eat(AND)
-                result = set_a & self.term()
+                if self.current_token.type is SETNAME:
+                    if self.current_token.value not in self.sets:
+                        set_b = Battle.objects.none()
+                    else:
+                        set_b = self.sets[self.current_token.value]
+                    self.eat(SETNAME)
+                else:
+                    set_b = self.term()
+                result = set_a & set_b
                 self.eat(RPAREN)
         else:
             result = self.expr()

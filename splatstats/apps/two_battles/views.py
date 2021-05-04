@@ -26,7 +26,7 @@ def index(request):
             query = form.cleaned_data["query"]
             lexer = Lexer(query)
             interpreter = Interpreter(lexer)
-            battles = interpreter.term()
+            battles = interpreter.line()
             attributes = ""
         else:
             attributes = ""
@@ -1530,7 +1530,7 @@ def advanced_search(request):
     if form.is_valid():
         lexer = Lexer(form.cleaned_data["query"])
         interpreter = Interpreter(lexer)
-        battles = interpreter.term()
+        battles = interpreter.line()
         paginator = Paginator(battles, 50)  # Show 50 battles per page
         page_number = request.GET.get("page")
         page_obj = paginator.get_page(page_number)
@@ -1549,6 +1549,13 @@ def advanced_search(request):
                 static("two_battles/weapons/" + battle.player_weapon + ".png")
             )
         query = form.cleaned_data["query"]
+        i = 0
+        while i < len(query):
+            if query[i] == "\r":
+                query = query[:i] + "%0D" + query[i+1:]
+            elif query[i] == "\n":
+                query = query[:i] + "%0A" + query[i+1:]
+            i += 1 
         context = {
             "page_obj": page_obj,
             "my_list": zip(
