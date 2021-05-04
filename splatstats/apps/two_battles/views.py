@@ -227,10 +227,16 @@ def detail(request, id):
                             + ".png"
                         )
                     else:
-                        teammate1_headgear_sub2 = static("two_battles/abilities/subs/None.png")
+                        teammate1_headgear_sub2 = static(
+                            "two_battles/abilities/subs/None.png"
+                        )
                 else:
-                    teammate1_headgear_sub1 = static("two_battles/abilities/subs/None.png")
-                    teammate1_headgear_sub2 = static("two_battles/abilities/subs/None.png")
+                    teammate1_headgear_sub1 = static(
+                        "two_battles/abilities/subs/None.png"
+                    )
+                    teammate1_headgear_sub2 = static(
+                        "two_battles/abilities/subs/None.png"
+                    )
             else:
                 teammate1_headgear_sub0 = static("two_battles/abilities/subs/None.png")
                 teammate1_headgear_sub1 = static("two_battles/abilities/subs/None.png")
@@ -263,10 +269,16 @@ def detail(request, id):
                             + ".png"
                         )
                     else:
-                        teammate1_clothes_sub2 = static("two_battles/abilities/subs/None.png")
+                        teammate1_clothes_sub2 = static(
+                            "two_battles/abilities/subs/None.png"
+                        )
                 else:
-                    teammate1_clothes_sub1 = static("two_battles/abilities/subs/None.png")
-                    teammate1_clothes_sub2 = static("two_battles/abilities/subs/None.png")
+                    teammate1_clothes_sub1 = static(
+                        "two_battles/abilities/subs/None.png"
+                    )
+                    teammate1_clothes_sub2 = static(
+                        "two_battles/abilities/subs/None.png"
+                    )
             else:
                 teammate1_clothes_sub0 = static("two_battles/abilities/subs/None.png")
                 teammate1_clothes_sub1 = static("two_battles/abilities/subs/None.png")
@@ -297,7 +309,9 @@ def detail(request, id):
                             + ".png"
                         )
                     else:
-                        teammate1_shoes_sub2 = static("two_battles/abilities/subs/None.png")
+                        teammate1_shoes_sub2 = static(
+                            "two_battles/abilities/subs/None.png"
+                        )
                 else:
                     teammate1_shoes_sub1 = static("two_battles/abilities/subs/None.png")
                     teammate1_shoes_sub2 = static("two_battles/abilities/subs/None.png")
@@ -366,10 +380,16 @@ def detail(request, id):
                             + ".png"
                         )
                     else:
-                        teammate2_headgear_sub2 = static("two_battles/abilities/subs/None.png")
+                        teammate2_headgear_sub2 = static(
+                            "two_battles/abilities/subs/None.png"
+                        )
                 else:
-                    teammate2_headgear_sub1 = static("two_battles/abilities/subs/None.png")
-                    teammate2_headgear_sub2 = static("two_battles/abilities/subs/None.png")
+                    teammate2_headgear_sub1 = static(
+                        "two_battles/abilities/subs/None.png"
+                    )
+                    teammate2_headgear_sub2 = static(
+                        "two_battles/abilities/subs/None.png"
+                    )
             else:
                 teammate2_headgear_sub0 = static("two_battles/abilities/subs/None.png")
                 teammate2_headgear_sub1 = static("two_battles/abilities/subs/None.png")
@@ -402,10 +422,16 @@ def detail(request, id):
                             + ".png"
                         )
                     else:
-                        teammate2_clothes_sub2 = static("two_battles/abilities/subs/None.png")
+                        teammate2_clothes_sub2 = static(
+                            "two_battles/abilities/subs/None.png"
+                        )
                 else:
-                    teammate2_clothes_sub1 = static("two_battles/abilities/subs/None.png")
-                    teammate2_clothes_sub2 = static("two_battles/abilities/subs/None.png")
+                    teammate2_clothes_sub1 = static(
+                        "two_battles/abilities/subs/None.png"
+                    )
+                    teammate2_clothes_sub2 = static(
+                        "two_battles/abilities/subs/None.png"
+                    )
             else:
                 teammate2_clothes_sub0 = static("two_battles/abilities/subs/None.png")
                 teammate2_clothes_sub1 = static("two_battles/abilities/subs/None.png")
@@ -436,7 +462,9 @@ def detail(request, id):
                             + ".png"
                         )
                     else:
-                        teammate2_shoes_sub2 = static("two_battles/abilities/subs/None.png")
+                        teammate2_shoes_sub2 = static(
+                            "two_battles/abilities/subs/None.png"
+                        )
                 else:
                     teammate2_shoes_sub1 = static("two_battles/abilities/subs/None.png")
                     teammate2_shoes_sub2 = static("two_battles/abilities/subs/None.png")
@@ -508,10 +536,16 @@ def detail(request, id):
                             + ".png"
                         )
                     else:
-                        teammate0_headgear_sub2 = static("two_battles/abilities/subs/None.png")
+                        teammate0_headgear_sub2 = static(
+                            "two_battles/abilities/subs/None.png"
+                        )
                 else:
-                    teammate0_headgear_sub1 = static("two_battles/abilities/subs/None.png")
-                    teammate0_headgear_sub2 = static("two_battles/abilities/subs/None.png")
+                    teammate0_headgear_sub1 = static(
+                        "two_battles/abilities/subs/None.png"
+                    )
+                    teammate0_headgear_sub2 = static(
+                        "two_battles/abilities/subs/None.png"
+                    )
             else:
                 teammate0_headgear_sub0 = static("two_battles/abilities/subs/None.png")
                 teammate0_headgear_sub1 = static("two_battles/abilities/subs/None.png")
@@ -544,10 +578,16 @@ def detail(request, id):
                             + ".png"
                         )
                     else:
-                        teammate0_clothes_sub2 = static("two_battles/abilities/subs/None.png")
+                        teammate0_clothes_sub2 = static(
+                            "two_battles/abilities/subs/None.png"
+                        )
                 else:
-                    teammate0_clothes_sub1 = static("two_battles/abilities/subs/None.png")
-                    teammate0_clothes_sub2 = static("two_battles/abilities/subs/None.png")
+                    teammate0_clothes_sub1 = static(
+                        "two_battles/abilities/subs/None.png"
+                    )
+                    teammate0_clothes_sub2 = static(
+                        "two_battles/abilities/subs/None.png"
+                    )
             else:
                 teammate0_clothes_sub0 = static("two_battles/abilities/subs/None.png")
                 teammate0_clothes_sub1 = static("two_battles/abilities/subs/None.png")
@@ -578,7 +618,9 @@ def detail(request, id):
                             + ".png"
                         )
                     else:
-                        teammate0_shoes_sub2 = static("two_battles/abilities/subs/None.png")
+                        teammate0_shoes_sub2 = static(
+                            "two_battles/abilities/subs/None.png"
+                        )
                 else:
                     teammate0_shoes_sub1 = static("two_battles/abilities/subs/None.png")
                     teammate0_shoes_sub2 = static("two_battles/abilities/subs/None.png")
@@ -647,10 +689,16 @@ def detail(request, id):
                             + ".png"
                         )
                     else:
-                        opponent0_headgear_sub2 = static("two_battles/abilities/subs/None.png")
+                        opponent0_headgear_sub2 = static(
+                            "two_battles/abilities/subs/None.png"
+                        )
                 else:
-                    opponent0_headgear_sub1 = static("two_battles/abilities/subs/None.png")
-                    opponent0_headgear_sub2 = static("two_battles/abilities/subs/None.png")
+                    opponent0_headgear_sub1 = static(
+                        "two_battles/abilities/subs/None.png"
+                    )
+                    opponent0_headgear_sub2 = static(
+                        "two_battles/abilities/subs/None.png"
+                    )
             else:
                 opponent0_headgear_sub0 = static("two_battles/abilities/subs/None.png")
                 opponent0_headgear_sub1 = static("two_battles/abilities/subs/None.png")
@@ -683,10 +731,16 @@ def detail(request, id):
                             + ".png"
                         )
                     else:
-                        opponent0_clothes_sub2 = static("two_battles/abilities/subs/None.png")
+                        opponent0_clothes_sub2 = static(
+                            "two_battles/abilities/subs/None.png"
+                        )
                 else:
-                    opponent0_clothes_sub1 = static("two_battles/abilities/subs/None.png")
-                    opponent0_clothes_sub2 = static("two_battles/abilities/subs/None.png")
+                    opponent0_clothes_sub1 = static(
+                        "two_battles/abilities/subs/None.png"
+                    )
+                    opponent0_clothes_sub2 = static(
+                        "two_battles/abilities/subs/None.png"
+                    )
             else:
                 opponent0_clothes_sub0 = static("two_battles/abilities/subs/None.png")
                 opponent0_clothes_sub1 = static("two_battles/abilities/subs/None.png")
@@ -717,7 +771,9 @@ def detail(request, id):
                             + ".png"
                         )
                     else:
-                        opponent0_shoes_sub2 = static("two_battles/abilities/subs/None.png")
+                        opponent0_shoes_sub2 = static(
+                            "two_battles/abilities/subs/None.png"
+                        )
                 else:
                     opponent0_shoes_sub1 = static("two_battles/abilities/subs/None.png")
                     opponent0_shoes_sub2 = static("two_battles/abilities/subs/None.png")
@@ -786,10 +842,16 @@ def detail(request, id):
                             + ".png"
                         )
                     else:
-                        opponent1_headgear_sub2 = static("two_battles/abilities/subs/None.png")
+                        opponent1_headgear_sub2 = static(
+                            "two_battles/abilities/subs/None.png"
+                        )
                 else:
-                    opponent1_headgear_sub1 = static("two_battles/abilities/subs/None.png")
-                    opponent1_headgear_sub2 = static("two_battles/abilities/subs/None.png")
+                    opponent1_headgear_sub1 = static(
+                        "two_battles/abilities/subs/None.png"
+                    )
+                    opponent1_headgear_sub2 = static(
+                        "two_battles/abilities/subs/None.png"
+                    )
             else:
                 opponent1_headgear_sub0 = static("two_battles/abilities/subs/None.png")
                 opponent1_headgear_sub1 = static("two_battles/abilities/subs/None.png")
@@ -822,10 +884,16 @@ def detail(request, id):
                             + ".png"
                         )
                     else:
-                        opponent1_clothes_sub2 = static("two_battles/abilities/subs/None.png")
+                        opponent1_clothes_sub2 = static(
+                            "two_battles/abilities/subs/None.png"
+                        )
                 else:
-                    opponent1_clothes_sub1 = static("two_battles/abilities/subs/None.png")
-                    opponent1_clothes_sub2 = static("two_battles/abilities/subs/None.png")
+                    opponent1_clothes_sub1 = static(
+                        "two_battles/abilities/subs/None.png"
+                    )
+                    opponent1_clothes_sub2 = static(
+                        "two_battles/abilities/subs/None.png"
+                    )
             else:
                 opponent1_clothes_sub0 = static("two_battles/abilities/subs/None.png")
                 opponent1_clothes_sub1 = static("two_battles/abilities/subs/None.png")
@@ -856,7 +924,9 @@ def detail(request, id):
                             + ".png"
                         )
                     else:
-                        opponent1_shoes_sub2 = static("two_battles/abilities/subs/None.png")
+                        opponent1_shoes_sub2 = static(
+                            "two_battles/abilities/subs/None.png"
+                        )
                 else:
                     opponent1_shoes_sub1 = static("two_battles/abilities/subs/None.png")
                     opponent1_shoes_sub2 = static("two_battles/abilities/subs/None.png")
@@ -925,10 +995,16 @@ def detail(request, id):
                             + ".png"
                         )
                     else:
-                        opponent2_headgear_sub2 = static("two_battles/abilities/subs/None.png")
+                        opponent2_headgear_sub2 = static(
+                            "two_battles/abilities/subs/None.png"
+                        )
                 else:
-                    opponent2_headgear_sub1 = static("two_battles/abilities/subs/None.png")
-                    opponent2_headgear_sub2 = static("two_battles/abilities/subs/None.png")
+                    opponent2_headgear_sub1 = static(
+                        "two_battles/abilities/subs/None.png"
+                    )
+                    opponent2_headgear_sub2 = static(
+                        "two_battles/abilities/subs/None.png"
+                    )
             else:
                 opponent2_headgear_sub0 = static("two_battles/abilities/subs/None.png")
                 opponent2_headgear_sub1 = static("two_battles/abilities/subs/None.png")
@@ -961,10 +1037,16 @@ def detail(request, id):
                             + ".png"
                         )
                     else:
-                        opponent2_clothes_sub2 = static("two_battles/abilities/subs/None.png")
+                        opponent2_clothes_sub2 = static(
+                            "two_battles/abilities/subs/None.png"
+                        )
                 else:
-                    opponent2_clothes_sub1 = static("two_battles/abilities/subs/None.png")
-                    opponent2_clothes_sub2 = static("two_battles/abilities/subs/None.png")
+                    opponent2_clothes_sub1 = static(
+                        "two_battles/abilities/subs/None.png"
+                    )
+                    opponent2_clothes_sub2 = static(
+                        "two_battles/abilities/subs/None.png"
+                    )
             else:
                 opponent2_clothes_sub0 = static("two_battles/abilities/subs/None.png")
                 opponent2_clothes_sub1 = static("two_battles/abilities/subs/None.png")
@@ -995,7 +1077,9 @@ def detail(request, id):
                             + ".png"
                         )
                     else:
-                        opponent2_shoes_sub2 = static("two_battles/abilities/subs/None.png")
+                        opponent2_shoes_sub2 = static(
+                            "two_battles/abilities/subs/None.png"
+                        )
                 else:
                     opponent2_shoes_sub1 = static("two_battles/abilities/subs/None.png")
                     opponent2_shoes_sub2 = static("two_battles/abilities/subs/None.png")
@@ -1064,10 +1148,16 @@ def detail(request, id):
                             + ".png"
                         )
                     else:
-                        opponent3_headgear_sub2 = static("two_battles/abilities/subs/None.png")
+                        opponent3_headgear_sub2 = static(
+                            "two_battles/abilities/subs/None.png"
+                        )
                 else:
-                    opponent3_headgear_sub1 = static("two_battles/abilities/subs/None.png")
-                    opponent3_headgear_sub2 = static("two_battles/abilities/subs/None.png")
+                    opponent3_headgear_sub1 = static(
+                        "two_battles/abilities/subs/None.png"
+                    )
+                    opponent3_headgear_sub2 = static(
+                        "two_battles/abilities/subs/None.png"
+                    )
             else:
                 opponent3_headgear_sub0 = static("two_battles/abilities/subs/None.png")
                 opponent3_headgear_sub1 = static("two_battles/abilities/subs/None.png")
@@ -1100,10 +1190,16 @@ def detail(request, id):
                             + ".png"
                         )
                     else:
-                        opponent3_clothes_sub2 = static("two_battles/abilities/subs/None.png")
+                        opponent3_clothes_sub2 = static(
+                            "two_battles/abilities/subs/None.png"
+                        )
                 else:
-                    opponent3_clothes_sub1 = static("two_battles/abilities/subs/None.png")
-                    opponent3_clothes_sub2 = static("two_battles/abilities/subs/None.png")
+                    opponent3_clothes_sub1 = static(
+                        "two_battles/abilities/subs/None.png"
+                    )
+                    opponent3_clothes_sub2 = static(
+                        "two_battles/abilities/subs/None.png"
+                    )
             else:
                 opponent3_clothes_sub0 = static("two_battles/abilities/subs/None.png")
                 opponent3_clothes_sub1 = static("two_battles/abilities/subs/None.png")
@@ -1134,7 +1230,9 @@ def detail(request, id):
                             + ".png"
                         )
                     else:
-                        opponent3_shoes_sub2 = static("two_battles/abilities/subs/None.png")
+                        opponent3_shoes_sub2 = static(
+                            "two_battles/abilities/subs/None.png"
+                        )
                 else:
                     opponent3_shoes_sub1 = static("two_battles/abilities/subs/None.png")
                     opponent3_shoes_sub2 = static("two_battles/abilities/subs/None.png")
@@ -1227,7 +1325,9 @@ class BattleAPIView(views.APIView):
             if request.data.get("image_gear", None) is not None
             else None
         )
-        if request.data.get("splatnet_upload", False) or request.data.get("stat_ink_json", False):
+        if request.data.get("splatnet_upload", False) or request.data.get(
+            "stat_ink_json", False
+        ):
             Battle.create(
                 data=request.data,
                 user=request.user,
@@ -1552,10 +1652,10 @@ def advanced_search(request):
         i = 0
         while i < len(query):
             if query[i] == "\r":
-                query = query[:i] + "%0D" + query[i+1:]
+                query = query[:i] + "%0D" + query[i + 1 :]
             elif query[i] == "\n":
-                query = query[:i] + "%0A" + query[i+1:]
-            i += 1 
+                query = query[:i] + "%0A" + query[i + 1 :]
+            i += 1
         context = {
             "page_obj": page_obj,
             "my_list": zip(

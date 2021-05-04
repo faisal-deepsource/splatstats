@@ -1744,7 +1744,7 @@ class Battle(models.Model):
     def create(cls, **kwargs):
         data = kwargs["data"]
         player_user = kwargs["user"]
-        
+
         if data.get("image_result") is not None:
             img_temp0 = NamedTemporaryFile()
             img_temp0.write(data.get("image_result"))
@@ -2018,13 +2018,9 @@ class Battle(models.Model):
                     save=data.get("True"),
                 )
             return battle
-        if (
-            Battle.objects.filter(battle_number=data.get("battle_number"), player_user=player_user)[
-                0
-            ].splatnet_upload
-            is None
-            and data.get("splatnet_upload")
-        ):
+        if Battle.objects.filter(
+            battle_number=data.get("battle_number"), player_user=player_user
+        )[0].splatnet_upload is None and data.get("splatnet_upload"):
             battle = Battle.objects.filter(
                 battle_number=data.get("battle_number"), player_user=player_user
             )[0]
@@ -2095,9 +2091,7 @@ class Battle(models.Model):
             battle.teammate0_deaths = data.get("teammate0_deaths")
             battle.teammate0_assists = data.get("teammate0_assists")
             battle.teammate0_specials = data.get("teammate0_specials")
-            battle.teammate0_game_paint_point = data.get(
-                "teammate0_game_paint_point"
-            )
+            battle.teammate0_game_paint_point = data.get("teammate0_game_paint_point")
             battle.teammate0_gender = data.get("teammate0_gender")
             battle.teammate0_species = data.get("teammate0_species")
             # headgear
@@ -2130,9 +2124,7 @@ class Battle(models.Model):
             battle.teammate1_deaths = data.get("teammate1_deaths")
             battle.teammate1_assists = data.get("teammate1_assists")
             battle.teammate1_specials = data.get("teammate1_specials")
-            battle.teammate1_game_paint_point = data.get(
-                "teammate1_game_paint_point"
-            )
+            battle.teammate1_game_paint_point = data.get("teammate1_game_paint_point")
             battle.teammate1_gender = data.get("teammate1_gender")
             battle.teammate1_species = data.get("teammate1_species")
             # headgear
@@ -2165,9 +2157,7 @@ class Battle(models.Model):
             battle.teammate2_deaths = data.get("teammate2_deaths")
             battle.teammate2_assists = data.get("teammate2_assists")
             battle.teammate2_specials = data.get("teammate2_specials")
-            battle.teammate2_game_paint_point = data.get(
-                "teammate2_game_paint_point"
-            )
+            battle.teammate2_game_paint_point = data.get("teammate2_game_paint_point")
             battle.teammate2_gender = data.get("teammate2_gender")
             battle.teammate2_species = data.get("teammate2_species")
             # headgear
@@ -2200,9 +2190,7 @@ class Battle(models.Model):
             battle.opponent0_deaths = data.get("opponent0_deaths")
             battle.opponent0_assists = data.get("opponent0_assists")
             battle.opponent0_specials = data.get("opponent0_specials")
-            battle.opponent0_game_paint_point = data.get(
-                "opponent0_game_paint_point"
-            )
+            battle.opponent0_game_paint_point = data.get("opponent0_game_paint_point")
             battle.opponent0_gender = data.get("opponent0_gender")
             battle.opponent0_species = data.get("opponent0_species")
             # headgear
@@ -2235,9 +2223,7 @@ class Battle(models.Model):
             battle.opponent1_deaths = data.get("opponent1_deaths")
             battle.opponent1_assists = data.get("opponent1_assists")
             battle.opponent1_specials = data.get("opponent1_specials")
-            battle.opponent1_game_paint_point = data.get(
-                "opponent1_game_paint_point"
-            )
+            battle.opponent1_game_paint_point = data.get("opponent1_game_paint_point")
             battle.opponent1_gender = data.get("opponent1_gender")
             battle.opponent1_species = data.get("opponent1_species")
             # headgear
@@ -2270,9 +2256,7 @@ class Battle(models.Model):
             battle.opponent2_deaths = data.get("opponent2_deaths")
             battle.opponent2_assists = data.get("opponent2_assists")
             battle.opponent2_specials = data.get("opponent2_specials")
-            battle.opponent2_game_paint_point = data.get(
-                "opponent2_game_paint_point"
-            )
+            battle.opponent2_game_paint_point = data.get("opponent2_game_paint_point")
             battle.opponent2_gender = data.get("opponent2_gender")
             battle.opponent2_species = data.get("opponent2_species")
             # headgear
@@ -2305,9 +2289,7 @@ class Battle(models.Model):
             battle.opponent3_deaths = data.get("opponent3_deaths")
             battle.opponent3_assists = data.get("opponent3_assists")
             battle.opponent3_specials = data.get("opponent3_specials")
-            battle.opponent3_game_paint_point = data.get(
-                "opponent3_game_paint_point"
-            )
+            battle.opponent3_game_paint_point = data.get("opponent3_game_paint_point")
             battle.opponent3_gender = data.get("opponent3_gender")
             battle.opponent3_species = data.get("opponent3_species")
             # headgear
