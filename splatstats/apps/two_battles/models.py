@@ -1,3 +1,4 @@
+import base64
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import User
@@ -249,6 +250,165 @@ WeaponFamily = (
     (("6000", "6001", "6005"), _("Splat Brella")),
     (("6010", "6011", "6012"), _("Tenta Brella")),
     (("6020", "6021", "6022"), _("Undercover Brella")),
+)
+
+WeaponClass = (
+    (
+        (
+            "0",
+            "1",
+            "2",
+            "10",
+            "11",
+            "12",
+            "20",
+            "21",
+            "30",
+            "31",
+            "32",
+            "40",
+            "41",
+            "42",
+            "45",
+            "46",
+            "50",
+            "51",
+            "52",
+            "60",
+            "61",
+            "62",
+            "70",
+            "71",
+            "72",
+            "80",
+            "81",
+            "90",
+            "91",
+            "400",
+            "401",
+        ),
+        _("Shooters"),
+    ),
+    (
+        (
+            "200",
+            "201",
+            "202",
+            "210",
+            "211",
+            "215",
+            "220",
+            "221",
+            "222",
+            "230",
+            "231",
+            "240",
+            "241",
+            "242",
+            "250",
+            "251",
+        ),
+        _("Blasters"),
+    ),
+    (("300", "301", "302", "310", "311", "312"), _("Nozzlenose")),
+    (
+        (
+            "1000",
+            "1001",
+            "1010",
+            "1011",
+            "1012",
+            "1015",
+            "1020",
+            "1021",
+            "1030",
+            "1031",
+        ),
+        _("Rollers"),
+    ),
+    (("1100", "1101", "1102", "1110", "1111", "1112", "1115"), _("Brushes")),
+    (
+        (
+            "2000",
+            "2001",
+            "2002",
+            "2010",
+            "2011",
+            "2012",
+            "2015",
+            "2020",
+            "2021",
+            "2022",
+            "2030",
+            "2031",
+            "2040",
+            "2041",
+            "2050",
+            "2051",
+            "2052," "2060",
+            "2061",
+        ),
+        _("Chargers"),
+    ),
+    (
+        (
+            "3000",
+            "3001",
+            "3002",
+            "3005",
+            "3010",
+            "3011",
+            "3020",
+            "3021",
+            "3022",
+            "3030",
+            "3031",
+            "3040",
+            "3041",
+        ),
+        _("Sloshers"),
+    ),
+    (
+        (
+            "4000",
+            "4001",
+            "4002",
+            "4010",
+            "4011",
+            "4012",
+            "4015",
+            "4020",
+            "4021",
+            "4030",
+            "4031",
+            "4040",
+            "4041",
+        ),
+        _("Splatlings"),
+    ),
+    (
+        (
+            "5000",
+            "5001",
+            "5002",
+            "5010",
+            "5011",
+            "5012",
+            "5015",
+            "5020",
+            "5021",
+            "5022",
+            "5030",
+            "5031",
+            "5040",
+            "5041",
+        ),
+        _("Dualies"),
+    ),
+    (
+        ("6000", "6001", "6005", "6010", "6011", "6012", "6020", "6021", "6022"),
+        _("Brellas"),
+    ),
 )
 
 WeaponSubs = (
@@ -1747,12 +1907,16 @@ class Battle(models.Model):
 
         if data.get("image_result") is not None:
             img_temp0 = NamedTemporaryFile()
-            img_temp0.write(data.get("image_result"))
+            img_temp0.write(
+                base64.b64decode(data.get("image_result").encode(encoding="ascii"))
+            )
             img_temp0.flush()
 
         if data.get("image_gear") is not None:
             img_temp1 = NamedTemporaryFile()
-            img_temp1.write(data.get("image_gear"))
+            img_temp1.write(
+                base64.b64decode(data.get("image_gear").encode(encoding="ascii"))
+            )
             img_temp1.flush()
 
         if not Battle.objects.filter(

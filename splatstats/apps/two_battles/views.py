@@ -11,7 +11,6 @@ import base64
 from .models import Battle
 from .objects import Player
 from django.templatetags.static import static
-import json
 from datetime import datetime
 import regex
 from django.core.paginator import Paginator
@@ -1310,21 +1309,7 @@ class BattleAPIView(views.APIView):
         return HttpResponseRedirect("/two_battles/")
 
     @staticmethod
-    def post(request, format=None):
-        image_result = (
-            base64.b64decode(
-                request.data.get("image_result", None).encode(encoding="ascii")
-            )
-            if request.data.get("image_result", None) is not None
-            else None
-        )
-        image_gear = image_gear = (
-            base64.b64decode(
-                request.data.get("image_gear", None).encode(encoding="ascii")
-            )
-            if request.data.get("image_gear", None) is not None
-            else None
-        )
+    def post(request):
         if request.data.get("splatnet_upload", False) or request.data.get(
             "stat_ink_json", False
         ):
@@ -1333,8 +1318,7 @@ class BattleAPIView(views.APIView):
                 user=request.user,
             )
             return Response(data=None, status=status.HTTP_200_OK)
-        else:
-            return Response(data=None, status=status.HTTP_400_BAD_REQUEST)
+        return Response(data=None, status=status.HTTP_400_BAD_REQUEST)
 
 
 def to_int(value):
@@ -1376,253 +1360,6 @@ def attribute_cast(attr, val):
         if regex.search(pattern, attr):
             return switch.get(value)
     return val
-
-
-def get_query(form):
-    tokens = form.cleaned_data["query"].split()
-    current_attribute = None
-    past_tokens = []
-    mapping = {
-        "abcd-abc": {},
-        "abcd-acb": {},
-        "abcd-bac": {},
-        "abcd-bca": {},
-        "abcd-cab": {},
-        "abcd-cba": {},
-        "abdc-abc": {},
-        "abdc-acb": {},
-        "abdc-bac": {},
-        "abdc-bca": {},
-        "abdc-cab": {},
-        "abdc-cba": {},
-        "acbd-abc": {},
-        "acbd-acb": {},
-        "acbd-bac": {},
-        "acbd-bca": {},
-        "acbd-cab": {},
-        "acbd-cba": {},
-        "acdb-abc": {},
-        "acdb-acb": {},
-        "acdb-bac": {},
-        "acdb-bca": {},
-        "acdb-cab": {},
-        "acdb-cba": {},
-        "adbc-abc": {},
-        "adbc-acb": {},
-        "adbc-bac": {},
-        "adbc-bca": {},
-        "adbc-cab": {},
-        "adbc-cba": {},
-        "adcb-abc": {},
-        "adcb-acb": {},
-        "adcb-bac": {},
-        "adcb-bca": {},
-        "adcb-cab": {},
-        "adcb-cba": {},
-        "bacd-abc": {},
-        "bacd-acb": {},
-        "bacd-bac": {},
-        "bacd-bca": {},
-        "bacd-cab": {},
-        "bacd-cba": {},
-        "badc-abc": {},
-        "badc-acb": {},
-        "badc-bac": {},
-        "badc-bca": {},
-        "badc-cab": {},
-        "badc-cba": {},
-        "bcad-abc": {},
-        "bcad-acb": {},
-        "bcad-bac": {},
-        "bcad-bca": {},
-        "bcad-cab": {},
-        "bcad-cba": {},
-        "bcda-abc": {},
-        "bcda-acb": {},
-        "bcda-bac": {},
-        "bcda-bca": {},
-        "bcda-cab": {},
-        "bcda-cba": {},
-        "bdac-abc": {},
-        "bdac-acb": {},
-        "bdac-bac": {},
-        "bdac-bca": {},
-        "bdac-cab": {},
-        "bdac-cba": {},
-        "bdca-abc": {},
-        "bdca-acb": {},
-        "bdca-bac": {},
-        "bdca-bca": {},
-        "bdca-cab": {},
-        "bdca-cba": {},
-        "cabd-abc": {},
-        "cabd-acb": {},
-        "cabd-bac": {},
-        "cabd-bca": {},
-        "cabd-cab": {},
-        "cabd-cba": {},
-        "cadb-abc": {},
-        "cadb-acb": {},
-        "cadb-bac": {},
-        "cadb-bca": {},
-        "cadb-cab": {},
-        "cadb-cba": {},
-        "cbad-abc": {},
-        "cbad-acb": {},
-        "cbad-bac": {},
-        "cbad-bca": {},
-        "cbad-cab": {},
-        "cbad-cba": {},
-        "cbda-abc": {},
-        "cbda-acb": {},
-        "cbda-bac": {},
-        "cbda-bca": {},
-        "cbda-cab": {},
-        "cbda-cba": {},
-        "cdab-abc": {},
-        "cdab-acb": {},
-        "cdab-bac": {},
-        "cdab-bca": {},
-        "cdab-cab": {},
-        "cdab-cba": {},
-        "cdba-abc": {},
-        "cdba-acb": {},
-        "cdba-bac": {},
-        "cdba-bca": {},
-        "cdba-cab": {},
-        "cdba-cba": {},
-        "dabc-abc": {},
-        "dabc-acb": {},
-        "dabc-bac": {},
-        "dabc-bca": {},
-        "dabc-cab": {},
-        "dabc-cba": {},
-        "dacb-abc": {},
-        "dacb-acb": {},
-        "dacb-bac": {},
-        "dacb-bca": {},
-        "dacb-cab": {},
-        "dacb-cba": {},
-        "dbac-abc": {},
-        "dbac-acb": {},
-        "dbac-bac": {},
-        "dbac-bca": {},
-        "dbac-cab": {},
-        "dbac-cba": {},
-        "dbca-abc": {},
-        "dbca-acb": {},
-        "dbca-bac": {},
-        "dbca-bca": {},
-        "dbca-cab": {},
-        "dbca-cba": {},
-        "dcab-abc": {},
-        "dcab-acb": {},
-        "dcab-bac": {},
-        "dcab-bca": {},
-        "dcab-cab": {},
-        "dcab-cba": {},
-        "dcba-abc": {},
-        "dcba-acb": {},
-        "dcba-bac": {},
-        "dcba-bca": {},
-        "dcba-cab": {},
-        "dcba-cba": {},
-    }
-    for token in tokens:
-        if current_attribute is None:
-            current_attribute = token
-        else:
-            if len(past_tokens) > 0:
-                if token[-1] == '"':
-                    past_tokens.append(token[: len(token) - 1])
-                    if regex.search(
-                        "(rule)|(match_type)|(stage)|(win(_meter)?)|(has_disconnected_player)|(((my)|(other))_team_count)|((elapsed_)?time)|(tag_id)|(battle_number)|(((league)|(splatfest))_point)|(splatfest_title_after)|(player_x_power)|(((player)|(teammate_[a-c])|(opponent_[a-d]))_(((headgear)|(clothes)|(shoes))_((sub[0-2])|(main))?|(weapon)|(rank)|(level(_star)?)|(kills)|(deaths)|(assists)|(specials)|(game_paint_point)|(splatfest_title)|(name)|(splatnet_id)|(gender)|(species)))",
-                        current_attribute,
-                    ):
-                        if regex.search(
-                            "((teammate_[a-c])|(opponent_[a-d]))_[0-z_]*",
-                            current_attribute,
-                        ):
-                            for key in mapping:
-                                if current_attribute[0:8] == "teammate":
-                                    mapping[key][
-                                        "{}{}{}".format(
-                                            current_attribute[0:8],
-                                            find_2nd(key, current_attribute[9]) - 5,
-                                            current_attribute[10:],
-                                        )
-                                    ] = attribute_cast(
-                                        current_attribute, "".join(past_tokens)
-                                    )
-                                else:
-                                    mapping[key][
-                                        "{}{}{}".format(
-                                            current_attribute[0:8],
-                                            key.index(current_attribute[9]),
-                                            current_attribute[10:],
-                                        )
-                                    ] = attribute_cast(
-                                        current_attribute, "".join(past_tokens)
-                                    )
-                        else:
-                            for key in mapping:
-                                mapping[key][current_attribute] = attribute_cast(
-                                    current_attribute, "".join(past_tokens)
-                                )
-                        past_tokens = []
-                        current_attribute = None
-                    else:
-                        return Battle.objects.none()
-                else:
-                    past_tokens.append(token)
-            else:
-                if token[0] == '"':
-                    past_tokens.append(token[1:])
-                    past_tokens.append(" ")
-                else:
-                    past_tokens.append(token)
-                    if regex.search(
-                        "(rule)|(match_type)|(stage)|(win(_meter)?)|(has_disconnected_player)|(((my)|(other))_team_count)|((elapsed_)?time)|(tag_id)|(battle_number)|(((league)|(splatfest))_point)|(splatfest_title_after)|(player_x_power)|(((player)|(teammate_[a-c])|(opponent_[a-d]))_(((headgear)|(clothes)|(shoes))_((sub[0-2])|(main))?|(weapon)|(rank)|(level(_star)?)|(kills)|(deaths)|(assists)|(specials)|(game_paint_point)|(splatfest_title)|(name)|(splatnet_id)|(gender)|(species)))",
-                        current_attribute,
-                    ):
-                        if regex.search(
-                            "((teammate_[a-c])|(opponent_[a-d]))_[0-z_]*",
-                            current_attribute,
-                        ):
-                            for key in mapping:
-                                if current_attribute[0:8] == "teammate":
-                                    mapping[key][
-                                        "{}{}{}".format(
-                                            current_attribute[0:8],
-                                            find_2nd(key, current_attribute[9]) - 5,
-                                            current_attribute[10:],
-                                        )
-                                    ] = attribute_cast(
-                                        current_attribute, "".join(past_tokens)
-                                    )
-                                else:
-                                    mapping[key][
-                                        "{}{}{}".format(
-                                            current_attribute[0:8],
-                                            key.index(current_attribute[9]),
-                                            current_attribute[10:],
-                                        )
-                                    ] = attribute_cast(
-                                        current_attribute, "".join(past_tokens)
-                                    )
-                        else:
-                            for key in mapping:
-                                mapping[key][current_attribute] = attribute_cast(
-                                    current_attribute, "".join(past_tokens)
-                                )
-                        past_tokens = []
-                        current_attribute = None
-                    else:
-                        return Battle.objects.none()
-    battles = Battle.objects.none()
-    for key in mapping:
-        battles = battles | Battle.objects.filter(**(mapping[key])).order_by("-time")
-    return battles
 
 
 def advanced_search(request):
