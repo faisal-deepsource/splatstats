@@ -7,6 +7,8 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.template.loader import render_to_string
 from .forms import SignUpForm
 from .tokens import account_activation_token
+from django.core.mail import send_mail
+from django.core.mail import EmailMultiAlternatives
 
 
 def signup(request):
@@ -16,18 +18,20 @@ def signup(request):
             user = form.save(commit=False)
             user.is_active = False
             user.save()
-            current_site = get_current_site(request)
-            subject = "Activate Your MySite Account"
-            message = render_to_string(
+            mail = EmailMultiAlternatives(
+                subject="Finish Your SplatStats Registration",
+                body=render_to_string(
                 "site_auth/account_activation_email.html",
                 {
                     "user": user,
-                    "domain": current_site.domain,
                     "uid": urlsafe_base64_encode(force_bytes(user.pk)),
                     "token": account_activation_token.make_token(user),
-                },
+                }),
+                from_email="SplatStats Signup <splatstats-signup@cass-dlcm.dev>",
+                to=[form.cleaned_data["email"]],
+                headers={"Reply-To": "splatstats-webmaster@cass-dlcm.dev"}
             )
-            user.email_user(subject, message)
+            mail.send()
             return redirect("account_activation_sent")
     else:
         form = SignUpForm()
@@ -46,7 +50,7 @@ def activate(request, uidb64, token):
         user.profile.email_confirmed = True
         user.save()
         login(request, user)
-        return redirect("")
+        return redirect("../../../account/two_factor/setup")
     return render(request, "site_auth/account_activation_invalid.html")
 
 

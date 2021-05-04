@@ -1,6 +1,7 @@
 asgiref==3.3.4
 cachetools==4.2.2
 certifi==2020.12.5
+cffi==1.14.5
 chardet==4.0.0
 colorama==0.4.4
 decorator==4.4.2
@@ -9,6 +10,7 @@ django-formtools==2.3
 django-otp==1.0.4
 django-otp-yubikey==1.0.0.post1
 django-phonenumber-field==5.1.0
+django-storages==1.11.1
 django-two-factor-auth==1.13.1
 djangorestframework==3.12.4
 djangorestframework-jwt==1.11.0
@@ -18,7 +20,11 @@ docutils==0.17.1
 fett==0.3.2
 google-api-core==1.26.3
 google-auth==1.30.0
+google-cloud-core==1.6.0
 google-cloud-secret-manager==2.4.0
+google-cloud-storage==1.38.0
+google-crc32c==1.1.2
+google-resumable-media==1.2.0
 googleapis-common-protos==1.53.0
 grpc-google-iam-v1==0.12.3
 grpcio==1.37.1
@@ -35,11 +41,13 @@ proto-plus==1.18.1
 protobuf==3.15.8
 pyasn1==0.4.8
 pyasn1-modules==0.2.8
+pycparser==2.20
 pycryptodome==3.10.1
 PyJWT==1.7.1
 pymongo==3.11.3
 pyparsing==2.4.7
 python-dateutil==2.8.1
+python-http-client==3.3.2
 python-jsonrpc-server==0.4.0
 pytz==2021.1
 PyYAML==5.4.1
@@ -47,6 +55,8 @@ qrcode==6.1
 regex==2021.4.4
 requests==2.25.1
 rsa==4.7.2
+sendgrid==3.6.5
+sendgrid-django==4.2.0
 six==1.15.0
 sqlparse==0.4.1
 toml==0.10.2
@@ -55,4 +65,5 @@ typing-inspect==0.6.0
 ujson==4.0.2
 urllib3==1.26.4
 watchdog==2.0.3
+whitenoise==5.2.0
 YubiOTP==1.0.0

@@ -41,6 +41,7 @@
                 </div>
                 <table>
                     <tr>
+                        <th>User</th>
                         <th>Splatnet #</th>
                         <th>Mode</th>
                         <th>Stage</th>
@@ -51,6 +52,7 @@
                     </tr>
                 {% for battle, result, time_val, player_weapons in my_list %}
                     <tr>
+                        <td>{{ battle.player_name }}</td>
                         <td><a href="/two_battles/{{ battle.id }}/">{{ battle.battle_number }}</a></td>
                         <td>{{ battle.get_rule_display }}</td>
                         <td>{{ battle.get_stage_display }}</td>

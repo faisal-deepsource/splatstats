@@ -14,8 +14,6 @@
 .gitignore
 .github
 
-static/
-
 # Python pycache:
 __pycache__/
 # Ignored by the build system

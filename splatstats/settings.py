@@ -41,13 +41,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get("DJANGO_DEBUG") == "True"
+DEBUG = False
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY") if DEBUG else access_secret_version("DJANGO_SECRET_KEY")
+SECRET_KEY = access_secret_version("DJANGO_SECRET_KEY")
 
 ALLOWED_HOSTS = [
     "splatstats-312616.uc.r.appspot.com",
+    "splatstats.cass-dlcm.dev",
     "127.0.0.1",
     "localhost",
     "2607:f8b0:4023:1006::99",
@@ -77,6 +78,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -117,12 +119,12 @@ DATABASES = {
         "ENGINE": "django.db.backends.mysql",
         "NAME": "db",
         "USER": "django_database_user",
-        "PASSWORD": os.environ.get("DJANGO_DATABASE_PASSWORD") if DEBUG else access_secret_version("DJANGO_DATABASE_PASSWORD"),
-        "HOST": "localhost" if DEBUG else access_secret_version("DJANGO_DATABASE_HOST"),
+        "PASSWORD": access_secret_version("DJANGO_DATABASE_PASSWORD"),
+        "HOST": '/cloudsql/{}'.format(access_secret_version("DJANGO_DATABASE_HOST")), # "35.224.168.252",
         "PORT": "3306",
+        "OPTIONS": {'unix_socket' : '/cloudsql/{}'.format(access_secret_version("DJANGO_DATABASE_HOST")),}
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -160,12 +162,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_URL = "static/"
-STATIC_ROOT = "static/"
-DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
-GS_BUCKET_NAME = 'static-splatstats'
-STATICFILES_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
-
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+STATIC_ROOT = BASE_DIR + "/static"
+STATIC_URL = "/static/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -191,8 +190,15 @@ REST_FRAMEWORK = {
 }
 from rest_framework.settings import api_settings
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+SENDGRID_API_KEY = access_secret_version("SENDGRID_API_KEY")
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_HOST_USER = 'apikey'
+EMAIL_HOST_PASSWORD = access_secret_version("SENDGRID_API_KEY")
+
 api_settings.UNICODE_JSON = False
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 DATA_UPLOAD_MAX_NUMBER_FIELDS = 10000
 
 MEDIA_URL = "/data/"
