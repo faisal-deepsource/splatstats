@@ -106,6 +106,7 @@ class Lexer:
         while self.current_char is not None and self.current_char != '"':
             result += self.current_char
             self.advance()
+        self.advance()
         return result
 
     def attr(self):
@@ -247,7 +248,7 @@ class Interpreter:
         if self.current_token.type is NOT:
             self.eat(NOT)
             self.eat(LPAREN)
-            result = Battle.objects.all().difference(self.term())
+            result = Battle.objects.all().exclude(id__in=self.term())
             self.eat(RPAREN)
         elif self.current_token.type is LPAREN:
             self.eat(LPAREN)
@@ -256,10 +257,12 @@ class Interpreter:
             if token.type == OR:
                 self.eat(OR)
                 result = set_a | self.term()
+                self.eat(RPAREN)
             elif token.type == AND:
                 self.eat(AND)
                 result = set_a & self.term()
-            self.eat(RPAREN)
+                print(self.current_token)
+                self.eat(RPAREN)
         else:
             result = self.expr()
         return result
@@ -272,7 +275,8 @@ class Interpreter:
 
     def expr(self):
         """expr   : STRING (GREATERTHAN | GREATEREQUAL | LESSTHAN | LESSEQUAL | EQUAL) VALUE"""
-        attribute = self.value()
+        attribute = self.current_token.value
+        self.eat(ATTR)
         if regex.search(
             "(rule)|(match_type)|(stage)|(win(_meter)?)|(has_disconnected_player)|(((my)|(other))_team_count)|((elapsed_)?time)|(tag_id)|(battle_number)|(((league)|(splatfest))_point)|(splatfest_title_after)|(player_x_power)|(((player)|(teammate_[a-c])|(opponent_[a-d]))_(((headgear)|(clothes)|(shoes))(_((sub[0-2])|(main)))?|(weapon)|(rank)|(level(_star)?)|(kills)|(deaths)|(assists)|(specials)|(game_paint_point)|(splatfest_title)|(name)|(splatnet_id)|(gender)|(species)))$",
             attribute,

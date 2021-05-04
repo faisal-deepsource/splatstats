@@ -1747,12 +1747,12 @@ class Battle(models.Model):
         
         if data.get("image_result") is not None:
             img_temp0 = NamedTemporaryFile()
-            img_temp0.write(kwargs["image_result"])
+            img_temp0.write(data.get("image_result"))
             img_temp0.flush()
 
         if data.get("image_gear") is not None:
             img_temp1 = NamedTemporaryFile()
-            img_temp1.write(kwargs["image_gear"])
+            img_temp1.write(data.get("image_gear"))
             img_temp1.flush()
 
         if not Battle.objects.filter(
@@ -2005,13 +2005,13 @@ class Battle(models.Model):
                 opponent3_shoes_sub2=data.get("opponent3_shoes_sub2"),
             )
             battle.save()
-            if kwargs["image_result"] is not None:
+            if data.get("image_result") is not None:
                 battle.image_result.save(
                     "data/{}_image_result.png".format(battle.id),
                     File(img_temp0),
                     save=data.get("True"),
                 )
-            if kwargs["image_gear"] is not None:
+            if data.get("image_gear") is not None:
                 battle.image_gear.save(
                     "data/{}_image_gear.png".format(battle.id),
                     File(img_temp1),
