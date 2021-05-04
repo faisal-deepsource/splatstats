@@ -78,7 +78,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -120,9 +120,15 @@ DATABASES = {
         "NAME": "db",
         "USER": "django_database_user",
         "PASSWORD": access_secret_version("DJANGO_DATABASE_PASSWORD"),
-        "HOST": '/cloudsql/{}'.format(access_secret_version("DJANGO_DATABASE_HOST")), # "35.224.168.252",
+        "HOST": "/cloudsql/{}".format(
+            access_secret_version("DJANGO_DATABASE_HOST")
+        ),  # "35.224.168.252",
         "PORT": "3306",
-        "OPTIONS": {'unix_socket' : '/cloudsql/{}'.format(access_secret_version("DJANGO_DATABASE_HOST")),}
+        "OPTIONS": {
+            "unix_socket": "/cloudsql/{}".format(
+                access_secret_version("DJANGO_DATABASE_HOST")
+            ),
+        },
     }
 }
 
@@ -162,7 +168,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
 STATIC_ROOT = BASE_DIR + "/static"
 STATIC_URL = "/static/"
 
@@ -190,12 +196,12 @@ REST_FRAMEWORK = {
 }
 from rest_framework.settings import api_settings
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 SENDGRID_API_KEY = access_secret_version("SENDGRID_API_KEY")
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.sendgrid.net'
-EMAIL_HOST_USER = 'apikey'
+EMAIL_HOST = "smtp.sendgrid.net"
+EMAIL_HOST_USER = "apikey"
 EMAIL_HOST_PASSWORD = access_secret_version("SENDGRID_API_KEY")
 
 api_settings.UNICODE_JSON = False
