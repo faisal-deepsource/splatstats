@@ -1225,30 +1225,14 @@ class BattleAPIView(views.APIView):
             if request.data.get("image_gear", None) is not None
             else None
         )
-        if request.data.get("splatnet_json", None) is not None:
-            if request.data.get("stat_ink_json", None) is not None:
-                Battle.create(
-                    splatnet_json=json.loads(request.data.get("splatnet_json", None)),
-                    stat_ink_json=json.loads(request.data.get("stat_ink_json", None)),
-                    image_result=image_result,
-                    image_gear=image_gear,
-                    user=request.user,
-                )
-            else:
-                Battle.create(
-                    splatnet_json=json.loads(request.data.get("splatnet_json", None)),
-                    image_result=image_result,
-                    image_gear=image_gear,
-                    user=request.user,
-                )
-        elif request.data.get("stat_ink_json", None) is not None:
+        if request.data.get("splatnet_upload", False) or request.data.get("stat_ink_json", False):
             Battle.create(
-                stat_ink_json=json.loads(request.data.get("stat_ink_json", None)),
-                image_result=image_result,
-                image_gear=image_gear,
+                data=request.data,
                 user=request.user,
             )
-        return Response(data=None, status=status.HTTP_200_OK)
+            return Response(data=None, status=status.HTTP_200_OK)
+        else:
+            return Response(data=None, status=status.HTTP_400_BAD_REQUEST)
 
 
 def to_int(value):
