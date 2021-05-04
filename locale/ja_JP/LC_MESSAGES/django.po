@@ -1,0 +1,4238 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-05-04 19:26-0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: .\splatstats\apps\two_battles\models.py:13
+msgid "All Modes"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:14
+msgid "Splat Zones"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:15
+msgid "Rainmaker"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:16
+msgid "Clam Blitz"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:17
+msgid "Tower Control"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:18
+#: .\splatstats\apps\two_battles\models.py:27
+msgid "Turf War"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:22
+msgid "All Types"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:23
+msgid "League Pair"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:24
+msgid "League Team"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:25
+msgid "Ranked"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:26
+msgid "Private"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:28
+msgid "Splatfest Solo/Pro"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:29
+msgid "Splatfest Team/Normal"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:30
+msgid "Splatfest"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:34
+msgid "All Ranks"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:35
+msgid "C-"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:36
+msgid "C"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:37
+msgid "C+"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:38
+msgid "B-"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:39
+msgid "B"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:40
+msgid "B+"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:41
+msgid "A-"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:42
+msgid "A"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:43
+msgid "A+"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:44
+msgid "S"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:45
+msgid "S+0"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:46
+msgid "S+1"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:47
+msgid "S+2"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:48
+msgid "S+3"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:49
+msgid "S+4"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:50
+msgid "S+5"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:51
+msgid "S+6"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:52
+msgid "S+7"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:53
+msgid "S+8"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:54
+msgid "S+9"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:55
+msgid "X"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:59
+msgid "All Weapons"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:60
+#: .\splatstats\apps\two_battles\models.py:203
+#: .\splatstats\apps\two_salmon\models.py:10
+msgid "Sploosh-o-matic"
+msgstr "ボールドマーカー"
+
+#: .\splatstats\apps\two_battles\models.py:61
+msgid "Neo Sploosh-o-matic"
+msgstr "ボールドマーカーネオ"
+
+#: .\splatstats\apps\two_battles\models.py:62
+msgid "Sploosh-o-matic 7"
+msgstr "ボールドマーカー7"
+
+#: .\splatstats\apps\two_battles\models.py:63
+#: .\splatstats\apps\two_battles\models.py:204
+#: .\splatstats\apps\two_salmon\models.py:11
+msgid "Splattershot Jr."
+msgstr "わかばシューター"
+
+#: .\splatstats\apps\two_battles\models.py:64
+msgid "Custom Splattershot Jr."
+msgstr "もみじシューター"
+
+#: .\splatstats\apps\two_battles\models.py:65
+msgid "Kensa Splattershot Jr."
+msgstr "おちばシューター"
+
+#: .\splatstats\apps\two_battles\models.py:66
+#: .\splatstats\apps\two_battles\models.py:205
+#: .\splatstats\apps\two_salmon\models.py:12
+msgid "Splash-o-matic"
+msgstr "シャープマーカー"
+
+#: .\splatstats\apps\two_battles\models.py:67
+msgid "Neo Splash-o-matic"
+msgstr "シャープマーカーネオ"
+
+#: .\splatstats\apps\two_battles\models.py:68
+#: .\splatstats\apps\two_battles\models.py:206
+#: .\splatstats\apps\two_salmon\models.py:13
+msgid "Aerospray MG"
+msgstr "プロモデラーMG"
+
+#: .\splatstats\apps\two_battles\models.py:69
+msgid "Aerospray RG"
+msgstr "プロモデラーRG"
+
+#: .\splatstats\apps\two_battles\models.py:70
+msgid "Aerospray PG"
+msgstr "プロモデラーPG"
+
+#: .\splatstats\apps\two_battles\models.py:71
+#: .\splatstats\apps\two_battles\models.py:207
+#: .\splatstats\apps\two_salmon\models.py:14
+msgid "Splattershot"
+msgstr "スプラシューター"
+
+#: .\splatstats\apps\two_battles\models.py:72
+msgid "Tentatek Splattershot"
+msgstr "スプラシューターコラボ"
+
+#: .\splatstats\apps\two_battles\models.py:73
+msgid "Kensa Splattershot"
+msgstr "スプラシューターベッチュー"
+
+#: .\splatstats\apps\two_battles\models.py:74
+msgid "Hero Shot Replica"
+msgstr "ヒーローシューター レプリカ"
+
+#: .\splatstats\apps\two_battles\models.py:75
+msgid "Octo Shot Replica"
+msgstr "オクタシューター レプリカ"
+
+#: .\splatstats\apps\two_battles\models.py:76
+#: .\splatstats\apps\two_battles\models.py:208
+#: .\splatstats\apps\two_salmon\models.py:15
+msgid ".52 Gal"
+msgstr ".52ガロン"
+
+#: .\splatstats\apps\two_battles\models.py:77
+msgid ".52 Gal Deco"
+msgstr ".52ガロンデコ"
+
+#: .\splatstats\apps\two_battles\models.py:78
+msgid "Kensa .52 Gal"
+msgstr ".52ガロンベッチュー"
+
+#: .\splatstats\apps\two_battles\models.py:79
+#: .\splatstats\apps\two_battles\models.py:209
+#: .\splatstats\apps\two_salmon\models.py:16
+msgid "N-ZAP '85"
+msgstr "N-ZAP85"
+
+#: .\splatstats\apps\two_battles\models.py:80
+msgid "N-ZAP '89"
+msgstr "N-ZAP89"
+
+#: .\splatstats\apps\two_battles\models.py:81
+msgid "N-ZAP '83"
+msgstr "N-ZAP83"
+
+#: .\splatstats\apps\two_battles\models.py:82
+#: .\splatstats\apps\two_battles\models.py:210
+#: .\splatstats\apps\two_salmon\models.py:17
+msgid "Splattershot Pro"
+msgstr "プライムシューター"
+
+#: .\splatstats\apps\two_battles\models.py:83
+msgid "Forge Splattershot Pro"
+msgstr "プライムシューターコラボ"
+
+#: .\splatstats\apps\two_battles\models.py:84
+msgid "Kensa Splattershot Pro"
+msgstr "プライムシューターベッチュー"
+
+#: .\splatstats\apps\two_battles\models.py:85
+#: .\splatstats\apps\two_battles\models.py:211
+#: .\splatstats\apps\two_salmon\models.py:18
+msgid ".96 Gal"
+msgstr ".96ガロン"
+
+#: .\splatstats\apps\two_battles\models.py:86
+msgid ".96 Gal Deco"
+msgstr ".96ガロンデコ"
+
+#: .\splatstats\apps\two_battles\models.py:87
+#: .\splatstats\apps\two_battles\models.py:212
+#: .\splatstats\apps\two_salmon\models.py:19
+msgid "Jet Squelcher"
+msgstr "ジェットスイーパー"
+
+#: .\splatstats\apps\two_battles\models.py:88
+msgid "Custom Jet Squelcher"
+msgstr "ジェットスイーパーカスタム"
+
+#: .\splatstats\apps\two_battles\models.py:89
+#: .\splatstats\apps\two_battles\models.py:213
+#: .\splatstats\apps\two_salmon\models.py:20
+msgid "Luna Blaster"
+msgstr "ノヴァブラスター"
+
+#: .\splatstats\apps\two_battles\models.py:90
+msgid "Luna Blaster Neo"
+msgstr "ノヴァブラスターネオ"
+
+#: .\splatstats\apps\two_battles\models.py:91
+msgid "Kensa Luna Blaster"
+msgstr "ノヴァブラスターベッチュー"
+
+#: .\splatstats\apps\two_battles\models.py:92
+#: .\splatstats\apps\two_battles\models.py:214
+#: .\splatstats\apps\two_salmon\models.py:21
+msgid "Blaster"
+msgstr "ホットブラスター"
+
+#: .\splatstats\apps\two_battles\models.py:93
+msgid "Custom Blaster"
+msgstr "ホットブラスターカスタム"
+
+#: .\splatstats\apps\two_battles\models.py:94
+msgid "Hero Blaster Replica"
+msgstr "ヒーローブラスター レプリカ"
+
+#: .\splatstats\apps\two_battles\models.py:95
+#: .\splatstats\apps\two_battles\models.py:215
+#: .\splatstats\apps\two_salmon\models.py:22
+msgid "Range Blaster"
+msgstr "ロングブラスター"
+
+#: .\splatstats\apps\two_battles\models.py:96
+msgid "Custom Range Blaster"
+msgstr "ロングブラスターカスタム"
+
+#: .\splatstats\apps\two_battles\models.py:97
+msgid "Grim Range Blaster"
+msgstr "ロングブラスターネクロ"
+
+#: .\splatstats\apps\two_battles\models.py:98
+#: .\splatstats\apps\two_battles\models.py:216
+#: .\splatstats\apps\two_salmon\models.py:23
+msgid "Clash Blaster"
+msgstr "クラッシュブラスター"
+
+#: .\splatstats\apps\two_battles\models.py:99
+msgid "Clash Blaster Neo"
+msgstr "クラッシュブラスターネオ"
+
+#: .\splatstats\apps\two_battles\models.py:100
+#: .\splatstats\apps\two_battles\models.py:217
+#: .\splatstats\apps\two_salmon\models.py:24
+msgid "Rapid Blaster"
+msgstr "ラピッドブラスター"
+
+#: .\splatstats\apps\two_battles\models.py:101
+msgid "Rapid Blaster Deco"
+msgstr "ラピッドブラスターデコ"
+
+#: .\splatstats\apps\two_battles\models.py:102
+msgid "Kensa Rapid Blaster"
+msgstr "ラピッドブラスターベッチュー"
+
+#: .\splatstats\apps\two_battles\models.py:103
+#: .\splatstats\apps\two_battles\models.py:218
+#: .\splatstats\apps\two_salmon\models.py:25
+msgid "Rapid Blaster Pro"
+msgstr "Rブラスターエリート"
+
+#: .\splatstats\apps\two_battles\models.py:104
+msgid "Rapid Blaster Pro Deco"
+msgstr "Rブラスターエリートデコ"
+
+#: .\splatstats\apps\two_battles\models.py:105
+#: .\splatstats\apps\two_battles\models.py:219
+#: .\splatstats\apps\two_salmon\models.py:26
+msgid "L-3 Nozzlenose"
+msgstr "L3リールガン"
+
+#: .\splatstats\apps\two_battles\models.py:106
+msgid "L-3 Nozzlenose D"
+msgstr "L3リールガンD"
+
+#: .\splatstats\apps\two_battles\models.py:107
+msgid "Kensa L-3 Nozzlenose"
+msgstr "L3リールガンベッチュー"
+
+#: .\splatstats\apps\two_battles\models.py:108
+#: .\splatstats\apps\two_battles\models.py:220
+#: .\splatstats\apps\two_salmon\models.py:27
+msgid "H-3 Nozzlenose"
+msgstr "H3リールガン"
+
+#: .\splatstats\apps\two_battles\models.py:109
+msgid "H-3 Nozzlenose D"
+msgstr "H3リールガンD"
+
+#: .\splatstats\apps\two_battles\models.py:110
+msgid "Cherry H-3 Nozzlenose"
+msgstr "H3リールガンチェリー"
+
+#: .\splatstats\apps\two_battles\models.py:111
+#: .\splatstats\apps\two_battles\models.py:221
+#: .\splatstats\apps\two_salmon\models.py:28
+msgid "Squeezer"
+msgstr "ボトルガイザー"
+
+#: .\splatstats\apps\two_battles\models.py:112
+msgid "Foil Squeezer"
+msgstr "ボトルガイザーフォイル"
+
+#: .\splatstats\apps\two_battles\models.py:113
+#: .\splatstats\apps\two_battles\models.py:222
+#: .\splatstats\apps\two_salmon\models.py:29
+msgid "Carbon Roller"
+msgstr "カーボンローラー"
+
+#: .\splatstats\apps\two_battles\models.py:114
+msgid "Carbon Roller Deco"
+msgstr "カーボンローラーデコ"
+
+#: .\splatstats\apps\two_battles\models.py:115
+#: .\splatstats\apps\two_battles\models.py:223
+#: .\splatstats\apps\two_salmon\models.py:30
+msgid "Splat Roller"
+msgstr "スプラローラー"
+
+#: .\splatstats\apps\two_battles\models.py:116
+msgid "Krak-On Splat Roller"
+msgstr "スプラローラーコラボ"
+
+#: .\splatstats\apps\two_battles\models.py:117
+msgid "Kensa Splat Roller"
+msgstr "スプラローラーベッチュー"
+
+#: .\splatstats\apps\two_battles\models.py:118
+msgid "Hero Roller Replica"
+msgstr "ヒーローローラー レプリカ"
+
+#: .\splatstats\apps\two_battles\models.py:119
+#: .\splatstats\apps\two_battles\models.py:224
+#: .\splatstats\apps\two_salmon\models.py:31
+msgid "Dynamo Roller"
+msgstr "ダイナモローラー"
+
+#: .\splatstats\apps\two_battles\models.py:120
+msgid "Gold Dynamo Roller"
+msgstr "ダイナモローラーテスラ"
+
+#: .\splatstats\apps\two_battles\models.py:121
+msgid "Kensa Dynamo Roller"
+msgstr "ダイナモローラーベッチュー"
+
+#: .\splatstats\apps\two_battles\models.py:122
+#: .\splatstats\apps\two_battles\models.py:225
+#: .\splatstats\apps\two_salmon\models.py:32
+msgid "Flingza Roller"
+msgstr "ヴァリアブルローラー"
+
+#: .\splatstats\apps\two_battles\models.py:123
+msgid "Foil Flingza Roller"
+msgstr "ヴァリアブルローラーフォイル"
+
+#: .\splatstats\apps\two_battles\models.py:124
+#: .\splatstats\apps\two_battles\models.py:226
+#: .\splatstats\apps\two_salmon\models.py:33
+msgid "Inkbrush"
+msgstr "パブロ"
+
+#: .\splatstats\apps\two_battles\models.py:125
+msgid "Inkbrush Nouveau"
+msgstr "パブロ・ヒュー"
+
+#: .\splatstats\apps\two_battles\models.py:126
+msgid "Permanent Inkbrush"
+msgstr "パーマネント・パブロ"
+
+#: .\splatstats\apps\two_battles\models.py:127
+#: .\splatstats\apps\two_battles\models.py:227
+#: .\splatstats\apps\two_salmon\models.py:34
+msgid "Octobrush"
+msgstr "ホクサイ"
+
+#: .\splatstats\apps\two_battles\models.py:128
+msgid "Octobrush Nouveau"
+msgstr "ホクサイ・ヒュー"
+
+#: .\splatstats\apps\two_battles\models.py:129
+msgid "Kensa Octobrush"
+msgstr "ホクサイベッチュー"
+
+#: .\splatstats\apps\two_battles\models.py:130
+msgid "Herobrush Replica"
+msgstr "ヒーローブラシ レプリカ"
+
+#: .\splatstats\apps\two_battles\models.py:131
+#: .\splatstats\apps\two_battles\models.py:228
+#: .\splatstats\apps\two_salmon\models.py:35
+msgid "Classic Squiffer"
+msgstr "スクイックリンα"
+
+#: .\splatstats\apps\two_battles\models.py:132
+msgid "New Squiffer"
+msgstr "スクイックリンβ"
+
+#: .\splatstats\apps\two_battles\models.py:133
+msgid "Fresh Squiffer"
+msgstr "スクイックリンγ"
+
+#: .\splatstats\apps\two_battles\models.py:134
+#: .\splatstats\apps\two_battles\models.py:229
+#: .\splatstats\apps\two_salmon\models.py:36
+msgid "Splat Charger"
+msgstr "スプラチャージャー"
+
+#: .\splatstats\apps\two_battles\models.py:135
+msgid "Firefin Splat Charger"
+msgstr "スプラチャージャーコラボ"
+
+#: .\splatstats\apps\two_battles\models.py:136
+msgid "Kensa Charger"
+msgstr "スプラチャージャーベッチュー"
+
+#: .\splatstats\apps\two_battles\models.py:137
+msgid "Hero Charger Replica"
+msgstr "ヒーローチャージャー レプリカ"
+
+#: .\splatstats\apps\two_battles\models.py:138
+#: .\splatstats\apps\two_battles\models.py:230
+#: .\splatstats\apps\two_salmon\models.py:37
+msgid "Splatterscope"
+msgstr "スプラスコープ"
+
+#: .\splatstats\apps\two_battles\models.py:139
+msgid "Firefin Splatterscope"
+msgstr "スプラスコープコラボ"
+
+#: .\splatstats\apps\two_battles\models.py:140
+msgid "Kensa Splatterscope"
+msgstr "スプラスコープベッチュー"
+
+#: .\splatstats\apps\two_battles\models.py:141
+#: .\splatstats\apps\two_battles\models.py:231
+#: .\splatstats\apps\two_salmon\models.py:38
+msgid "E-liter 4K"
+msgstr "リッター4K"
+
+#: .\splatstats\apps\two_battles\models.py:142
+msgid "Custom E-liter 4K"
+msgstr "リッター4Kカスタム"
+
+#: .\splatstats\apps\two_battles\models.py:143
+#: .\splatstats\apps\two_battles\models.py:232
+#: .\splatstats\apps\two_salmon\models.py:39
+msgid "E-liter 4K Scope"
+msgstr "4Kスコープ'"
+
+#: .\splatstats\apps\two_battles\models.py:144
+msgid "Custom E-liter 4K Scope"
+msgstr "4Kスコープカスタム"
+
+#: .\splatstats\apps\two_battles\models.py:145
+#: .\splatstats\apps\two_battles\models.py:233
+#: .\splatstats\apps\two_salmon\models.py:40
+msgid "Bamboozler 14 Mk I"
+msgstr "14式竹筒銃・甲"
+
+#: .\splatstats\apps\two_battles\models.py:146
+msgid "Bamboozler 14 Mk II"
+msgstr "14式竹筒銃・乙"
+
+#: .\splatstats\apps\two_battles\models.py:147
+msgid "Bamboozler 14 Mk III"
+msgstr "14式竹筒銃・丙"
+
+#: .\splatstats\apps\two_battles\models.py:148
+#: .\splatstats\apps\two_battles\models.py:234
+#: .\splatstats\apps\two_salmon\models.py:41
+msgid "Goo Tuber"
+msgstr "ソイチューバー"
+
+#: .\splatstats\apps\two_battles\models.py:149
+msgid "Custom Goo Tuber"
+msgstr "ソイチューバーカスタム"
+
+#: .\splatstats\apps\two_battles\models.py:150
+#: .\splatstats\apps\two_battles\models.py:235
+#: .\splatstats\apps\two_salmon\models.py:42
+msgid "Slosher"
+msgstr "バケットスロッシャー"
+
+#: .\splatstats\apps\two_battles\models.py:151
+msgid "Slosher Deco"
+msgstr "バケットスロッシャーデコ"
+
+#: .\splatstats\apps\two_battles\models.py:152
+msgid "Soda Slosher"
+msgstr "バケットスロッシャーソーダ"
+
+#: .\splatstats\apps\two_battles\models.py:153
+msgid "Hero Slosher Replica"
+msgstr "ヒーロースロッシャー レプリカ"
+
+#: .\splatstats\apps\two_battles\models.py:154
+#: .\splatstats\apps\two_battles\models.py:236
+#: .\splatstats\apps\two_salmon\models.py:43
+msgid "Tri-Slosher"
+msgstr "ヒッセン"
+
+#: .\splatstats\apps\two_battles\models.py:155
+msgid "Tri-Slosher Nouveau"
+msgstr "ヒッセン・ヒュー"
+
+#: .\splatstats\apps\two_battles\models.py:156
+#: .\splatstats\apps\two_battles\models.py:237
+#: .\splatstats\apps\two_salmon\models.py:44
+msgid "Sloshing Machine"
+msgstr "スクリュースロッシャー"
+
+#: .\splatstats\apps\two_battles\models.py:157
+msgid "Sloshing Machine Neo"
+msgstr "スクリュースロッシャーネオ"
+
+#: .\splatstats\apps\two_battles\models.py:158
+msgid "Kensa Sloshing Machine"
+msgstr "スクリュースロッシャーベッチュー"
+
+#: .\splatstats\apps\two_battles\models.py:159
+#: .\splatstats\apps\two_battles\models.py:238
+#: .\splatstats\apps\two_salmon\models.py:45
+msgid "Bloblobber"
+msgstr "オーバーフロッシャー"
+
+#: .\splatstats\apps\two_battles\models.py:160
+msgid "Bloblobber Deco"
+msgstr "オーバーフロッシャーデコ"
+
+#: .\splatstats\apps\two_battles\models.py:161
+#: .\splatstats\apps\two_battles\models.py:239
+#: .\splatstats\apps\two_salmon\models.py:46
+msgid "Explosher"
+msgstr "エクスプロッシャー"
+
+#: .\splatstats\apps\two_battles\models.py:162
+msgid "Custom Explosher"
+msgstr "エクスプロッシャーカスタム"
+
+#: .\splatstats\apps\two_battles\models.py:163
+#: .\splatstats\apps\two_battles\models.py:240
+#: .\splatstats\apps\two_salmon\models.py:47
+msgid "Mini Splatling"
+msgstr "スプラスピナー"
+
+#: .\splatstats\apps\two_battles\models.py:164
+msgid "Zink Mini Splatling"
+msgstr "スプラスピナーコラボ"
+
+#: .\splatstats\apps\two_battles\models.py:165
+msgid "Kensa Mini Splatling"
+msgstr "スプラスピナーベッチュー"
+
+#: .\splatstats\apps\two_battles\models.py:166
+#: .\splatstats\apps\two_battles\models.py:241
+#: .\splatstats\apps\two_salmon\models.py:48
+msgid "Heavy Splatling"
+msgstr "バレルスピナー"
+
+#: .\splatstats\apps\two_battles\models.py:167
+msgid "Heavy Splating Deco"
+msgstr "バレルスピナーデコ"
+
+#: .\splatstats\apps\two_battles\models.py:168
+msgid "Heavy Splatling Remix"
+msgstr "バレルスピナーリミックス"
+
+#: .\splatstats\apps\two_battles\models.py:169
+msgid "Hero Splatling Replica"
+msgstr "ヒーロースピナー レプリカ"
+
+#: .\splatstats\apps\two_battles\models.py:170
+#: .\splatstats\apps\two_battles\models.py:242
+#: .\splatstats\apps\two_salmon\models.py:49
+msgid "Hydra Splatling"
+msgstr "ハイドラント"
+
+#: .\splatstats\apps\two_battles\models.py:171
+msgid "Custom Hydra Splatling"
+msgstr "ハイドラントカスタム"
+
+#: .\splatstats\apps\two_battles\models.py:172
+#: .\splatstats\apps\two_battles\models.py:243
+#: .\splatstats\apps\two_salmon\models.py:50
+msgid "Ballpoint Splatling"
+msgstr "クーゲルシュライバー"
+
+#: .\splatstats\apps\two_battles\models.py:173
+msgid "Ballpoint Splatling Nouveau"
+msgstr "クーゲルシュライバー・ヒュー"
+
+#: .\splatstats\apps\two_battles\models.py:174
+#: .\splatstats\apps\two_battles\models.py:244
+#: .\splatstats\apps\two_salmon\models.py:51
+msgid "Nautilus 47"
+msgstr "ノーチラス47"
+
+#: .\splatstats\apps\two_battles\models.py:175
+msgid "Nautilus 79"
+msgstr "ノーチラス79"
+
+#: .\splatstats\apps\two_battles\models.py:176
+#: .\splatstats\apps\two_battles\models.py:245
+#: .\splatstats\apps\two_salmon\models.py:52
+msgid "Dapple Dualies"
+msgstr "スパッタリー"
+
+#: .\splatstats\apps\two_battles\models.py:177
+msgid "Daple Dualies Nouveau"
+msgstr "スパッタリー・ヒュー"
+
+#: .\splatstats\apps\two_battles\models.py:178
+msgid "Clear Dapple Dualies"
+msgstr "スパッタリークリア"
+
+#: .\splatstats\apps\two_battles\models.py:179
+#: .\splatstats\apps\two_battles\models.py:246
+#: .\splatstats\apps\two_salmon\models.py:53
+msgid "Splat Dualies"
+msgstr "スプラマニューバー"
+
+#: .\splatstats\apps\two_battles\models.py:180
+msgid "Enperry Splat Dualies"
+msgstr "スプラマニューバーコラボ"
+
+#: .\splatstats\apps\two_battles\models.py:181
+msgid "Kensa Splat Dualies"
+msgstr "スプラマニューバーベッチュー"
+
+#: .\splatstats\apps\two_battles\models.py:182
+msgid "Hero Dualie Replicas"
+msgstr "ヒーローマニューバー レプリカ"
+
+#: .\splatstats\apps\two_battles\models.py:183
+#: .\splatstats\apps\two_battles\models.py:247
+#: .\splatstats\apps\two_salmon\models.py:54
+msgid "Glooga Dualies"
+msgstr "ケルビン525"
+
+#: .\splatstats\apps\two_battles\models.py:184
+msgid "Glooga Dualies Deco"
+msgstr "ケルビン525デコ"
+
+#: .\splatstats\apps\two_battles\models.py:185
+msgid "Kensa Glooga Dualies"
+msgstr "ケルビン525ベッチュー"
+
+#: .\splatstats\apps\two_battles\models.py:186
+#: .\splatstats\apps\two_battles\models.py:248
+#: .\splatstats\apps\two_salmon\models.py:55
+msgid "Dualie Squelchers"
+msgstr "デュアルスイーパー"
+
+#: .\splatstats\apps\two_battles\models.py:187
+msgid "Custom Dualie Squelchers"
+msgstr "デュアルスイーパーカスタム"
+
+#: .\splatstats\apps\two_battles\models.py:188
+#: .\splatstats\apps\two_battles\models.py:249
+#: .\splatstats\apps\two_salmon\models.py:56
+msgid "Dark Tetra Dualies"
+msgstr "クアッドホッパーブラック"
+
+#: .\splatstats\apps\two_battles\models.py:189
+msgid "Light Tetra Dualies"
+msgstr "クアッドホッパーホワイト"
+
+#: .\splatstats\apps\two_battles\models.py:190
+#: .\splatstats\apps\two_battles\models.py:250
+#: .\splatstats\apps\two_salmon\models.py:57
+msgid "Splat Brella"
+msgstr "パラシェルター"
+
+#: .\splatstats\apps\two_battles\models.py:191
+msgid "Sorella Brella"
+msgstr "パラシェルターソレーラ"
+
+#: .\splatstats\apps\two_battles\models.py:192
+msgid "Hero Brella Replica"
+msgstr "ヒーローシェルター レプリカ"
+
+#: .\splatstats\apps\two_battles\models.py:193
+#: .\splatstats\apps\two_battles\models.py:251
+#: .\splatstats\apps\two_salmon\models.py:58
+msgid "Tenta Brella"
+msgstr "キャンピングシェルター"
+
+#: .\splatstats\apps\two_battles\models.py:194
+msgid "Tenta Sorella Brella"
+msgstr "キャンピングシェルターソレーラ"
+
+#: .\splatstats\apps\two_battles\models.py:195
+msgid "Tenta Camo Brella"
+msgstr "キャンピングシェルターカーモ"
+
+#: .\splatstats\apps\two_battles\models.py:196
+#: .\splatstats\apps\two_battles\models.py:252
+#: .\splatstats\apps\two_salmon\models.py:59
+msgid "Undercover Brella"
+msgstr "スパイガジェット"
+
+#: .\splatstats\apps\two_battles\models.py:197
+msgid "Undercover Sorella Brella"
+msgstr "スパイガジェットソレーラ"
+
+#: .\splatstats\apps\two_battles\models.py:198
+msgid "Kensa Undercover Brella"
+msgstr "スパイガジェットベッチュー"
+
+#: .\splatstats\apps\two_battles\models.py:290
+msgid "Shooters"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:311
+msgid "Blasters"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:313
+msgid "Nozzlenose"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:327
+msgid "Rollers"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:329
+msgid "Brushes"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:351
+msgid "Chargers"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:369
+msgid "Sloshers"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:387
+msgid "Splatlings"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:406
+msgid "Dualies"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:410
+msgid "Brellas"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:429
+msgid "Curling Bomb"
+msgstr "カーリングボム"
+
+#: .\splatstats\apps\two_battles\models.py:431
+msgid "Squid Beakon"
+msgstr "ジャンプビーコン"
+
+#: .\splatstats\apps\two_battles\models.py:453
+msgid "Splat Bomb"
+msgstr "スプラッシュボム"
+
+#: .\splatstats\apps\two_battles\models.py:469
+msgid "Autobomb"
+msgstr "ロボットボム"
+
+#: .\splatstats\apps\two_battles\models.py:471
+msgid "Torpedo"
+msgstr "トーピード"
+
+#: .\splatstats\apps\two_battles\models.py:474
+msgid "Toxic Mist"
+msgstr "ポイズンミスト"
+
+#: .\splatstats\apps\two_battles\models.py:491
+msgid "Burst Bomb"
+msgstr "クイックボム"
+
+#: .\splatstats\apps\two_battles\models.py:511
+msgid "Suction Bomb"
+msgstr "キューバンボム"
+
+#: .\splatstats\apps\two_battles\models.py:531
+msgid "Sprinkler"
+msgstr "スプリンクラー"
+
+#: .\splatstats\apps\two_battles\models.py:535
+msgid "Point Sensor"
+msgstr "ポイントセンサー"
+
+#: .\splatstats\apps\two_battles\models.py:553
+msgid "Splash Wall"
+msgstr "スプラッシュシールド"
+
+#: .\splatstats\apps\two_battles\models.py:557
+msgid "Ink Mine"
+msgstr "トラップ"
+
+#: .\splatstats\apps\two_battles\models.py:559
+msgid "Fizzy Bomb"
+msgstr "タンサンボム"
+
+#: .\splatstats\apps\two_battles\models.py:563
+msgid "Autobomb Launcher"
+msgstr "ボムピッチャー"
+
+#: .\splatstats\apps\two_battles\models.py:583
+msgid "Baller"
+msgstr "イカスフィア"
+
+#: .\splatstats\apps\two_battles\models.py:585
+msgid "Booyah Bomb"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:601
+msgid "Bubble Blower"
+msgstr "バブルランチャー"
+
+#: .\splatstats\apps\two_battles\models.py:603
+msgid "Burst-Bomb Launcher"
+msgstr "ボムピッチャー"
+
+#: .\splatstats\apps\two_battles\models.py:604
+msgid "Curling-Bomb Launcher"
+msgstr "ボムピッチャー"
+
+#: .\splatstats\apps\two_battles\models.py:620
+msgid "Ink Armor"
+msgstr "インクアーマー"
+
+#: .\splatstats\apps\two_battles\models.py:642
+msgid "Ink Storm"
+msgstr "アメフラシ"
+
+#: .\splatstats\apps\two_battles\models.py:661
+msgid "Inkjet"
+msgstr "ジェットパック"
+
+#: .\splatstats\apps\two_battles\models.py:681
+msgid "Splashdown"
+msgstr "スーパーチャクチ"
+
+#: .\splatstats\apps\two_battles\models.py:683
+msgid "Splat-Bomb Launcher"
+msgstr "ボムピッチャー"
+
+#: .\splatstats\apps\two_battles\models.py:698
+msgid "Sting Ray"
+msgstr "ハイパープレッサー"
+
+#: .\splatstats\apps\two_battles\models.py:700
+msgid "Suction-Bomb Launcher"
+msgstr "ボムピッチャー"
+
+#: .\splatstats\apps\two_battles\models.py:720
+msgid "Tenta Missiles"
+msgstr "マルチミサイル"
+
+#: .\splatstats\apps\two_battles\models.py:722
+msgid "Ultra Stamp"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:726
+msgid "All Stages"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:727
+msgid "The Reef"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:728
+msgid "Musselforge Fitness"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:729
+msgid "Starfish Mainstage"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:730
+msgid "Sturgeon Shipyard"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:731
+msgid "Inkblot Art Academy"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:732
+msgid "Humpback Pump Track"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:733
+msgid "Manta Maria"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:734
+msgid "Port Mackerel"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:735
+msgid "Moray Towers"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:736
+msgid "Snapper Canal"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:737
+msgid "Kelp Dome"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:738
+msgid "Blackbelly Skatepark"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:739
+msgid "Shellendorf Institute"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:740
+msgid "MakoMart"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:741
+msgid "Walleye Warehouse"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:742
+msgid "Arowana Mall"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:743
+msgid "Camp Triggerfish"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:744
+msgid "Piranha Pit"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:745
+msgid "Goby Arena"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:746
+msgid "New Albacore Hotel"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:747
+msgid "Wahoo World"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:748
+msgid "Ancho-V Games"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:749
+msgid "Skipper Pavillion"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:750
+msgid "Zappy Longshocking"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:751
+msgid "The Switches"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:752
+msgid "Sweet Valley Tentacles"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:753
+msgid "Railway Chillin'"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:754
+msgid "Flooders in the Attic"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:755
+msgid "The Splat in Our Zones"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:756
+msgid "The Ink is Spreading"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:757
+msgid "Bridge to Tentaswitchia"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:758
+msgid "The Chronicles of Rolonium"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:759
+msgid "Shifty Station"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:763
+#: .\splatstats\apps\two_battles\models.py:792
+msgid "Ink Saver (Main)"
+msgstr "インク効率アップ（メイン）"
+
+#: .\splatstats\apps\two_battles\models.py:764
+#: .\splatstats\apps\two_battles\models.py:793
+msgid "Ink Saver (Sub)"
+msgstr "インク効率アップ（サブ）"
+
+#: .\splatstats\apps\two_battles\models.py:765
+#: .\splatstats\apps\two_battles\models.py:794
+msgid "Ink Recovery Up"
+msgstr "インク回復力アップ"
+
+#: .\splatstats\apps\two_battles\models.py:766
+#: .\splatstats\apps\two_battles\models.py:795
+msgid "Run Speed Up"
+msgstr "ヒト移動速度アップ"
+
+#: .\splatstats\apps\two_battles\models.py:767
+#: .\splatstats\apps\two_battles\models.py:796
+msgid "Swim Speed Up"
+msgstr "イカダッシュ速度アップ"
+
+#: .\splatstats\apps\two_battles\models.py:768
+#: .\splatstats\apps\two_battles\models.py:797
+msgid "Special Charge Up"
+msgstr "スペシャル増加量アップ"
+
+#: .\splatstats\apps\two_battles\models.py:769
+#: .\splatstats\apps\two_battles\models.py:798
+msgid "Special Saver"
+msgstr "スペシャル減少量ダウン"
+
+#: .\splatstats\apps\two_battles\models.py:770
+#: .\splatstats\apps\two_battles\models.py:799
+msgid "Special Power Up"
+msgstr "スペシャル性能アップ"
+
+#: .\splatstats\apps\two_battles\models.py:771
+#: .\splatstats\apps\two_battles\models.py:800
+msgid "Quick Respawn"
+msgstr "復活時間短縮"
+
+#: .\splatstats\apps\two_battles\models.py:772
+#: .\splatstats\apps\two_battles\models.py:801
+msgid "Quick Super Jump"
+msgstr "スーパージャンプ時間短縮"
+
+#: .\splatstats\apps\two_battles\models.py:773
+#: .\splatstats\apps\two_battles\models.py:802
+msgid "Sub Power Up"
+msgstr "サブ性能アップ"
+
+#: .\splatstats\apps\two_battles\models.py:774
+#: .\splatstats\apps\two_battles\models.py:803
+msgid "Ink Resistance Up"
+msgstr "相手インク影響軽減"
+
+#: .\splatstats\apps\two_battles\models.py:775
+msgid "Opening Gambit"
+msgstr "スタートダッシュ"
+
+#: .\splatstats\apps\two_battles\models.py:776
+msgid "Last Ditch Effort"
+msgstr "ラストスパート"
+
+#: .\splatstats\apps\two_battles\models.py:777
+msgid "Tenacity"
+msgstr "逆境強化"
+
+#: .\splatstats\apps\two_battles\models.py:778
+msgid "Comeback"
+msgstr "カムバック"
+
+#: .\splatstats\apps\two_battles\models.py:779
+msgid "Ninja Squid"
+msgstr "イカニンジャ"
+
+#: .\splatstats\apps\two_battles\models.py:780
+msgid "Haunt"
+msgstr "リベンジ"
+
+#: .\splatstats\apps\two_battles\models.py:781
+msgid "Thermal Ink"
+msgstr "サーマルインク"
+
+#: .\splatstats\apps\two_battles\models.py:782
+msgid "Respawn Punisher"
+msgstr "復活ペナルティアップ"
+
+#: .\splatstats\apps\two_battles\models.py:783
+msgid "Ability Doubler"
+msgstr "追加ギアパワー倍化"
+
+#: .\splatstats\apps\two_battles\models.py:784
+msgid "Stealth Jump"
+msgstr "ステルスジャンプ"
+
+#: .\splatstats\apps\two_battles\models.py:785
+msgid "Object Shredder"
+msgstr "対物攻撃力アップ"
+
+#: .\splatstats\apps\two_battles\models.py:786
+msgid "Drop Roller"
+msgstr "受け身術"
+
+#: .\splatstats\apps\two_battles\models.py:787
+#: .\splatstats\apps\two_battles\models.py:804
+msgid "Bomb Defense Up DX"
+msgstr "爆風ダメージ軽減・改"
+
+#: .\splatstats\apps\two_battles\models.py:788
+#: .\splatstats\apps\two_battles\models.py:805
+msgid "Main Power Up"
+msgstr "メイン性能アップ"
+
+#: .\splatstats\apps\two_battles\models.py:806
+msgid "Question Mark"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:810
+msgid "White Headband"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:811
+msgid "Urchins Cap"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:812
+msgid "Lightweight Cap"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:813
+msgid "Takoroka Mesh"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:814
+msgid "Streetstyle Cap"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:815
+msgid "Squid-Stitch Cap"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:816
+msgid "Squidvader Cap"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:817
+msgid "Camo Mesh"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:818
+msgid "Five-Panel Cap"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:819
+msgid "Zekko Mesh"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:820
+msgid "Backwards Cap"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:821
+msgid "Two-Stripe Mesh"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:822
+msgid "Jet Cap"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:823
+msgid "Cycling Cap"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:824
+msgid "Cycle King Cap"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:825
+msgid "Long-Billed Cap"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:826
+msgid "King Flip Mesh"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:827
+msgid "Hickory Work Cap"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:828
+msgid "Wooly Urchins Classic"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:829
+msgid "Jellyvader Cap"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:830
+msgid "House-Tag Denim Cap"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:831
+msgid "Blowfish Newsie"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:832
+msgid "Do-Rag, Cap, and Glasses"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:833
+msgid "Pilot Hat"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:834
+msgid "Bobble Hat"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:835
+msgid "Short Beanie"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:836
+msgid "Striped Beanie"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:837
+msgid "Sporty Bobble Hat"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:838
+msgid "Special Forces Beret"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:839
+msgid "Squid Nordic"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:840
+msgid "Sennyu Bon Bon Beanie"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:841
+msgid "Knitted Hat"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:842
+msgid "Annaki Beret"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:843
+msgid "Yamagiri Beanie"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:844
+msgid "Sneaky Beanie"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:845
+msgid "Retro Specs"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:846
+msgid "Splash Goggles"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:847
+msgid "Pilot Goggles"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:848
+msgid "Tinted Shades"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:849
+msgid "Black Arrowbands"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:850
+msgid "Snorkel Mask"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:851
+msgid "White Arrowbands"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:852
+msgid "Fake Contacts"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:853
+msgid "18K Aviators"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:854
+msgid "Full Moon Glasses"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:855
+msgid "Octoglasses"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:856
+msgid "Half-Rim Glasses"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:857
+msgid "Double Egg Shades"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:858
+msgid "Zekko Cap"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:859
+msgid "SV925 Circle Shades"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:860
+msgid "Annaki Beret and Glasses"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:861
+msgid "Swim Goggles"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:862
+msgid "Ink-Guard Goggles"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:863
+msgid "Toni Kensa Goggles"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:864
+msgid "Sennyu Goggles"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:865
+msgid "Sennyu Specs"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:866
+msgid "Safari Hat"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:867
+msgid "Jungle Hat"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:868
+msgid "Camping Hat"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:869
+msgid "Blowfish Bell Hat"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:870
+msgid "Bamboo Hat"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:871
+msgid "Straw Boater"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:872
+msgid "Classic Straw Boater"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:873
+msgid "Treasure Hunter"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:874
+msgid "Bucket Hat"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:875
+msgid "Patched Hat"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:876
+msgid "Tulip Parasol"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:877
+msgid "Fugu Bell Hat"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:878
+msgid "Seashell Bamboo Hat"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:879
+msgid "Hothouse Hat"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:880
+msgid "Mountie Hat"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:881
+msgid "Studio Headphones"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:882
+msgid "Designer Headphones"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:883
+msgid "Noise Cancelers"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:884
+msgid "Squidfin Hook Cans"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:885
+msgid "Squidlife Headphones"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:886
+msgid "Studio Octophones"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:887
+msgid "Sennyu Headphones"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:888
+msgid "Golf Visor"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:889
+msgid "FishFry Visor"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:890
+msgid "Sun Visor"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:891
+msgid "Takoroka Visor"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:892
+msgid "Face Visor"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:893
+msgid "Bike Helmet"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:894
+msgid "Stealth Goggles"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:895
+msgid "Skate Helmet"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:896
+msgid "Visor Skate Helmet"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:897
+msgid "MTB Helmet"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:898
+msgid "Hockey Helmet"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:899
+msgid "Matte Bike Helmet"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:900
+msgid "Octo Tackle Helmet Deco"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:901
+msgid "Moist Ghillie Helmet"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:902
+msgid "Deca Tackle Visor Helmet"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:903
+msgid "Gas Mask"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:904
+msgid "Paintball Mask"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:905
+msgid "Paisley Bandana"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:906
+msgid "Skull Bandana"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:907
+msgid "Painter's Mask"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:908
+msgid "Annaki Mask"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:909
+msgid "Octoking Facemask"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:910
+msgid "Squid Facemask"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:911
+msgid "Firefin Facemask"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:912
+msgid "King Facemask"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:913
+msgid "Motocross Nose Guard"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:914
+msgid "Forge Mask"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:915
+msgid "Digi-Camo Forge Mask"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:916
+msgid "Koshien Bandana"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:917
+msgid "B-ball Headband"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:918
+msgid "Squash Headband"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:919
+msgid "Tennis Headband"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:920
+msgid "Jogging Headband"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:921
+msgid "Soccer Headband"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:922
+msgid "FishFry Biscuit Bandana"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:923
+msgid "Black FishFry Bandana"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:924
+msgid "Eminence Cuff"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:925
+msgid "Headlamp Helmet"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:926
+msgid "Dust Blocker 2000"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:927
+msgid "Welding Mask"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:928
+msgid "Beekeeper Hat"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:929
+msgid "Octoleet Goggles"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:930
+msgid "Cap of Legend"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:931
+msgid "Oceanic Hard Hat"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:932
+msgid "Worker's Head Towel"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:933
+msgid "Sailor Cap"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:934
+msgid "Mecha Head - HTR"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:935
+msgid "Kyonshi Hat"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:936
+msgid "Li'l Devil Horns"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:937
+msgid "Hockey Mask"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:938
+msgid "Anglerfish Mask"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:939
+msgid "Festive Party Cone"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:940
+msgid "New Year's Glasses DX"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:941
+msgid "Twisty Headband"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:942
+msgid "Eel-Cake Hat"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:944
+msgid "Green Novelty Visor"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:945
+msgid "Orange Novelty Visor"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:946
+msgid "Pink Novelty Visor"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:947
+msgid "Squid Hairclip"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:948
+msgid "Samurai Helmet"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:949
+msgid "Power Mask"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:950
+msgid "Squid Clip-Ons"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:951
+msgid "Squinja Mask"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:952
+msgid "Power Mask Mk I"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:953
+msgid "Pearlescent Crown"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:954
+msgid "Marinated Headphones"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:955
+msgid "Enchanted Hat"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:956
+msgid "Steel Helm"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:957
+msgid "Fresh Fish Head"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:958
+msgid "Hero Headset Replica"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:959
+msgid "Armor Helmet Replica"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:960
+msgid "Hero Headphones Replica"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:961
+msgid "Octoling Shades"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:962
+msgid "Null Visor Replica"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:963
+msgid "Old-Timey Hat"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:964
+msgid "Conductor Cap"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:965
+msgid "Golden Toothpick"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:969
+msgid "Basic Tee"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:970
+msgid "Fresh Octo Tee"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:971
+msgid "White Tee"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:972
+msgid "Black Squideye"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:973
+msgid "Sky Blue Squideye"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:974
+msgid "Rockenberg White"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:975
+msgid "Rockenberg Black"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:976
+msgid "Black Tee"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:977
+msgid "Sunny-Day Tee"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:978
+msgid "Rainy-Day Tee"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:979
+msgid "Reggae Tee"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:980
+msgid "Fugu Tee"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:981
+msgid "Mint Tee"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:982
+msgid "Grape Tee"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:983
+msgid "Red Vector Tee"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:984
+msgid "Gray Vector Tee"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:985
+msgid "Blue Peaks Tee"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:986
+msgid "Ivory Peaks Tee"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:987
+msgid "Squid-Stitch Tee"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:988
+msgid "Pirate-Stripe Tee"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:989
+msgid "Sailor-Stripe Tee"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:990
+msgid "White 8-Bit FishFry"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:991
+msgid "Black 8-Bit FishFry"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:992
+msgid "White Anchor Tee"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:993
+msgid "Black Anchor Tee"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:994
+msgid "Carnivore Tee"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:995
+msgid "Pearl Tee"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:996
+msgid "Octo Tee"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:997
+msgid "Herbivore Tee"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:998
+msgid "Black V-Neck Tee"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:999
+msgid "White Deca Logo Tee"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1000
+msgid "Half-Sleeve Sweater"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1001
+msgid "King Jersey"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1002
+msgid "Gray 8-Bit FishFry"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1003
+msgid "White V-Neck Tee"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1004
+msgid "White Urchin Rock Tee"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1005
+msgid "Black Urchin Rock Tee"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1006
+msgid "Wet Floor Band Tee"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1007
+msgid "Squid Squad Band Tee"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1008
+msgid "Navy Deca Logo Tee"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1009
+msgid "Mister Shrug Tee"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1010
+msgid "Chirpy Chips Band Tee"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1011
+msgid "Hightide Era Band Tee"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1012
+msgid "Red V-Neck Limited Tee"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1013
+msgid "Green V-Neck Limited Tee"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1014
+msgid "ω-3 Tee"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1015
+msgid "Annaki Polpo-Pic Tee"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1016
+msgid "Firewave Tee"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1017
+msgid "Takoroka Galactic Tie Dye"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1018
+msgid "Takoroka Rainbow Tie Dye"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1019
+msgid "Missus Shrug Tee"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1020
+msgid "League Tee"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1021
+msgid "Friend Tee"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1022
+msgid "Tentatek Slogan Tee"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1023
+msgid "Icewave Tee"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1024
+msgid "Octoking HK Jersey"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1025
+msgid "Dakro Nana Tee"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1026
+msgid "Dakro Golden Tee"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1028
+msgid "Green Velour Octoking Tee"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1029
+msgid "SWC Logo Tee"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1030
+msgid "White Striped LS"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1031
+msgid "Black LS"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1032
+msgid "Purple Camo LS"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1033
+msgid "Navy Striped LS"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1034
+msgid "Zekko Baseball LS"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1035
+msgid "Varsity Baseball LS"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1036
+msgid "Black Baseball LS"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1037
+msgid "White Baseball LS"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1038
+msgid "White LS"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1039
+msgid "Green Striped LS"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1040
+msgid "Squidmark LS"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1041
+msgid "Zink LS"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1042
+msgid "Striped Peaks LS"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1043
+msgid "Pink Easy-Stripe Shirt"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1044
+msgid "Inkopolis Squaps Jersey"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1045
+msgid "Annaki Drive Tee"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1046
+msgid "Lime Easy-Stripe Shirt"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1047
+msgid "Annaki Evolution Tee"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1048
+msgid "Zekko Long Carrot Tee"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1049
+msgid "Zekko Long Radish Tee"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1050
+msgid "Black Cuttlegear LS"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1051
+msgid "Takoroka Crazy Baseball LS"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1052
+msgid "Red Cuttlegear LS"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1053
+msgid "Khaki 16-Bit FishFry"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1054
+msgid "Blue 16-Bit FishFry"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1055
+msgid "White Layered LS"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1056
+msgid "Yellow Layered LS"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1057
+msgid "Camo Layered LS"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1058
+msgid "Black Layered LS"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1059
+msgid "Zink Layered LS"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1060
+msgid "Layered Anchor LS"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1061
+msgid "Choco Layered LS"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1062
+msgid "Part-Time Pirate"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1063
+msgid "Layered Vector LS"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1064
+msgid "Green Tee"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1065
+msgid "Red Tentatek Tee"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1066
+msgid "Blue Tentatek Tee"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1067
+msgid "Octo Layered LS"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1068
+msgid "Squid Yellow Layered LS"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1069
+msgid "Shrimp-Pink Polo"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1070
+msgid "Striped Rugby"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1071
+msgid "Tricolor Rugby"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1072
+msgid "Sage Polo"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1073
+msgid "Black Polo"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1074
+msgid "Cycling Shirt"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1075
+msgid "Cycle King Jersey"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1076
+msgid "Slipstream United"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1077
+msgid "FC Albacore"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1078
+msgid "Olive Ski Jacket"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1079
+msgid "Takoroka Nylon Vintage"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1080
+msgid "Berry Ski Jacket"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1081
+msgid "Varsity Jacket"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1082
+msgid "School Jersey"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1083
+msgid "Green Cardigan"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1084
+msgid "Black Inky Rider"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1085
+msgid "White Inky Rider"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1086
+msgid "Retro Gamer Jersey"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1087
+msgid "Orange Cardigan"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1088
+msgid "Forge Inkling Parka"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1089
+msgid "Forge Octarian Jacket"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1090
+msgid "Blue Sailor Suit"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1091
+msgid "White Sailor Suit"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1092
+msgid "Squid Satin Jacket"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1093
+msgid "Zapfish Satin Jacket"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1094
+msgid "Krak-On 528"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1095
+msgid "Chilly Mountain Coat"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1096
+msgid "Takoroka Windcrusher"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1097
+msgid "Matcha Down Jacket"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1098
+msgid "FA-01 Jacket"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1099
+msgid "FA-01 Reversed"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1100
+msgid "Pullover Coat"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1101
+msgid "Kensa Coat"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1102
+msgid "Birded Corduroy Jacket"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1103
+msgid "Deep-Octo Satin Jacket"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1104
+msgid "Zekko Redleaf Coat"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1105
+msgid "Eggplant Mountain Coat"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1106
+msgid "Zekko Jade Coat"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1107
+msgid "Light Bomber Jacket"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1108
+msgid "Brown FA-11 Bomber"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1109
+msgid "Gray FA-11 Bomber"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1110
+msgid "Milky Eminence Jacket"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1111
+msgid "Navy Eminence Jacket"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1112
+msgid "Tumeric Zekko Coat"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1113
+msgid "Custom Painted F-3"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1114
+msgid "Dark Bomber Jacket"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1115
+msgid "Moist Ghillie Suit"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1116
+msgid "White Leather F-3"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1117
+msgid "Chili-Pepper Ski Jacket"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1118
+msgid "Whale-Knit Sweater"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1119
+msgid "Rockin' Leather Jacket"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1120
+msgid "Kung-Fu Zip-Up"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1121
+msgid "Panda Kung-Fu Zip-Up"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1122
+msgid "Sennyu Suit"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1123
+msgid "B-ball Jersey (Home)"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1124
+msgid "B-ball Jersey (Away)"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1125
+msgid "White King Tank"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1126
+msgid "Slash King Tank"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1127
+msgid "Navy King Tank"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1128
+msgid "Lob-Stars Jersey"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1129
+msgid "Gray College Sweat"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1130
+msgid "Squidmark Sweat"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1131
+msgid "Retro Sweat"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1132
+msgid "Firefin Navy Sweat"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1133
+msgid "Navy College Sweat"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1134
+msgid "Reel Sweat"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1135
+msgid "Anchor Sweat"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1136
+msgid "Negative Longcuff Sweater"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1137
+msgid "Short Knit Layers"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1138
+msgid "Positive Longcuff Sweater"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1139
+msgid "Annaki Blue Cuff"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1140
+msgid "Annaki Yellow Cuff"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1141
+msgid "Annaki Red Cuff"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1142
+msgid "N-Pacer Sweat"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1143
+msgid "Octarian Retro"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1144
+msgid "Takoroka Jersey"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1145
+msgid "Lumberjack Shirt"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1146
+msgid "Rodeo Shirt"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1147
+msgid "Green-Check Shirt"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1148
+msgid "White Shirt"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1149
+msgid "Urchins Jersey"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1150
+msgid "Aloha Shirt"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1151
+msgid "Red-Check Shirt"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1152
+msgid "Baby-Jelly Shirt"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1153
+msgid "Baseball Jersey"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1154
+msgid "Gray Mixed Shirt"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1155
+msgid "Vintage Check Shirt"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1156
+msgid "Round-Collar Shirt"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1157
+msgid "Logo Aloha Shirt"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1158
+msgid "Striped Shirt"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1159
+msgid "Linen Shirt"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1160
+msgid "Shirt and Tie"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1161
+msgid "Hula Punk Shirt"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1162
+msgid "Octobowler Shirt"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1163
+msgid "Inkfall Shirt"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1164
+msgid "Crimson Parashooter"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1165
+msgid "Baby-Jelly Shirt and Tie"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1166
+msgid "Prune Parashooter"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1167
+msgid "Red Hula Punk with Tie"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1168
+msgid "Chili Octo Aloha"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1169
+msgid "Annaki Flannel Hoodie"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1170
+msgid "Ink-Wash Shirt"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1171
+msgid "Dots-On-Dots Shirt"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1172
+msgid "Toni K. Baseball Jersey"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1173
+msgid "Online Jersey"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1174
+msgid "Mountain Vest"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1175
+msgid "Forest Vest"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1176
+msgid "Dark Urban Vest"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1177
+msgid "Yellow Urban Vest"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1178
+msgid "Squid-Pattern Waistcoat"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1179
+msgid "Squidstar Waistcoat"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1180
+msgid "Fishing Vest"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1181
+msgid "Front Zip Vest"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1182
+msgid "Silver Tentatek Vest"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1183
+msgid "Camo Zip Hoodie"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1184
+msgid "Green Zip Hoodie"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1185
+msgid "Zekko Hoodie"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1186
+msgid "Shirt with Blue Hoodie"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1187
+msgid "Grape Hoodie"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1188
+msgid "Gray Hoodie"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1189
+msgid "Hothouse Hoodie"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1190
+msgid "Pink Hoodie"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1191
+msgid "Olive Zekko Parka"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1192
+msgid "Black Hoodie"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1193
+msgid "Octo Support Hoodie"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1194
+msgid "Squiddor Polo"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1195
+msgid "Anchor Life Vest"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1196
+msgid "Juice Parka"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1197
+msgid "Garden Gear"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1198
+msgid "Crustwear XXL"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1199
+msgid "North-Country Parka"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1200
+msgid "Octoleet Armor"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1201
+msgid "Record Shop Look EP"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1202
+msgid "Dev Uniform"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1203
+msgid "Office Attire"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1204
+msgid "SRL Coat"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1205
+msgid "Mecha Body - AKM"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1206
+msgid "Splatfest Tee Replica"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1207
+msgid "School Uniform"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1208
+msgid "Samurai Jacket"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1209
+msgid "Power Armor"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1210
+msgid "School Cardigan"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1211
+msgid "Squinja Suit"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1212
+msgid "Power Armor Mk I"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1213
+msgid "Pearlescent Hoodie"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1214
+msgid "Marinated Top"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1215
+msgid "Enchanted Robe"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1216
+msgid "Steel Platemail"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1217
+msgid "Fresh Fish Gloves"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1218
+msgid "Splatfest Tee"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1219
+msgid "Hero Jacket Replica"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1220
+msgid "Armor Jacket Replica"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1221
+msgid "Hero Hoodie Replica"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1222
+msgid "Neo Octoling Armor"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1223
+msgid "Null Armor Replica"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1224
+msgid "Old-Timey Clothes"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1228
+msgid "Cream Basics"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1229
+msgid "Blue Lo-Tops"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1230
+msgid "Banana Basics"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1231
+msgid "LE Lo-Tops"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1232
+msgid "White Seahorses"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1233
+msgid "Orange Lo-Tops"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1234
+msgid "Black Seahorses"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1235
+msgid "Clownfish Basics"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1236
+msgid "Yellow Seahorses"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1237
+msgid "Strapping Whites"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1238
+msgid "Strapping Reds"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1239
+msgid "Soccer Shoes"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1240
+msgid "LE Soccer Shoes"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1241
+msgid "Sunny Climbing Shoes"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1242
+msgid "Birch Climbing Shoes"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1243
+msgid "Green Laceups"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1244
+msgid "White Laceless Dakroniks"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1245
+msgid "Blue Laceless Dakroniks"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1246
+msgid "Suede Gray Lace-Ups"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1248
+msgid "Suede Marine Lace-Ups"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1249
+msgid "Toni Kensa Soccer Shoes"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1250
+msgid "Red Hi-Horses"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1251
+msgid "Zombie Hi-Horses"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1252
+msgid "Cream Hi-Tops"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1253
+msgid "Purple Hi-Horses"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1254
+msgid "Hunter Hi-Tops"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1255
+msgid "Red Hi-Tops"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1256
+msgid "Gold Hi-Horses"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1257
+msgid "Shark Moccasins"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1258
+msgid "Mawcasins"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1259
+msgid "Chocolate Dakroniks"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1260
+msgid "Mint Dakroniks"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1261
+msgid "Black Dakroniks"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1262
+msgid "Piranha Moccasins"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1263
+msgid "White Norimaki 750s"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1264
+msgid "Black Norimaki 750s"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1265
+msgid "Sunset Orca Hi-Tops"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1266
+msgid "Red and Black Squidkid IV"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1267
+msgid "Blue and Black Squidkd IV"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1268
+msgid "Gray Sea-Slug Hi-Tops"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1269
+msgid "Orca Hi-Tops"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1270
+msgid "Milky Enperrials"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1271
+msgid "Navy Enperrials"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1272
+msgid "Amber Sea Slug Hi-Tops"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1273
+msgid "Yellow Iromaki 750s"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1274
+msgid "Red and White Squidkid V"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1275
+msgid "Honey and Orange Squidkid V"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1276
+msgid "Sun and Shade Squidkid IV"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1277
+msgid "Orca Woven Hi-Tops"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1278
+msgid "Green Iromaki 750s"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1279
+msgid "Purple Iromaki 750s"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1280
+msgid "Red Iromaki 750s"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1281
+msgid "Blue Iromaki 750s"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1282
+msgid "Orange Iromaki 750s"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1283
+msgid "Red Power Stripes"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1284
+msgid "Blue Power Stripes"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1285
+msgid "Toni Kensa Black Hi-Tops"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1286
+msgid "Sesame Salt 270s"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1287
+msgid "Black and Blue Squidkid V"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1288
+msgid "Orca Passion Hi-Tops"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1289
+msgid "Truffle Canvas Hi-Tops"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1290
+msgid "Online Squidkid V"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1291
+msgid "Pink Trainers"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1292
+msgid "Orange Arrows"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1293
+msgid "Neon Sea Slugs"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1294
+msgid "White Arrows"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1295
+msgid "Cyan Trainers"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1296
+msgid "Blue Sea Slugs"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1297
+msgid "Red Sea Slugs"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1298
+msgid "Purple Sea Slugs"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1299
+msgid "Crazy Arrows"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1300
+msgid "Black Trainers"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1301
+msgid "Violet Trainers"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1302
+msgid "Canary Trainers"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1303
+msgid "Yellow-Mesh Sneakers"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1304
+msgid "Arrow Pull-Ons"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1305
+msgid "Red-Mesh Sneakers"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1306
+msgid "N-Pacer CaO"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1307
+msgid "N-Pacer Ag"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1308
+msgid "N-Pacer Au"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1309
+msgid "Sea Slug Volt 95s"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1310
+msgid "Athletic Arrows"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1311
+msgid "Oyster Clogs"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1312
+msgid "Choco Clogs"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1313
+msgid "Blueberry Casuals"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1314
+msgid "Plum Casuals"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1315
+msgid "Neon Delta Straps"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1316
+msgid "Black Flip-Flops"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1317
+msgid "Snow Delta Straps"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1318
+msgid "Luminous Delta Straps"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1319
+msgid "Red FishFry Sandals"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1320
+msgid "Yellow FishFry Sandals"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1321
+msgid "Musselforge Flip-Flops"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1322
+msgid "Trail Boots"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1323
+msgid "Custom Trail Boots"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1324
+msgid "Pro Trail Boots"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1325
+msgid "Moto Boots"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1326
+msgid "Tan Work Boots"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1327
+msgid "Red Work Boots"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1328
+msgid "Blue Moto Boots"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1329
+msgid "Green Rain Boots"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1330
+msgid "Acerola Rain Boots"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1331
+msgid "Punk Whites"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1332
+msgid "Punk Cherries"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1333
+msgid "Punk Yellows"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1334
+msgid "Bubble Rain Boots"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1335
+msgid "Snowy Down Boots"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1336
+msgid "Icy Down Boots"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1337
+msgid "Hunting Boots"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1338
+msgid "Punk Blacks"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1339
+msgid "Deepsea Leather Boots"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1340
+msgid "Moist Ghillie Boots"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1341
+msgid "Annaki Arachno Boots"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1342
+msgid "New-Leaf Leather Boots"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1343
+msgid "Tea-Green Hunting Boots"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1344
+msgid "Blue Slip-Ons"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1345
+msgid "Red Slip-Ons"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1346
+msgid "Squid-Stitch Slip-Ons"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1347
+msgid "Polka-dot Slip-Ons"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1348
+msgid "White Kicks"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1349
+msgid "Cherry Kicks"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1350
+msgid "Turquois Kicks"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1351
+msgid "Squink Wingtips"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1352
+msgid "Roasted Brogues"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1353
+msgid "Kid Clams"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1354
+msgid "Smoky Wingtips"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1355
+msgid "Navy Red-Soled Wingtips"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1356
+msgid "Gray Yellow-Soled Wingtips"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1357
+msgid "Inky Kid Clams"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1358
+msgid "Annaki Habaneros"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1359
+msgid "Annaki Tigers"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1360
+msgid "Sennyu Inksoles"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1361
+msgid "Angry Rain Boots"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1362
+msgid "Non-slip Senseis"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1363
+msgid "Octoleet Boots"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1364
+msgid "Friendship Bracelet"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1365
+msgid "Flipper Floppers"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1366
+msgid "Wooden Sandals"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1367
+msgid "Mecha Legs - LBS"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1368
+msgid "Pearl-Scout Lace-Ups"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1369
+msgid "Pearlescent Squidkid IV"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1370
+msgid "Pearl Punk Crowns"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1371
+msgid "New-Day Arrows"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1372
+msgid "Marination Lace-Ups"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1373
+msgid "Rina Squidkid IV"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1374
+msgid "Trooper Power Stripes"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1375
+msgid "Midnight Slip-Ons"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1376
+msgid "School Shoes"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1377
+msgid "Samurai Shoes"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1378
+msgid "Power Boots"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1379
+msgid "Fringed Loafers"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1380
+msgid "Squinja Boots"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1381
+msgid "Power Boots Mk I"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1382
+msgid "Pearlescent Kicks"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1383
+msgid "Marinated Slip-Ons"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1384
+msgid "Enchanted Boots"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1385
+msgid "Steel Greaves"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1386
+msgid "Fresh Fish Feet"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1387
+msgid "Hero Runner Replicas"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1388
+msgid "Armor Boot Replicas"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1389
+msgid "Hero Snowboots Replicas"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1390
+msgid "Neo Octoling Boots"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1391
+msgid "Null Boots Replica"
+msgstr ""
+
+#: .\splatstats\apps\two_battles\models.py:1392
+msgid "Old-Timey Shoes"
+msgstr ""
+
+#: .\splatstats\apps\two_salmon\models.py:60
+msgid "Grizzco Blaster"
+msgstr ""
+
+#: .\splatstats\apps\two_salmon\models.py:61
+msgid "Grizzco Brella"
+msgstr ""
+
+#: .\splatstats\apps\two_salmon\models.py:62
+msgid "Grizzco Charger"
+msgstr ""
+
+#: .\splatstats\apps\two_salmon\models.py:63
+msgid "Grizzco Slosher"
+msgstr ""
+
+#: .\splatstats\models.py:7
+msgid "Inkling"
+msgstr ""
+
+#: .\splatstats\models.py:8
+msgid "Octoling"
+msgstr ""
+
+#: .\splatstats\models.py:12
+msgid "Female"
+msgstr ""
+
+#: .\splatstats\models.py:13
+msgid "Male"
+msgstr ""
+
+#: .\templates\admin\404.html:4 .\templates\admin\404.html:8
+msgid "Page not found"
+msgstr ""
+
+#: .\templates\admin\404.html:10
+msgid "We’re sorry, but the requested page could not be found."
+msgstr ""
+
+#: .\templates\admin\500.html:6 .\templates\admin\app_index.html:9
+#: .\templates\admin\auth\user\change_password.html:10
+#: .\templates\admin\base.html:65 .\templates\admin\change_form.html:18
+#: .\templates\admin\change_list.html:31
+#: .\templates\admin\delete_confirmation.html:14
+#: .\templates\admin\delete_selected_confirmation.html:14
+#: .\templates\admin\invalid_setup.html:6
+#: .\templates\admin\object_history.html:6
+msgid "Home"
+msgstr ""
+
+#: .\templates\admin\500.html:7
+msgid "Server error"
+msgstr ""
+
+#: .\templates\admin\500.html:11
+msgid "Server error (500)"
+msgstr ""
+
+#: .\templates\admin\500.html:14
+msgid "Server Error <em>(500)</em>"
+msgstr ""
+
+#: .\templates\admin\500.html:15
+msgid ""
+"There’s been an error. It’s been reported to the site administrators via "
+"email and should be fixed shortly. Thanks for your patience."
+msgstr ""
+
+#: .\templates\admin\actions.html:8
+msgid "Run the selected action"
+msgstr ""
+
+#: .\templates\admin\actions.html:8
+msgid "Go"
+msgstr ""
+
+#: .\templates\admin\actions.html:16
+msgid "Click here to select the objects across all pages"
+msgstr ""
+
+#: .\templates\admin\actions.html:16
+#, python-format
+msgid "Select all %(total_count)s %(module_name)s"
+msgstr ""
+
+#: .\templates\admin\actions.html:18
+msgid "Clear selection"
+msgstr ""
+
+#: .\templates\admin\app_list.html:8
+#, python-format
+msgid "Models in the %(name)s application"
+msgstr ""
+
+#: .\templates\admin\app_list.html:19
+#: .\templates\admin\widgets\related_widget_wrapper.html:18
+msgid "Add"
+msgstr ""
+
+#: .\templates\admin\app_list.html:26
+#: .\templates\admin\edit_inline\stacked.html:16
+#: .\templates\admin\edit_inline\tabular.html:38
+msgid "View"
+msgstr ""
+
+#: .\templates\admin\app_list.html:28
+#: .\templates\admin\edit_inline\stacked.html:16
+#: .\templates\admin\edit_inline\tabular.html:38
+#: .\templates\admin\widgets\related_widget_wrapper.html:11
+msgid "Change"
+msgstr ""
+
+#: .\templates\admin\app_list.html:39
+msgid "You don’t have permission to view or edit anything."
+msgstr ""
+
+#: .\templates\admin\auth\user\add_form.html:6
+msgid ""
+"First, enter a username and password. Then, you’ll be able to edit more user "
+"options."
+msgstr ""
+
+#: .\templates\admin\auth\user\add_form.html:8
+msgid "Enter a username and password."
+msgstr ""
+
+#: .\templates\admin\auth\user\change_password.html:14
+#: .\templates\admin\auth\user\change_password.html:52
+#: .\templates\admin\base.html:53
+msgid "Change password"
+msgstr ""
+
+#: .\templates\admin\auth\user\change_password.html:25
+#: .\templates\admin\change_form.html:43 .\templates\admin\change_list.html:51
+#: .\templates\admin\login.html:23
+msgid "Please correct the error below."
+msgstr ""
+
+#: .\templates\admin\auth\user\change_password.html:25
+#: .\templates\admin\change_form.html:43 .\templates\admin\change_list.html:51
+#: .\templates\admin\login.html:23
+msgid "Please correct the errors below."
+msgstr ""
+
+#: .\templates\admin\auth\user\change_password.html:29
+#, python-format
+msgid "Enter a new password for the user <strong>%(username)s</strong>."
+msgstr ""
+
+#: .\templates\admin\base.html:39
+msgid "Welcome,"
+msgstr ""
+
+#: .\templates\admin\base.html:44
+msgid "View site"
+msgstr ""
+
+#: .\templates\admin\base.html:49
+msgid "Documentation"
+msgstr ""
+
+#: .\templates\admin\base.html:55
+msgid "Log out"
+msgstr ""
+
+#: .\templates\admin\base_site.html:3
+msgid "Django site admin"
+msgstr ""
+
+#: .\templates\admin\base_site.html:6
+msgid "Django administration"
+msgstr ""
+
+#: .\templates\admin\change_form.html:21
+#: .\templates\admin\change_list_object_tools.html:8
+#, python-format
+msgid "Add %(name)s"
+msgstr ""
+
+#: .\templates\admin\change_form_object_tools.html:5
+#: .\templates\admin\object_history.html:10
+msgid "History"
+msgstr ""
+
+#: .\templates\admin\change_form_object_tools.html:7
+#: .\templates\admin\edit_inline\stacked.html:18
+#: .\templates\admin\edit_inline\tabular.html:40
+msgid "View on site"
+msgstr ""
+
+#: .\templates\admin\change_list.html:76
+msgid "Filter"
+msgstr ""
+
+#: .\templates\admin\change_list.html:78
+#, fuzzy
+#| msgid "Clear Dapple Dualies"
+msgid "Clear all filters"
+msgstr "スパッタリークリア"
+
+#: .\templates\admin\change_list_results.html:17
+msgid "Remove from sorting"
+msgstr ""
+
+#: .\templates\admin\change_list_results.html:18
+#, python-format
+msgid "Sorting priority: %(priority_number)s"
+msgstr ""
+
+#: .\templates\admin\change_list_results.html:19
+msgid "Toggle sorting"
+msgstr ""
+
+#: .\templates\admin\delete_confirmation.html:18
+#: .\templates\admin\submit_line.html:7
+#: .\templates\admin\widgets\related_widget_wrapper.html:25
+msgid "Delete"
+msgstr ""
+
+#: .\templates\admin\delete_confirmation.html:24
+#, python-format
+msgid ""
+"Deleting the %(object_name)s '%(escaped_object)s' would result in deleting "
+"related objects, but your account doesn't have permission to delete the "
+"following types of objects:"
+msgstr ""
+
+#: .\templates\admin\delete_confirmation.html:31
+#, python-format
+msgid ""
+"Deleting the %(object_name)s '%(escaped_object)s' would require deleting the "
+"following protected related objects:"
+msgstr ""
+
+#: .\templates\admin\delete_confirmation.html:38
+#, python-format
+msgid ""
+"Are you sure you want to delete the %(object_name)s \"%(escaped_object)s\"? "
+"All of the following related items will be deleted:"
+msgstr ""
+
+#: .\templates\admin\delete_confirmation.html:40
+#: .\templates\admin\delete_selected_confirmation.html:39
+msgid "Objects"
+msgstr ""
+
+#: .\templates\admin\delete_confirmation.html:47
+#: .\templates\admin\delete_selected_confirmation.html:50
+msgid "Yes, I’m sure"
+msgstr ""
+
+#: .\templates\admin\delete_confirmation.html:48
+#: .\templates\admin\delete_selected_confirmation.html:51
+msgid "No, take me back"
+msgstr ""
+
+#: .\templates\admin\delete_selected_confirmation.html:17
+msgid "Delete multiple objects"
+msgstr ""
+
+#: .\templates\admin\delete_selected_confirmation.html:23
+#, python-format
+msgid ""
+"Deleting the selected %(objects_name)s would result in deleting related "
+"objects, but your account doesn't have permission to delete the following "
+"types of objects:"
+msgstr ""
+
+#: .\templates\admin\delete_selected_confirmation.html:30
+#, python-format
+msgid ""
+"Deleting the selected %(objects_name)s would require deleting the following "
+"protected related objects:"
+msgstr ""
+
+#: .\templates\admin\delete_selected_confirmation.html:37
+#, python-format
+msgid ""
+"Are you sure you want to delete the selected %(objects_name)s? All of the "
+"following objects and their related items will be deleted:"
+msgstr ""
+
+#: .\templates\admin\edit_inline\tabular.html:24
+msgid "Delete?"
+msgstr ""
+
+#: .\templates\admin\filter.html:2
+#, python-format
+msgid " By %(filter_title)s "
+msgstr ""
+
+#: .\templates\admin\includes\object_delete_summary.html:2
+msgid "Summary"
+msgstr ""
+
+#: .\templates\admin\index.html:23
+msgid "Recent actions"
+msgstr ""
+
+#: .\templates\admin\index.html:24
+msgid "My actions"
+msgstr ""
+
+#: .\templates\admin\index.html:28
+msgid "None available"
+msgstr ""
+
+#: .\templates\admin\index.html:42
+msgid "Unknown content"
+msgstr ""
+
+#: .\templates\admin\invalid_setup.html:12
+msgid ""
+"Something’s wrong with your database installation. Make sure the appropriate "
+"database tables have been created, and make sure the database is readable by "
+"the appropriate user."
+msgstr ""
+
+#: .\templates\admin\login.html:39
+#, python-format
+msgid ""
+"You are authenticated as %(username)s, but are not authorized to access this "
+"page. Would you like to login to a different account?"
+msgstr ""
+
+#: .\templates\admin\login.html:59
+msgid "Forgotten your password or username?"
+msgstr ""
+
+#: .\templates\admin\login.html:63
+msgid "Log in"
+msgstr ""
+
+#: .\templates\admin\nav_sidebar.html:2
+msgid "Toggle navigation"
+msgstr ""
+
+#: .\templates\admin\object_history.html:22
+msgid "Date/time"
+msgstr ""
+
+#: .\templates\admin\object_history.html:23
+msgid "User"
+msgstr ""
+
+#: .\templates\admin\object_history.html:24
+msgid "Action"
+msgstr ""
+
+#: .\templates\admin\object_history.html:38
+msgid ""
+"This object doesn’t have a change history. It probably wasn’t added via this "
+"admin site."
+msgstr ""
+
+#: .\templates\admin\pagination.html:10 .\templates\admin\search_form.html:9
+msgid "Show all"
+msgstr ""
+
+#: .\templates\admin\pagination.html:11 .\templates\admin\submit_line.html:4
+msgid "Save"
+msgstr ""
+
+#: .\templates\admin\popup_response.html:3
+msgid "Popup closing…"
+msgstr ""
+
+#: .\templates\admin\search_form.html:7
+msgid "Search"
+msgstr ""
+
+#: .\templates\admin\search_form.html:9
+#, python-format
+msgid "%(counter)s result"
+msgid_plural "%(counter)s results"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\templates\admin\search_form.html:9
+#, python-format
+msgid "%(full_result_count)s total"
+msgstr ""
+
+#: .\templates\admin\submit_line.html:9
+msgid "Save as new"
+msgstr ""
+
+#: .\templates\admin\submit_line.html:10
+msgid "Save and add another"
+msgstr ""
+
+#: .\templates\admin\submit_line.html:11
+msgid "Save and continue editing"
+msgstr ""
+
+#: .\templates\admin\submit_line.html:11
+msgid "Save and view"
+msgstr ""
+
+#: .\templates\admin\submit_line.html:12
+msgid "Close"
+msgstr ""
+
+#: .\templates\admin\widgets\related_widget_wrapper.html:10
+#, python-format
+msgid "Change selected %(model)s"
+msgstr ""
+
+#: .\templates\admin\widgets\related_widget_wrapper.html:17
+#, python-format
+msgid "Add another %(model)s"
+msgstr ""
+
+#: .\templates\admin\widgets\related_widget_wrapper.html:24
+#, python-format
+msgid "Delete selected %(model)s"
+msgstr ""
+
+#: .\templates\site_auth\login.html:5 .\templates\two_factor\core\login.html:5
+msgid "Login"
+msgstr ""
+
+#: .\templates\site_auth\login.html:8 .\templates\two_factor\core\login.html:8
+msgid "Enter your credentials."
+msgstr ""
+
+#: .\templates\site_auth\login.html:11
+#: .\templates\two_factor\core\login.html:11
+#: .\templates\two_factor\core\setup.html:29
+msgid "We are calling your phone right now, please enter the digits you hear."
+msgstr ""
+
+#: .\templates\site_auth\login.html:14
+#: .\templates\two_factor\core\login.html:14
+#: .\templates\two_factor\core\setup.html:32
+msgid "We sent you a text message, please enter the tokens we sent."
+msgstr ""
+
+#: .\templates\site_auth\login.html:17
+#: .\templates\two_factor\core\login.html:17
+msgid "Please enter the tokens generated by your token generator."
+msgstr ""
+
+#: .\templates\site_auth\login.html:21
+#: .\templates\two_factor\core\login.html:21
+msgid ""
+"Use this form for entering backup tokens for logging in. These tokens have "
+"been generated for you to print and keep safe. Please enter one of these "
+"backup tokens to login to your account."
+msgstr ""
+
+#: .\templates\site_auth\login.html:33
+#: .\templates\two_factor\core\login.html:33
+msgid "Or, alternatively, use one of your backup phones:"
+msgstr ""
+
+#: .\templates\site_auth\login.html:43
+#: .\templates\two_factor\core\login.html:43
+msgid "As a last resort, you can use a backup token:"
+msgstr ""
+
+#: .\templates\site_auth\login.html:46
+#: .\templates\two_factor\core\login.html:46
+msgid "Use Backup Token"
+msgstr ""
+
+#: .\templates\site_auth\profile.html:5
+#: .\templates\two_factor\profile\profile.html:5
+msgid "Account Security"
+msgstr ""
+
+#: .\templates\site_auth\profile.html:9
+#: .\templates\two_factor\profile\profile.html:9
+msgid "Tokens will be generated by your token generator."
+msgstr ""
+
+#: .\templates\site_auth\profile.html:11
+#: .\templates\two_factor\profile\profile.html:11
+#, python-format
+msgid "Primary method: %(primary)s"
+msgstr ""
+
+#: .\templates\site_auth\profile.html:13
+#: .\templates\two_factor\profile\profile.html:13
+msgid "Tokens will be generated by your YubiKey."
+msgstr ""
+
+#: .\templates\site_auth\profile.html:17
+#: .\templates\two_factor\profile\profile.html:17
+msgid "Backup Phone Numbers"
+msgstr ""
+
+#: .\templates\site_auth\profile.html:18
+#: .\templates\two_factor\profile\profile.html:18
+msgid ""
+"If your primary method is not available, we are able to send backup tokens "
+"to the phone numbers listed below."
+msgstr ""
+
+#: .\templates\site_auth\profile.html:28
+#: .\templates\two_factor\profile\profile.html:28
+msgid "Unregister"
+msgstr ""
+
+#: .\templates\site_auth\profile.html:34
+#: .\templates\two_factor\core\setup_complete.html:21
+#: .\templates\two_factor\profile\profile.html:34
+msgid "Add Phone Number"
+msgstr ""
+
+#: .\templates\site_auth\profile.html:37
+#: .\templates\two_factor\core\backup_tokens.html:5
+#: .\templates\two_factor\profile\profile.html:37
+msgid "Backup Tokens"
+msgstr ""
+
+#: .\templates\site_auth\profile.html:39
+#: .\templates\two_factor\profile\profile.html:39
+msgid ""
+"If you don't have any device with you, you can access your account using "
+"backup tokens."
+msgstr ""
+
+#: .\templates\site_auth\profile.html:41
+#: .\templates\two_factor\profile\profile.html:41
+#, python-format
+msgid "You have only one backup token remaining."
+msgid_plural "You have %(counter)s backup tokens remaining."
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\templates\site_auth\profile.html:48
+#: .\templates\two_factor\profile\profile.html:48
+msgid "Show Codes"
+msgstr ""
+
+#: .\templates\site_auth\profile.html:50 .\templates\site_auth\profile.html:54
+#: .\templates\two_factor\profile\profile.html:50
+#: .\templates\two_factor\profile\profile.html:54
+msgid "Disable Two-Factor Authentication"
+msgstr ""
+
+#: .\templates\site_auth\profile.html:51
+#: .\templates\two_factor\profile\profile.html:51
+msgid ""
+"However we strongly discourage you to do so, you can also disable two-factor "
+"authentication for your account."
+msgstr ""
+
+#: .\templates\site_auth\profile.html:56
+#: .\templates\two_factor\core\otp_required.html:11
+#: .\templates\two_factor\profile\profile.html:56
+msgid ""
+"Two-factor authentication is not enabled for your account. Enable two-factor "
+"authentication for enhanced account security."
+msgstr ""
+
+#: .\templates\site_auth\profile.html:60
+#: .\templates\two_factor\core\otp_required.html:18
+#: .\templates\two_factor\core\setup.html:5
+#: .\templates\two_factor\core\setup_complete.html:5
+#: .\templates\two_factor\profile\profile.html:60
+msgid "Enable Two-Factor Authentication"
+msgstr ""
+
+#: .\templates\two_factor\_wizard_actions.html:5
+msgid "Cancel"
+msgstr ""
+
+#: .\templates\two_factor\_wizard_actions.html:10
+#: .\templates\two_factor\_wizard_actions.html:12
+msgid "Back"
+msgstr ""
+
+#: .\templates\two_factor\_wizard_actions.html:14
+msgid "Next"
+msgstr ""
+
+#: .\templates\two_factor\core\backup_tokens.html:6
+msgid ""
+"Backup tokens can be used when your primary and backup phone numbers aren't "
+"available. The backup tokens below can be used for login verification. If "
+"you've used up all your backup tokens, you can generate a new set of backup "
+"tokens. Only the backup tokens shown below will be valid."
+msgstr ""
+
+#: .\templates\two_factor\core\backup_tokens.html:18
+msgid "Print these tokens and keep them somewhere safe."
+msgstr ""
+
+#: .\templates\two_factor\core\backup_tokens.html:20
+msgid "You don't have any backup codes yet."
+msgstr ""
+
+#: .\templates\two_factor\core\backup_tokens.html:25
+#: .\templates\two_factor\core\setup_complete.html:12
+#: .\templates\two_factor\core\setup_complete.html:19
+msgid "Back to Account Security"
+msgstr ""
+
+#: .\templates\two_factor\core\backup_tokens.html:26
+msgid "Generate Tokens"
+msgstr ""
+
+#: .\templates\two_factor\core\otp_required.html:5
+msgid "Permission Denied"
+msgstr ""
+
+#: .\templates\two_factor\core\otp_required.html:7
+msgid ""
+"The page you requested, enforces users to verify using two-factor "
+"authentication for security reasons. You need to enable these security "
+"features in order to access this page."
+msgstr ""
+
+#: .\templates\two_factor\core\otp_required.html:16
+msgid "Go back"
+msgstr ""
+
+#: .\templates\two_factor\core\phone_register.html:5
+msgid "Add Backup Phone"
+msgstr ""
+
+#: .\templates\two_factor\core\phone_register.html:8
+msgid ""
+"You'll be adding a backup phone number to your account. This number will be "
+"used if your primary method of registration is not available."
+msgstr ""
+
+#: .\templates\two_factor\core\phone_register.html:12
+msgid ""
+"We've sent a token to your phone number. Please enter the token you've "
+"received."
+msgstr ""
+
+#: .\templates\two_factor\core\setup.html:7
+msgid ""
+"You are about to take your account security to the next level. Follow the "
+"steps in this wizard to enable two-factor authentication."
+msgstr ""
+
+#: .\templates\two_factor\core\setup.html:11
+msgid "Please select which authentication method you would like to use."
+msgstr ""
+
+#: .\templates\two_factor\core\setup.html:14
+msgid ""
+"To start using a token generator, please use your smartphone to scan the QR "
+"code below. For example, use Google Authenticator. Then, enter the token "
+"generated by the app."
+msgstr ""
+
+#: .\templates\two_factor\core\setup.html:20
+msgid ""
+"Please enter the phone number you wish to receive the text messages on. This "
+"number will be validated in the next step."
+msgstr ""
+
+#: .\templates\two_factor\core\setup.html:24
+msgid ""
+"Please enter the phone number you wish to be called on. This number will be "
+"validated in the next step."
+msgstr ""
+
+#: .\templates\two_factor\core\setup.html:36
+msgid ""
+"We've encountered an issue with the selected authentication method. Please "
+"go back and verify that you entered your information correctly, try again, "
+"or use a different authentication method instead. If the issue persists, "
+"contact the site administrator."
+msgstr ""
+
+#: .\templates\two_factor\core\setup.html:43
+msgid ""
+"To identify and verify your YubiKey, please insert a token in the field "
+"below. Your YubiKey will be linked to your account."
+msgstr ""
+
+#: .\templates\two_factor\core\setup_complete.html:7
+msgid "Congratulations, you've successfully enabled two-factor authentication."
+msgstr ""
+
+#: .\templates\two_factor\core\setup_complete.html:14
+msgid ""
+"However, it might happen that you don't have access to your primary token "
+"device. To enable account recovery, add a phone number."
+msgstr ""
+
+#: .\templates\two_factor\profile\disable.html:5
+msgid "Disable Two-factor Authentication"
+msgstr ""
+
+#: .\templates\two_factor\profile\disable.html:6
+msgid ""
+"You are about to disable two-factor authentication. This weakens your "
+"account security, are you sure?"
+msgstr ""
+
+#: .\templates\two_factor\profile\disable.html:12
+msgid "Disable"
+msgstr ""
+
+#: .\templates\two_factor\twilio\sms_message.html:2
+#, python-format
+msgid "Your OTP token is %(token)s"
+msgstr ""
