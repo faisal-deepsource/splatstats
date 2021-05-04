@@ -276,7 +276,7 @@ class Interpreter:
             self.error()
 
     def line(self):
-        """line : (set( = (expr)|(term))?) | (term)"""
+        """line: (SETNAME (ASSIGN term NEWLINE)?) | (term)"""
         if self.current_token.type is SETNAME:
             set_name = self.current_token.value
             self.eat(SETNAME)
@@ -294,7 +294,7 @@ class Interpreter:
         return self.term()
 
     def term(self):
-        """term : (LPAREN (set | term) (OR | AND) (set | term) RPAREN) | (NOT LPAREN (set | term) RPAREN)"""
+        """term: (expr) | (LPAREN term (OR | AND) term RPAREN) | (NOT LPAREN term RPAREN)"""
         if self.current_token.type is NOT:
             self.eat(NOT)
             self.eat(LPAREN)
@@ -320,13 +320,13 @@ class Interpreter:
         return result.order_by("-time")
 
     def value(self):
-        """INTEGER | FLOAT | STRING | BOOL"""
+        """value: INTEGER | FLOAT | STRING | BOOL"""
         token = self.current_token
         self.eat(token.type)
         return token.value
 
     def expr(self):
-        """expr   : (set) | (STRING (GREATERTHAN | GREATEREQUAL | LESSTHAN | LESSEQUAL | EQUAL) VALUE)"""
+        """expr: (SETNAME) | (ATTR (GREATERTHAN | GREATEREQUAL | LESSTHAN | LESSEQUAL | EQUAL) value)"""
         if self.current_token.type is SETNAME:
             if self.current_token.value not in self.sets:
                 set_a = Battle.objects.none()
