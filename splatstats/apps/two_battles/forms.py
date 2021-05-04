@@ -11,4 +11,4 @@ class FilterForm(forms.Form):
 
 
 class AdvancedFilterForm(forms.Form):
-    query = forms.CharField(widget=forms.Textarea(attrs={"rows":20, "cols":40}))
+    query = forms.CharField(widget=forms.Textarea(attrs={"rows": 20, "cols": 40}))

@@ -149,7 +149,7 @@ class Lexer:
             if self.current_char == "\n":
                 self.advance()
                 return Token(NEWLINE, "\n")
-                
+
             if self.current_char == "\r":
                 self.advance()
                 if self.current_char == "\n":
