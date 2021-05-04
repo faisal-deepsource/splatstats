@@ -23,8 +23,10 @@ def index(request):
     if form.is_valid():
         battles = Battle.objects
         if "query" in form.cleaned_data and form.cleaned_data["query"] != "":
-            battles = get_query(form)
             query = form.cleaned_data["query"]
+            lexer = Lexer(query)
+            interpreter = Interpreter(lexer)
+            battles = interpreter.term()
             attributes = ""
         else:
             attributes = ""

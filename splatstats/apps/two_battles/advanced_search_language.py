@@ -248,7 +248,8 @@ class Interpreter:
         if self.current_token.type is NOT:
             self.eat(NOT)
             self.eat(LPAREN)
-            result = Battle.objects.all().exclude(id__in=self.term())
+            to_exclude = self.term()
+            result = Battle.objects.all().exclude(id__in=to_exclude)
             self.eat(RPAREN)
         elif self.current_token.type is LPAREN:
             self.eat(LPAREN)
@@ -261,11 +262,10 @@ class Interpreter:
             elif token.type == AND:
                 self.eat(AND)
                 result = set_a & self.term()
-                print(self.current_token)
                 self.eat(RPAREN)
         else:
             result = self.expr()
-        return result
+        return result.order_by("-time")
 
     def value(self):
         """INTEGER | FLOAT | STRING | BOOL"""
@@ -508,9 +508,7 @@ class Interpreter:
                     mapping[key][attribute + switch[token.type]] = value
             battles = Battle.objects.none()
             for key in mapping:
-                battles = battles | Battle.objects.filter(**(mapping[key])).order_by(
-                    "-time"
-                )
+                battles = battles | Battle.objects.filter(**(mapping[key]))
             return battles
         if regex.search(
             "((player)|(teammate_[a-c])|(oppponent_[a-d]))_weapon_family", attribute
