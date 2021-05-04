@@ -21,15 +21,16 @@ def signup(request):
             mail = EmailMultiAlternatives(
                 subject="Finish Your SplatStats Registration",
                 body=render_to_string(
-                "site_auth/account_activation_email.html",
-                {
-                    "user": user,
-                    "uid": urlsafe_base64_encode(force_bytes(user.pk)),
-                    "token": account_activation_token.make_token(user),
-                }),
+                    "site_auth/account_activation_email.html",
+                    {
+                        "user": user,
+                        "uid": urlsafe_base64_encode(force_bytes(user.pk)),
+                        "token": account_activation_token.make_token(user),
+                    },
+                ),
                 from_email="SplatStats Signup <splatstats-signup@cass-dlcm.dev>",
                 to=[form.cleaned_data["email"]],
-                headers={"Reply-To": "splatstats-webmaster@cass-dlcm.dev"}
+                headers={"Reply-To": "splatstats-webmaster@cass-dlcm.dev"},
             )
             mail.send()
             return redirect("account_activation_sent")
