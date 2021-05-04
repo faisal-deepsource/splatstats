@@ -276,71 +276,44 @@ class Interpreter:
             self.error()
 
     def line(self):
-        """line : set( = (expr)|(term))?"""
-        set_name = self.current_token.value
-        self.eat(SETNAME)
-        if self.current_token.type is ASSIGN:
-            self.eat(ASSIGN)
-            if self.current_token.type is NOT or self.current_token.type is LPAREN:
-                self.sets[set_name] = self.term()
+        """line : (set( = (expr)|(term))?) | (term)"""
+        if self.current_token.type is SETNAME:
+            set_name = self.current_token.value
+            self.eat(SETNAME)
+            if self.current_token.type is ASSIGN:
+                self.eat(ASSIGN)
+                if self.current_token.type is NOT or self.current_token.type is LPAREN:
+                    self.sets[set_name] = self.term()
+                else:
+                    self.sets[set_name] = self.expr()
+                self.eat(NEWLINE)
+                return self.line()
             else:
-                self.sets[set_name] = self.expr()
-            self.eat(NEWLINE)
-            return self.line()
-        else:
-            if set_name in self.sets:
-                return self.sets[set_name]
-            return Battle.objects.none()
+                if set_name in self.sets:
+                    return self.sets[set_name]
+                return Battle.objects.none()
+        return self.term()
 
     def term(self):
         """term : (LPAREN (set | term) (OR | AND) (set | term) RPAREN) | (NOT LPAREN (set | term) RPAREN)"""
         if self.current_token.type is NOT:
             self.eat(NOT)
             self.eat(LPAREN)
-            if self.current_token.type is SETNAME:
-                if self.current_token.value not in self.sets:
-                    self.eat(SETNAME)
-                    self.eat(RPAREN)
-                    return Battle.objects.none()
-                to_exclude = self.sets[self.current_token.value]
-                self.eat(SETNAME)
-            else:
-                to_exclude = self.term()
+            to_exclude = self.term()
             result = Battle.objects.all().exclude(id__in=to_exclude)
             self.eat(RPAREN)
         elif self.current_token.type is LPAREN:
             self.eat(LPAREN)
-            if self.current_token.type is SETNAME:
-                if self.current_token.value not in self.sets:
-                    set_a = Battle.objects.none()
-                else:
-                    set_a = self.sets[self.current_token.value]
-                self.eat(SETNAME)
-            else:
-                set_a = self.term()
+            set_a = self.term()
             token = self.current_token
             if token.type == OR:
                 self.eat(OR)
-                if self.current_token.type is SETNAME:
-                    if self.current_token.value not in self.sets:
-                        set_b = Battle.objects.none()
-                    else:
-                        set_b = self.sets[self.current_token.value]
-                    self.eat(SETNAME)
-                else:
-                    set_b = self.term()
+                set_b = self.term()
                 result = set_a | set_b
                 self.eat(RPAREN)
             elif token.type == AND:
                 self.eat(AND)
-                if self.current_token.type is SETNAME:
-                    if self.current_token.value not in self.sets:
-                        set_b = Battle.objects.none()
-                    else:
-                        set_b = self.sets[self.current_token.value]
-                    self.eat(SETNAME)
-                else:
-                    set_b = self.term()
+                set_b = self.term()
                 result = set_a & set_b
                 self.eat(RPAREN)
         else:
@@ -354,7 +327,14 @@ class Interpreter:
         return token.value
 
     def expr(self):
-        """expr   : STRING (GREATERTHAN | GREATEREQUAL | LESSTHAN | LESSEQUAL | EQUAL) VALUE"""
+        """expr   : (set) | (STRING (GREATERTHAN | GREATEREQUAL | LESSTHAN | LESSEQUAL | EQUAL) VALUE)"""
+        if self.current_token.type is SETNAME:
+            if self.current_token.value not in self.sets:
+                set_a = Battle.objects.none()
+            else:
+                set_a = self.sets[self.current_token.value]
+            self.eat(SETNAME)
+            return set_a
         attribute = self.current_token.value
         self.eat(ATTR)
         if regex.search(
