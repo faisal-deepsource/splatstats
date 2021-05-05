@@ -36,6 +36,9 @@ from .models import (
     NEWLINE,
     LBRACKET,
     RBRACKET,
+    SIZEOF,
+    IF,
+    ELSE,
     EOL,
 ) = (
     "ATTR",
@@ -58,6 +61,9 @@ from .models import (
     "\n",
     "[",
     "]",
+    "SIZEOF",
+    "IF",
+    "ELSE",
     "",
 )
 
@@ -135,14 +141,6 @@ class Lexer:
             return Token(ATTR, result)
         return Token(SETNAME, result)
 
-    def boolean(self):
-        """Returns a boolean value consumed from the input."""
-        result = ""
-        while self.current_char is not None and not self.current_char.isspace():
-            result += self.current_char
-            self.advance()
-        return result == "True"
-
     def get_next_token(self):
         """Lexical analyzer (also known as scanner or tokenizer)
 
@@ -174,7 +172,9 @@ class Lexer:
                 return Token(RBRACKET, "]")
 
             if self.current_char in ("T", "F"):
-                return Token(BOOL, self.boolean())
+                bool_value = self.current_char == "T"
+                self.advance()
+                return Token(BOOL, bool_value)
 
             if self.current_char == "A":
                 self.advance()
@@ -183,7 +183,6 @@ class Lexer:
                     if self.current_char == "D":
                         self.advance()
                         return Token(AND, "AND")
-                    self.error()
                 self.error()
 
             if self.current_char == "N":
@@ -193,7 +192,6 @@ class Lexer:
                     if self.current_char == "T":
                         self.advance()
                         return Token(NOT, "NOT")
-                    self.error()
                 self.error()
 
             if self.current_char == "O":
@@ -201,6 +199,39 @@ class Lexer:
                 if self.current_char == "R":
                     self.advance()
                     return Token(OR, "OR")
+                self.error()
+
+            if self.current_char == "I":
+                self.advance()
+                if self.current_char == "F":
+                    self.advance()
+                    return Token(IF, "IF")
+                self.error()
+
+            if self.current_char == "E":
+                self.advance()
+                if self.current_char == "L":
+                    self.advance()
+                    if self.current_char == "S":
+                        self.advance()
+                        if self.current_char == "E":
+                            self.advance()
+                            return Token(ELSE, "ELSE")
+                self.error()
+
+            if self.current_char == "S":
+                self.advance()
+                if self.current_char == "I":
+                    self.advance()
+                    if self.current_char == "Z":
+                        self.advance()
+                        if self.current_char == "E":
+                            self.advance()
+                            if self.current_char == "O":
+                                self.advance()
+                                if self.current_char == "F":
+                                    self.advance()
+                                    return Token(SIZEOF, "SIZEOF")
                 self.error()
 
             if self.current_char.isalpha():
@@ -263,9 +294,10 @@ def find_2nd(string, substring):
 
 class Interpreter:
     """
-    expr   : STRING (GREATERTHAN | GREATEREQUAL | LESSTHAN | LESSEQUAL | EQUAL) VALUE
-    term   : (expr) | (LPAREN term (OR | AND) term RPAREN) | (NOT LPAREN term RPAREN)
-    value  : INTEGER | FLOAT | STRING | BOOL
+    line  : ((SETNAME LBRACKET)? SETNAME ASSIGN term NEWLINE) | (term (RBRACKET NEWLINE)?)
+    expr  : (SETNAME) | (SIZEOF SETNAME (GREATERTHAN | GREATEREQUAL | LESSTHAN | LESSEQUAL | EQUAL) INTEGER) | (ATTR (GREATERTHAN | GREATEREQUAL | LESSTHAN | LESSEQUAL | EQUAL) value)
+    term  : (expr) | (LPAREN term (OR | AND) term RPAREN) | (NOT LPAREN term RPAREN)
+    value : INTEGER | FLOAT | STRING | BOOL
     """
 
     def __init__(self, lexer):
@@ -322,7 +354,18 @@ class Interpreter:
         return self.term()
 
     def term(self):
-        """term: (expr) | (LPAREN term (OR | AND) term RPAREN) | (NOT LPAREN term RPAREN)"""
+        """term: (expr) | (LPAREN term (OR | AND) term RPAREN) | (NOT LPAREN term RPAREN) | (IF expr line ELSE line)"""
+        if self.current_token.type is IF:
+            self.eat(IF)
+            if self.expr():
+                result = self.term()
+                self.eat(ELSE)
+                self.term()
+                return result
+            else:
+                self.term()
+                self.eat(ELSE)
+                return self.term()
         if self.current_token.type is NOT:
             self.eat(NOT)
             self.eat(LPAREN)
@@ -360,7 +403,33 @@ class Interpreter:
         return token.value
 
     def expr(self):
-        """expr: (SETNAME) | (ATTR (GREATERTHAN | GREATEREQUAL | LESSTHAN | LESSEQUAL | EQUAL) value)"""
+        """expr: (SETNAME) | (SIZEOF (SETNAME | term) (GREATERTHAN | GREATEREQUAL | LESSTHAN | LESSEQUAL | EQUAL) INTEGER) | (ATTR (GREATERTHAN | GREATEREQUAL | LESSTHAN | LESSEQUAL | EQUAL) value)"""
+        if self.current_token.type is SIZEOF:
+            self.eat(SIZEOF)
+            if self.current_token.type is SETNAME:
+                if self.current_token.value not in get_in(self.env_path, self.sets):
+                    set_a = Battle.objects.none()
+                else:
+                    set_a = get_in(self.env_path, self.sets)[self.current_token.value]
+                self.eat(SETNAME)
+            else:
+                set_a = self.term()
+            size = set_a.count()
+            switch = {
+                GREATERTHAN: lambda a, b: a > b,
+                LESSTHAN: lambda a, b: a < b,
+                GREATEREQUAL: lambda a, b: a >= b,
+                LESSEQUAL: lambda a, b: a < b,
+                EQUAL:  lambda a, b: a == b,
+            }
+            token = self.current_token
+            if token.type in switch:
+                self.eat(token.type)
+            else:
+                self.error()
+            value = self.current_token.value
+            self.eat(INTEGER)
+            return switch[token.type](size, value)
         if self.current_token.type is SETNAME:
             if self.current_token.value not in get_in(self.env_path, self.sets):
                 set_a = Battle.objects.none()
@@ -528,7 +597,10 @@ class Interpreter:
                 EQUAL: "",
             }
             token = self.current_token
-            self.eat(token.type)
+            if token.type in switch:
+                self.eat(token.type)
+            else:
+                self.error()
             value = self.value()
             if regex.search(
                 "((player)|(teammate_[a-c])|(opponent_[a-d]))_weapon",
