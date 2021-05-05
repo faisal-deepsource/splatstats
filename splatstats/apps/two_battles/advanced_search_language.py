@@ -1,4 +1,5 @@
 from django.utils.translation import gettext_lazy as _
+from toolz.dicttoolz import update_in, get_in
 import regex
 from .models import (
     Battle,
@@ -33,6 +34,8 @@ from .models import (
     SETNAME,
     ASSIGN,
     NEWLINE,
+    LBRACKET,
+    RBRACKET,
     EOL,
 ) = (
     "ATTR",
@@ -53,6 +56,8 @@ from .models import (
     "SETNAME",
     ":=",
     "\n",
+    "[",
+    "]",
     "",
 )
 
@@ -160,6 +165,14 @@ class Lexer:
                 self.skip_whitespace()
                 continue
 
+            if self.current_char == "[":
+                self.advance()
+                return Token(LBRACKET, "[")
+            
+            if self.current_char == "]":
+                self.advance()
+                return Token(RBRACKET, "]")
+
             if self.current_char in ("T", "F"):
                 return Token(BOOL, self.boolean())
 
@@ -260,6 +273,7 @@ class Interpreter:
         # set current token to the first token taken from the input
         self.current_token = self.lexer.get_next_token()
         self.sets = {}
+        self.env_path = ["sets"]
 
     @staticmethod
     def error():
@@ -276,20 +290,34 @@ class Interpreter:
             self.error()
 
     def line(self):
-        """line: (SETNAME (ASSIGN term NEWLINE)?) | (term)"""
+        """line: ((SETNAME LBRACKET)? SETNAME ASSIGN term NEWLINE) | (term (RBRACKET NEWLINE)?)"""
         if self.current_token.type is SETNAME:
             set_name = self.current_token.value
             self.eat(SETNAME)
-            if self.current_token.type is ASSIGN:
+            if self.current_token.type is LBRACKET:
+                self.env_path.append(set_name)
+                self.eat(LBRACKET)
+                set_name = self.current_token.value
+                self.eat(SETNAME)
                 self.eat(ASSIGN)
-                if self.current_token.type is NOT or self.current_token.type is LPAREN:
-                    self.sets[set_name] = self.term()
-                else:
-                    self.sets[set_name] = self.expr()
+                self.sets = update_in(self.sets, self.env_path, dict, {set_name: self.term()})
                 self.eat(NEWLINE)
                 return self.line()
-            if set_name in self.sets:
-                return self.sets[set_name]
+            if self.current_token.type is ASSIGN:
+                self.eat(ASSIGN)
+                self.sets = update_in(self.sets, self.env_path, dict, {set_name: self.term()})
+                self.eat(NEWLINE)
+                return self.line()
+            if set_name in get_in(self.env_path, self.sets):
+                result = get_in(self.env_path, self.sets)[set_name]
+                if self.current_token.type is RBRACKET:
+                    self.sets = update_in(self.sets, self.env_path, lambda a: None)
+                    env_scope = self.env_path.pop()
+                    self.eat(RBRACKET)
+                    self.sets = update_in(self.sets, self.env_path, lambda a: {env_scope: result})
+                    self.eat(NEWLINE)
+                    return self.line()
+                return result
             return Battle.objects.none()
         return self.term()
 
@@ -320,18 +348,24 @@ class Interpreter:
         return result.order_by("-time")
 
     def value(self):
-        """value: INTEGER | FLOAT | STRING | BOOL"""
+        """value: (INTEGER) | (FLOAT) | (STRING) | (BOOL)"""
         token = self.current_token
-        self.eat(token.type)
+        switch = {
+            BOOL: BOOL,
+            INTEGER: INTEGER,
+            FLOAT: FLOAT,
+            STRING: STRING,
+        }
+        self.eat(switch.get(token.type))
         return token.value
 
     def expr(self):
         """expr: (SETNAME) | (ATTR (GREATERTHAN | GREATEREQUAL | LESSTHAN | LESSEQUAL | EQUAL) value)"""
         if self.current_token.type is SETNAME:
-            if self.current_token.value not in self.sets:
+            if self.current_token.value not in get_in(self.env_path, self.sets):
                 set_a = Battle.objects.none()
             else:
-                set_a = self.sets[self.current_token.value]
+                set_a = get_in(self.env_path, self.sets)[self.current_token.value]
             self.eat(SETNAME)
             return set_a
         attribute = self.current_token.value
