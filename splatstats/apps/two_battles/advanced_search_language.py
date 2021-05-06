@@ -1,5 +1,5 @@
 from django.utils.translation import gettext_lazy as _
-from toolz.dicttoolz import update_in, get_in
+from toolz.dicttoolz import update_in, get_in, assoc_in
 import regex
 from .models import (
     Battle,
@@ -31,7 +31,7 @@ from .models import (
     NOT,
     LPAREN,
     RPAREN,
-    SETNAME,
+    VAR,
     ASSIGN,
     NEWLINE,
     LBRACKET,
@@ -56,7 +56,7 @@ from .models import (
     "NOT",
     "(",
     ")",
-    "SETNAME",
+    "VAR",
     ":=",
     "\n",
     "[",
@@ -139,7 +139,7 @@ class Lexer:
             result,
         ):
             return Token(ATTR, result)
-        return Token(SETNAME, result)
+        return Token(VAR, result)
 
     def get_next_token(self):
         """Lexical analyzer (also known as scanner or tokenizer)
@@ -294,8 +294,8 @@ def find_2nd(string, substring):
 
 class Interpreter:
     """
-    line  : ((SETNAME LBRACKET)? SETNAME ASSIGN term NEWLINE) | (term (RBRACKET NEWLINE)?)
-    expr  : (SETNAME) | (SIZEOF SETNAME (GREATERTHAN | GREATEREQUAL | LESSTHAN | LESSEQUAL | EQUAL) INTEGER) | (ATTR (GREATERTHAN | GREATEREQUAL | LESSTHAN | LESSEQUAL | EQUAL) value)
+    line  : ((VAR LBRACKET)? VAR ASSIGN term NEWLINE) | (term (RBRACKET NEWLINE)?)
+    expr  : (VAR) | (SIZEOF VAR (GREATERTHAN | GREATEREQUAL | LESSTHAN | LESSEQUAL | EQUAL) INTEGER) | (ATTR (GREATERTHAN | GREATEREQUAL | LESSTHAN | LESSEQUAL | EQUAL) value)
     term  : (expr) | (LPAREN term (OR | AND) term RPAREN) | (NOT LPAREN term RPAREN)
     value : INTEGER | FLOAT | STRING | BOOL
     """
@@ -304,8 +304,8 @@ class Interpreter:
         self.lexer = lexer
         # set current token to the first token taken from the input
         self.current_token = self.lexer.get_next_token()
-        self.sets = {"sets": None}
-        self.env_path = ["sets"]
+        self.vars = {"vars": {}}
+        self.env_path = ["vars"]
 
     @staticmethod
     def error():
@@ -321,80 +321,95 @@ class Interpreter:
         else:
             self.error()
 
+    def interpret(self):
+        result = self.line()
+        while result is None:
+            result = self.line()
+        return result
+
     def line(self, evaluate=True):
-        """line: ((SETNAME LBRACKET)? SETNAME ASSIGN term NEWLINE) | (term (RBRACKET NEWLINE)?)"""
-        if self.current_token.type is SETNAME:
-            set_name = self.current_token.value
-            self.eat(SETNAME)
-            if self.current_token.type is LBRACKET:
-                if evaluate:
-                    self.env_path.append(set_name)
-                self.eat(LBRACKET)
-                set_name = self.current_token.value
-                self.eat(SETNAME)
-                self.eat(ASSIGN)
-                if evaluate:
-                    self.sets = update_in(
-                        self.sets, self.env_path, dict, {set_name: self.term()}
-                    )
-                else:
-                    self.term(False)
-                self.eat(NEWLINE)
-                if evaluate:
-                    return self.line()
-                self.line(False)
-                return None
+        """line: (VAR ASSIGN term NEWLINE) | (term (NEWLINE)?)"""
+        if self.current_token.type is VAR:
+            var_name = self.current_token.value
+            self.eat(VAR)
             if self.current_token.type is ASSIGN:
                 self.eat(ASSIGN)
                 if evaluate:
-                    self.sets = update_in(
-                        self.sets, self.env_path, dict, {set_name: self.term()}
+                    temp = get_in(self.env_path, self.vars)
+                    temp[var_name] = self.term()
+                    self.vars = assoc_in(
+                        self.vars, self.env_path, temp
                     )
+                    print(self.vars)
                 else:
                     self.term(False)
                 self.eat(NEWLINE)
-                if evaluate:
-                    return self.line()
-                self.line(False)
                 return None
-            if set_name in get_in(self.env_path, self.sets):
+            if var_name in get_in(self.env_path, self.vars):
                 if evaluate:
-                    result = get_in(self.env_path, self.sets)[set_name]
+                    result = get_in(self.env_path, self.vars)[var_name]
                 else:
                     result = Battle.objects.none()
-                if self.current_token.type is RBRACKET:
-                    if evaluate:
-                        self.sets = update_in(self.sets, self.env_path, lambda a: None)
-                        env_scope = self.env_path.pop()
-                    self.eat(RBRACKET)
-                    if evaluate:
-                        self.sets = update_in(
-                            self.sets, self.env_path, lambda a: {env_scope: result}
-                        )
-                    self.eat(NEWLINE)
-                    if evaluate:
-                        return self.line()
-                    self.line(False)
-                    return Battle.objects.none()
                 return result
             return Battle.objects.none()
-        return self.term(evaluate)
+        val = self.term(evaluate)
+        if self.current_token.type is NEWLINE:
+            self.eat(NEWLINE)
+        elif self.current_token.type is not EOL:
+            self.error()
+        return val
 
     def term(self, evaluate=True):
-        """term: (expr) | (LPAREN term (OR | AND) term RPAREN) | (NOT LPAREN term RPAREN) | (IF expr line ELSE line)"""
+        """term: (expr) | (LPAREN term (OR | AND) term RPAREN) | (NOT LPAREN term RPAREN) | (IF expr LBRACKET NEWLINE (line)* NEWLINE RBRACKET ELSE LBRACKET NEWLINE line RBRACKET)"""
         if self.current_token.type is IF:
             self.eat(IF)
             self.eat(LPAREN)
-            if self.expr(evaluate):
+            if evaluate:
+                if self.expr():
+                    self.eat(RPAREN)
+                    self.eat(LBRACKET)
+                    self.eat(NEWLINE)
+                    while self.current_token.type is not RBRACKET:
+                        result = self.line()
+                    self.eat(RBRACKET)
+                    self.eat(ELSE)
+                    self.eat(LBRACKET)
+                    self.eat(NEWLINE)
+                    while self.current_token.type is not RBRACKET:
+                        self.line(False)
+                    self.eat(RBRACKET)
+                    if self.current_token.type is NEWLINE:
+                        self.eat(NEWLINE)
+                    elif self.current_token.type is not EOL:
+                        self.error()
+                    return result
                 self.eat(RPAREN)
-                result = self.term(evaluate)
+                self.eat(LBRACKET)
+                self.eat(NEWLINE)
+                while self.current_token.type is not RBRACKET:
+                    self.line(False)
+                self.eat(RBRACKET)
                 self.eat(ELSE)
-                self.term(False)
+                self.eat(LBRACKET)
+                self.eat(NEWLINE)
+                while self.current_token.type is not RBRACKET:
+                    result = self.line()
+                self.eat(RBRACKET)
                 return result
+            self.expr(False)
             self.eat(RPAREN)
-            self.term(False)
+            self.eat(LBRACKET)
+            self.eat(NEWLINE)
+            while self.current_token.type is not RBRACKET:
+                self.line(False)
+            self.eat(RBRACKET)
             self.eat(ELSE)
-            return self.term(evaluate)
+            self.eat(LBRACKET)
+            self.eat(NEWLINE)
+            while self.current_token.type is not RBRACKET:
+                self.line(False)
+            self.eat(RBRACKET)
+            return None
         if self.current_token.type is NOT:
             self.eat(NOT)
             self.eat(LPAREN)
@@ -443,17 +458,19 @@ class Interpreter:
         return token.value
 
     def expr(self, evaluate=True):
-        """expr: (SETNAME) | (SIZEOF (SETNAME | term) (GREATERTHAN | GREATEREQUAL | LESSTHAN | LESSEQUAL | EQUAL) ((SIZEOF (SETNAME | term)) | (INTEGER))) | (ATTR (GREATERTHAN | GREATEREQUAL | LESSTHAN | LESSEQUAL | EQUAL) value)"""
+        """expr: (VAR) | (value) | (SIZEOF (VAR | term) (GREATERTHAN | GREATEREQUAL | LESSTHAN | LESSEQUAL | EQUAL) ((SIZEOF (VAR | term)) | (INTEGER))) | (ATTR (GREATERTHAN | GREATEREQUAL | LESSTHAN | LESSEQUAL | EQUAL) value)"""
         if self.current_token.type is SIZEOF:
             self.eat(SIZEOF)
-            if self.current_token.type is SETNAME:
-                if not evaluate or self.current_token.value not in get_in(self.env_path, self.sets):
+            if self.current_token.type is VAR:
+                if not evaluate or self.current_token.value not in get_in(self.env_path, self.vars):
                     set_a_size = 0
                 else:
-                    set_a_size = get_in(self.env_path, self.sets)[
+                    set_a_size = get_in(self.env_path, self.vars)[
                         self.current_token.value
                     ].count()
-                self.eat(SETNAME)
+                self.eat(VAR)
+                if type(set_a_size) is not int:
+                    self.error()
             else:
                 set_a_size = self.term(evaluate).count()
             switch = {
@@ -470,28 +487,34 @@ class Interpreter:
                 self.error()
             if self.current_token.type == SIZEOF:
                 self.eat(SIZEOF)
-                if self.current_token.type is SETNAME:
-                    if not evaluate or self.current_token.value not in get_in(self.env_path, self.sets):
+                if self.current_token.type is VAR:
+                    if not evaluate or self.current_token.value not in get_in(self.env_path, self.vars):
                         set_b_size = 0
                     else:
-                        set_b_size = get_in(self.env_path, self.sets)[
+                        set_b_size = get_in(self.env_path, self.vars)[
                             self.current_token.value
                         ].count()
-                    self.eat(SETNAME)
+                    self.eat(VAR)
+                    if type(set_a_size) is not int:
+                        self.error()
                 else:
                     set_b_size = self.term(evaluate).count()
             else:
                 set_b_size = self.value()
+                if type(set_a_size) is not int:
+                    self.error()
             if evaluate:
                 return switch[token.type](set_a_size, set_b_size)
             return None
-        if self.current_token.type is SETNAME:
-            if not evaluate or self.current_token.value not in get_in(self.env_path, self.sets):
+        if self.current_token.type is VAR:
+            if not evaluate or self.current_token.value not in get_in(self.env_path, self.vars):
                 set_a = Battle.objects.none()
             else:
-                set_a = get_in(self.env_path, self.sets)[self.current_token.value]
-            self.eat(SETNAME)
+                set_a = get_in(self.env_path, self.vars)[self.current_token.value]
+            self.eat(VAR)
             return set_a
+        if self.current_token.type in (BOOL, INTEGER, FLOAT, STRING):
+            return self.value()
         attribute = self.current_token.value
         self.eat(ATTR)
         if regex.search(

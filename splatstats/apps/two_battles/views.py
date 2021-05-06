@@ -25,7 +25,7 @@ def index(request):
             query = form.cleaned_data["query"]
             lexer = Lexer(query)
             interpreter = Interpreter(lexer)
-            battles = interpreter.line()
+            battles = interpreter.interpret()
             attributes = ""
         else:
             attributes = ""
@@ -1367,7 +1367,7 @@ def advanced_search(request):
     if form.is_valid():
         lexer = Lexer(form.cleaned_data["query"])
         interpreter = Interpreter(lexer)
-        battles = interpreter.line()
+        battles = interpreter.interpret()
         paginator = Paginator(battles, 50)  # Show 50 battles per page
         page_number = request.GET.get("page")
         page_obj = paginator.get_page(page_number)
