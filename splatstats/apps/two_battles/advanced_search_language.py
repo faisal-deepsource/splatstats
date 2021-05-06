@@ -166,7 +166,7 @@ class Lexer:
             if self.current_char == "[":
                 self.advance()
                 return Token(LBRACKET, "[")
-            
+
             if self.current_char == "]":
                 self.advance()
                 return Token(RBRACKET, "]")
@@ -304,7 +304,7 @@ class Interpreter:
         self.lexer = lexer
         # set current token to the first token taken from the input
         self.current_token = self.lexer.get_next_token()
-        self.sets = {}
+        self.sets = {"sets": None}
         self.env_path = ["sets"]
 
     @staticmethod
@@ -332,12 +332,16 @@ class Interpreter:
                 set_name = self.current_token.value
                 self.eat(SETNAME)
                 self.eat(ASSIGN)
-                self.sets = update_in(self.sets, self.env_path, dict, {set_name: self.term()})
+                self.sets = update_in(
+                    self.sets, self.env_path, dict, {set_name: self.term()}
+                )
                 self.eat(NEWLINE)
                 return self.line()
             if self.current_token.type is ASSIGN:
                 self.eat(ASSIGN)
-                self.sets = update_in(self.sets, self.env_path, dict, {set_name: self.term()})
+                self.sets = update_in(
+                    self.sets, self.env_path, dict, {set_name: self.term()}
+                )
                 self.eat(NEWLINE)
                 return self.line()
             if set_name in get_in(self.env_path, self.sets):
@@ -346,7 +350,9 @@ class Interpreter:
                     self.sets = update_in(self.sets, self.env_path, lambda a: None)
                     env_scope = self.env_path.pop()
                     self.eat(RBRACKET)
-                    self.sets = update_in(self.sets, self.env_path, lambda a: {env_scope: result})
+                    self.sets = update_in(
+                        self.sets, self.env_path, lambda a: {env_scope: result}
+                    )
                     self.eat(NEWLINE)
                     return self.line()
                 return result
@@ -357,15 +363,17 @@ class Interpreter:
         """term: (expr) | (LPAREN term (OR | AND) term RPAREN) | (NOT LPAREN term RPAREN) | (IF expr line ELSE line)"""
         if self.current_token.type is IF:
             self.eat(IF)
+            self.eat(LPAREN)
             if self.expr():
+                self.eat(RPAREN)
                 result = self.term()
                 self.eat(ELSE)
                 self.term()
                 return result
-            else:
-                self.term()
-                self.eat(ELSE)
-                return self.term()
+            self.eat(RPAREN)
+            self.term()
+            self.eat(ELSE)
+            return self.term()
         if self.current_token.type is NOT:
             self.eat(NOT)
             self.eat(LPAREN)
@@ -403,33 +411,47 @@ class Interpreter:
         return token.value
 
     def expr(self):
-        """expr: (SETNAME) | (SIZEOF (SETNAME | term) (GREATERTHAN | GREATEREQUAL | LESSTHAN | LESSEQUAL | EQUAL) INTEGER) | (ATTR (GREATERTHAN | GREATEREQUAL | LESSTHAN | LESSEQUAL | EQUAL) value)"""
+        """expr: (SETNAME) | (SIZEOF (SETNAME | term) (GREATERTHAN | GREATEREQUAL | LESSTHAN | LESSEQUAL | EQUAL) ((SIZEOF (SETNAME | term)) | (INTEGER))) | (ATTR (GREATERTHAN | GREATEREQUAL | LESSTHAN | LESSEQUAL | EQUAL) value)"""
         if self.current_token.type is SIZEOF:
             self.eat(SIZEOF)
             if self.current_token.type is SETNAME:
                 if self.current_token.value not in get_in(self.env_path, self.sets):
-                    set_a = Battle.objects.none()
+                    set_a_size = 0
                 else:
-                    set_a = get_in(self.env_path, self.sets)[self.current_token.value]
+                    set_a_size = get_in(self.env_path, self.sets)[
+                        self.current_token.value
+                    ].count()
                 self.eat(SETNAME)
             else:
-                set_a = self.term()
-            size = set_a.count()
+                set_a_size = self.term().count()
             switch = {
                 GREATERTHAN: lambda a, b: a > b,
                 LESSTHAN: lambda a, b: a < b,
                 GREATEREQUAL: lambda a, b: a >= b,
                 LESSEQUAL: lambda a, b: a < b,
-                EQUAL:  lambda a, b: a == b,
+                EQUAL: lambda a, b: a == b,
             }
             token = self.current_token
             if token.type in switch:
                 self.eat(token.type)
             else:
                 self.error()
-            value = self.current_token.value
-            self.eat(INTEGER)
-            return switch[token.type](size, value)
+            if self.current_token.type == SIZEOF:
+                self.eat(SIZEOF)
+                if self.current_token.type is SETNAME:
+                    if self.current_token.value not in get_in(self.env_path, self.sets):
+                        set_b_size = 0
+                    else:
+                        set_b_size = get_in(self.env_path, self.sets)[
+                            self.current_token.value
+                        ].count()
+                    self.eat(SETNAME)
+                else:
+                    set_b_size = self.term().count()
+            else:
+                set_b_size = self.current_token.value
+                self.eat(INTEGER)
+            return switch[token.type](set_a_size, set_b_size)
         if self.current_token.type is SETNAME:
             if self.current_token.value not in get_in(self.env_path, self.sets):
                 set_a = Battle.objects.none()
