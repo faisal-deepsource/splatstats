@@ -1,5 +1,5 @@
 from django.utils.translation import gettext_lazy as _
-from toolz.dicttoolz import update_in, get_in, assoc_in
+from toolz.dicttoolz import get_in, assoc_in
 import regex
 from .models import (
     Battle,
@@ -26,6 +26,10 @@ from .models import (
     EQUAL,
     GREATEREQUAL,
     LESSEQUAL,
+    PLUS,
+    MINUS,
+    MULTIPLY,
+    DIVIDE,
     OR,
     AND,
     NOT,
@@ -39,6 +43,9 @@ from .models import (
     SIZEOF,
     IF,
     ELSE,
+    POINTER,
+    FUNCT,
+    WHILE,
     EOL,
 ) = (
     "ATTR",
@@ -51,6 +58,10 @@ from .models import (
     "==",
     ">=",
     "<=",
+    "+",
+    "-",
+    "*",
+    "/",
     "OR",
     "AND",
     "NOT",
@@ -64,6 +75,9 @@ from .models import (
     "SIZEOF",
     "IF",
     "ELSE",
+    "POINTER",
+    "FUNCT",
+    "WHILE",
     "",
 )
 
@@ -85,10 +99,18 @@ class Lexer:
     def __init__(self, text):
         # client string input, e.g. "4 + 2 * 3 - 6 / 2"
         self.text = text
-        # self.pos is an index into self.text
-        self.pos = 0
-        self.current_char = self.text[self.pos]
-        self.prev_char = None
+        # self.pos[-1] is an index into self.text
+        self.pos = [0]
+        self.current_char = self.text[self.pos[-1]]
+
+    def push_pos(self, pos):
+        self.pos.append(pos)
+
+    def pop_pos(self):
+        return self.pos.pop()
+
+    def get_pos(self):
+        return self.pos[-1]
 
     @staticmethod
     def error():
@@ -96,12 +118,11 @@ class Lexer:
 
     def advance(self):
         """Advance the `pos` pointer and set the `current_char` variable."""
-        self.pos += 1
-        self.prev_char = self.current_char
-        if self.pos > len(self.text) - 1:
+        self.pos[-1] += 1
+        if self.pos[-1] > len(self.text) - 1:
             self.current_char = None  # Indicates end of input
         else:
-            self.current_char = self.text[self.pos]
+            self.current_char = self.text[self.pos[-1]]
 
     def skip_whitespace(self):
         while self.current_char is not None and self.current_char.isspace():
@@ -149,15 +170,11 @@ class Lexer:
         """
         while self.current_char is not None:
 
-            if self.current_char == "\n":
-                self.advance()
-                return Token(NEWLINE, "\n")
-
             if self.current_char == "\r":
                 self.advance()
                 if self.current_char == "\n":
                     self.advance()
-                    return Token(NEWLINE, "\r\n")
+                    return Token(NEWLINE, "\n")
 
             if self.current_char.isspace():
                 self.skip_whitespace()
@@ -170,6 +187,14 @@ class Lexer:
             if self.current_char == "]":
                 self.advance()
                 return Token(RBRACKET, "]")
+
+            if self.current_char == "D":
+                self.advance()
+                if self.current_char == "E":
+                    self.advance()
+                    if self.current_char == "F":
+                        self.advance()
+                        return Token(FUNCT, "FUNCT")
 
             if self.current_char in ("T", "F"):
                 bool_value = self.current_char == "T"
@@ -234,6 +259,19 @@ class Lexer:
                                     return Token(SIZEOF, "SIZEOF")
                 self.error()
 
+            if self.current_char == "W":
+                self.advance()
+                if self.current_char == "H":
+                    self.advance()
+                    if self.current_char == "I":
+                        self.advance()
+                        if self.current_char == "L":
+                            self.advance()
+                            if self.current_char == "E":
+                                self.advance()
+                                return Token(WHILE, "WHILE")
+                self.error()
+
             if self.current_char.isalpha():
                 return self.attr_set()
 
@@ -283,6 +321,22 @@ class Lexer:
                 self.advance()
                 return Token(RPAREN, ")")
 
+            if self.current_char == "+":
+                self.advance()
+                return Token(PLUS, "+")
+
+            if self.current_char == "-":
+                self.advance()
+                return Token(MINUS, "-")
+
+            if self.current_char == "*":
+                self.advance()
+                return Token(MULTIPLY, "*")
+
+            if self.current_char == "/":
+                self.advance()
+                return Token(DIVIDE, "/")
+
             self.error()
 
         return Token(EOL, None)
@@ -294,10 +348,10 @@ def find_2nd(string, substring):
 
 class Interpreter:
     """
-    line  : ((VAR LBRACKET)? VAR ASSIGN term NEWLINE) | (term (RBRACKET NEWLINE)?)
-    expr  : (VAR) | (SIZEOF VAR (GREATERTHAN | GREATEREQUAL | LESSTHAN | LESSEQUAL | EQUAL) INTEGER) | (ATTR (GREATERTHAN | GREATEREQUAL | LESSTHAN | LESSEQUAL | EQUAL) value)
-    term  : (expr) | (LPAREN term (OR | AND) term RPAREN) | (NOT LPAREN term RPAREN)
-    value : INTEGER | FLOAT | STRING | BOOL
+    line : (VAR ASSIGN term NEWLINE) | (term (NEWLINE)?) | (FUNCT VAR LBRACKET (line)+ RBRACKET NEWLINE)
+    term : (expr) | (LPAREN term (OR | AND) term RPAREN) | (NOT LPAREN term RPAREN) | (IF expr LBRACKET NEWLINE (line)* NEWLINE RBRACKET ELSE LBRACKET NEWLINE (line)+ RBRACKET)
+    expr : (VAR) | (SIZEOF VAR (GREATERTHAN | GREATEREQUAL | LESSTHAN | LESSEQUAL | EQUAL) INTEGER) | (ATTR (GREATERTHAN | GREATEREQUAL | LESSTHAN | LESSEQUAL | EQUAL) value)
+    value: INTEGER | FLOAT | STRING | BOOL
     """
 
     def __init__(self, lexer):
@@ -306,6 +360,26 @@ class Interpreter:
         self.current_token = self.lexer.get_next_token()
         self.vars = {"vars": {}}
         self.env_path = ["vars"]
+        self.switch_comp = {
+            GREATERTHAN: lambda a, b: a > b,
+            LESSTHAN: lambda a, b: a < b,
+            GREATEREQUAL: lambda a, b: a >= b,
+            LESSEQUAL: lambda a, b: a < b,
+            EQUAL: lambda a, b: a == b,
+        }
+        self.switch_query = {
+            GREATERTHAN: "__gt",
+            LESSTHAN: "__lt",
+            GREATEREQUAL: "__gte",
+            LESSEQUAL: "__lte",
+            EQUAL: "",
+        }
+        self.switch_math = {
+            PLUS: lambda a, b: a + b,
+            MINUS: lambda a, b: a - b,
+            MULTIPLY: lambda a, b: a * b,
+            DIVIDE: lambda a, b: a / b,
+        }
 
     @staticmethod
     def error():
@@ -317,6 +391,7 @@ class Interpreter:
         # and assign the next token to the self.current_token,
         # otherwise raise an exception.
         if self.current_token.type == token_type:
+            # print(self.current_token.type)
             self.current_token = self.lexer.get_next_token()
         else:
             self.error()
@@ -328,7 +403,7 @@ class Interpreter:
         return result
 
     def line(self, evaluate=True):
-        """line: (VAR ASSIGN term NEWLINE) | (term (NEWLINE)?)"""
+        """line: (VAR ASSIGN term NEWLINE) | (term (NEWLINE)?) | (FUNCT VAR LBRACKET (line)+ RBRACKET NEWLINE) | (WHILE LPAREN expr RPAREN LBRACKET NEWLINE (line)+ RBRACKET NEWLINE)"""
         if self.current_token.type is VAR:
             var_name = self.current_token.value
             self.eat(VAR)
@@ -337,9 +412,7 @@ class Interpreter:
                 if evaluate:
                     temp = get_in(self.env_path, self.vars)
                     temp[var_name] = self.term()
-                    self.vars = assoc_in(
-                        self.vars, self.env_path, temp
-                    )
+                    self.vars = assoc_in(self.vars, self.env_path, temp)
                 else:
                     self.term(False)
                 self.eat(NEWLINE)
@@ -348,22 +421,49 @@ class Interpreter:
                 if evaluate:
                     result = get_in(self.env_path, self.vars)[var_name]
                 else:
-                    result = Battle.objects.none()
+                    result = None
                 return result
-            return Battle.objects.none()
+            return None
+        if self.current_token.type is WHILE:
+            self.eat(WHILE)
+            start_pos = self.lexer.get_pos()
+            self.eat(LPAREN)
+            while self.expr():
+                curr_pos = self.lexer.get_pos()
+                self.eat(RPAREN)
+                self.lexer.push_pos(start_pos)
+                self.lexer.push_pos(curr_pos)
+                self.lexer.advance()
+                self.current_token = self.lexer.get_next_token()
+                self.eat(LBRACKET)
+                self.eat(NEWLINE)
+                while self.current_token.type is not RBRACKET:
+                    print(self.current_token.type)
+                    self.line()
+                    print(self.current_token.type)
+                self.lexer.pop_pos()
+                self.lexer.advance()
+                self.current_token = self.lexer.get_next_token()
+            self.eat(RPAREN)
+            self.eat(LBRACKET)
+            self.eat(NEWLINE)
+            while self.current_token.type is not RBRACKET:
+                self.line(False)
+            self.eat(RBRACKET)
+            self.eat(NEWLINE)
+            return None
         val = self.term(evaluate)
         if self.current_token.type is NEWLINE:
             self.eat(NEWLINE)
-        elif self.current_token.type is not EOL:
-            self.error()
         return val
 
     def term(self, evaluate=True):
-        """term: (expr) | (LPAREN term (OR | AND) term RPAREN) | (NOT LPAREN term RPAREN) | (IF expr LBRACKET NEWLINE (line)* NEWLINE RBRACKET ELSE LBRACKET NEWLINE line RBRACKET)"""
+        """term: (expr) | (LPAREN term (OR | AND | MULTIPLY | DIVIDE) term RPAREN) | (NOT LPAREN term RPAREN) | (IF expr LBRACKET NEWLINE (line)* NEWLINE RBRACKET ELSE LBRACKET NEWLINE (line)+ RBRACKET)"""
         if self.current_token.type is IF:
             self.eat(IF)
             self.eat(LPAREN)
             if evaluate:
+                result = None
                 if self.expr():
                     self.eat(RPAREN)
                     self.eat(LBRACKET)
@@ -414,7 +514,9 @@ class Interpreter:
             self.eat(LPAREN)
             to_exclude = self.term(evaluate)
             if evaluate:
-                result = Battle.objects.all().exclude(id__in=to_exclude).order_by("-time")
+                result = (
+                    Battle.objects.all().exclude(id__in=to_exclude).order_by("-time")
+                )
             else:
                 result = Battle.objects.none()
             self.eat(RPAREN)
@@ -456,22 +558,38 @@ class Interpreter:
         self.eat(switch.get(token.type))
         return token.value
 
+    def comp_operator(self, token_type, a, b):
+        """(GREATERTHAN) | (GREATEREQUAL) | (LESSTHAN) | (LESSEQUAL) | (EQUAL)"""
+        return self.switch_comp[token_type](a, b)
+
+    def query_operator(self, token_type):
+        """(GREATERTHAN) | (GREATEREQUAL) | (LESSTHAN) | (LESSEQUAL) | (EQUAL)"""
+        return self.switch_query[token_type]
+
+    def math_operator(self, token_type, a, b):
+        """(GREATERTHAN) | (GREATEREQUAL) | (LESSTHAN) | (LESSEQUAL) | (EQUAL)"""
+        return self.switch_math[token_type](a, b)
+
     def expr(self, evaluate=True):
-        """expr: (VAR) | (value) | (SIZEOF (VAR | term) (GREATERTHAN | GREATEREQUAL | LESSTHAN | LESSEQUAL | EQUAL) ((SIZEOF (VAR | term)) | (INTEGER))) | (ATTR (GREATERTHAN | GREATEREQUAL | LESSTHAN | LESSEQUAL | EQUAL) value)"""
+        """expr: (VAR) | (value) | (SIZEOF LBRACKET term RBRACKET) | (ATTR query_operator term) | (term (comp_operator | PLUS | MINUS) term)"""
         if self.current_token.type is SIZEOF:
             self.eat(SIZEOF)
+            self.eat(LBRACKET)
             if self.current_token.type is VAR:
-                if not evaluate or self.current_token.value not in get_in(self.env_path, self.vars):
-                    set_a_size = 0
+                if not evaluate or self.current_token.value not in get_in(
+                    self.env_path, self.vars
+                ):
+                    set_a_size = None
                 else:
                     set_a_size = get_in(self.env_path, self.vars)[
                         self.current_token.value
                     ].count()
                 self.eat(VAR)
-                if type(set_a_size) is not int:
+                if type(set_a_size) is not int and evaluate:
                     self.error()
             else:
                 set_a_size = self.term(evaluate).count()
+            self.eat(RBRACKET)
             switch = {
                 GREATERTHAN: lambda a, b: a > b,
                 LESSTHAN: lambda a, b: a < b,
@@ -483,37 +601,75 @@ class Interpreter:
             if token.type in switch:
                 self.eat(token.type)
             else:
-                self.error()
+                return set_a_size
             if self.current_token.type == SIZEOF:
                 self.eat(SIZEOF)
+                self.eat(LBRACKET)
                 if self.current_token.type is VAR:
-                    if not evaluate or self.current_token.value not in get_in(self.env_path, self.vars):
-                        set_b_size = 0
+                    if not evaluate or self.current_token.value not in get_in(
+                        self.env_path, self.vars
+                    ):
+                        set_b_size = None
                     else:
                         set_b_size = get_in(self.env_path, self.vars)[
                             self.current_token.value
                         ].count()
                     self.eat(VAR)
-                    if type(set_a_size) is not int:
+                    if type(set_b_size) is not int and not evaluate:
                         self.error()
                 else:
                     set_b_size = self.term(evaluate).count()
             else:
                 set_b_size = self.value()
-                if type(set_a_size) is not int:
+                if type(set_b_size) is not int and not evaluate:
                     self.error()
+            self.eat(RBRACKET)
             if evaluate:
-                return switch[token.type](set_a_size, set_b_size)
+                return self.comp_operator(token.type, set_a_size, set_b_size)
             return None
         if self.current_token.type is VAR:
-            if not evaluate or self.current_token.value not in get_in(self.env_path, self.vars):
-                set_a = Battle.objects.none()
+            if not evaluate or self.current_token.value not in get_in(
+                self.env_path, self.vars
+            ):
+                val_a = None
             else:
-                set_a = get_in(self.env_path, self.vars)[self.current_token.value]
+                val_a = get_in(self.env_path, self.vars)[self.current_token.value]
             self.eat(VAR)
-            return set_a
+            token = self.current_token
+            if token.type in self.switch_comp:
+                self.eat(token.type)
+            else:
+                if token.type in (PLUS, MINUS):
+                    self.eat(token.type)
+                    val_b = self.term(evaluate)
+                    if evaluate and (
+                        (type(val_a) is not int and type(val_a) is not float)
+                        or (type(val_b) is not int and type(val_b) is not float)
+                    ):
+                        self.error()
+                    if not evaluate:
+                        return None
+                    return self.math_operator(token.type, val_a, val_b)
+                return val_a
+            val_b = self.term()
+            return self.comp_operator(token.type, val_a, val_b)
         if self.current_token.type in (BOOL, INTEGER, FLOAT, STRING):
-            return self.value()
+            val_a = self.value()
+            if self.current_token.type in self.switch_comp:
+                token = self.current_token.type
+                self.eat(token)
+                val_b = self.term()
+                return self.comp_operator(token, val_a, val_b)
+            token = self.current_token.type
+            if token in (PLUS, MINUS):
+                self.eat(token)
+                val_b = self.term()
+                if (type(val_a) is not int and type(val_a) is not float) or (
+                    type(val_b) is not int and type(val_b) is not float
+                ):
+                    self.error()
+                return self.math_operator(token.type, val_a, val_b)
+            return val_a
         attribute = self.current_token.value
         self.eat(ATTR)
         if regex.search(
@@ -679,7 +835,15 @@ class Interpreter:
                 self.eat(token.type)
             else:
                 self.error()
-            value = self.value()
+            if self.current_token.type is VAR:
+                var_name = self.current_token.value
+                if var_name not in get_in(self.env_path, self.vars):
+                    value = None
+                else:
+                    value = get_in(self.env_path, self.vars)[var_name]
+                self.eat(VAR)
+            else:
+                value = self.value()
             if evaluate:
                 if regex.search(
                     "((player)|(teammate_[a-c])|(opponent_[a-d]))_weapon",
@@ -735,7 +899,7 @@ class Interpreter:
                                     attribute[0:8],
                                     find_2nd(key, attribute[9]) - 5,
                                     attribute[10:],
-                                    switch[token.type],
+                                    self.query_operator(token.type),
                                 )
                             ] = value
                         else:
@@ -744,12 +908,14 @@ class Interpreter:
                                     attribute[0:8],
                                     key.index(attribute[9]),
                                     attribute[10:],
-                                    switch[token.type],
+                                    self.query_operator(token.type),
                                 )
                             ] = value
                 else:
                     for key in mapping.keys():
-                        mapping[key][attribute + switch[token.type]] = value
+                        mapping[key][
+                            attribute + self.query_operator(token.type)
+                        ] = value
                 battles = Battle.objects.none()
                 for key in mapping:
                     battles = battles | Battle.objects.filter(**(mapping[key]))
@@ -774,7 +940,8 @@ class Interpreter:
                 if len(value_a) > 0:
                     value = value_a[0]
             if regex.search(
-                "((player)|(teammate_[a-c])|(oppponent_[a-d]))_weapon_special", attribute
+                "((player)|(teammate_[a-c])|(oppponent_[a-d]))_weapon_special",
+                attribute,
             ):
                 value_a = [x for (x, y) in WeaponSpecials if y == value]
                 if len(value_a) > 0:
