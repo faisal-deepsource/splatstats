@@ -340,7 +340,6 @@ class Interpreter:
                     self.vars = assoc_in(
                         self.vars, self.env_path, temp
                     )
-                    print(self.vars)
                 else:
                     self.term(False)
                 self.eat(NEWLINE)
