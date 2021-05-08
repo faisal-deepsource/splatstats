@@ -1,5 +1,7 @@
+from django.db.models.query import QuerySet
 from django.utils.translation import gettext_lazy as _
-from toolz.dicttoolz import get_in, assoc_in
+from toolz.dicttoolz import get_in, update_in, dissoc
+from ...tools import get_size
 import regex
 from .models import (
     Battle,
@@ -40,12 +42,14 @@ from .models import (
     NEWLINE,
     LBRACKET,
     RBRACKET,
+    LSQUIGGLE,
+    RSQUIGGLE,
     SIZEOF,
     IF,
     ELSE,
-    POINTER,
     FUNCT,
     WHILE,
+    CALL, 
     EOL,
 ) = (
     "ATTR",
@@ -72,12 +76,14 @@ from .models import (
     "\n",
     "[",
     "]",
+    "{",
+    "}",
     "SIZEOF",
     "IF",
     "ELSE",
-    "POINTER",
     "FUNCT",
     "WHILE",
+    "CALL",
     "",
 )
 
@@ -103,8 +109,8 @@ class Lexer:
         self.pos = [0]
         self.current_char = self.text[self.pos[-1]]
 
-    def push_pos(self, pos):
-        self.pos.append(pos)
+    def push_pos(self, pos_val):
+        self.pos.append(pos_val)
 
     def pop_pos(self):
         return self.pos.pop()
@@ -188,18 +194,23 @@ class Lexer:
                 self.advance()
                 return Token(RBRACKET, "]")
 
-            if self.current_char == "D":
+            if self.current_char == "T":
                 self.advance()
-                if self.current_char == "E":
-                    self.advance()
-                    if self.current_char == "F":
-                        self.advance()
-                        return Token(FUNCT, "FUNCT")
+                return Token(BOOL, True)
 
-            if self.current_char in ("T", "F"):
-                bool_value = self.current_char == "T"
+            if self.current_char == "F":
                 self.advance()
-                return Token(BOOL, bool_value)
+                if self.current_char == "U":
+                    self.advance()
+                    if self.current_char == "N":
+                        self.advance()
+                        if self.current_char == "C":
+                            self.advance()
+                            if self.current_char == "T":
+                                self.advance()
+                                return Token(FUNCT, "FUNCT")
+                    self.error()
+                return Token(BOOL, False)
 
             if self.current_char == "A":
                 self.advance()
@@ -242,6 +253,17 @@ class Lexer:
                         if self.current_char == "E":
                             self.advance()
                             return Token(ELSE, "ELSE")
+                self.error()
+            
+            if self.current_char == "C":
+                self.advance()
+                if self.current_char == "A":
+                    self.advance()
+                    if self.current_char == "L":
+                        self.advance()
+                        if self.current_char == "L":
+                            self.advance()
+                            return Token(CALL, "CALL")
                 self.error()
 
             if self.current_char == "S":
@@ -321,6 +343,14 @@ class Lexer:
                 self.advance()
                 return Token(RPAREN, ")")
 
+            if self.current_char == "{":
+                self.advance()
+                return Token(LSQUIGGLE, "{")
+
+            if self.current_char == "}":
+                self.advance()
+                return Token(RSQUIGGLE, "}")
+
             if self.current_char == "+":
                 self.advance()
                 return Token(PLUS, "+")
@@ -358,13 +388,12 @@ class Interpreter:
         self.lexer = lexer
         # set current token to the first token taken from the input
         self.current_token = self.lexer.get_next_token()
-        self.vars = {"vars": {}}
-        self.env_path = ["vars"]
+        self.vars = [{}]
         self.switch_comp = {
             GREATERTHAN: lambda a, b: a > b,
             LESSTHAN: lambda a, b: a < b,
             GREATEREQUAL: lambda a, b: a >= b,
-            LESSEQUAL: lambda a, b: a < b,
+            LESSEQUAL: lambda a, b: a <= b,
             EQUAL: lambda a, b: a == b,
         }
         self.switch_query = {
@@ -390,161 +419,176 @@ class Interpreter:
         # type and if they match then "eat" the current token
         # and assign the next token to the self.current_token,
         # otherwise raise an exception.
+        # print(self.current_token.type + " " + token_type)
         if self.current_token.type == token_type:
-            # print(self.current_token.type)
-            self.current_token = self.lexer.get_next_token()
+            if len(self.lexer.pos) > 0:
+                self.current_token = self.lexer.get_next_token()
         else:
             self.error()
 
     def interpret(self):
-        result = self.line()
+        result = None
         while result is None:
             result = self.line()
         return result
 
     def line(self, evaluate=True):
-        """line: (VAR ASSIGN term NEWLINE) | (term (NEWLINE)?) | (FUNCT VAR LBRACKET (line)+ RBRACKET NEWLINE) | (WHILE LPAREN expr RPAREN LBRACKET NEWLINE (line)+ RBRACKET NEWLINE)"""
+        """line: (VAR ASSIGN term NEWLINE) | (term (NEWLINE)?) | (FUNCT VAR LPAREN (VAR)* RPAREN LSQUIGGLE NEWLINE (line)+ RSQUIGGLE NEWLINE) | (WHILE LPAREN expr RPAREN LSQUIGGLE NEWLINE (line)+ RSQUIGGLE NEWLINE)"""
         if self.current_token.type is VAR:
-            var_name = self.current_token.value
-            self.eat(VAR)
-            if self.current_token.type is ASSIGN:
-                self.eat(ASSIGN)
-                if evaluate:
-                    temp = get_in(self.env_path, self.vars)
-                    temp[var_name] = self.term()
-                    self.vars = assoc_in(self.vars, self.env_path, temp)
-                else:
-                    self.term(False)
-                self.eat(NEWLINE)
-                return None
-            if var_name in get_in(self.env_path, self.vars):
-                if evaluate:
-                    result = get_in(self.env_path, self.vars)[var_name]
-                else:
-                    result = None
-                return result
-            return None
+            return self.line_var_handler(evaluate)
         if self.current_token.type is WHILE:
-            self.eat(WHILE)
-            start_pos = self.lexer.get_pos()
-            self.eat(LPAREN)
-            while self.expr():
-                curr_pos = self.lexer.get_pos()
-                self.eat(RPAREN)
-                self.lexer.push_pos(start_pos)
-                self.lexer.push_pos(curr_pos)
-                self.lexer.advance()
-                self.current_token = self.lexer.get_next_token()
-                self.eat(LBRACKET)
-                self.eat(NEWLINE)
-                while self.current_token.type is not RBRACKET:
-                    print(self.current_token.type)
-                    self.line()
-                    print(self.current_token.type)
-                self.lexer.pop_pos()
-                self.lexer.advance()
-                self.current_token = self.lexer.get_next_token()
-            self.eat(RPAREN)
-            self.eat(LBRACKET)
-            self.eat(NEWLINE)
-            while self.current_token.type is not RBRACKET:
-                self.line(False)
-            self.eat(RBRACKET)
-            self.eat(NEWLINE)
-            return None
+            return self.while_handler(evaluate)
+        if self.current_token.type is FUNCT:
+            return self.funct_handler(evaluate)
         val = self.term(evaluate)
         if self.current_token.type is NEWLINE:
             self.eat(NEWLINE)
         return val
 
-    def term(self, evaluate=True):
-        """term: (expr) | (LPAREN term (OR | AND | MULTIPLY | DIVIDE) term RPAREN) | (NOT LPAREN term RPAREN) | (IF expr LBRACKET NEWLINE (line)* NEWLINE RBRACKET ELSE LBRACKET NEWLINE (line)+ RBRACKET)"""
-        if self.current_token.type is IF:
-            self.eat(IF)
-            self.eat(LPAREN)
-            if evaluate:
-                result = None
-                if self.expr():
-                    self.eat(RPAREN)
-                    self.eat(LBRACKET)
-                    self.eat(NEWLINE)
-                    while self.current_token.type is not RBRACKET:
-                        result = self.line()
-                    self.eat(RBRACKET)
-                    self.eat(ELSE)
-                    self.eat(LBRACKET)
-                    self.eat(NEWLINE)
-                    while self.current_token.type is not RBRACKET:
-                        self.line(False)
-                    self.eat(RBRACKET)
-                    if self.current_token.type is NEWLINE:
-                        self.eat(NEWLINE)
-                    elif self.current_token.type is not EOL:
-                        self.error()
-                    return result
-                self.eat(RPAREN)
-                self.eat(LBRACKET)
+    def line_var_handler(self, evaluate=True):
+        var_name = self.current_token.value
+        self.eat(VAR)
+        if self.current_token.type is ASSIGN:
+            self.eat(ASSIGN)
+            term = self.term(evaluate)
+            self.set_var(var_name, term, evaluate)
+            if self.current_token.type is NEWLINE:
                 self.eat(NEWLINE)
-                while self.current_token.type is not RBRACKET:
-                    self.line(False)
-                self.eat(RBRACKET)
-                self.eat(ELSE)
-                self.eat(LBRACKET)
-                self.eat(NEWLINE)
-                while self.current_token.type is not RBRACKET:
-                    result = self.line()
-                self.eat(RBRACKET)
-                return result
-            self.expr(False)
-            self.eat(RPAREN)
-            self.eat(LBRACKET)
-            self.eat(NEWLINE)
-            while self.current_token.type is not RBRACKET:
-                self.line(False)
-            self.eat(RBRACKET)
-            self.eat(ELSE)
-            self.eat(LBRACKET)
-            self.eat(NEWLINE)
-            while self.current_token.type is not RBRACKET:
-                self.line(False)
-            self.eat(RBRACKET)
             return None
-        if self.current_token.type is NOT:
-            self.eat(NOT)
-            self.eat(LPAREN)
-            to_exclude = self.term(evaluate)
-            if evaluate:
-                result = (
-                    Battle.objects.all().exclude(id__in=to_exclude).order_by("-time")
-                )
-            else:
-                result = Battle.objects.none()
+        val = self.get_var(var_name)
+        return val
+
+    def set_var(self, var_name, var_value, evaluate=True):
+        # print(str(var_name) + " " + str(var_value) + " " + str(evaluate))
+        if evaluate:
+            self.vars[-1][var_name] = var_value
+            # print(get_size(self.vars))
+            # print(len(self.vars))
+            # print(self.vars)
+
+    def funct_handler(self, evaluate=True):
+        self.eat(FUNCT)
+        funct_name = self.current_token.value
+        self.eat(VAR)
+        params = {}
+        self.eat(LPAREN)
+        while self.current_token.type is not RPAREN:
+            params[self.current_token.value] = None
+            self.eat(VAR)
+        self.eat(RPAREN)
+        self.eat(LSQUIGGLE)
+        pos = self.lexer.get_pos()
+        self.eat(NEWLINE)
+        self.set_var(funct_name, {"pos": pos, "params": params}, evaluate)
+        while self.current_token.type is not RSQUIGGLE:
+            self.line(False)
+        self.eat(RSQUIGGLE)
+        self.eat(NEWLINE)
+
+    def while_handler(self, evaluate=True):
+        self.eat(WHILE)
+        start_pos = self.lexer.get_pos()
+        self.eat(LPAREN)
+        while self.expr(evaluate):
+            curr_pos = self.lexer.get_pos()
             self.eat(RPAREN)
-        elif self.current_token.type is LPAREN:
-            self.eat(LPAREN)
-            set_a = self.term(evaluate)
-            token = self.current_token
-            if token.type == OR:
-                self.eat(OR)
-                set_b = self.term(evaluate)
-                if evaluate:
-                    result = set_a | set_b
-                    result = result.order_by("-time")
-                else:
-                    result = Battle.objects.none()
-                self.eat(RPAREN)
-            elif token.type == AND:
-                self.eat(AND)
-                set_b = self.term(evaluate)
-                if evaluate:
-                    result = set_a & set_b
-                    result = result.order_by("-time")
-                else:
-                    result = Battle.objects.none()
-                self.eat(RPAREN)
+            self.lexer.push_pos(start_pos)
+            self.lexer.push_pos(curr_pos)
+            self.current_token = self.lexer.get_next_token()
+            self.eat(LSQUIGGLE)
+            self.eat(NEWLINE)
+            while self.current_token.type is not RSQUIGGLE:
+                result = self.line(evaluate)
+            self.lexer.pop_pos()
+            self.lexer.advance()
+            self.current_token = self.lexer.get_next_token()
+        self.eat(RPAREN)
+        self.eat(LSQUIGGLE)
+        self.eat(NEWLINE)
+        while self.current_token.type is not RSQUIGGLE:
+            self.line(False)
+        self.eat(RSQUIGGLE)
+        self.eat(NEWLINE)
+        return None
+
+    def if_handler(self, evaluate=True):
+        self.eat(IF)
+        self.eat(LPAREN)
+        if self.expr(evaluate):
+            self.eat(RPAREN)
+            self.eat(LSQUIGGLE)
+            self.eat(NEWLINE)
+            while self.current_token.type is not RSQUIGGLE:
+                self.line(evaluate)
+            self.eat(RSQUIGGLE)
+            self.eat(ELSE)
+            self.eat(LSQUIGGLE)
+            self.eat(NEWLINE)
+            while self.current_token.type is not RSQUIGGLE:
+                self.line(False)
+            self.eat(RSQUIGGLE)
+            if self.current_token.type is NEWLINE:
+                self.eat(NEWLINE)
+            return None
+        self.eat(RPAREN)
+        self.eat(LSQUIGGLE)
+        self.eat(NEWLINE)
+        while self.current_token.type is not RSQUIGGLE:
+            self.line(False)
+        self.eat(RSQUIGGLE)
+        self.eat(ELSE)
+        self.eat(LSQUIGGLE)
+        self.eat(NEWLINE)
+        while self.current_token.type is not RSQUIGGLE:
+            self.line(evaluate)
+        self.eat(RSQUIGGLE)
+        if self.current_token.type is NEWLINE:
+            self.eat(NEWLINE)
+        return None
+
+    def not_handler(self, evaluate=True):
+        self.eat(NOT)
+        self.eat(LPAREN)
+        to_exclude = self.term(evaluate)
+        if evaluate:
+            result = (
+                Battle.objects.all().exclude(id__in=to_exclude).order_by("-time")
+            )
         else:
-            result = self.expr(evaluate)
+            result = Battle.objects.none()
+        self.eat(RPAREN)
         return result
+
+    def term_lparen_handler(self, evaluate=True):
+        self.eat(LPAREN)
+        set_a = self.term(evaluate)
+        token = self.current_token
+        result = Battle.objects.none()
+        if token.type == OR:
+            self.eat(OR)
+            set_b = self.term(evaluate)
+            if evaluate:
+                result = set_a | set_b
+                result = result.order_by("-time")
+            self.eat(RPAREN)
+        elif token.type == AND:
+            self.eat(AND)
+            set_b = self.term(evaluate)
+            if evaluate:
+                result = set_a & set_b
+                result = result.order_by("-time")
+            self.eat(RPAREN)
+        return result
+
+    def term(self, evaluate=True):
+        """term: (expr) | (LPAREN term (OR | AND) term RPAREN) | (NOT LPAREN term RPAREN) | (IF expr LSQUIGGLE NEWLINE (line)* NEWLINE RSQUIGGLE ELSE LSQUIGGLE NEWLINE (line)+ RSQUIGGLE)"""
+        if self.current_token.type is IF:
+            return self.if_handler(evaluate)
+        if self.current_token.type is NOT:
+            return self.not_handler(evaluate)
+        if self.current_token.type is LPAREN:
+            return self.term_lparen_handler(evaluate)
+        return self.expr(evaluate)
 
     def value(self):
         """value: (INTEGER) | (FLOAT) | (STRING) | (BOOL)"""
@@ -560,7 +604,7 @@ class Interpreter:
 
     def comp_operator(self, token_type, a, b):
         """(GREATERTHAN) | (GREATEREQUAL) | (LESSTHAN) | (LESSEQUAL) | (EQUAL)"""
-        return self.switch_comp[token_type](a, b)
+        return self.switch_comp[token_type](a=a, b=b)
 
     def query_operator(self, token_type):
         """(GREATERTHAN) | (GREATEREQUAL) | (LESSTHAN) | (LESSEQUAL) | (EQUAL)"""
@@ -568,78 +612,99 @@ class Interpreter:
 
     def math_operator(self, token_type, a, b):
         """(GREATERTHAN) | (GREATEREQUAL) | (LESSTHAN) | (LESSEQUAL) | (EQUAL)"""
-        return self.switch_math[token_type](a, b)
+        return self.switch_math[token_type](a=a, b=b)
+
+    def get_var(self, var_name, layer=-1):
+        #for i in range(-1, -len(self.vars)-1, -1):
+        if var_name in self.vars[layer]:
+            return self.vars[layer][var_name]
+        return None
+
+    def call_handler(self, evaluate=True):
+        self.eat(CALL)
+        func_name = self.current_token.value
+        self.eat(VAR)
+        self.eat(LPAREN)
+        params = self.get_var(func_name, 0)["params"].copy()
+        i = 0
+        while self.current_token.type is not RPAREN:
+            params[list(params)[i][0]] = self.term(evaluate)
+            i += 1
+        return_pos = self.lexer.get_pos()
+        self.eat(RPAREN)
+        result = None
+        if evaluate:
+            func_loc = self.get_var(func_name, 0)["pos"]
+            self.lexer.pop_pos()
+            self.lexer.push_pos(return_pos - 1)
+            self.lexer.push_pos(func_loc - 1)
+            self.vars.append(params)
+            self.lexer.advance()
+            self.current_token = self.lexer.get_next_token()
+            while self.current_token.type is not RSQUIGGLE:
+                result = self.line(evaluate)
+            self.vars.pop()
+            print("result count: " + str(result.count() if result is not None else None))
+            self.lexer.pop_pos()
+            self.eat(RSQUIGGLE)
+        return result
 
     def expr(self, evaluate=True):
-        """expr: (VAR) | (value) | (SIZEOF LBRACKET term RBRACKET) | (ATTR query_operator term) | (term (comp_operator | PLUS | MINUS) term)"""
+        """expr: (CALL VAR LPAREN (term)? RPAREN) | (VAR) | (value) | (SIZEOF LBRACKET term RBRACKET) | (ATTR query_operator term) | (term (comp_operator | math_operator) term)"""
+        if self.current_token.type is CALL:
+            return self.call_handler(evaluate)
         if self.current_token.type is SIZEOF:
             self.eat(SIZEOF)
-            self.eat(LBRACKET)
-            if self.current_token.type is VAR:
-                if not evaluate or self.current_token.value not in get_in(
-                    self.env_path, self.vars
-                ):
-                    set_a_size = None
-                else:
-                    set_a_size = get_in(self.env_path, self.vars)[
-                        self.current_token.value
-                    ].count()
-                self.eat(VAR)
-                if type(set_a_size) is not int and evaluate:
-                    self.error()
+            self.eat(LPAREN)
+            set_a = self.term(evaluate)
+            if isinstance(set_a, QuerySet):
+                set_a_size = set_a.count()
             else:
-                set_a_size = self.term(evaluate).count()
-            self.eat(RBRACKET)
-            switch = {
-                GREATERTHAN: lambda a, b: a > b,
-                LESSTHAN: lambda a, b: a < b,
-                GREATEREQUAL: lambda a, b: a >= b,
-                LESSEQUAL: lambda a, b: a < b,
-                EQUAL: lambda a, b: a == b,
-            }
+                if type(set_a) is int:
+                    set_a_size = set_a
+                else:
+                    set_a_size = 0
+            self.eat(RPAREN)
             token = self.current_token
-            if token.type in switch:
+            if token.type in self.switch_comp:
                 self.eat(token.type)
             else:
                 return set_a_size
             if self.current_token.type == SIZEOF:
                 self.eat(SIZEOF)
-                self.eat(LBRACKET)
+                self.eat(LPAREN)
                 if self.current_token.type is VAR:
-                    if not evaluate or self.current_token.value not in get_in(
-                        self.env_path, self.vars
-                    ):
-                        set_b_size = None
+                    if evaluate:
+                        set_b_size = self.get_var(self.current_token.value)
+                        if isinstance(set_b_size, QuerySet):
+                            set_b_size = set_b_size.count()
+                        if type(set_b_size) is not int:
+                            self.error()
                     else:
-                        set_b_size = get_in(self.env_path, self.vars)[
-                            self.current_token.value
-                        ].count()
+                        set_b_size = 0
                     self.eat(VAR)
-                    if type(set_b_size) is not int and not evaluate:
-                        self.error()
                 else:
-                    set_b_size = self.term(evaluate).count()
+                    set_b_size = self.term(evaluate)
+                    if type(set_b_size) is QuerySet:
+                        set_b_size = set_b_size.count()
+                    if type(set_b_size) is not int:
+                        self.error()
             else:
                 set_b_size = self.value()
-                if type(set_b_size) is not int and not evaluate:
+                if type(set_b_size) is not int:
                     self.error()
-            self.eat(RBRACKET)
-            if evaluate:
-                return self.comp_operator(token.type, set_a_size, set_b_size)
-            return None
+            self.eat(RPAREN)
+            return self.comp_operator(token.type, set_a_size, set_b_size)
         if self.current_token.type is VAR:
-            if not evaluate or self.current_token.value not in get_in(
-                self.env_path, self.vars
-            ):
-                val_a = None
-            else:
-                val_a = get_in(self.env_path, self.vars)[self.current_token.value]
+            val_a = self.get_var(self.current_token.value)
+            if val_a is None:
+                val_a = 0
             self.eat(VAR)
             token = self.current_token
             if token.type in self.switch_comp:
                 self.eat(token.type)
             else:
-                if token.type in (PLUS, MINUS):
+                if token.type in self.switch_math:
                     self.eat(token.type)
                     val_b = self.term(evaluate)
                     if evaluate and (
@@ -647,21 +712,22 @@ class Interpreter:
                         or (type(val_b) is not int and type(val_b) is not float)
                     ):
                         self.error()
-                    if not evaluate:
-                        return None
                     return self.math_operator(token.type, val_a, val_b)
                 return val_a
-            val_b = self.term()
-            return self.comp_operator(token.type, val_a, val_b)
+            val_b = self.term(evaluate)
+            if evaluate:
+                result_value = self.comp_operator(token.type, val_a, val_b)
+            else:
+                result_value = False
+            return result_value
         if self.current_token.type in (BOOL, INTEGER, FLOAT, STRING):
             val_a = self.value()
-            if self.current_token.type in self.switch_comp:
-                token = self.current_token.type
+            token = self.current_token.type
+            if token in self.switch_comp:
                 self.eat(token)
                 val_b = self.term()
                 return self.comp_operator(token, val_a, val_b)
-            token = self.current_token.type
-            if token in (PLUS, MINUS):
+            if token in self.switch_math:
                 self.eat(token)
                 val_b = self.term()
                 if (type(val_a) is not int and type(val_a) is not float) or (
@@ -676,153 +742,152 @@ class Interpreter:
             "(rule)|(match_type)|(stage)|(win(_meter)?)|(has_disconnected_player)|(((my)|(other))_team_count)|((elapsed_)?time)|(tag_id)|(battle_number)|(((league)|(splatfest))_point)|(splatfest_title_after)|(player_x_power)|(((player)|(teammate_[a-c])|(opponent_[a-d]))_(((headgear)|(clothes)|(shoes))(_((sub[0-2])|(main)))?|(weapon)|(rank)|(level(_star)?)|(kills)|(deaths)|(assists)|(specials)|(game_paint_point)|(splatfest_title)|(name)|(splatnet_id)|(gender)|(species)))$",
             attribute,
         ):
-            if evaluate:
-                mapping = {
-                    "abcd-abc": {},
-                    "abcd-acb": {},
-                    "abcd-bac": {},
-                    "abcd-bca": {},
-                    "abcd-cab": {},
-                    "abcd-cba": {},
-                    "abdc-abc": {},
-                    "abdc-acb": {},
-                    "abdc-bac": {},
-                    "abdc-bca": {},
-                    "abdc-cab": {},
-                    "abdc-cba": {},
-                    "acbd-abc": {},
-                    "acbd-acb": {},
-                    "acbd-bac": {},
-                    "acbd-bca": {},
-                    "acbd-cab": {},
-                    "acbd-cba": {},
-                    "acdb-abc": {},
-                    "acdb-acb": {},
-                    "acdb-bac": {},
-                    "acdb-bca": {},
-                    "acdb-cab": {},
-                    "acdb-cba": {},
-                    "adbc-abc": {},
-                    "adbc-acb": {},
-                    "adbc-bac": {},
-                    "adbc-bca": {},
-                    "adbc-cab": {},
-                    "adbc-cba": {},
-                    "adcb-abc": {},
-                    "adcb-acb": {},
-                    "adcb-bac": {},
-                    "adcb-bca": {},
-                    "adcb-cab": {},
-                    "adcb-cba": {},
-                    "bacd-abc": {},
-                    "bacd-acb": {},
-                    "bacd-bac": {},
-                    "bacd-bca": {},
-                    "bacd-cab": {},
-                    "bacd-cba": {},
-                    "badc-abc": {},
-                    "badc-acb": {},
-                    "badc-bac": {},
-                    "badc-bca": {},
-                    "badc-cab": {},
-                    "badc-cba": {},
-                    "bcad-abc": {},
-                    "bcad-acb": {},
-                    "bcad-bac": {},
-                    "bcad-bca": {},
-                    "bcad-cab": {},
-                    "bcad-cba": {},
-                    "bcda-abc": {},
-                    "bcda-acb": {},
-                    "bcda-bac": {},
-                    "bcda-bca": {},
-                    "bcda-cab": {},
-                    "bcda-cba": {},
-                    "bdac-abc": {},
-                    "bdac-acb": {},
-                    "bdac-bac": {},
-                    "bdac-bca": {},
-                    "bdac-cab": {},
-                    "bdac-cba": {},
-                    "bdca-abc": {},
-                    "bdca-acb": {},
-                    "bdca-bac": {},
-                    "bdca-bca": {},
-                    "bdca-cab": {},
-                    "bdca-cba": {},
-                    "cabd-abc": {},
-                    "cabd-acb": {},
-                    "cabd-bac": {},
-                    "cabd-bca": {},
-                    "cabd-cab": {},
-                    "cabd-cba": {},
-                    "cadb-abc": {},
-                    "cadb-acb": {},
-                    "cadb-bac": {},
-                    "cadb-bca": {},
-                    "cadb-cab": {},
-                    "cadb-cba": {},
-                    "cbad-abc": {},
-                    "cbad-acb": {},
-                    "cbad-bac": {},
-                    "cbad-bca": {},
-                    "cbad-cab": {},
-                    "cbad-cba": {},
-                    "cbda-abc": {},
-                    "cbda-acb": {},
-                    "cbda-bac": {},
-                    "cbda-bca": {},
-                    "cbda-cab": {},
-                    "cbda-cba": {},
-                    "cdab-abc": {},
-                    "cdab-acb": {},
-                    "cdab-bac": {},
-                    "cdab-bca": {},
-                    "cdab-cab": {},
-                    "cdab-cba": {},
-                    "cdba-abc": {},
-                    "cdba-acb": {},
-                    "cdba-bac": {},
-                    "cdba-bca": {},
-                    "cdba-cab": {},
-                    "cdba-cba": {},
-                    "dabc-abc": {},
-                    "dabc-acb": {},
-                    "dabc-bac": {},
-                    "dabc-bca": {},
-                    "dabc-cab": {},
-                    "dabc-cba": {},
-                    "dacb-abc": {},
-                    "dacb-acb": {},
-                    "dacb-bac": {},
-                    "dacb-bca": {},
-                    "dacb-cab": {},
-                    "dacb-cba": {},
-                    "dbac-abc": {},
-                    "dbac-acb": {},
-                    "dbac-bac": {},
-                    "dbac-bca": {},
-                    "dbac-cab": {},
-                    "dbac-cba": {},
-                    "dbca-abc": {},
-                    "dbca-acb": {},
-                    "dbca-bac": {},
-                    "dbca-bca": {},
-                    "dbca-cab": {},
-                    "dbca-cba": {},
-                    "dcab-abc": {},
-                    "dcab-acb": {},
-                    "dcab-bac": {},
-                    "dcab-bca": {},
-                    "dcab-cab": {},
-                    "dcab-cba": {},
-                    "dcba-abc": {},
-                    "dcba-acb": {},
-                    "dcba-bac": {},
-                    "dcba-bca": {},
-                    "dcba-cab": {},
-                    "dcba-cba": {},
-                }
+            mapping = {
+                "abcd-abc": {},
+                "abcd-acb": {},
+                "abcd-bac": {},
+                "abcd-bca": {},
+                "abcd-cab": {},
+                "abcd-cba": {},
+                "abdc-abc": {},
+                "abdc-acb": {},
+                "abdc-bac": {},
+                "abdc-bca": {},
+                "abdc-cab": {},
+                "abdc-cba": {},
+                "acbd-abc": {},
+                "acbd-acb": {},
+                "acbd-bac": {},
+                "acbd-bca": {},
+                "acbd-cab": {},
+                "acbd-cba": {},
+                "acdb-abc": {},
+                "acdb-acb": {},
+                "acdb-bac": {},
+                "acdb-bca": {},
+                "acdb-cab": {},
+                "acdb-cba": {},
+                "adbc-abc": {},
+                "adbc-acb": {},
+                "adbc-bac": {},
+                "adbc-bca": {},
+                "adbc-cab": {},
+                "adbc-cba": {},
+                "adcb-abc": {},
+                "adcb-acb": {},
+                "adcb-bac": {},
+                "adcb-bca": {},
+                "adcb-cab": {},
+                "adcb-cba": {},
+                "bacd-abc": {},
+                "bacd-acb": {},
+                "bacd-bac": {},
+                "bacd-bca": {},
+                "bacd-cab": {},
+                "bacd-cba": {},
+                "badc-abc": {},
+                "badc-acb": {},
+                "badc-bac": {},
+                "badc-bca": {},
+                "badc-cab": {},
+                "badc-cba": {},
+                "bcad-abc": {},
+                "bcad-acb": {},
+                "bcad-bac": {},
+                "bcad-bca": {},
+                "bcad-cab": {},
+                "bcad-cba": {},
+                "bcda-abc": {},
+                "bcda-acb": {},
+                "bcda-bac": {},
+                "bcda-bca": {},
+                "bcda-cab": {},
+                "bcda-cba": {},
+                "bdac-abc": {},
+                "bdac-acb": {},
+                "bdac-bac": {},
+                "bdac-bca": {},
+                "bdac-cab": {},
+                "bdac-cba": {},
+                "bdca-abc": {},
+                "bdca-acb": {},
+                "bdca-bac": {},
+                "bdca-bca": {},
+                "bdca-cab": {},
+                "bdca-cba": {},
+                "cabd-abc": {},
+                "cabd-acb": {},
+                "cabd-bac": {},
+                "cabd-bca": {},
+                "cabd-cab": {},
+                "cabd-cba": {},
+                "cadb-abc": {},
+                "cadb-acb": {},
+                "cadb-bac": {},
+                "cadb-bca": {},
+                "cadb-cab": {},
+                "cadb-cba": {},
+                "cbad-abc": {},
+                "cbad-acb": {},
+                "cbad-bac": {},
+                "cbad-bca": {},
+                "cbad-cab": {},
+                "cbad-cba": {},
+                "cbda-abc": {},
+                "cbda-acb": {},
+                "cbda-bac": {},
+                "cbda-bca": {},
+                "cbda-cab": {},
+                "cbda-cba": {},
+                "cdab-abc": {},
+                "cdab-acb": {},
+                "cdab-bac": {},
+                "cdab-bca": {},
+                "cdab-cab": {},
+                "cdab-cba": {},
+                "cdba-abc": {},
+                "cdba-acb": {},
+                "cdba-bac": {},
+                "cdba-bca": {},
+                "cdba-cab": {},
+                "cdba-cba": {},
+                "dabc-abc": {},
+                "dabc-acb": {},
+                "dabc-bac": {},
+                "dabc-bca": {},
+                "dabc-cab": {},
+                "dabc-cba": {},
+                "dacb-abc": {},
+                "dacb-acb": {},
+                "dacb-bac": {},
+                "dacb-bca": {},
+                "dacb-cab": {},
+                "dacb-cba": {},
+                "dbac-abc": {},
+                "dbac-acb": {},
+                "dbac-bac": {},
+                "dbac-bca": {},
+                "dbac-cab": {},
+                "dbac-cba": {},
+                "dbca-abc": {},
+                "dbca-acb": {},
+                "dbca-bac": {},
+                "dbca-bca": {},
+                "dbca-cab": {},
+                "dbca-cba": {},
+                "dcab-abc": {},
+                "dcab-acb": {},
+                "dcab-bac": {},
+                "dcab-bca": {},
+                "dcab-cab": {},
+                "dcab-cba": {},
+                "dcba-abc": {},
+                "dcba-acb": {},
+                "dcba-bac": {},
+                "dcba-bca": {},
+                "dcba-cab": {},
+                "dcba-cba": {},
+            }
             switch = {
                 GREATERTHAN: "__gt",
                 LESSTHAN: "__lt",
@@ -835,287 +900,274 @@ class Interpreter:
                 self.eat(token.type)
             else:
                 self.error()
-            if self.current_token.type is VAR:
-                var_name = self.current_token.value
-                if var_name not in get_in(self.env_path, self.vars):
-                    value = None
-                else:
-                    value = get_in(self.env_path, self.vars)[var_name]
-                self.eat(VAR)
-            else:
-                value = self.value()
-            if evaluate:
-                if regex.search(
-                    "((player)|(teammate_[a-c])|(opponent_[a-d]))_weapon",
-                    attribute,
-                ):
-                    value_a = [x for (x, y) in Weapons if y == value]
-                    if len(value_a) > 0:
-                        value = value_a[0]
-                elif regex.search(
-                    "((player)|(teammate_[a-c])|(opponent_[a-c]))_((headgear)|(clothes)|(shoes))_main",
-                    attribute,
-                ):
-                    value_a = [x for (x, y) in MainAbilities if y == value]
-                    if len(value_a) > 0:
-                        value = value_a[0]
-                elif regex.search(
-                    "((player)|(teammate_[a-c])|(opponent_[a-c]))_((headgear)|(clothes)|(shoes))_sub[0-2]",
-                    attribute,
-                ):
-                    value_a = [x for (x, y) in SubAbilities if y == value]
-                    if len(value_a) > 0:
-                        value = value_a[0]
-                elif regex.search("stage", attribute):
-                    value_a = [x for (x, y) in Stage if y == value]
-                    if len(value_a) > 0:
-                        value = value_a[0]
-                elif regex.search(
-                    "((player)|(teammate_[a-c])|(opponent_[a-c]))_headgear", attribute
-                ):
-                    value_a = [x for (x, y) in Headgear if y == value]
-                    if len(value_a) > 0:
-                        value = value_a[0]
-                elif regex.search(
-                    "((player)|(teammate_[a-c])|(opponent_[a-c]))_clothes", attribute
-                ):
-                    value_a = [x for (x, y) in Clothes if y == value]
-                    if len(value_a) > 0:
-                        value = value_a[0]
-                elif regex.search(
-                    "((player)|(teammate_[a-c])|(opponent_[a-c]))_shoes", attribute
-                ):
-                    value_a = [x for (x, y) in Shoes if y == value]
-                    if len(value_a) > 0:
-                        value = value_a[0]
-                if regex.search(
-                    "((teammate_[a-c])|(opponent_[a-d]))_[0-z_]*",
-                    attribute,
-                ):
-                    for key in mapping.keys():
-                        if attribute[0:8] == "teammate":
-                            mapping[key][
-                                "{}{}{}{}".format(
-                                    attribute[0:8],
-                                    find_2nd(key, attribute[9]) - 5,
-                                    attribute[10:],
-                                    self.query_operator(token.type),
-                                )
-                            ] = value
-                        else:
-                            mapping[key][
-                                "{}{}{}{}".format(
-                                    attribute[0:8],
-                                    key.index(attribute[9]),
-                                    attribute[10:],
-                                    self.query_operator(token.type),
-                                )
-                            ] = value
-                else:
-                    for key in mapping.keys():
+            value = self.term(evaluate)
+            if regex.search(
+                "((player)|(teammate_[a-c])|(opponent_[a-d]))_weapon",
+                attribute,
+            ):
+                value_a = [x for (x, y) in Weapons if y == value]
+                if len(value_a) > 0:
+                    value = value_a[0]
+            elif regex.search(
+                "((player)|(teammate_[a-c])|(opponent_[a-c]))_((headgear)|(clothes)|(shoes))_main",
+                attribute,
+            ):
+                value_a = [x for (x, y) in MainAbilities if y == value]
+                if len(value_a) > 0:
+                    value = value_a[0]
+            elif regex.search(
+                "((player)|(teammate_[a-c])|(opponent_[a-c]))_((headgear)|(clothes)|(shoes))_sub[0-2]",
+                attribute,
+            ):
+                value_a = [x for (x, y) in SubAbilities if y == value]
+                if len(value_a) > 0:
+                    value = value_a[0]
+            elif regex.search("stage", attribute):
+                value_a = [x for (x, y) in Stage if y == value]
+                if len(value_a) > 0:
+                    value = value_a[0]
+            elif regex.search(
+                "((player)|(teammate_[a-c])|(opponent_[a-c]))_headgear", attribute
+            ):
+                value_a = [x for (x, y) in Headgear if y == value]
+                if len(value_a) > 0:
+                    value = value_a[0]
+            elif regex.search(
+                "((player)|(teammate_[a-c])|(opponent_[a-c]))_clothes", attribute
+            ):
+                value_a = [x for (x, y) in Clothes if y == value]
+                if len(value_a) > 0:
+                    value = value_a[0]
+            elif regex.search(
+                "((player)|(teammate_[a-c])|(opponent_[a-c]))_shoes", attribute
+            ):
+                value_a = [x for (x, y) in Shoes if y == value]
+                if len(value_a) > 0:
+                    value = value_a[0]
+            if regex.search(
+                "((teammate_[a-c])|(opponent_[a-d]))_[0-z_]*",
+                attribute,
+            ):
+                for key in mapping.keys():
+                    if attribute[0:8] == "teammate":
                         mapping[key][
-                            attribute + self.query_operator(token.type)
+                            "{}{}{}{}".format(
+                                attribute[0:8],
+                                find_2nd(key, attribute[9]) - 5,
+                                attribute[10:],
+                                self.query_operator(token.type),
+                            )
                         ] = value
-                battles = Battle.objects.none()
-                for key in mapping:
-                    battles = battles | Battle.objects.filter(**(mapping[key]))
-                battles = battles.order_by("-time")
-                return battles
+                    else:
+                        mapping[key][
+                            "{}{}{}{}".format(
+                                attribute[0:8],
+                                key.index(attribute[9]),
+                                attribute[10:],
+                                self.query_operator(token.type),
+                            )
+                        ] = value
             else:
-                return Battle.objects.none()
+                for key in mapping.keys():
+                    mapping[key][
+                        attribute + self.query_operator(token.type)
+                    ] = value
+            battles = Battle.objects.none()
+            for key in mapping:
+                battles = battles | Battle.objects.filter(**(mapping[key]))
+            battles = battles.order_by("-time")
+            return battles
         token = self.current_token
         self.eat(token.type)
         value = self.value()
-        if evaluate:
-            if regex.search(
-                "((player)|(teammate_[a-c])|(oppponent_[a-d]))_weapon_family", attribute
-            ):
-                value_a = [x for (x, y) in WeaponFamily if y == value]
-                if len(value_a) > 0:
-                    value = value_a[0]
-            if regex.search(
-                "((player)|(teammate_[a-c])|(oppponent_[a-d]))_weapon_sub", attribute
-            ):
-                value_a = [x for (x, y) in WeaponSubs if y == value]
-                if len(value_a) > 0:
-                    value = value_a[0]
-            if regex.search(
-                "((player)|(teammate_[a-c])|(oppponent_[a-d]))_weapon_special",
-                attribute,
-            ):
-                value_a = [x for (x, y) in WeaponSpecials if y == value]
-                if len(value_a) > 0:
-                    value = value_a[0]
-            mapping = {
-                "abcd-abc": [],
-                "abcd-acb": [],
-                "abcd-bac": [],
-                "abcd-bca": [],
-                "abcd-cab": [],
-                "abcd-cba": [],
-                "abdc-abc": [],
-                "abdc-acb": [],
-                "abdc-bac": [],
-                "abdc-bca": [],
-                "abdc-cab": [],
-                "abdc-cba": [],
-                "acbd-abc": [],
-                "acbd-acb": [],
-                "acbd-bac": [],
-                "acbd-bca": [],
-                "acbd-cab": [],
-                "acbd-cba": [],
-                "acdb-abc": [],
-                "acdb-acb": [],
-                "acdb-bac": [],
-                "acdb-bca": [],
-                "acdb-cab": [],
-                "acdb-cba": [],
-                "adbc-abc": [],
-                "adbc-acb": [],
-                "adbc-bac": [],
-                "adbc-bca": [],
-                "adbc-cab": [],
-                "adbc-cba": [],
-                "adcb-abc": [],
-                "adcb-acb": [],
-                "adcb-bac": [],
-                "adcb-bca": [],
-                "adcb-cab": [],
-                "adcb-cba": [],
-                "bacd-abc": [],
-                "bacd-acb": [],
-                "bacd-bac": [],
-                "bacd-bca": [],
-                "bacd-cab": [],
-                "bacd-cba": [],
-                "badc-abc": [],
-                "badc-acb": [],
-                "badc-bac": [],
-                "badc-bca": [],
-                "badc-cab": [],
-                "badc-cba": [],
-                "bcad-abc": [],
-                "bcad-acb": [],
-                "bcad-bac": [],
-                "bcad-bca": [],
-                "bcad-cab": [],
-                "bcad-cba": [],
-                "bcda-abc": [],
-                "bcda-acb": [],
-                "bcda-bac": [],
-                "bcda-bca": [],
-                "bcda-cab": [],
-                "bcda-cba": [],
-                "bdac-abc": [],
-                "bdac-acb": [],
-                "bdac-bac": [],
-                "bdac-bca": [],
-                "bdac-cab": [],
-                "bdac-cba": [],
-                "bdca-abc": [],
-                "bdca-acb": [],
-                "bdca-bac": [],
-                "bdca-bca": [],
-                "bdca-cab": [],
-                "bdca-cba": [],
-                "cabd-abc": [],
-                "cabd-acb": [],
-                "cabd-bac": [],
-                "cabd-bca": [],
-                "cabd-cab": [],
-                "cabd-cba": [],
-                "cadb-abc": [],
-                "cadb-acb": [],
-                "cadb-bac": [],
-                "cadb-bca": [],
-                "cadb-cab": [],
-                "cadb-cba": [],
-                "cbad-abc": [],
-                "cbad-acb": [],
-                "cbad-bac": [],
-                "cbad-bca": [],
-                "cbad-cab": [],
-                "cbad-cba": [],
-                "cbda-abc": [],
-                "cbda-acb": [],
-                "cbda-bac": [],
-                "cbda-bca": [],
-                "cbda-cab": [],
-                "cbda-cba": [],
-                "cdab-abc": [],
-                "cdab-acb": [],
-                "cdab-bac": [],
-                "cdab-bca": [],
-                "cdab-cab": [],
-                "cdab-cba": [],
-                "cdba-abc": [],
-                "cdba-acb": [],
-                "cdba-bac": [],
-                "cdba-bca": [],
-                "cdba-cab": [],
-                "cdba-cba": [],
-                "dabc-abc": [],
-                "dabc-acb": [],
-                "dabc-bac": [],
-                "dabc-bca": [],
-                "dabc-cab": [],
-                "dabc-cba": [],
-                "dacb-abc": [],
-                "dacb-acb": [],
-                "dacb-bac": [],
-                "dacb-bca": [],
-                "dacb-cab": [],
-                "dacb-cba": [],
-                "dbac-abc": [],
-                "dbac-acb": [],
-                "dbac-bac": [],
-                "dbac-bca": [],
-                "dbac-cab": [],
-                "dbac-cba": [],
-                "dbca-abc": [],
-                "dbca-acb": [],
-                "dbca-bac": [],
-                "dbca-bca": [],
-                "dbca-cab": [],
-                "dbca-cba": [],
-                "dcab-abc": [],
-                "dcab-acb": [],
-                "dcab-bac": [],
-                "dcab-bca": [],
-                "dcab-cab": [],
-                "dcab-cba": [],
-                "dcba-abc": [],
-                "dcba-acb": [],
-                "dcba-bac": [],
-                "dcba-bca": [],
-                "dcba-cab": [],
-                "dcba-cba": [],
-            }
-            for key in mapping:
-                for val in value:
-                    if attribute[0:8] == "teammate":
-                        mapping[key].append(
-                            {
-                                "teammate{}_weapon".format(
-                                    find_2nd(key, attribute[9]) - 5
-                                ): val
-                            }
-                        )
-                    elif attribute[0:8] == "opponent":
-                        mapping[key].append(
-                            {
-                                "opponent{}_weapon".format(
-                                    key.index(attribute[9]),
-                                ): val
-                            }
-                        )
-                    else:
-                        mapping[key].append({"player_weapon": val})
-            battles = Battle.objects.none()
-            for val in mapping.values():
-                for query in val:
-                    battles = battles | Battle.objects.filter(**query)
-            battles = battles.order_by("-time")
-            return battles
-        return Battle.objects.none()
+        if regex.search(
+            "((player)|(teammate_[a-c])|(oppponent_[a-d]))_weapon_family", attribute
+        ):
+            value_a = [x for (x, y) in WeaponFamily if y == value]
+            if len(value_a) > 0:
+                value = value_a[0]
+        if regex.search(
+            "((player)|(teammate_[a-c])|(oppponent_[a-d]))_weapon_sub", attribute
+        ):
+            value_a = [x for (x, y) in WeaponSubs if y == value]
+            if len(value_a) > 0:
+                value = value_a[0]
+        if regex.search(
+            "((player)|(teammate_[a-c])|(oppponent_[a-d]))_weapon_special",
+            attribute,
+        ):
+            value_a = [x for (x, y) in WeaponSpecials if y == value]
+            if len(value_a) > 0:
+                value = value_a[0]
+        mapping = {
+            "abcd-abc": [],
+            "abcd-acb": [],
+            "abcd-bac": [],
+            "abcd-bca": [],
+            "abcd-cab": [],
+            "abcd-cba": [],
+            "abdc-abc": [],
+            "abdc-acb": [],
+            "abdc-bac": [],
+            "abdc-bca": [],
+            "abdc-cab": [],
+            "abdc-cba": [],
+            "acbd-abc": [],
+            "acbd-acb": [],
+            "acbd-bac": [],
+            "acbd-bca": [],
+            "acbd-cab": [],
+            "acbd-cba": [],
+            "acdb-abc": [],
+            "acdb-acb": [],
+            "acdb-bac": [],
+            "acdb-bca": [],
+            "acdb-cab": [],
+            "acdb-cba": [],
+            "adbc-abc": [],
+            "adbc-acb": [],
+            "adbc-bac": [],
+            "adbc-bca": [],
+            "adbc-cab": [],
+            "adbc-cba": [],
+            "adcb-abc": [],
+            "adcb-acb": [],
+            "adcb-bac": [],
+            "adcb-bca": [],
+            "adcb-cab": [],
+            "adcb-cba": [],
+            "bacd-abc": [],
+            "bacd-acb": [],
+            "bacd-bac": [],
+            "bacd-bca": [],
+            "bacd-cab": [],
+            "bacd-cba": [],
+            "badc-abc": [],
+            "badc-acb": [],
+            "badc-bac": [],
+            "badc-bca": [],
+            "badc-cab": [],
+            "badc-cba": [],
+            "bcad-abc": [],
+            "bcad-acb": [],
+            "bcad-bac": [],
+            "bcad-bca": [],
+            "bcad-cab": [],
+            "bcad-cba": [],
+            "bcda-abc": [],
+            "bcda-acb": [],
+            "bcda-bac": [],
+            "bcda-bca": [],
+            "bcda-cab": [],
+            "bcda-cba": [],
+            "bdac-abc": [],
+            "bdac-acb": [],
+            "bdac-bac": [],
+            "bdac-bca": [],
+            "bdac-cab": [],
+            "bdac-cba": [],
+            "bdca-abc": [],
+            "bdca-acb": [],
+            "bdca-bac": [],
+            "bdca-bca": [],
+            "bdca-cab": [],
+            "bdca-cba": [],
+            "cabd-abc": [],
+            "cabd-acb": [],
+            "cabd-bac": [],
+            "cabd-bca": [],
+            "cabd-cab": [],
+            "cabd-cba": [],
+            "cadb-abc": [],
+            "cadb-acb": [],
+            "cadb-bac": [],
+            "cadb-bca": [],
+            "cadb-cab": [],
+            "cadb-cba": [],
+            "cbad-abc": [],
+            "cbad-acb": [],
+            "cbad-bac": [],
+            "cbad-bca": [],
+            "cbad-cab": [],
+            "cbad-cba": [],
+            "cbda-abc": [],
+            "cbda-acb": [],
+            "cbda-bac": [],
+            "cbda-bca": [],
+            "cbda-cab": [],
+            "cbda-cba": [],
+            "cdab-abc": [],
+            "cdab-acb": [],
+            "cdab-bac": [],
+            "cdab-bca": [],
+            "cdab-cab": [],
+            "cdab-cba": [],
+            "cdba-abc": [],
+            "cdba-acb": [],
+            "cdba-bac": [],
+            "cdba-bca": [],
+            "cdba-cab": [],
+            "cdba-cba": [],
+            "dabc-abc": [],
+            "dabc-acb": [],
+            "dabc-bac": [],
+            "dabc-bca": [],
+            "dabc-cab": [],
+            "dabc-cba": [],
+            "dacb-abc": [],
+            "dacb-acb": [],
+            "dacb-bac": [],
+            "dacb-bca": [],
+            "dacb-cab": [],
+            "dacb-cba": [],
+            "dbac-abc": [],
+            "dbac-acb": [],
+            "dbac-bac": [],
+            "dbac-bca": [],
+            "dbac-cab": [],
+            "dbac-cba": [],
+            "dbca-abc": [],
+            "dbca-acb": [],
+            "dbca-bac": [],
+            "dbca-bca": [],
+            "dbca-cab": [],
+            "dbca-cba": [],
+            "dcab-abc": [],
+            "dcab-acb": [],
+            "dcab-bac": [],
+            "dcab-bca": [],
+            "dcab-cab": [],
+            "dcab-cba": [],
+            "dcba-abc": [],
+            "dcba-acb": [],
+            "dcba-bac": [],
+            "dcba-bca": [],
+            "dcba-cab": [],
+            "dcba-cba": [],
+        }
+        for key in mapping:
+            for val in value:
+                if attribute[0:8] == "teammate":
+                    mapping[key].append(
+                        {
+                            "teammate{}_weapon".format(
+                                find_2nd(key, attribute[9]) - 5
+                            ): val
+                        }
+                    )
+                elif attribute[0:8] == "opponent":
+                    mapping[key].append(
+                        {
+                            "opponent{}_weapon".format(
+                                key.index(attribute[9]),
+                            ): val
+                        }
+                    )
+                else:
+                    mapping[key].append({"player_weapon": val})
+        battles = Battle.objects.none()
+        for val in mapping.values():
+            for query in val:
+                battles = battles | Battle.objects.filter(**query)
+        battles = battles.order_by("-time")
+        return battles
