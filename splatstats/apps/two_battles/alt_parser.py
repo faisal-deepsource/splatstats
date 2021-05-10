@@ -506,8 +506,15 @@ class Interpreter:
                 result[key] = ~value
         elif isinstance(to_negate, bool):
             result = not to_negate
-        elif isinstance(to_negate, int) or isinstance(to_negate, Q):
+        elif isinstance(to_negate, int):
             result = ~to_negate
+        elif isinstance(to_negate, Q):
+            if to_negate == Q(pk__isnull=False):
+                result = Q(pk__in=[])
+            elif to_negate == Q(pk__in=[]):
+                result = Q(pk__isnull=False)
+            else:
+                result = ~to_negate
         else:
             result = not to_negate
         self.eat(RPAREN)
@@ -557,9 +564,16 @@ class Interpreter:
                 result[x] = y & term_a
         elif isinstance(term_a, bool) and isinstance(term_b, bool):
             result = term_a and term_b
-        elif (isinstance(term_a, Q) and isinstance(term_b, Q)) or (
-            isinstance(term_a, int) and isinstance(term_b, int)
-        ):
+        elif isinstance(term_a, Q) and isinstance(term_b, Q):
+            if term_a == term_b or term_b == Q(pk__isnull=False):
+                result = term_a
+            elif term_a == Q(pk__isnull=False):
+                result = term_b
+            elif term_a == (~term_b) or (~term_a) == term_b or term_a == Q(pk__in=[]) or term_b == Q(pk__in=[]):
+                result = Q(pk__in=[])
+            else:
+                result = term_a & term_b
+        elif isinstance(term_a, int) and isinstance(term_b, int):
             result = term_a & term_b
         else:
             result = term_a and term_b
@@ -598,9 +612,16 @@ class Interpreter:
                 result[x] = y | term_a
         elif isinstance(term_a, bool) and isinstance(term_b, bool):
             result = term_a or term_b
-        elif (isinstance(term_a, Q) and isinstance(term_b, Q)) or (
-            isinstance(term_a, int) and isinstance(term_b, int)
-        ):
+        elif isinstance(term_a, Q) and isinstance(term_b, Q):
+            if term_a == term_b or term_b == Q(pk__in=[]):
+                result = term_a
+            elif term_a == Q(pk__in=[]):
+                result = term_b
+            elif term_a == (~term_b) or (~term_a) == term_b or term_a == Q(pk__isnull=False) or term_b == Q(pk__isnull=False):
+                result = Q(pk__isnull=False)
+            else:
+                result = term_a | term_b
+        elif isinstance(term_a, int) and isinstance(term_b, int):
             result = term_a | term_b
         else:
             result = term_a or term_b
@@ -631,9 +652,22 @@ class Interpreter:
             result = term_a ^ temp
         elif isinstance(term_a, bool) and isinstance(term_b, bool):
             result = bool(term_a ^ term_b)
-        elif (isinstance(term_a, Q) and isinstance(term_b, Q)) or (
-            isinstance(term_a, int) and isinstance(term_b, int)
-        ):
+        elif isinstance(term_a, Q) and isinstance(term_b, Q):
+            if term_a == term_b:
+                result = Q(pk__in=[])
+            elif term_a == Q(pk__isnull=False):
+                return ~term_b
+            elif term_b == Q(pk__isnull=False):
+                return ~term_a
+            elif term_a == Q(pk__in=[]):
+                return term_b
+            elif term_b == Q(pk__in=[]):
+                return term_a
+            elif term_a == (~term_b) or (~term_a) == term_b:
+                return Q(pk__isnull=False)
+            else:
+                return term_a ^ term_b
+        elif isinstance(term_a, int) and isinstance(term_b, int):
             result = term_a ^ term_b
         else:
             result = bool(bool(term_a) ^ bool(term_b))
@@ -825,7 +859,12 @@ class Interpreter:
         self.eat(COMMA)
         term_b = self.term(evaluate)
         result = 0
-        if evaluate:
+        if math_type == "-" and isinstance(term_a, Q) and isinstance(term_b, Q):
+            if term_b == Q(pk__id=[]):
+                result = term_a
+            else:
+                result = term_a - term_b
+        elif evaluate:
             result = self.switch_math[math_type](term_a, term_b)
         self.eat(RPAREN)
         return result
