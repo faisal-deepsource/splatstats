@@ -1,4 +1,4 @@
-from .advanced_search_language import Interpreter, Lexer
+from .alt_parser import Interpreter, Lexer
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect
 from rest_framework import views, status, permissions
