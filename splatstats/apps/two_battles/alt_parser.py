@@ -17,10 +17,11 @@ from django.db.models import Q
 
 
 class QQ:
+    def __sub__(self, other):
+        return self & (~other)
+
     def __xor__(self, other):
-        x = self & (~other)
-        y = (~self) & other
-        return x | y
+        return (self - other) | (other - self)
 
 
 Q.__bases__ += (QQ,)
