@@ -1,0 +1,40 @@
+lowercase_letter = "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i" | "j" | "k" | "l" | "m" 
+                 | "n" | "o" | "p" | "q" | "r" | "s" | "t" | "u" | "v" | "w" | "x" | "y" | "z" ;
+uppercase_letter = "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "J" | "K" | "L" | "M" 
+                 | "N" | "O" | "P" | "Q" | "R" | "S" | "T" | "U" | "V" | "W" | "X" | "Y" | "Z" ;
+letter = lowercase_letter | uppercase_letter ;
+bool = ( "T" , "r" , "u" , "e" ) | ( "F" , "a" , "l" , "s" , "e" ) ;
+digit = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" ;
+string = '"' , { letter | digit | "_" | " " | "'" | "-" } , '"' ;
+int = [ "-" ] digit , { digit } ;
+float = int , "." , digit , { digit } ;
+value = bool | int | float | string ;
+identifier = lowercase_letter, { lowercase_letter | digit | "_" } ;
+newline = "\r\n" | "\r" | "\n" ;
+attribute = lowercase_letter, { lowercase_letter | digit | "_" } ;
+binary_bool_bitwise_op = ( "a" , "n" , "d" ) | ( [ "x" ] , "o" , "r" ) ;
+comp_op = ( "g" , ( "e" | "t" ) ) | ( "l" , ( "e" | "t" ) ) | ( "e" , "q" ) ;
+math_op = "+" | "-" | "*" | "/" ;
+binary_op = ( comp_op | binary_bool_bitwise_op | math_op ) , "(" , term , "," , term , ")" ;
+unary_op = ( "n" , "o" , "t" ) | ( "l" , "e" , "n" ) , "(" , term , ")" ;
+assignment = identifier | list_index_at , ":=" , term ;
+list = "[" , [ { term , "," } , term ] , "]" ;
+list_index_at = identifier , "." , "i" , "n" , "d" , "e" , "x" , "(" , term , ")" ;
+func_call = identifier [ "(" , [ term , { "," , term } ] ")" ] ;
+term = identifier
+     | func_call
+     | binary_op
+     | unary_op
+     | value
+     | attribute 
+     | list_index_at
+     | list ;
+line = if , newline
+     | while , newline
+     | def , newline 
+     | assignment , newline
+     | return [ newline ] ;
+return = "r" , "e" , "t" , "u" , "r" , "n" , [ "(" , term , ")" ] ;
+if = "i" , "f" , "(" , term , ")" , "{" , newline , { line } , "}" , "E" , "L" , "S" , "E" , "{" , newline , { line } , "}" ;
+while = "w" , "h" , "i" , "l" , "e" , "(" , identifier | binary_op | list_index_at | unary_op , ")" , "{" , newline , { line } , "}" ;
+def = "d" , "e" , "f" , " " , identifier , "(" , [ identifier { "," , identifier } ] , ")" , "{" , newline , { line } , "}" ;

@@ -49,7 +49,7 @@ from .models import (
     ELSE,
     FUNCT,
     WHILE,
-    CALL, 
+    CALL,
     EOL,
 ) = (
     "ATTR",
@@ -254,7 +254,7 @@ class Lexer:
                             self.advance()
                             return Token(ELSE, "ELSE")
                 self.error()
-            
+
             if self.current_char == "C":
                 self.advance()
                 if self.current_char == "A":
@@ -551,9 +551,7 @@ class Interpreter:
         self.eat(LPAREN)
         to_exclude = self.term(evaluate)
         if evaluate:
-            result = (
-                Battle.objects.all().exclude(id__in=to_exclude).order_by("-time")
-            )
+            result = Battle.objects.all().exclude(id__in=to_exclude).order_by("-time")
         else:
             result = Battle.objects.none()
         self.eat(RPAREN)
@@ -615,7 +613,7 @@ class Interpreter:
         return self.switch_math[token_type](a=a, b=b)
 
     def get_var(self, var_name, layer=-1):
-        #for i in range(-1, -len(self.vars)-1, -1):
+        # for i in range(-1, -len(self.vars)-1, -1):
         if var_name in self.vars[layer]:
             return self.vars[layer][var_name]
         return None
@@ -644,7 +642,9 @@ class Interpreter:
             while self.current_token.type is not RSQUIGGLE:
                 result = self.line(evaluate)
             self.vars.pop()
-            print("result count: " + str(result.count() if result is not None else None))
+            print(
+                "result count: " + str(result.count() if result is not None else None)
+            )
             self.lexer.pop_pos()
             self.eat(RSQUIGGLE)
         return result
@@ -969,9 +969,7 @@ class Interpreter:
                         ] = value
             else:
                 for key in mapping.keys():
-                    mapping[key][
-                        attribute + self.query_operator(token.type)
-                    ] = value
+                    mapping[key][attribute + self.query_operator(token.type)] = value
             battles = Battle.objects.none()
             for key in mapping:
                 battles = battles | Battle.objects.filter(**(mapping[key]))
