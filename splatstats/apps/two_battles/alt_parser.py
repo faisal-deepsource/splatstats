@@ -569,7 +569,12 @@ class Interpreter:
                 result = term_a
             elif term_a == Q(pk__isnull=False):
                 result = term_b
-            elif term_a == (~term_b) or (~term_a) == term_b or term_a == Q(pk__in=[]) or term_b == Q(pk__in=[]):
+            elif (
+                term_a == (~term_b)
+                or (~term_a) == term_b
+                or term_a == Q(pk__in=[])
+                or term_b == Q(pk__in=[])
+            ):
                 result = Q(pk__in=[])
             else:
                 result = term_a & term_b
@@ -617,7 +622,12 @@ class Interpreter:
                 result = term_a
             elif term_a == Q(pk__in=[]):
                 result = term_b
-            elif term_a == (~term_b) or (~term_a) == term_b or term_a == Q(pk__isnull=False) or term_b == Q(pk__isnull=False):
+            elif (
+                term_a == (~term_b)
+                or (~term_a) == term_b
+                or term_a == Q(pk__isnull=False)
+                or term_b == Q(pk__isnull=False)
+            ):
                 result = Q(pk__isnull=False)
             else:
                 result = term_a | term_b
