@@ -996,6 +996,121 @@ class Interpreter:
         self.eat(RPAREN)
         return result
 
+    @staticmethod
+    def difference_q(term_a, term_b, not_a, not_b):
+        if term_b == Q(pk__id=[]):
+            result = term_a
+        elif term_a == Q(pk__id=[]) or term_a == term_b:
+            result = Q(pk__id=[])
+        elif term_a == Q(pk__isnull=False):
+            result = not_b
+        else:
+            result = Interpreter.and_q(term_a, not_b, not_a, term_b)
+        return result
+
+    @staticmethod
+    def difference_handler(term_a, term_b):
+        if isinstance(term_a, Q) and isinstance(term_b, Q):
+            result = Interpreter.difference_q(
+                term_a, term_b, Interpreter.not_q(term_a), Interpreter.not_q(term_b)
+            )
+        elif isinstance(term_a, dict) and isinstance(term_b, Q):
+            result = {}
+            if term_b == Q(pk__id=[]):
+                result = term_a
+            elif term_b == Q(pk__isnull=False):
+                result = Interpreter.not_q(term_a)
+            else:
+                not_b = Interpreter.not_q(term_b)
+                query_none = True
+                query_all = True
+                for key, val in term_a.items():
+                    result[key] = Interpreter.difference_q(
+                        val, term_b, Interpreter.not_q(val), not_b
+                    )
+                    query_none = result[key] == Q(pk__id=[]) and query_none
+                    query_all = result[key] == Q(pk__isnull=False) and query_all
+                if query_none:
+                    result = Q(pk__id=[])
+                elif query_all:
+                    result = Q(pk__isnull=False)
+        elif isinstance(term_a, Q) and isinstance(term_b, dict):
+            result = {}
+            if term_a == Q(pk__id=[]):
+                result = term_b
+            elif term_a == Q(pk__isnull=False):
+                result = Interpreter.not_q(term_b)
+            else:
+                not_a = Interpreter.not_q(term_a)
+                query_none = True
+                query_all = True
+                for key, val in term_b.items():
+                    result[key] = Interpreter.difference_q(
+                        term_a, val, not_a, Interpreter.not_q(val)
+                    )
+                    query_none = result[key] == Q(pk__id=[]) and query_none
+                    query_all = result[key] == Q(pk__isnull=False) and query_all
+                if query_none:
+                    result = Q(pk__id=[])
+                elif query_all:
+                    result = Q(pk__isnull=False)
+        elif isinstance(term_a, dict) and isinstance(term_b, dict):
+            result = {}
+            query_none = True
+            query_all = True
+            for x_1, x_2 in term_a.items():
+                not_x = Interpreter.not_q(x_2)
+                for y_1, y_2 in term_b.items():
+                    if x_1 == y_1 or (
+                        len(x_1) == 7
+                        and (len(y_1) == 3 and x_1[5:] == y_1)
+                        or (len(y_1) == 4 and x_1[0:4] == y_1)
+                    ):
+                        result[x_1] == Interpreter.difference_q(
+                            x_2, y_2, not_x, Interpreter.not_q(y_2)
+                        )
+                        query_none = result[x_1] == Q(pk__id=[]) and query_none
+                        query_all = result[x_1] == Q(pk__isnull=False) and query_all
+                    elif len(x_1) > len(y_1) and len(x_1) == 4:
+                        result["{}-{}".format(x_1, y_1)] = Interpreter.difference_q(
+                            x_2, y_2, not_x, Interpreter.not_q(y_2)
+                        )
+                        query_none = (
+                            result["{}-{}".format(x_1, y_1)] == Q(pk__id=[])
+                            and query_none
+                        )
+                        query_all = (
+                            result["{}-{}".format(x_1, y_1)] == Q(pk__isnull=False)
+                            and query_all
+                        )
+                    elif len(x_1) < len(y_1):
+                        if len(y_1) == 4:
+                            result["{}-{}".format(y_1, x_1)] = Interpreter.difference_q(
+                                x_2, y_2, not_x, Interpreter.not_q(y_2)
+                            )
+                            query_none = (
+                                result["{}-{}".format(y_1, x_1)] == Q(pk__id=[])
+                                and query_none
+                            )
+                            query_all = (
+                                result["{}-{}".format(y_1, x_1)] == Q(pk__isnull=False)
+                                and query_all
+                            )
+                        elif len(y_1) == 7 and (
+                            (len(x_1) == 3 and y_1[5:] == x_1)
+                            or (len(x_1) == 4 and y_1[0:4] == x_1)
+                        ):
+                            result[y_1] == Interpreter.difference_q(
+                                x_2, y_2, not_x, Interpreter.not_q(y_2)
+                            )
+                            query_none = result[y_1] == Q(pk__id=[]) and query_none
+                            query_all = result[y_1] == Q(pk__isnull=False) and query_all
+            if query_none:
+                result = Q(pk__id=[])
+            elif query_all:
+                result = Q(pk__isnull=False)
+        return result
+
     def math_handler(self, evaluate=True):
         math_type = self.current_token.value
         self.eat(BUILTIN_FUNCT)
@@ -1004,17 +1119,12 @@ class Interpreter:
         self.eat(COMMA)
         term_b = self.term(evaluate)
         result = 0
-        if math_type == "-" and isinstance(term_a, Q) and isinstance(term_b, Q):
-            if term_b == Q(pk__id=[]):
-                result = term_a
-            elif term_a == Q(pk__id=[]) or term_a == term_b:
-                result = Q(pk__id=[])
-            elif term_a == Q(pk__isnull=False):
-                result = Interpreter.not_q(term_b)
-            else:
-                result = Interpreter.and_q(
-                    term_a, Interpreter.not_q(term_b), Interpreter.not_q(term_a), term_b
-                )
+        if (
+            math_type == "-"
+            and isinstance(term_a, (dict, Q))
+            and isinstance(term_b, (dict, Q))
+        ):
+            result = Interpreter.difference_q(term_a, term_b)
         elif evaluate:
             result = self.switch_math[math_type](term_a, term_b)
         self.eat(RPAREN)
