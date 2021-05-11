@@ -20,15 +20,24 @@ def index(request):
     form = FilterForm(request.GET)
     attributes = ""
     if form.is_valid():
-        battles = Battle.objects
         if "query" in form.cleaned_data and form.cleaned_data["query"] != "":
             query = form.cleaned_data["query"]
             lexer = Lexer(query)
             interpreter = Interpreter(lexer)
             battles = interpreter.interpret()
+            if request.user.is_authenticated:
+                battles = battles.filter(player_user=request.user).order_by("-time")
+            else:
+                battles = battles.order_by("-time")
             attributes = ""
         else:
             attributes = ""
+            if request.user.is_authenticated:
+                battles = Battle.objects.filter(player_user=request.user).order_by(
+                    "-time"
+                )
+            else:
+                battles = Battle.objects.order_by("-time")
             if form.cleaned_data["rule"] != "all":
                 battles = battles.filter(rule=form.cleaned_data["rule"])
             if form.cleaned_data["match_type"] != "all":
@@ -48,7 +57,10 @@ def index(request):
         battles = battles.order_by("-time")
     else:
         query = ""
-        battles = Battle.objects.order_by("-time")
+        if request.user.is_authenticated:
+            battles = Battle.objects.filter(player_user=request.user).order_by("-time")
+        else:
+            battles = Battle.objects.order_by("-time")
         attributes = ""
     paginator = Paginator(battles, 50)  # Show 50 battles per page
     page_number = request.GET.get("page")
@@ -1310,13 +1322,37 @@ class BattleAPIView(views.APIView):
 
     @staticmethod
     def post(request):
-        if request.data.get("splatnet_upload", False) or request.data.get(
-            "stat_ink_json", False
+        if (
+            Battle.objects.filter(player_user=request.user)
+            .filter(battle_number=request.data.get("battle_number"))
+            .count()
+            == 0
         ):
-            Battle.create(
+            battle = Battle.create(
                 data=request.data,
                 user=request.user,
             )
+            battle.player_user = request.user
+            return Response(data=None, status=status.HTTP_200_OK)
+        elif (
+            Battle.objects.filter(player_user=request.user)
+            .filter(battle_number=request.data.get("battle_number"))
+            .count()
+            == 1
+            and not Battle.objects.filter(player_user=request.user)
+            .filter(battle_number=request.data.get("battle_number"))[0]
+            .splatnet_upload
+            == False
+            and request.data.get("splatnet_upload", True)
+        ):
+            Battle.objects.filter(player_user=request.user).filter(
+                battle_number=request.data.get("battle_number")
+            ).delete()
+            battle = Battle.create(
+                data=request.data,
+                user=request.user,
+            )
+            battle.player_user = request.user
             return Response(data=None, status=status.HTTP_200_OK)
         return Response(data=None, status=status.HTTP_400_BAD_REQUEST)
 
@@ -1368,6 +1404,10 @@ def advanced_search(request):
         lexer = Lexer(form.cleaned_data["query"])
         interpreter = Interpreter(lexer)
         battles = interpreter.interpret()
+        if request.user.is_authenticated:
+            battles = battles.filter(player_user=request.user).order_by("-time")
+        else:
+            battles = battles.order_by("-time")
         paginator = Paginator(battles, 50)  # Show 50 battles per page
         page_number = request.GET.get("page")
         page_obj = paginator.get_page(page_number)

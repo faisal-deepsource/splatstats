@@ -1953,7 +1953,7 @@ class Battle(models.Model):
                 player_name=data.get("player_name"),
                 player_level_star=data.get("player_level_star"),
                 elapsed_time=data.get("elapsed_time"),
-                player_user=data.get("player_user"),
+                player_user=player_user,
                 player_gender=data.get("player_gender"),
                 player_species=data.get("player_species"),
                 player_headgear=data.get("player_headgear"),

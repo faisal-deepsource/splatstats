@@ -15,17 +15,6 @@ from .models import (
 )
 from django.db.models import Q
 
-
-class QQ:
-    def __sub__(self, other):
-        return self & (~other)
-
-    def __xor__(self, other):
-        return (self - other) | (other - self)
-
-
-Q.__bases__ += (QQ,)
-
 (
     ATTR,
     ASSIGN,
@@ -369,11 +358,8 @@ class Interpreter:
             self.line()
         q_obj = self.line()
         if isinstance(q_obj, dict):
-            value = list(q_obj.values())[0]
-            for val in list(q_obj.values())[1:]:
-                value = value | val
-            q_obj = value
-        return Battle.objects.filter(q_obj).order_by("-time")
+            q_obj = self.q_dict_to_q(q_obj)
+        return Battle.objects.filter(q_obj)
 
     def line(self, evaluate=True):
         value = None
@@ -390,6 +376,7 @@ class Interpreter:
                 self.eat(LPAREN)
                 index = self.term(evaluate)
                 self.eat(RPAREN)
+                self.eat(ASSIGN)
                 var_value = self.term(evaluate)
                 self.get_var(var_name)[index] = var_value
             else:
@@ -410,7 +397,6 @@ class Interpreter:
             return self.if_handler(evaluate)
         if self.current_token.value == "while":
             return self.while_handler(evaluate)
-        self.error("Other control flow options not implemented yet.")
 
     def def_handler(self, evaluate=True):
         self.eat(USER_FUNCT)
@@ -500,14 +486,38 @@ class Interpreter:
         self.eat(BUILTIN_FUNCT)
         self.eat(LPAREN)
         to_negate = self.term(evaluate)
-        if isinstance(to_negate, dict):
-            result = {}
-            for key, value in to_negate.items():
-                result[key] = ~value
+        if isinstance(to_negate, dict) or isinstance(to_negate, Q):
+            result = self.not_q(to_negate)
         elif isinstance(to_negate, bool):
             result = not to_negate
         elif isinstance(to_negate, int):
             result = ~to_negate
+        else:
+            result = not to_negate
+        self.eat(RPAREN)
+        return result
+
+    def not_q(self, to_negate):
+        result = None
+        if isinstance(to_negate, dict):
+            result = {}
+            query_none = True
+            query_all = True
+            for key, value in to_negate.items():
+                if value == Q(pk__isnull=False):
+                    result[key] = Q(pk__in=[])
+                    query_all = False
+                elif value == Q(pk__in=[]):
+                    result[key] = Q(pk__isnull=False)
+                    query_none = False
+                else:
+                    result[key] = ~value
+                    query_none = False
+                    query_all = False
+            if query_none:
+                result = Q(pk__in=[])
+            if query_all:
+                result = Q(pk__isnull=False)
         elif isinstance(to_negate, Q):
             if to_negate == Q(pk__isnull=False):
                 result = Q(pk__in=[])
@@ -515,9 +525,6 @@ class Interpreter:
                 result = Q(pk__isnull=False)
             else:
                 result = ~to_negate
-        else:
-            result = not to_negate
-        self.eat(RPAREN)
         return result
 
     def logical_bitwise_handler(self, evaluate=True):
@@ -531,152 +538,240 @@ class Interpreter:
         self.eat(RPAREN)
         return result
 
+    def and_q(self, term_a, term_b, not_a, not_b):
+        if term_a == term_b or term_b == Q(
+            pk__isnull=False
+        ):  # A intersection A is A and A intersection U is A
+            result = term_a
+        elif term_a == Q(pk__isnull=False):  # U intersection B is B
+            result = term_b
+        elif (
+            term_a == not_b  # A intesection A' is 0
+            or not_a == term_b  # B' interesection B is 0
+            or term_a == Q(pk__in=[])  # 0 intersection B is 0
+            or term_b == Q(pk__in=[])  # A intersection 0 is 0
+        ):
+            result = Q(pk__in=[])
+        else:
+            result = term_a & term_b
+        return result
+
+    def and_or_dict_q(self, dict_term, q_term, oper):
+        result = {}
+        if q_term == Q(pk__in=[]):
+            if oper == "&":  # A interesection 0 is 0
+                result = Q(pk__in=[])
+            elif oper == "|":  # A union 0 is A
+                result = dict_term
+        elif q_term == Q(pk__isnull=False):
+            if oper == "&":  # A intersction U is A
+                result = dict_term
+            elif oper == "|":  # A union U is U
+                result = Q(pk__isnull=False)
+        else:
+            query_none = oper == "&"
+            query_all = oper == "|"
+            not_q = self.not_q(q_term)
+            for x, y in dict_term.items():
+                not_y = self.not_q(y)
+                if oper == "&":
+                    result[x] = self.and_q(q_term, y, not_q, not_y)
+                    query_none = result[x] == Q(pk__in=[]) and query_none
+                elif oper == "|":
+                    result[x] = self.or_q(q_term, y, not_q, not_y)
+                    query_all = result[x] == Q(pk__isnull=False) and query_all
+            if query_none:
+                result = Q(pk__in=[])
+            elif query_all:
+                result = Q(pk__isnull=False)
+        return result
+
     def and_handler(self, term_a, term_b):
         if isinstance(term_a, dict) and isinstance(term_b, dict):
             result = {}
+            query_none = True
             for x_1, x_2 in term_a.items():
+                not_x_2 = self.not_q(x_2)
                 for y_1, y_2 in term_b.items():
-                    if len(x_1) == len(y_1) and x_1 == y_1:
-                        result[x_1] = x_2 & y_2
-                    elif len(x_1) > len(y_1):
-                        if len(x_1) == 4:
-                            result["{}-{}".format(x_1, y_1)] = x_2 & y_2
-                        elif len(x_1) == 7:
-                            if len(y_1) == 3 and x_1[5:] == y_1:
-                                result[x_1] = x_2 & y_2
-                            elif len(y_1) == 4 and x_1[0:4] == y_1:
-                                result[x_1] = x_2 & y_2
+                    if (len(x_1) == len(y_1) and x_1 == y_1) or (
+                        len(x_1) == 7
+                        and (len(y_1) == 3 and x_1[5:] == y_1)
+                        or (len(y_1) == 4 and x_1[0:4] == y_1)
+                    ):
+                        result[x_1] = self.and_q(x_2, y_2, not_x_2, self.not_q(y_2))
+                        query_none = result[x_1] == Q(pk__in=[]) and query_none
+                    elif len(x_1) > len(y_1) and len(x_1) == 4:
+                        result["{}-{}".format(x_1, y_1)] = self.and_q(
+                            x_2, y_2, not_x_2, self.not_q(y_2)
+                        )
+                        query_none = (
+                            result["{}-{}".format(x_1, y_1)] == Q(pk__in=[])
+                            and query_none
+                        )
                     elif len(x_1) < len(y_1):
                         if len(y_1) == 4:
-                            result["{}-{}".format(y_1, x_1)] = x_2 & y_2
-                        elif len(y_1) == 7:
-                            if len(x_1) == 3 and y_1[5:] == x_1:
-                                result[y_1] = x_2 & y_2
-                            elif len(x_1) == 4 and y_1[0:4] == x_1:
-                                result[y_1] = x_2 & y_2
+                            result["{}-{}".format(y_1, x_1)] = self.and_q(
+                                x_2, y_2, not_x_2, self.not_q(y_2)
+                            )
+                            query_none = (
+                                result["{}-{}".format(y_1, x_1)] == Q(pk__in=[])
+                                and query_none
+                            )
+                        elif len(y_1) == 7 and (
+                            (len(x_1) == 3 and y_1[5:] == x_1)
+                            or (len(x_1) == 4 and y_1[0:4] == x_1)
+                        ):
+                            result[y_1] = self.and_q(x_2, y_2, not_x_2, self.not_q(y_2))
+                            query_none = result[y_1] == Q(pk__in=[]) and query_none
+            if query_none:
+                result = Q(pk__in=[])
         elif isinstance(term_a, dict) and isinstance(term_b, Q):
-            result = {}
-            for x, y in term_a.items():
-                result[x] = y & term_b
+            result = self.and_or_dict_q(term_a, term_b, "&")
         elif isinstance(term_a, Q) and isinstance(term_b, dict):
-            result = {}
-            for x, y in term_b.items():
-                result[x] = y & term_a
+            result = self.and_or_dict_q(term_b, term_a, "&")
         elif isinstance(term_a, bool) and isinstance(term_b, bool):
             result = term_a and term_b
         elif isinstance(term_a, Q) and isinstance(term_b, Q):
-            if term_a == term_b or term_b == Q(pk__isnull=False):
-                result = term_a
-            elif term_a == Q(pk__isnull=False):
-                result = term_b
-            elif (
-                term_a == (~term_b)
-                or (~term_a) == term_b
-                or term_a == Q(pk__in=[])
-                or term_b == Q(pk__in=[])
-            ):
-                result = Q(pk__in=[])
-            else:
-                result = term_a & term_b
+            result = self.and_q(term_a, term_b)
         elif isinstance(term_a, int) and isinstance(term_b, int):
             result = term_a & term_b
         else:
             result = term_a and term_b
         return result
 
+    def or_q(self, term_a, term_b, not_a, not_b):
+        if term_a == term_b or term_b == Q(
+            pk__in=[]
+        ):  # A union A is A and A union 0 is A
+            result = term_a
+        elif term_a == Q(pk__in=[]):  # B union 0 is B
+            result = term_b
+        elif (
+            term_a == not_b  # A union A' is U
+            or not_a == term_b  # B' union B is U
+            or term_a == Q(pk__isnull=False)  # U union B is U
+            or term_b == Q(pk__isnull=False)  # A union B is U
+        ):
+            result = Q(pk__isnull=False)
+        else:
+            result = term_a | term_b
+        return result
+
     def or_handler(self, term_a, term_b):
         if isinstance(term_a, dict) and isinstance(term_b, dict):
             result = {}
+            query_all = True
             for x_1, x_2 in term_a.items():
+                not_x = self.not_q(x_2)
                 for y_1, y_2 in term_b.items():
-                    if len(x_1) == len(y_1) and x_1 == y_1:
-                        result[x_1] = x_2 | y_2
-                    elif len(x_1) > len(y_1):
-                        if len(x_1) == 4:
-                            result["{}-{}".format(x_1, y_1)] = x_2 | y_2
-                        elif len(x_1) == 7:
-                            if len(y_1) == 3 and x_1[5:] == y_1:
-                                result[x_1] = x_2 | y_2
-                            elif len(y_1) == 4 and x_1[0:4] == y_1:
-                                result[x_1] = x_2 | y_2
+                    if (len(x_1) == len(y_1) and x_1 == y_1) or (
+                        len(x_1) == 7
+                        and (len(y_1) == 3 and x_1[5:] == y_1)
+                        or (len(y_1) == 4 and x_1[0:4] == y_1)
+                    ):
+                        result[x_1] = self.or_q(x_2, y_2, not_x, self.not_q(y_2))
+                        query_all = query_all and Q(pk__isnull=False) == result[x_1]
+                    elif len(x_1) > len(y_1) and len(x_1) == 4:
+                        result["{}-{}".format(x_1, y_1)] = self.or_q(
+                            x_2, y_2, not_x, self.not_q(y_2)
+                        )
+                        query_all = (
+                            query_all
+                            and Q(pk__isnull=False) == result["{}-{}".format(x_1, y_1)]
+                        )
                     elif len(x_1) < len(y_1):
                         if len(y_1) == 4:
-                            result["{}-{}".format(y_1, x_1)] = x_2 | y_2
+                            result["{}-{}".format(y_1, x_1)] = self.or_q(
+                                x_2, y_2, not_x, self.not_q(y_2)
+                            )
+                            query_all = (
+                                query_all
+                                and Q(pk__isnull=False)
+                                == result["{}-{}".format(y_1, x_1)]
+                            )
                         elif len(y_1) == 7:
-                            if len(x_1) == 3 and y_1[5:] == x_1:
-                                result[y_1] = x_2 | y_2
-                            elif len(x_1) == 4 and y_1[0:4] == x_1:
-                                result[y_1] = x_2 | y_2
+                            result[y_1] = self.or_q(x_2, y_2, not_x, self.not_q(y_2))
+                            query_all = query_all and Q(pk__isnull=False) == result[y_1]
+            if query_all:
+                result = Q(pk__isnull=False)
         elif isinstance(term_a, dict) and isinstance(term_b, Q):
-            result = {}
-            for x, y in term_a.items():
-                result[x] = y | term_b
+            result = self.and_or_dict_q(term_a, term_b, "|")
         elif isinstance(term_a, Q) and isinstance(term_b, dict):
-            result = {}
-            for x, y in term_b.items():
-                result[x] = y | term_a
+            result = self.and_or_dict_q(term_b, term_a, "|")
         elif isinstance(term_a, bool) and isinstance(term_b, bool):
             result = term_a or term_b
         elif isinstance(term_a, Q) and isinstance(term_b, Q):
-            if term_a == term_b or term_b == Q(pk__in=[]):
-                result = term_a
-            elif term_a == Q(pk__in=[]):
-                result = term_b
-            elif (
-                term_a == (~term_b)
-                or (~term_a) == term_b
-                or term_a == Q(pk__isnull=False)
-                or term_b == Q(pk__isnull=False)
-            ):
-                result = Q(pk__isnull=False)
-            else:
-                result = term_a | term_b
+            result = self.or_q(term_a, term_b, self.not_q(term_a), self.not_q(term_b))
         elif isinstance(term_a, int) and isinstance(term_b, int):
             result = term_a | term_b
         else:
             result = term_a or term_b
         return result
 
+    def q_dict_to_q(self, q_dict):
+        q_list = list(q_dict.values())
+        temp_a = q_list[0]
+        i = 1
+        while temp_a == Q(pk__in=[]) and i < len(q_list):
+            temp_a = q_list[i]
+            i += 1
+        if i < len(q_list):
+            for x in q_list[i:]:
+                if x == Q(pk__in=[]):
+                    pass
+                elif x == Q(pk__isnull=False):
+                    temp_a = Q(pk__isnull=False)
+                    break
+                else:
+                    temp_a = temp_a | x
+        return temp_a
+
+    def xor_q(self, term_a, term_b, not_a, not_b):
+        if term_a == term_b:
+            result = Q(pk__in=[])
+        elif term_a == Q(pk__isnull=False):  # U xor B is B'
+            return self.not_q(term_b)
+        elif term_b == Q(pk__isnull=False):  # A xor U is A'
+            return self.not_q(term_a)
+        elif term_a == Q(pk__in=[]):  # 0 xor B is B
+            return term_b
+        elif term_b == Q(pk__in=[]):  # A xor 0 is A
+            return term_a
+        elif term_a == (not_b) or (not_a) == term_b:  # A xor A' and B' xor B is U
+            result = Q(pk__isnull=False)
+        else:
+            temp_a = term_a & not_b
+            temp_b = term_b & not_a
+            result = temp_a & temp_b
+        return result
+
     def xor_handler(self, term_a, term_b):
         if isinstance(term_a, dict) and isinstance(term_b, dict):
-            result = {}
-            temp_a = list(term_a.values())[0]
-            temp_b = list(term_b.values())[0]
-            for x in list(term_a.values())[1:]:
-                temp_a = temp_a | x
-            for y in list(term_b.values())[1:]:
-                temp_b = temp_b | y
-            result = temp_a ^ temp_b
-            print(result)
+            result = self.xor_q(self.q_dict_to_q(term_a), self.q_dict_to_q(term_b))
         elif isinstance(term_a, dict) and isinstance(term_b, Q):
-            result = term_b
-            temp = list(term_a.values())[0]
-            for x in list(term_a.values())[1:]:
-                temp = temp | x
-            result = term_b ^ temp
+            if term_b == Q(pk__in=[]):
+                result = term_a
+            elif term_b == Q(pk__isnull=False):
+                result = self.not_q(term_a)
+            else:
+                temp_a = self.q_dict_to_q(term_a)
+                result = self.xor_q(
+                    temp_a, term_b, self.not_q(temp_a), self.not_q(term_b)
+                )
         elif isinstance(term_a, Q) and isinstance(term_b, dict):
-            result = term_a
-            temp = list(term_b.values())[0]
-            for x in list(term_b.values())[1:]:
-                temp = temp | x
-            result = term_a ^ temp
+            if term_a == Q(pk__in=[]):
+                result = term_a
+            elif term_a == Q(pk__isnull=False):
+                result = self.not_q(term_b)
+            else:
+                temp_b = self.q_dict_to_q(term_b)
+                result = self.xor_q(
+                    term_a, temp_b, self.not_q(term_a), self.not_q(temp_b)
+                )
         elif isinstance(term_a, bool) and isinstance(term_b, bool):
             result = bool(term_a ^ term_b)
         elif isinstance(term_a, Q) and isinstance(term_b, Q):
-            if term_a == term_b:
-                result = Q(pk__in=[])
-            elif term_a == Q(pk__isnull=False):
-                return ~term_b
-            elif term_b == Q(pk__isnull=False):
-                return ~term_a
-            elif term_a == Q(pk__in=[]):
-                return term_b
-            elif term_b == Q(pk__in=[]):
-                return term_a
-            elif term_a == (~term_b) or (~term_a) == term_b:
-                return Q(pk__isnull=False)
-            else:
-                return term_a ^ term_b
+            result = self.xor_q(term_a, term_b, self.not_q(term_a), self.not_q(term_b))
         elif isinstance(term_a, int) and isinstance(term_b, int):
             result = term_a ^ term_b
         else:
@@ -688,10 +783,7 @@ class Interpreter:
         self.eat(LPAREN)
         value = self.term(evaluate)
         if isinstance(value, dict):
-            result = list(value.values())[0]
-            for item in list(value.values())[1:]:
-                result = result | item
-            result = Battle.objects.filter(result).count()
+            result = Battle.objects.filter(self.q_dict_to_q(value)).count()
         elif isinstance(value, Q):
             result = Battle.objects.filter(value).count()
         elif value is not None:
@@ -872,8 +964,12 @@ class Interpreter:
         if math_type == "-" and isinstance(term_a, Q) and isinstance(term_b, Q):
             if term_b == Q(pk__id=[]):
                 result = term_a
+            elif term_a == Q(pk__id=[]) or term_a == term_b:
+                result = Q(pk__id=[])
+            elif term_a == Q(pk__isnull=False):
+                result = self.not_q(term_b)
             else:
-                result = term_a - term_b
+                result = self.and_q(term_a, self.not_q(term_b))
         elif evaluate:
             result = self.switch_math[math_type](term_a, term_b)
         self.eat(RPAREN)

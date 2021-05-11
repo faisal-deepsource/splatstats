@@ -40,6 +40,15 @@
         <div class="container">{% block content_wrapper %}{% endblock content_wrapper %}</div>
         <!-- Compiled and minified JavaScript -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <script src='https://storage.ko-fi.com/cdn/scripts/overlay-widget.js'></script>
+        <script>
+        kofiWidgetOverlay.draw('cass_dlcm', {
+            'type': 'floating-chat',
+            'floating-chat.donateButton.text': 'Support Me',
+            'floating-chat.donateButton.background-color': '#00b9fe',
+            'floating-chat.donateButton.text-color': '#fff'
+        });
+        </script>
         {% load static %}
         <script src="{% static 'core/js/base.js' %}"></script>
         {% block aftercontent %}{% endblock aftercontent %}
