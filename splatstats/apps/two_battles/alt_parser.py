@@ -497,7 +497,7 @@ class Interpreter:
         self.eat(RPAREN)
         return result
 
-    @classmethod
+    @staticmethod
     def not_q(to_negate):
         result = None
         if isinstance(to_negate, dict):
@@ -539,7 +539,7 @@ class Interpreter:
         self.eat(RPAREN)
         return result
 
-    @classmethod
+    @staticmethod
     def and_q(term_a, term_b, not_a, not_b):
         if term_a == term_b or term_b == Q(
             pk__isnull=False
@@ -558,7 +558,7 @@ class Interpreter:
             result = term_a & term_b
         return result
 
-    @classmethod
+    @staticmethod
     def and_or_dict_q(dict_term, q_term, oper):
         result = {}
         if q_term == Q(pk__in=[]):
@@ -589,7 +589,7 @@ class Interpreter:
                 result = Q(pk__isnull=False)
         return result
 
-    @classmethod
+    @staticmethod
     def and_handler(term_a, term_b):
         if isinstance(term_a, dict) and isinstance(term_b, dict):
             result = {}
@@ -649,7 +649,7 @@ class Interpreter:
             result = term_a and term_b
         return result
 
-    @classmethod
+    @staticmethod
     def or_q(term_a, term_b, not_a, not_b):
         if term_a == term_b or term_b == Q(
             pk__in=[]
@@ -668,7 +668,7 @@ class Interpreter:
             result = term_a | term_b
         return result
 
-    @classmethod
+    @staticmethod
     def or_handler(term_a, term_b):
         if isinstance(term_a, dict) and isinstance(term_b, dict):
             result = {}
@@ -726,7 +726,7 @@ class Interpreter:
             result = term_a or term_b
         return result
 
-    @classmethod
+    @staticmethod
     def q_dict_to_q(q_dict):
         q_list = list(q_dict.values())
         temp_a = q_list[0]
@@ -745,7 +745,7 @@ class Interpreter:
                     temp_a = temp_a | x
         return temp_a
 
-    @classmethod
+    @staticmethod
     def xor_q(term_a, term_b, not_a, not_b):
         if term_a == term_b:
             result = Q(pk__in=[])
@@ -765,7 +765,7 @@ class Interpreter:
             result = temp_a & temp_b
         return result
 
-    @classmethod
+    @staticmethod
     def xor_handler(term_a, term_b):
         if isinstance(term_a, dict) and isinstance(term_b, dict):
             temp_a = Interpreter.q_dict_to_q(term_a)
