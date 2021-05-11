@@ -971,8 +971,8 @@ class Interpreter:
                 for key in mapping:
                     mapping[key][attribute + self.query_operator(token.type)] = value
             battles = Battle.objects.none()
-            for key in mapping:
-                battles = battles | Battle.objects.filter(**(mapping[key]))
+            for item in mapping.items():
+                battles = battles | Battle.objects.filter(**item)
             battles = battles.order_by("-time")
             return battles
         token = self.current_token
