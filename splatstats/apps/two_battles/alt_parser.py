@@ -487,7 +487,7 @@ class Interpreter:
         self.eat(LPAREN)
         to_negate = self.term(evaluate)
         if isinstance(to_negate, dict) or isinstance(to_negate, Q):
-            result = self.not_q(to_negate)
+            result = Interpreter.not_q(to_negate)
         elif isinstance(to_negate, bool):
             result = not to_negate
         elif isinstance(to_negate, int):
@@ -497,7 +497,8 @@ class Interpreter:
         self.eat(RPAREN)
         return result
 
-    def not_q(self, to_negate):
+    @classmethod
+    def not_q(to_negate):
         result = None
         if isinstance(to_negate, dict):
             result = {}
@@ -538,7 +539,8 @@ class Interpreter:
         self.eat(RPAREN)
         return result
 
-    def and_q(self, term_a, term_b, not_a, not_b):
+    @classmethod
+    def and_q(term_a, term_b, not_a, not_b):
         if term_a == term_b or term_b == Q(
             pk__isnull=False
         ):  # A intersection A is A and A intersection U is A
@@ -556,7 +558,8 @@ class Interpreter:
             result = term_a & term_b
         return result
 
-    def and_or_dict_q(self, dict_term, q_term, oper):
+    @classmethod
+    def and_or_dict_q(dict_term, q_term, oper):
         result = {}
         if q_term == Q(pk__in=[]):
             if oper == "&":  # A interesection 0 is 0
@@ -571,14 +574,14 @@ class Interpreter:
         else:
             query_none = oper == "&"
             query_all = oper == "|"
-            not_q = self.not_q(q_term)
+            not_q = Interpreter.not_q(q_term)
             for x, y in dict_term.items():
-                not_y = self.not_q(y)
+                not_y = Interpreter.not_q(y)
                 if oper == "&":
-                    result[x] = self.and_q(q_term, y, not_q, not_y)
+                    result[x] = Interpreter.and_q(q_term, y, not_q, not_y)
                     query_none = result[x] == Q(pk__in=[]) and query_none
                 elif oper == "|":
-                    result[x] = self.or_q(q_term, y, not_q, not_y)
+                    result[x] = Interpreter.or_q(q_term, y, not_q, not_y)
                     query_all = result[x] == Q(pk__isnull=False) and query_all
             if query_none:
                 result = Q(pk__in=[])
@@ -586,23 +589,26 @@ class Interpreter:
                 result = Q(pk__isnull=False)
         return result
 
-    def and_handler(self, term_a, term_b):
+    @classmethod
+    def and_handler(term_a, term_b):
         if isinstance(term_a, dict) and isinstance(term_b, dict):
             result = {}
             query_none = True
             for x_1, x_2 in term_a.items():
-                not_x_2 = self.not_q(x_2)
+                not_x_2 = Interpreter.not_q(x_2)
                 for y_1, y_2 in term_b.items():
                     if (len(x_1) == len(y_1) and x_1 == y_1) or (
                         len(x_1) == 7
                         and (len(y_1) == 3 and x_1[5:] == y_1)
                         or (len(y_1) == 4 and x_1[0:4] == y_1)
                     ):
-                        result[x_1] = self.and_q(x_2, y_2, not_x_2, self.not_q(y_2))
+                        result[x_1] = Interpreter.and_q(
+                            x_2, y_2, not_x_2, Interpreter.not_q(y_2)
+                        )
                         query_none = result[x_1] == Q(pk__in=[]) and query_none
                     elif len(x_1) > len(y_1) and len(x_1) == 4:
-                        result["{}-{}".format(x_1, y_1)] = self.and_q(
-                            x_2, y_2, not_x_2, self.not_q(y_2)
+                        result["{}-{}".format(x_1, y_1)] = Interpreter.and_q(
+                            x_2, y_2, not_x_2, Interpreter.not_q(y_2)
                         )
                         query_none = (
                             result["{}-{}".format(x_1, y_1)] == Q(pk__in=[])
@@ -610,8 +616,8 @@ class Interpreter:
                         )
                     elif len(x_1) < len(y_1):
                         if len(y_1) == 4:
-                            result["{}-{}".format(y_1, x_1)] = self.and_q(
-                                x_2, y_2, not_x_2, self.not_q(y_2)
+                            result["{}-{}".format(y_1, x_1)] = Interpreter.and_q(
+                                x_2, y_2, not_x_2, Interpreter.not_q(y_2)
                             )
                             query_none = (
                                 result["{}-{}".format(y_1, x_1)] == Q(pk__in=[])
@@ -621,25 +627,28 @@ class Interpreter:
                             (len(x_1) == 3 and y_1[5:] == x_1)
                             or (len(x_1) == 4 and y_1[0:4] == x_1)
                         ):
-                            result[y_1] = self.and_q(x_2, y_2, not_x_2, self.not_q(y_2))
+                            result[y_1] = Interpreter.and_q(
+                                x_2, y_2, not_x_2, Interpreter.not_q(y_2)
+                            )
                             query_none = result[y_1] == Q(pk__in=[]) and query_none
             if query_none:
                 result = Q(pk__in=[])
         elif isinstance(term_a, dict) and isinstance(term_b, Q):
-            result = self.and_or_dict_q(term_a, term_b, "&")
+            result = Interpreter.and_or_dict_q(term_a, term_b, "&")
         elif isinstance(term_a, Q) and isinstance(term_b, dict):
-            result = self.and_or_dict_q(term_b, term_a, "&")
+            result = Interpreter.and_or_dict_q(term_b, term_a, "&")
         elif isinstance(term_a, bool) and isinstance(term_b, bool):
             result = term_a and term_b
         elif isinstance(term_a, Q) and isinstance(term_b, Q):
-            result = self.and_q(term_a, term_b)
+            result = Interpreter.and_q(term_a, term_b)
         elif isinstance(term_a, int) and isinstance(term_b, int):
             result = term_a & term_b
         else:
             result = term_a and term_b
         return result
 
-    def or_q(self, term_a, term_b, not_a, not_b):
+    @classmethod
+    def or_q(term_a, term_b, not_a, not_b):
         if term_a == term_b or term_b == Q(
             pk__in=[]
         ):  # A union A is A and A union 0 is A
@@ -657,23 +666,26 @@ class Interpreter:
             result = term_a | term_b
         return result
 
-    def or_handler(self, term_a, term_b):
+    @classmethod
+    def or_handler(term_a, term_b):
         if isinstance(term_a, dict) and isinstance(term_b, dict):
             result = {}
             query_all = True
             for x_1, x_2 in term_a.items():
-                not_x = self.not_q(x_2)
+                not_x = Interpreter.not_q(x_2)
                 for y_1, y_2 in term_b.items():
                     if (len(x_1) == len(y_1) and x_1 == y_1) or (
                         len(x_1) == 7
                         and (len(y_1) == 3 and x_1[5:] == y_1)
                         or (len(y_1) == 4 and x_1[0:4] == y_1)
                     ):
-                        result[x_1] = self.or_q(x_2, y_2, not_x, self.not_q(y_2))
+                        result[x_1] = Interpreter.or_q(
+                            x_2, y_2, not_x, Interpreter.not_q(y_2)
+                        )
                         query_all = query_all and Q(pk__isnull=False) == result[x_1]
                     elif len(x_1) > len(y_1) and len(x_1) == 4:
-                        result["{}-{}".format(x_1, y_1)] = self.or_q(
-                            x_2, y_2, not_x, self.not_q(y_2)
+                        result["{}-{}".format(x_1, y_1)] = Interpreter.or_q(
+                            x_2, y_2, not_x, Interpreter.not_q(y_2)
                         )
                         query_all = (
                             query_all
@@ -681,8 +693,8 @@ class Interpreter:
                         )
                     elif len(x_1) < len(y_1):
                         if len(y_1) == 4:
-                            result["{}-{}".format(y_1, x_1)] = self.or_q(
-                                x_2, y_2, not_x, self.not_q(y_2)
+                            result["{}-{}".format(y_1, x_1)] = Interpreter.or_q(
+                                x_2, y_2, not_x, Interpreter.not_q(y_2)
                             )
                             query_all = (
                                 query_all
@@ -690,25 +702,30 @@ class Interpreter:
                                 == result["{}-{}".format(y_1, x_1)]
                             )
                         elif len(y_1) == 7:
-                            result[y_1] = self.or_q(x_2, y_2, not_x, self.not_q(y_2))
+                            result[y_1] = Interpreter.or_q(
+                                x_2, y_2, not_x, Interpreter.not_q(y_2)
+                            )
                             query_all = query_all and Q(pk__isnull=False) == result[y_1]
             if query_all:
                 result = Q(pk__isnull=False)
         elif isinstance(term_a, dict) and isinstance(term_b, Q):
-            result = self.and_or_dict_q(term_a, term_b, "|")
+            result = Interpreter.and_or_dict_q(term_a, term_b, "|")
         elif isinstance(term_a, Q) and isinstance(term_b, dict):
-            result = self.and_or_dict_q(term_b, term_a, "|")
+            result = Interpreter.and_or_dict_q(term_b, term_a, "|")
         elif isinstance(term_a, bool) and isinstance(term_b, bool):
             result = term_a or term_b
         elif isinstance(term_a, Q) and isinstance(term_b, Q):
-            result = self.or_q(term_a, term_b, self.not_q(term_a), self.not_q(term_b))
+            result = Interpreter.or_q(
+                term_a, term_b, Interpreter.not_q(term_a), Interpreter.not_q(term_b)
+            )
         elif isinstance(term_a, int) and isinstance(term_b, int):
             result = term_a | term_b
         else:
             result = term_a or term_b
         return result
 
-    def q_dict_to_q(self, q_dict):
+    @classmethod
+    def q_dict_to_q(q_dict):
         q_list = list(q_dict.values())
         temp_a = q_list[0]
         i = 1
@@ -726,13 +743,14 @@ class Interpreter:
                     temp_a = temp_a | x
         return temp_a
 
-    def xor_q(self, term_a, term_b, not_a, not_b):
+    @classmethod
+    def xor_q(term_a, term_b, not_a, not_b):
         if term_a == term_b:
             result = Q(pk__in=[])
         elif term_a == Q(pk__isnull=False):  # U xor B is B'
-            return self.not_q(term_b)
+            return Interpreter.not_q(term_b)
         elif term_b == Q(pk__isnull=False):  # A xor U is A'
-            return self.not_q(term_a)
+            return Interpreter.not_q(term_a)
         elif term_a == Q(pk__in=[]):  # 0 xor B is B
             return term_b
         elif term_b == Q(pk__in=[]):  # A xor 0 is A
@@ -745,33 +763,38 @@ class Interpreter:
             result = temp_a & temp_b
         return result
 
-    def xor_handler(self, term_a, term_b):
+    @classmethod
+    def xor_handler(term_a, term_b):
         if isinstance(term_a, dict) and isinstance(term_b, dict):
-            result = self.xor_q(self.q_dict_to_q(term_a), self.q_dict_to_q(term_b))
+            result = Interpreter.xor_q(
+                Interpreter.q_dict_to_q(term_a), Interpreter.q_dict_to_q(term_b)
+            )
         elif isinstance(term_a, dict) and isinstance(term_b, Q):
             if term_b == Q(pk__in=[]):
                 result = term_a
             elif term_b == Q(pk__isnull=False):
-                result = self.not_q(term_a)
+                result = Interpreter.not_q(term_a)
             else:
-                temp_a = self.q_dict_to_q(term_a)
-                result = self.xor_q(
-                    temp_a, term_b, self.not_q(temp_a), self.not_q(term_b)
+                temp_a = Interpreter.q_dict_to_q(term_a)
+                result = Interpreter.xor_q(
+                    temp_a, term_b, Interpreter.not_q(temp_a), Interpreter.not_q(term_b)
                 )
         elif isinstance(term_a, Q) and isinstance(term_b, dict):
             if term_a == Q(pk__in=[]):
                 result = term_a
             elif term_a == Q(pk__isnull=False):
-                result = self.not_q(term_b)
+                result = Interpreter.not_q(term_b)
             else:
-                temp_b = self.q_dict_to_q(term_b)
-                result = self.xor_q(
-                    term_a, temp_b, self.not_q(term_a), self.not_q(temp_b)
+                temp_b = Interpreter.q_dict_to_q(term_b)
+                result = Interpreter.xor_q(
+                    term_a, temp_b, Interpreter.not_q(term_a), Interpreter.not_q(temp_b)
                 )
         elif isinstance(term_a, bool) and isinstance(term_b, bool):
             result = bool(term_a ^ term_b)
         elif isinstance(term_a, Q) and isinstance(term_b, Q):
-            result = self.xor_q(term_a, term_b, self.not_q(term_a), self.not_q(term_b))
+            result = Interpreter.xor_q(
+                term_a, term_b, Interpreter.not_q(term_a), Interpreter.not_q(term_b)
+            )
         elif isinstance(term_a, int) and isinstance(term_b, int):
             result = term_a ^ term_b
         else:
