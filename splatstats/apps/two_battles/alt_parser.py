@@ -1066,7 +1066,7 @@ class Interpreter:
                         and (len(y_1) == 3 and x_1[5:] == y_1)
                         or (len(y_1) == 4 and x_1[0:4] == y_1)
                     ):
-                        result[x_1] == Interpreter.difference_q(
+                        result[x_1] = Interpreter.difference_q(
                             x_2, y_2, not_x, Interpreter.not_q(y_2)
                         )
                         query_none = result[x_1] == Q(pk__id=[]) and query_none
@@ -1100,7 +1100,7 @@ class Interpreter:
                             (len(x_1) == 3 and y_1[5:] == x_1)
                             or (len(x_1) == 4 and y_1[0:4] == x_1)
                         ):
-                            result[y_1] == Interpreter.difference_q(
+                            result[y_1] = Interpreter.difference_q(
                                 x_2, y_2, not_x, Interpreter.not_q(y_2)
                             )
                             query_none = result[y_1] == Q(pk__id=[]) and query_none
