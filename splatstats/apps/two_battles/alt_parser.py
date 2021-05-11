@@ -1124,7 +1124,7 @@ class Interpreter:
             and isinstance(term_a, (dict, Q))
             and isinstance(term_b, (dict, Q))
         ):
-            result = Interpreter.difference_q(term_a, term_b)
+            result = Interpreter.difference_handler(term_a, term_b)
         elif evaluate:
             result = self.switch_math[math_type](term_a, term_b)
         self.eat(RPAREN)
