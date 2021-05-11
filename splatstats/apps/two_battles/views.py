@@ -1342,7 +1342,7 @@ class BattleAPIView(views.APIView):
             and not Battle.objects.filter(player_user=request.user)
             .filter(battle_number=request.data.get("battle_number"))[0]
             .splatnet_upload
-            == False
+            is False
             and request.data.get("splatnet_upload", True)
         ):
             Battle.objects.filter(player_user=request.user).filter(
