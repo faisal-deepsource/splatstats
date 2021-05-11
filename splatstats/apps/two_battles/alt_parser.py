@@ -486,7 +486,7 @@ class Interpreter:
         self.eat(BUILTIN_FUNCT)
         self.eat(LPAREN)
         to_negate = self.term(evaluate)
-        if isinstance(to_negate, dict) or isinstance(to_negate, Q):
+        if isinstance(to_negate, (dict, Q)):
             result = Interpreter.not_q(to_negate)
         elif isinstance(to_negate, bool):
             result = not to_negate
