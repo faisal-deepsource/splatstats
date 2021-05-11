@@ -418,7 +418,6 @@ class Interpreter:
         while self.current_token.type is not RSQUIGGLE:
             self.line(False)
         self.eat(RSQUIGGLE)
-        return None
 
     def set_var(self, var_name, var_value, evaluate=True):
         # print(str(var_name) + " " + str(var_value) + " " + str(evaluate))
