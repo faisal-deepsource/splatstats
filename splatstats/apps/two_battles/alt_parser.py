@@ -318,9 +318,9 @@ class Interpreter:
             STRING,
         )
         self.logical_bitwise_switch = {
-            "and": lambda a, b: self.and_handler(a, b),
-            "or": lambda a, b: self.or_handler(a, b),
-            "xor": lambda a, b: self.xor_handler(a, b),
+            "and": Interpreter.and_handler,
+            "or": Interpreter.or_handler,
+            "xor": Interpreter.xor_handler,
         }
 
     @staticmethod
