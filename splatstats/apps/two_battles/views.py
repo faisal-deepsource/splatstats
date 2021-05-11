@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from time import gmtime
 from time import strftime
 from .forms import FilterForm, AdvancedFilterForm
-import base64
+import urllib
 from .models import Battle
 from .objects import Player
 from django.templatetags.static import static
@@ -21,7 +21,7 @@ def index(request):
     attributes = ""
     if form.is_valid():
         if "query" in form.cleaned_data and form.cleaned_data["query"] != "":
-            query = form.cleaned_data["query"]
+            query = urllib.parse.quote(form.cleaned_data["query"])
             lexer = Lexer(query)
             interpreter = Interpreter(lexer)
             battles = interpreter.interpret()
@@ -1425,14 +1425,8 @@ def advanced_search(request):
             player_weapons.append(
                 static("two_battles/weapons/" + battle.player_weapon + ".png")
             )
-        query = form.cleaned_data["query"]
+        query = urllib.parse.quote(form.cleaned_data["query"])
         i = 0
-        while i < len(query):
-            if query[i] == "\r":
-                query = query[:i] + "%0D" + query[i + 1 :]
-            elif query[i] == "\n":
-                query = query[:i] + "%0A" + query[i + 1 :]
-            i += 1
         context = {
             "page_obj": page_obj,
             "my_list": zip(
