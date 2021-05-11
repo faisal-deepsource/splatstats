@@ -1334,7 +1334,7 @@ class BattleAPIView(views.APIView):
             )
             battle.player_user = request.user
             return Response(data=None, status=status.HTTP_200_OK)
-        elif (
+        if (
             Battle.objects.filter(player_user=request.user)
             .filter(battle_number=request.data.get("battle_number"))
             .count()
