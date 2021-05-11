@@ -834,7 +834,9 @@ class Interpreter:
                 value_a = [x for (x, y) in WeaponFamily if y == term_b]
                 if len(value_a) > 0:
                     term_b = value_a[0]
-                term_a.value = "{}_weapon".format(term_a.value[0:term_a.value.index("_weapon")])
+                term_a.value = "{}_weapon".format(
+                    term_a.value[0 : term_a.value.index("_weapon")]
+                )
             elif regex.search("weapon$", term_a.value):
                 value_a = [x for (x, y) in Weapons if y == term_b]
                 if len(value_a) > 0:
@@ -843,17 +845,23 @@ class Interpreter:
                 value_a = [x for (x, y) in WeaponSubs if y == term_b]
                 if len(value_a) > 0:
                     term_b = value_a[0]
-                term_a.value = "{}_weapon".format(term_a.value[0:term_a.value.index("_weapon")])
+                term_a.value = "{}_weapon".format(
+                    term_a.value[0 : term_a.value.index("_weapon")]
+                )
             elif regex.search("weapon_special$", term_a.value):
                 value_a = [x for (x, y) in WeaponSpecials if y == term_b]
                 if len(value_a) > 0:
                     term_b = value_a[0]
-                term_a.value = "{}_weapon".format(term_a.value[0:term_a.value.index("_weapon")])
+                term_a.value = "{}_weapon".format(
+                    term_a.value[0 : term_a.value.index("_weapon")]
+                )
             elif regex.search("weapon_class$", term_a.value):
                 value_a = [x for (x, y) in WeaponClass if y == term_b]
                 if len(value_a) > 0:
                     term_b = value_a[0]
-                term_a.value = "{}_weapon".format(term_a.value[0:term_a.value.index("_weapon")])
+                term_a.value = "{}_weapon".format(
+                    term_a.value[0 : term_a.value.index("_weapon")]
+                )
             elif regex.search("^stage$", term_a.value):
                 value_a = [x for (x, y) in Stage if y == term_b]
                 if len(value_a) > 0:
@@ -866,7 +874,9 @@ class Interpreter:
                     mapping = {}
                     mapping[term_a.value + self.switch_query[comp_type]] = val
                     new = Q(**mapping)
-                    result = Interpreter.or_q(result, new, Interpreter.not_q(result), Interpreter.not_q(new))
+                    result = Interpreter.or_q(
+                        result, new, Interpreter.not_q(result), Interpreter.not_q(new)
+                    )
             else:
                 mapping = {}
                 mapping[term_a.value + self.switch_query[comp_type]] = term_b
@@ -894,7 +904,12 @@ class Interpreter:
                                 )
                             ] = val
                             new = Q(**mapping)
-                            result[key] = Interpreter.or_q(result[key], new, Interpreter.not_q(result[key]), Interpreter.not_q(new))
+                            result[key] = Interpreter.or_q(
+                                result[key],
+                                new,
+                                Interpreter.not_q(result[key]),
+                                Interpreter.not_q(new),
+                            )
                     else:
                         mapping = {}
                         mapping[
