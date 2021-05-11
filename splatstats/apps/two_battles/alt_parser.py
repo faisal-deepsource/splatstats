@@ -28,7 +28,6 @@ from django.db.models import Q
     RBRACKET,
     LSQUIGGLE,
     RSQUIGGLE,
-    NEWLINE,
     COMMA,
     DOT,
     STRING,
@@ -50,7 +49,6 @@ from django.db.models import Q
     "]",
     "{",
     "}",
-    "NEWLINE",
     ",",
     ".",
     '"',
@@ -165,16 +163,6 @@ class Lexer:
         apart into tokens. One token at a time.
         """
         while self.current_char is not None:
-            if self.current_char == "\r":
-                self.advance()
-                if self.current_char == "\n":
-                    self.advance()
-                    return Token(NEWLINE, "\r\n")
-                return Token(NEWLINE, "\r")
-
-            if self.current_char == "\n":
-                self.advance()
-                return Token(NEWLINE, "\n")
 
             if self.current_char.isspace():
                 self.skip_whitespace()
@@ -389,8 +377,6 @@ class Interpreter:
             self.eat(LPAREN)
             value = self.term(evaluate)
             self.eat(RPAREN)
-        if self.current_token.type is NEWLINE:
-            self.eat(NEWLINE)
         return value
 
     def control_flow_handler(self, evaluate=True):
@@ -414,7 +400,6 @@ class Interpreter:
         self.eat(RPAREN)
         self.eat(LSQUIGGLE)
         pos = self.lexer.get_pos()
-        self.eat(NEWLINE)
         self.set_var(funct_name, {"pos": pos, "params": params}, evaluate)
         while self.current_token.type is not RSQUIGGLE:
             self.line(False)
@@ -434,14 +419,12 @@ class Interpreter:
         result = None
         self.eat(RPAREN)
         self.eat(LSQUIGGLE)
-        self.eat(NEWLINE)
         if value:
             while self.current_token.type is not RSQUIGGLE:
                 result = self.line(evaluate)
             self.eat(RSQUIGGLE)
             self.eat(CONTROLFLOW)
             self.eat(LSQUIGGLE)
-            self.eat(NEWLINE)
             while self.current_token.type is not RSQUIGGLE:
                 self.line(False)
         else:
@@ -450,7 +433,6 @@ class Interpreter:
             self.eat(RSQUIGGLE)
             self.eat(CONTROLFLOW)
             self.eat(LSQUIGGLE)
-            self.eat(NEWLINE)
             while self.current_token.type is not RSQUIGGLE:
                 result = self.line(evaluate)
         self.eat(RSQUIGGLE)
@@ -469,7 +451,6 @@ class Interpreter:
             self.lexer.advance()
             self.current_token = self.lexer.get_next_token()
             self.eat(LSQUIGGLE)
-            self.eat(NEWLINE)
             while self.current_token.type is not RSQUIGGLE:
                 result = self.line(evaluate)
             self.lexer.pop_pos()
@@ -477,7 +458,6 @@ class Interpreter:
             self.current_token = self.lexer.get_next_token()
         self.eat(RPAREN)
         self.eat(LSQUIGGLE)
-        self.eat(NEWLINE)
         while self.current_token.type is not RSQUIGGLE:
             self.line(False)
         self.eat(RSQUIGGLE)
@@ -1155,7 +1135,6 @@ class Interpreter:
             self.vars.pop()
             self.lexer.pop_pos()
             self.eat(RSQUIGGLE)
-            self.eat(NEWLINE)
         return result
 
     def term(self, evaluate=True):
