@@ -93,8 +93,8 @@ class Lexer:
         return self.pos[-1]
 
     @staticmethod
-    def error(str=""):
-        raise Exception("Invalid character\n{}".format(str))
+    def error(msg=""):
+        raise Exception("Invalid character\n{}".format(msg))
 
     def advance(self):
         """Advance the `pos` pointer and set the `current_char` variable."""
@@ -324,8 +324,8 @@ class Interpreter:
         }
 
     @staticmethod
-    def error(str=""):
-        raise Exception("Invalid syntax\n{}".format(str))
+    def error(msg=""):
+        raise Exception("Invalid syntax\n{}".format(msg))
 
     def eat(self, token_type):
         """
