@@ -640,7 +640,9 @@ class Interpreter:
         elif isinstance(term_a, bool) and isinstance(term_b, bool):
             result = term_a and term_b
         elif isinstance(term_a, Q) and isinstance(term_b, Q):
-            result = Interpreter.and_q(term_a, term_b, Interpreter.not_q(term_a), Interpreter.not_q(term_b))
+            result = Interpreter.and_q(
+                term_a, term_b, Interpreter.not_q(term_a), Interpreter.not_q(term_b)
+            )
         elif isinstance(term_a, int) and isinstance(term_b, int):
             result = term_a & term_b
         else:
@@ -769,7 +771,7 @@ class Interpreter:
             temp_a = Interpreter.q_dict_to_q(term_a)
             temp_b = Interpreter.q_dict_to_q(term_b)
             result = Interpreter.xor_q(
-                temp_a, temp_b, Interpreter.not_q(temp_a), Interpreter.not_q(temp_b) 
+                temp_a, temp_b, Interpreter.not_q(temp_a), Interpreter.not_q(temp_b)
             )
         elif isinstance(term_a, dict) and isinstance(term_b, Q):
             if term_b == Q(pk__in=[]):
@@ -994,7 +996,9 @@ class Interpreter:
             elif term_a == Q(pk__isnull=False):
                 result = Interpreter.not_q(term_b)
             else:
-                result = Interpreter.and_q(term_a, Interpreter.not_q(term_b), Interpreter.not_q(term_a), term_b)
+                result = Interpreter.and_q(
+                    term_a, Interpreter.not_q(term_b), Interpreter.not_q(term_a), term_b
+                )
         elif evaluate:
             result = self.switch_math[math_type](term_a, term_b)
         self.eat(RPAREN)
