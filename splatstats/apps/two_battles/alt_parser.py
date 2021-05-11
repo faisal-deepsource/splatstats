@@ -397,6 +397,7 @@ class Interpreter:
             return self.if_handler(evaluate)
         if self.current_token.value == "while":
             return self.while_handler(evaluate)
+        self.error()
 
     def def_handler(self, evaluate=True):
         self.eat(USER_FUNCT)
@@ -1113,3 +1114,4 @@ class Interpreter:
             if self.current_token.type is LPAREN:
                 return self.call_handler(var_name, evaluate)
             return self.get_var(var_name)
+        self.error()
