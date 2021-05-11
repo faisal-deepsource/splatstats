@@ -1426,7 +1426,6 @@ def advanced_search(request):
                 static("two_battles/weapons/" + battle.player_weapon + ".png")
             )
         query = urllib.parse.quote(form.cleaned_data["query"])
-        i = 0
         context = {
             "page_obj": page_obj,
             "my_list": zip(
