@@ -4,6 +4,7 @@ import regex
 from ...tools import get_size
 from .models import (
     Battle,
+    WeaponClass,
     WeaponFamily,
     Clothes,
     Headgear,
@@ -829,48 +830,47 @@ class Interpreter:
         term_b = self.term(evaluate)
         result = False
         if isinstance(term_a, Token) and term_a.type is ATTR:
-            if regex.search("^player_weapon_family$", term_a.value):
+            if regex.search("weapon_family$", term_a.value):
                 value_a = [x for (x, y) in WeaponFamily if y == term_b]
                 if len(value_a) > 0:
                     term_b = value_a[0]
-                mapping = {}
-                if isinstance(term_b, tuple):
-                    mapping = {}
-                    mapping[
-                        "player_weapon{}".format(self.switch_query[comp_type])
-                    ] = term_b[0]
-                    result = Q(**mapping)
-                    for val in term_b[1:]:
-                        mapping = {}
-                        mapping[
-                            "player_weapon{}".format(self.switch_query[comp_type])
-                        ] = val
-                        result = result | Q(**mapping)
-                else:
-                    mapping[term_a.value + self.switch_query[comp_type]] = term_b
-                    result = Q(**mapping)
-            elif regex.search("^player_weapon$", term_a.value):
+                term_a.value = "{}_weapon".format(term_a.value[0:term_a.value.index("_weapon")])
+            elif regex.search("weapon$", term_a.value):
                 value_a = [x for (x, y) in Weapons if y == term_b]
                 if len(value_a) > 0:
                     term_b = value_a[0]
+            elif regex.search("weapon_sub$", term_a.value):
+                value_a = [x for (x, y) in WeaponSubs if y == term_b]
+                if len(value_a) > 0:
+                    term_b = value_a[0]
+                term_a.value = "{}_weapon".format(term_a.value[0:term_a.value.index("_weapon")])
+            elif regex.search("weapon_special$", term_a.value):
+                value_a = [x for (x, y) in WeaponSpecials if y == term_b]
+                if len(value_a) > 0:
+                    term_b = value_a[0]
+                term_a.value = "{}_weapon".format(term_a.value[0:term_a.value.index("_weapon")])
+            elif regex.search("weapon_class$", term_a.value):
+                value_a = [x for (x, y) in WeaponClass if y == term_b]
+                if len(value_a) > 0:
+                    term_b = value_a[0]
+                term_a.value = "{}_weapon".format(term_a.value[0:term_a.value.index("_weapon")])
+            elif regex.search("^stage$", term_a.value):
+                value_a = [x for (x, y) in Stage if y == term_b]
+                if len(value_a) > 0:
+                    term_b = value_a[0]
+            if isinstance(term_b, tuple):
+                mapping = {}
+                mapping[term_a.value + self.switch_query[comp_type]] = term_b[0]
+                result = Q(**mapping)
+                for val in term_b[1:]:
                     mapping = {}
-                    mapping[
-                        "player_weapon{}".format(self.switch_query[comp_type])
-                    ] = term_b
-                    result = Q(**mapping)
+                    mapping[term_a.value + self.switch_query[comp_type]] = val
+                    new = Q(**mapping)
+                    result = Interpreter.or_q(result, new, Interpreter.not_q(result), Interpreter.not_q(new))
             else:
-                if isinstance(term_b, tuple):
-                    mapping = {}
-                    mapping[term_a.value + self.switch_query[comp_type]] = term_b[0]
-                    result = Q(**mapping)
-                    for val in term_b[1:]:
-                        mapping = {}
-                        mapping[term_a.value + self.switch_query[comp_type]] = val
-                        result = result | Q(**mapping)
-                else:
-                    mapping = {}
-                    mapping[term_a.value + self.switch_query[comp_type]] = term_b
-                    result = Q(**mapping)
+                mapping = {}
+                mapping[term_a.value + self.switch_query[comp_type]] = term_b
+                result = Q(**mapping)
         elif isinstance(term_a, dict):
             if regex.search("^teammate[0-2]_weapon_family$", list(term_a.values())[0]):
                 value_a = [x for (x, y) in WeaponFamily if y == term_b]
@@ -893,7 +893,8 @@ class Interpreter:
                                     value[8], self.switch_query[comp_type]
                                 )
                             ] = val
-                            result[key] = result[key] | Q(**mapping)
+                            new = Q(**mapping)
+                            result[key] = Interpreter.or_q(result[key], new, Interpreter.not_q(result[key]), Interpreter.not_q(new))
                     else:
                         mapping = {}
                         mapping[
