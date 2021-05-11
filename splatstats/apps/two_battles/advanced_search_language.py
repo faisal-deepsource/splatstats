@@ -948,7 +948,7 @@ class Interpreter:
                 "((teammate_[a-c])|(opponent_[a-d]))_[0-z_]*",
                 attribute,
             ):
-                for key in mapping.keys():
+                for key in mapping:
                     if attribute[0:8] == "teammate":
                         mapping[key][
                             "{}{}{}{}".format(
@@ -968,7 +968,7 @@ class Interpreter:
                             )
                         ] = value
             else:
-                for key in mapping.keys():
+                for key in mapping:
                     mapping[key][attribute + self.query_operator(token.type)] = value
             battles = Battle.objects.none()
             for key in mapping:
