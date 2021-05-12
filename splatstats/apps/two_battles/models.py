@@ -1431,7 +1431,9 @@ class Battle(models.Model):
     player_x_power = models.DecimalField(
         blank=True, null=True, decimal_places=1, max_digits=5
     )
-    player_user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    player_user = models.ForeignKey(
+        User, related_name="two_battles", on_delete=models.CASCADE, null=True
+    )
     player_weapon = models.CharField(max_length=4, choices=Weapons)
     player_rank = models.PositiveSmallIntegerField(null=True, choices=Ranks.choices)
     player_level = models.PositiveSmallIntegerField(null=True)

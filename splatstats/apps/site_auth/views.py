@@ -1,4 +1,5 @@
-from django.contrib.sites.shortcuts import get_current_site
+from rest_framework import viewsets
+from .serializers import UserSerializer
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from django.contrib.auth.models import User
@@ -56,3 +57,12 @@ def activate(request, uidb64, token):
 
 def account_activation_sent(request):
     return render(request, "site_auth/account_activation_sent.html")
+
+
+class UserViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+    This viewset automatically provides `list` and `retrieve` actions.
+    """
+
+    queryset = User.objects.all()
+    serializer_class = UserSerializer

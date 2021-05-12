@@ -14,33 +14,15 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.contrib.auth import views as django_auth_views
 from django.urls import path, include
-from django.conf.urls import url
-from two_factor.urls import urlpatterns as tf_urls
-from rest_framework.authtoken import views
 from django.conf import settings
 from django.conf.urls.static import static
-from splatstats.apps.site_auth import views as auth_views
 
 urlpatterns = (
     [
         path("admin/", admin.site.urls),
-        path("", include(tf_urls)),
-        path("api-auth/", include("rest_framework.urls")),
         path("two_battles/", include("splatstats.apps.two_battles.urls")),
-        path("api-token-auth/", views.obtain_auth_token),
-        url(r"^signup/$", auth_views.signup, name="signup"),
-        url(
-            r"^account_activation_sent/$",
-            auth_views.account_activation_sent,
-            name="account_activation_sent",
-        ),
-        url(
-            r"^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,32})/$",
-            auth_views.activate,
-            name="activate",
-        ),
+        path("auth/", include("splatstats.apps.site_auth.urls")),
     ]
     + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,3 +1,7 @@
+from rest_framework import viewsets
+from .permissions import IsOwnerOrReadOnly
+from rest_framework.parsers import JSONParser
+from .serializers import BattleSerializer
 from .alt_parser import Interpreter, Lexer
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect
@@ -1311,91 +1315,18 @@ def detail(request, id):
     )
 
 
-class BattleAPIView(views.APIView):
-    throttle_classes = ()
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
-    parser_classes = (JSONParser,)
+class BattleViewSet(viewsets.ModelViewSet):
+    """
+    This viewset automatically provides `list`, `create`, `retrieve`,
+    `update` and `destroy` actions.
+    """
 
-    @staticmethod
-    def get(request):
-        return HttpResponseRedirect("/two_battles/")
+    queryset = Battle.objects.all()
+    serializer_class = BattleSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
 
-    @staticmethod
-    def post(request):
-        if (
-            Battle.objects.filter(player_user=request.user)
-            .filter(battle_number=request.data.get("battle_number"))
-            .count()
-            == 0
-        ):
-            battle = Battle.create(
-                data=request.data,
-                user=request.user,
-            )
-            battle.player_user = request.user
-            return Response(data=None, status=status.HTTP_200_OK)
-        if (
-            Battle.objects.filter(player_user=request.user)
-            .filter(battle_number=request.data.get("battle_number"))
-            .count()
-            == 1
-            and not Battle.objects.filter(player_user=request.user)
-            .filter(battle_number=request.data.get("battle_number"))[0]
-            .splatnet_upload
-            is False
-            and request.data.get("splatnet_upload", True)
-        ):
-            Battle.objects.filter(player_user=request.user).filter(
-                battle_number=request.data.get("battle_number")
-            ).delete()
-            battle = Battle.create(
-                data=request.data,
-                user=request.user,
-            )
-            battle.player_user = request.user
-            return Response(data=None, status=status.HTTP_200_OK)
-        return Response(data=None, status=status.HTTP_400_BAD_REQUEST)
-
-
-def to_int(value):
-    try:
-        return int(value)
-    except:
-        return None
-
-
-def to_bool(value):
-    return value == "True"
-
-
-def to_float(value):
-    try:
-        return float(value)
-    except:
-        return None
-
-
-def find_2nd(string, substring):
-    return string.find(substring, string.find(substring) + 1)
-
-
-def attribute_cast(attr, val):
-    lookups = (
-        ("(win)|(has_disconnected_player)", "bool"),
-        (
-            "((elapsed_)?time)|(win_meter)|(((player)|(teammate_[a-c])|(opponent_[a-d]))_((rank)|(level(_star)?)|(kills)|(deaths)|(assists)|(specials)|(game_paint_point)))",
-            "int",
-        ),
-        (
-            "(((my)|(other))_team_count)|(((league)|(splatfest))_point)|(player_x_power)",
-            "float",
-        ),
-    )
-    switch = {"bool": to_bool(val), "int": to_int(val), "float": to_float(val)}
-    for pattern, value in lookups:
-        if regex.search(pattern, attr):
-            return switch.get(value)
-    return val
+    def perform_create(self, serializer):
+        serializer.save(player_user=self.request.user)
 
 
 def advanced_search(request):
