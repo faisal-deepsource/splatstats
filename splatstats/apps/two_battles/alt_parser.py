@@ -133,7 +133,8 @@ class Lexer:
         ):
             return Token(ATTR, value)
         if regex.search(
-            "^((g[et])|(l[et])|(eq)|(not)|(and)|(x?or)|(len)|(push)|(pop)|(slice))$", value
+            "^((g[et])|(l[et])|(eq)|(not)|(and)|(x?or)|(len)|(push)|(pop)|(slice))$",
+            value,
         ):
             return Token(BUILTIN_FUNCT, value)
         if regex.search("^((at_index)|(index_of))$", value):
@@ -1169,7 +1170,7 @@ class Interpreter:
             return self.get_var(var_name).pop()
         else:
             return None
-    
+
     def slice_handler(self, var_name, evaluate=True):
         self.eat(OBJECT_FUNCT)
         self.eat(LPAREN)
