@@ -2,6 +2,14 @@
 
 {% block content_wrapper %}
     <div class="card darken-1">
+        <div class="card-content">
+            <span class="card-title">
+                Advanced Search
+            </span>
+            This page is incomplete. The search works, but documentation is lacking. Check back later for more details.
+        </div>
+    </div>
+    <div class="card darken-1">
         <form action="" method="get">
             <div class="card-content">
                 {% for field in form %}
@@ -129,6 +137,9 @@ return (set)
         <div class="col s6">
             <div class="card">
                 <div class="card-content">
+                    <span class="card-title">
+                        About the advanced search
+                    </span>
                     <ul class="collapsible">
                         <li>
                             <div class="collapsible-header">Extended Backus-Naur form</div>
@@ -157,8 +168,6 @@ float = int , "." , digit , { digit } ;
 value = bool | int | float | string ;
 identifier = lowercase_letter, { lowercase_letter | digit
            | "_" } ;
-attribute = lowercase_letter, { lowercase_letter | digit
-          | "_" } ;
 newline = "\r\n" | "\r" | "\n";
 whitespace = " " | newline ;
 binary_bool_bitwise_op = ( "and" )
@@ -187,7 +196,6 @@ term = identifier
      | binary_op
      | unary_op
      | value
-     | attribute 
      | obj_func_call
      | list ;
 line = ( if , [ whitespace ] )
@@ -204,12 +212,118 @@ if = "if(" , [ whitespace ] , term , [ whitespace ] , ")" ,
 while = "while(" , [ whitespace ] , identifier | binary_op
       | list_index_at | unary_op , [ whitespace ] , ")" ,
       [ whitespace ] , "{" , [ whitespace ] , { line } , "}" ;
-def = "def" , [ whitespace ] , identifier , "(" , [ [ whitespace ]
-    , identifier { [ whitespace ] , "," , [ whitespace ]
-    , identifier } ] , [ whitespace ] , ")" , [ whitespace ] , "{" ,
-    [ whitespace ] , { line } , "}" ;
+def = "def" , [ whitespace ] , identifier , "(" , [
+    [ whitespace ] , identifier { [ whitespace ] , ","
+    , [ whitespace ] , identifier } ] , [ whitespace ] , ")"
+    , [ whitespace ] , "{" , [ whitespace ] , { line } , "}" ;
                                     </span>
                                 </pre>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="collapsible-header">Literals</div>
+                            <div class="collapsible-body">
+                                <span>
+                                    The search language denotes literals in a few ways.
+                                    <pre>
+/* A string */
+"Custom Dualie Squelchers"
+
+/* An integer */
+5
+
+/* A decimal */
+7.2
+
+/* A Boolean */
+True
+                                    </pre>
+                                </span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="collapsible-header">Variables (and assignment)</div>
+                            <div class="collapsible-body">
+                                <span>
+                                    The advanced search allows you to store variables, for various purposes.
+                                    They can store any value in the language.
+                                    <pre>
+/* zero_var contains the value 0 */
+zero_var := 0
+
+/* "Hello World!" string example */
+hello_world := "Hello World!"
+                                    </pre>
+                                </span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="collapsible-header">Math Operators</div>
+                            <div class="collapsible-body">
+                                <span>
+                                    The search language allows you to preform math operations.
+                                    Math operations are denoted using prefix notation, as function calls.
+                                    <pre>
+/* 1 + 0 */
++(1, zero_val)
+
+/* 3 - 2 */
+-(3, 2)
+
+/* 4 * 5 */
+*(4, 5)
+
+/* 9 / 3 */
+/(9, 3)
+                                    </pre>
+                                </span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="collapsible-header">Lists (and list operations)</div>
+                            <div class="collapsible-body">
+                                <span>
+                                    The search language allows you to store multiple values in a single identifier using lists.
+                                    Lists have their own special functions.
+                                    <pre>
+/* The Alice sequence of numbers */
+alice_sequence := [1, 1, 1, 1, 1, 1]
+
+/* A list of strings. Note that this is different from a
+   single string. */
+list_of_strings := [hello_world, "."]
+
+/* Adding to the end of a list */
+list_of_strings.push(".")
+/* list_of_strings now contains [hello_world, ".", "."]
+
+/* Removing from the end of a list */
+alice_sequence.pop()
+/* alice_sequence now contains [1, 1, 1, 1, 1] */
+                                    </pre>
+                                </span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="collapsible-header">Sets</div>
+                            <div class="collapsible-body">
+                                <span>
+                                    At the core of the advanced search is sets.
+                                    You filter the data into sets by using comparisons with attributes.
+                                    <pre>
+/* Identifies the set of matches where the player used the
+   "Custom Dualie Squelchers" weapon. */
+eq(player_weapon, "Custom Dualie Squelchers")
+
+/* Identifies the set of matches where the SplatNet battle
+   number is smaller than 3000. */
+lt(battle_number, 3000)
+
+/* Identifies the set of matches where your team scored any
+   nonzero number of points. */
+gt(my_win_count, zero_var)
+                                    </pre>
+                                </span>
                             </div>
                         </li>
                     </ul>

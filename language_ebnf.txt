@@ -20,8 +20,6 @@ float = int , "." , digit , { digit } ;
 value = bool | int | float | string ;
 identifier = lowercase_letter, { lowercase_letter | digit
            | "_" } ;
-attribute = lowercase_letter, { lowercase_letter | digit
-          | "_" } ;
 newline = "\r\n" | "\r" | "\n";
 whitespace = " " | newline ;
 binary_bool_bitwise_op = ( "and" )
@@ -50,7 +48,6 @@ term = identifier
      | binary_op
      | unary_op
      | value
-     | attribute 
      | obj_func_call
      | list ;
 line = ( if , [ whitespace ] )
