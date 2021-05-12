@@ -1,20 +1,27 @@
-lowercase_letter = "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i"
-                 | "j" | "k" | "l" | "m" | "n" | "o" | "p" | "q" | "r"
-                 | "s" | "t" | "u" | "v" | "w" | "x" | "y" | "z" ;
-uppercase_letter = "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I"
-                 | "J" | "K" | "L" | "M" | "N" | "O" | "P" | "Q" | "R"
-                 | "S" | "T" | "U" | "V" | "W" | "X" | "Y" | "Z" ;
+lowercase_letter = "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h"
+                 | "i" | "j" | "k" | "l" | "m" | "n" | "o" | "p"
+                 | "q" | "r" | "s" | "t" | "u" | "v" | "w" | "x"
+                 | "y" | "z" ;
+uppercase_letter = "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H"
+                 | "I" | "J" | "K" | "L" | "M" | "N" | "O" | "P"
+                 | "Q" | "R" | "S" | "T" | "U" | "V" | "W" | "X"
+                 | "Y" | "Z" ;
 letter = lowercase_letter | uppercase_letter ;
 bool = "True" | "False" ;
-digit_not_zero = "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" ;
+digit_not_zero = "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8"
+               | "9" ;
 digit = "0" | digit_not_zero ;
-string = '"' , { letter | digit | "_" | " " | "'" | "-" } , '"' ;
-in_line_comment = "/*" , { letter | digit | "_" | " " | "'" | "-" } ,  "*/";
+string = '"' , { letter | digit | "_" | " " | "'" | "-" }
+       , '"' ;
+inline_comment = "/*" , { letter | digit | "_" | " " | "'"
+               | "-" } ,  "*/";
 int = ( [ "-" ] digit_not_zero , { digit } ) | "0" ;
 float = int , "." , digit , { digit } ;
 value = bool | int | float | string ;
-identifier = lowercase_letter, { lowercase_letter | digit | "_" } ;
-attribute = lowercase_letter, { lowercase_letter | digit | "_" } ;
+identifier = lowercase_letter, { lowercase_letter | digit
+           | "_" } ;
+attribute = lowercase_letter, { lowercase_letter | digit
+          | "_" } ;
 newline = "\r\n" | "\r" | "\n";
 whitespace = " " | newline ;
 binary_bool_bitwise_op = ( "and" )
@@ -34,9 +41,10 @@ list = "[" , [ whitespace ] , [ { term , "," , [ whitespace ] }
      , term , [ whitespace ] ] , "]" ;
 func_call = identifier [ "(" , [ whitespace ] , [ term , { "," ,
           [ whitespace ] , term } , [ whitespace ] ] ")" ] ;
-obj_func_call = identifier , "." , identifier , "(" , [ whitespace ]
-          , [ term , { "," , [ whitespace ] , term ,
-          [ whitespace ] } ] , ")" ;
+obj_func_call = identifier , "." , identifier , "("
+              , [ whitespace ] , [ term , { ","
+              , [ whitespace ] , term , [ whitespace ] } ]
+              , ")" ;
 term = identifier
      | func_call
      | binary_op
@@ -50,8 +58,8 @@ line = ( if , [ whitespace ] )
      | ( def , [ whitespace ] )
      | ( assignment , [ whitespace ] )
      | ( return , [ whitespace ]  );
-return = "return" , [ [ whitespace ] , "(" , [ whitespace ] , term ,
-       [ whitespace ] , ")" ] ;
+return = "return" , [ [ whitespace ] , "(" , [ whitespace ]
+       , term , [ whitespace ] , ")" ] ;
 if = "if(" , [ whitespace ] , term , [ whitespace ] , ")" ,
    [ whitespace ] , "{" , [ whitespace ] , { line } , "}" ,
    [ whitespace ], "else" , [ whitespace ] , "{" ,
