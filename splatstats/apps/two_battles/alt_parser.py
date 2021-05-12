@@ -20,6 +20,7 @@ from django.db.models import Q
     ATTR,
     ASSIGN,
     BUILTIN_FUNCT,
+    OBJECT_FUNCT,
     USER_FUNCT,
     CONTROLFLOW,
     LPAREN,
@@ -41,6 +42,7 @@ from django.db.models import Q
     "ATTR",
     ":=",
     "BUILTIN_FUNCT",
+    "OBJECT_FUNCT",
     "def",
     "CONTROLFLOW",
     "(",
@@ -131,9 +133,11 @@ class Lexer:
         ):
             return Token(ATTR, value)
         if regex.search(
-            "^((g[et])|(l[et])|(eq)|(not)|(and)|(x?or)|(at_index)|(index_of)|(len)|(push)|(pop)|(slice))$", value
+            "^((g[et])|(l[et])|(eq)|(not)|(and)|(x?or)|(len)|(push)|(pop)|(slice))$", value
         ):
             return Token(BUILTIN_FUNCT, value)
+        if regex.search("^((at_index)|(index_of))$", value):
+            return Token(OBJECT_FUNCT, value)
         if regex.search("^((if)|(else)|(while))$", value):
             return Token(CONTROLFLOW, value)
         if regex.search("^def$", value):
@@ -316,7 +320,7 @@ class Interpreter:
             "pop": self.pop_handler,
             "at_index": self.at_index_handler,
             "slice": self.slice_handler,
-            "index_of": self.index_of,
+            "index_of": self.index_of_handler,
         }
 
     @staticmethod
@@ -1145,20 +1149,20 @@ class Interpreter:
         return result
 
     def at_index_handler(self, var_name, evaluate=True):
-        self.eat(BUILTIN_FUNCT)
+        self.eat(OBJECT_FUNCT)
         self.eat(LPAREN)
         index = self.term(evaluate)
         self.eat(RPAREN)
         return self.get_var(var_name)[index]
 
     def index_of_handler(self, var_name, evaluate=True):
-        self.eat(BUILTIN_FUNCT)
+        self.eat(OBJECT_FUNCT)
         self.eat(LPAREN)
         item = self.term(evaluate)
         return self.get_var(var_name).index(item)
 
     def pop_handler(self, var_name, evaluate=True):
-        self.eat(BUILTIN_FUNCT)
+        self.eat(OBJECT_FUNCT)
         self.eat(LPAREN)
         self.eat(RPAREN)
         if evaluate:
@@ -1167,7 +1171,7 @@ class Interpreter:
             return None
     
     def slice_handler(self, var_name, evaluate=True):
-        self.eat(BUILTIN_FUNCT)
+        self.eat(OBJECT_FUNCT)
         self.eat(LPAREN)
         start = self.term(evaluate)
         self.eat(COMMA)
@@ -1177,7 +1181,7 @@ class Interpreter:
         return self.get_var(var_name)[start:stop:step]
 
     def push_handler(self, var_name, evaluate=True):
-        self.eat(BUILTIN_FUNCT)
+        self.eat(OBJECT_FUNCT)
         self.eat(LPAREN)
         item = self.term(evaluate)
         self.eat(RPAREN)
