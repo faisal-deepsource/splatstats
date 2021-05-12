@@ -131,7 +131,7 @@ class Lexer:
         ):
             return Token(ATTR, value)
         if regex.search(
-            "^((g[et])|(l[et])|(eq)|(not)|(and)|(x?or)|(index)|(len)|(push)|(pop))$", value
+            "^((g[et])|(l[et])|(eq)|(not)|(and)|(x?or)|(at_index)|(index_of)|(len)|(push)|(pop)|(slice))$", value
         ):
             return Token(BUILTIN_FUNCT, value)
         if regex.search("^((if)|(else)|(while))$", value):
@@ -314,7 +314,9 @@ class Interpreter:
         self.obj_switch = {
             "push": self.push_handler,
             "pop": self.pop_handler,
-            "index": self.index_handler,
+            "at_index": self.at_index_handler,
+            "slice": self.slice_handler,
+            "index_of": self.index_of,
         }
 
     @staticmethod
@@ -1142,12 +1144,18 @@ class Interpreter:
             self.eat(RSQUIGGLE)
         return result
 
-    def index_handler(self, var_name, evaluate=True):
+    def at_index_handler(self, var_name, evaluate=True):
         self.eat(BUILTIN_FUNCT)
         self.eat(LPAREN)
         index = self.term(evaluate)
         self.eat(RPAREN)
         return self.get_var(var_name)[index]
+
+    def index_of_handler(self, var_name, evaluate=True):
+        self.eat(BUILTIN_FUNCT)
+        self.eat(LPAREN)
+        item = self.term(evaluate)
+        return self.get_var(var_name).index(item)
 
     def pop_handler(self, var_name, evaluate=True):
         self.eat(BUILTIN_FUNCT)
@@ -1158,13 +1166,23 @@ class Interpreter:
         else:
             return None
     
+    def slice_handler(self, var_name, evaluate=True):
+        self.eat(BUILTIN_FUNCT)
+        self.eat(LPAREN)
+        start = self.term(evaluate)
+        self.eat(COMMA)
+        stop = self.term(evaluate)
+        self.eat(COMMA)
+        step = self.term(evaluate)
+        return self.get_var(var_name)[start:stop:step]
+
     def push_handler(self, var_name, evaluate=True):
         self.eat(BUILTIN_FUNCT)
         self.eat(LPAREN)
         item = self.term(evaluate)
         self.eat(RPAREN)
         if evaluate:
-            return self.get_var(var_name).push(item)
+            return self.get_var(var_name).append(item)
         else:
             return None
 
