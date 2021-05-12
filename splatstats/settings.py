@@ -41,7 +41,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = access_secret_version("DJANGO_SECRET_KEY")
@@ -120,13 +120,13 @@ DATABASES = {
         "NAME": "db",
         "USER": "django_database_user",
         "PASSWORD": access_secret_version("DJANGO_DATABASE_PASSWORD"),
-        "HOST": "/cloudsql/{}".format(access_secret_version("DJANGO_DATABASE_HOST")),
+        "HOST": "35.224.168.252",  # "/cloudsql/{}".format(access_secret_version("DJANGO_DATABASE_HOST")),
         "PORT": "3306",
-        "OPTIONS": {
-            "unix_socket": "/cloudsql/{}".format(
-                access_secret_version("DJANGO_DATABASE_HOST")
-            ),
-        },
+        # "OPTIONS": {
+        #     "unix_socket": "/cloudsql/{}".format(
+        #         access_secret_version("DJANGO_DATABASE_HOST")
+        #     ),
+        # },
     }
 }
 
@@ -210,9 +210,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "data")
 
 LOCALE_PATHS = (BASE_DIR, "locale")
 
-SESSION_COOKIE_SECURE = not DEBUG
-CSRF_COOKIE_SECURE = not DEBUG
-SECURE_SSL_REDIRECT = not DEBUG
-SECURE_HSTS_SECONDS = 3600 if not DEBUG else 0
-SECURE_HSTS_INCLUDE_SUBDOMAINS = not DEBUG
-SECURE_HSTS_PRELOAD = not DEBUG
+# SESSION_COOKIE_SECURE = not DEBUG
+# CSRF_COOKIE_SECURE = not DEBUG
+# SECURE_SSL_REDIRECT = not DEBUG
+# SECURE_HSTS_SECONDS = 3600 if not DEBUG else 0
+# SECURE_HSTS_INCLUDE_SUBDOMAINS = not DEBUG
+# SECURE_HSTS_PRELOAD = not DEBUG

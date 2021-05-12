@@ -5,29 +5,38 @@ uppercase_letter = "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I"
                  | "J" | "K" | "L" | "M" | "N" | "O" | "P" | "Q" | "R"
                  | "S" | "T" | "U" | "V" | "W" | "X" | "Y" | "Z" ;
 letter = lowercase_letter | uppercase_letter ;
-bool = ( "T" , "r" , "u" , "e" )
-     | ( "F" , "a" , "l" , "s" , "e" ) ;
-digit = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" ;
+bool = "True" | "False" ;
+digit_not_zero = "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" ;
+digit = "0" | digit_not_zero ;
 string = '"' , { letter | digit | "_" | " " | "'" | "-" } , '"' ;
-int = [ "-" ] digit , { digit } ;
+in_line_comment = "/*" , { letter | digit | "_" | " " | "'" | "-" } ,  "*/";
+int = ( [ "-" ] digit_not_zero , { digit } ) | "0" ;
 float = int , "." , digit , { digit } ;
 value = bool | int | float | string ;
 identifier = lowercase_letter, { lowercase_letter | digit | "_" } ;
 attribute = lowercase_letter, { lowercase_letter | digit | "_" } ;
-binary_bool_bitwise_op = ( "a" , "n" , "d" )
-                       | ( [ "x" ] , "o" , "r" ) ;
+newline = "\r\n" | "\r" | "\n";
+whitespace = " " | newline ;
+binary_bool_bitwise_op = ( "and" )
+                       | ( [ "x" ] , "or" ) ;
 comp_op = ( "g" , ( "e" | "t" ) )
         | ( "l" , ( "e" | "t" ) )
-        | ( "e" , "q" ) ;
+        | ( "eq" ) ;
 math_op = "+" | "-" | "*" | "/" ;
 binary_op = ( comp_op | binary_bool_bitwise_op | math_op )
-          , "(" , term , "," , term , ")" ;
-unary_op = ( "n" , "o" , "t" ) | ( "l" , "e" , "n" )
-         , "(" , term , ")" ;
-assignment = identifier | list_index_at , ":=" , term ;
-list = "[" , [ { term , "," } , term ] , "]" ;
-func_call = identifier [ "(" , [ term , { "," , term } ] ")" ] ;
-obj_func_call = identifier , "." , identifier , "(" , term , ")" ;
+          , "(" , [ whitespace ] , term , [ whitespace ] , "," ,
+          [ whitespace ] , term , [ whitespace ] , ")" ;
+unary_op = ( "not" ) | ( "len" )
+         , "(" , [ whitespace ] , term , [ whitespace ] , ")" ;
+assignment = identifier | obj_func_call , [ whitespace ] , ":="
+           , [ whitespace ] , term ;
+list = "[" , [ whitespace ] , [ { term , "," , [ whitespace ] }
+     , term , [ whitespace ] ] , "]" ;
+func_call = identifier [ "(" , [ whitespace ] , [ term , { "," ,
+          [ whitespace ] , term } , [ whitespace ] ] ")" ] ;
+obj_func_call = identifier , "." , identifier , "(" , [ whitespace ]
+          , [ term , { "," , [ whitespace ] , term ,
+          [ whitespace ] } ] , ")" ;
 term = identifier
      | func_call
      | binary_op
@@ -36,17 +45,21 @@ term = identifier
      | attribute 
      | obj_func_call
      | list ;
-line = if
-     | while
-     | def 
-     | assignment
-     | return ;
-return = "r" , "e" , "t" , "u" , "r" , "n" , [ "(" , term , ")" ] ;
-if = "i" , "f" , "(" , term , ")" , "{" , { line } , "}" 
-   , "e" , "l" , "s" , "e" , "{" , { line } , "}" ;
-while = "w" , "h" , "i" , "l" , "e" , "(" , identifier | binary_op
-      | list_index_at | unary_op , ")" 
-      , "{" , { line } , "}" ;
-def = "d" , "e" , "f" , " " , identifier 
-    , "(" , [ identifier { "," , identifier } ] , ")" 
-    , "{" , { line } , "}" ;
+line = ( if , [ whitespace ] )
+     | ( while , [ whitespace ] )
+     | ( def , [ whitespace ] )
+     | ( assignment , [ whitespace ] )
+     | ( return , [ whitespace ]  );
+return = "return" , [ [ whitespace ] , "(" , [ whitespace ] , term ,
+       [ whitespace ] , ")" ] ;
+if = "if(" , [ whitespace ] , term , [ whitespace ] , ")" ,
+   [ whitespace ] , "{" , [ whitespace ] , { line } , "}" ,
+   [ whitespace ], "else" , [ whitespace ] , "{" ,
+   [ whitespace ] , { line } , "}" ;
+while = "while(" , [ whitespace ] , identifier | binary_op
+      | list_index_at | unary_op , [ whitespace ] , ")" ,
+      [ whitespace ] , "{" , [ whitespace ] , { line } , "}" ;
+def = "def" , [ whitespace ] , identifier , "(" , [ [ whitespace ]
+    , identifier { [ whitespace ] , "," , [ whitespace ]
+    , identifier } ] , [ whitespace ] , ")" , [ whitespace ] , "{" ,
+    [ whitespace ] , { line } , "}" ;
