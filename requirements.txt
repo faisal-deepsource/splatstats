@@ -58,7 +58,7 @@ regex==2021.4.4
 requests==2.25.1
 rsa==4.7.2
 sendgrid==6.7.0
-six==1.15.0
+six==1.16.0
 sqlparse==0.4.1
 starkbank-ecdsa==1.1.0
 toml==0.10.2
