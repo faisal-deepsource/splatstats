@@ -7,7 +7,6 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.template.loader import render_to_string
 from .forms import SignUpForm
 from .tokens import account_activation_token
-from django.core.mail import send_mail
 from django.core.mail import EmailMultiAlternatives
 
 
