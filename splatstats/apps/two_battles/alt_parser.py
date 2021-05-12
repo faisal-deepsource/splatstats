@@ -131,7 +131,7 @@ class Lexer:
         ):
             return Token(ATTR, value)
         if regex.search(
-            "^((g[et])|(l[et])|(eq)|(not)|(and)|(x?or)|(index)|(len))$", value
+            "^((g[et])|(l[et])|(eq)|(not)|(and)|(x?or)|(index)|(len)|(push)|(pop))$", value
         ):
             return Token(BUILTIN_FUNCT, value)
         if regex.search("^((if)|(else)|(while))$", value):
@@ -310,6 +310,11 @@ class Interpreter:
             "and": Interpreter.and_handler,
             "or": Interpreter.or_handler,
             "xor": Interpreter.xor_handler,
+        }
+        self.obj_switch = {
+            "push": self.push_handler,
+            "pop": self.pop_handler,
+            "index": self.index_handler,
         }
 
     @staticmethod
@@ -1137,6 +1142,32 @@ class Interpreter:
             self.eat(RSQUIGGLE)
         return result
 
+    def index_handler(self, var_name, evaluate=True):
+        self.eat(BUILTIN_FUNCT)
+        self.eat(LPAREN)
+        index = self.term(evaluate)
+        self.eat(RPAREN)
+        return self.get_var(var_name)[index]
+
+    def pop_handler(self, var_name, evaluate=True):
+        self.eat(BUILTIN_FUNCT)
+        self.eat(LPAREN)
+        self.eat(RPAREN)
+        if evaluate:
+            return self.get_var(var_name).pop()
+        else:
+            return None
+    
+    def push_handler(self, var_name, evaluate=True):
+        self.eat(BUILTIN_FUNCT)
+        self.eat(LPAREN)
+        item = self.term(evaluate)
+        self.eat(RPAREN)
+        if evaluate:
+            return self.get_var(var_name).push(item)
+        else:
+            return None
+
     def term(self, evaluate=True):
         if self.current_token.type == BUILTIN_FUNCT:
             if self.current_token.value == "not":
@@ -1210,11 +1241,7 @@ class Interpreter:
             self.eat(VAR)
             if self.current_token.type is DOT:
                 self.eat(DOT)
-                self.eat(BUILTIN_FUNCT)
-                self.eat(LPAREN)
-                index = self.term(evaluate)
-                self.eat(RPAREN)
-                return self.get_var(var_name)[index]
+                return self.obj_switch[self.current_token.value](var_name, evaluate)
             if self.current_token.type is LPAREN:
                 return self.call_handler(var_name, evaluate)
             return self.get_var(var_name)
