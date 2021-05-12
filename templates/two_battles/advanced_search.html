@@ -26,6 +26,78 @@
     </div>
     <div class=row>
         <div class="col s6">
+            <div class="card darken-1">
+                <div class="card-content">
+                    <span class="card-title">
+                        Available Attributes
+                    </span>
+                    <ul class="collapsible">
+                        <li>
+                            <div class="collapsible-header">General</div>
+                            <div class="collapsible-body">
+                                <span>
+                                    <pre>
+rule
+match_type
+stage
+win
+has_disconnected_player
+time
+battle_number
+win_meter
+my_team_count
+other_team_count
+elapsed_time
+tag_id
+league_point
+splatfest_point
+splatfest_title_after
+player_x_power
+                                    </pre>
+                                </span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="collapsible-header">Player specific</div>
+                            <div class="collapsible-body">
+                                <span>
+                                    To query for a specific attribute, use <code>player_</code>, <code>teammate_</code> <code>a_</code> through <code>c_</code>, or <code>opponent_</code> <code>a_</code> through <code>d_</code>, followed by the attribute name.
+                                    <pre>
+weapon
+rank
+level
+level_star
+kills
+deaths
+assists
+specials
+game_paint_point
+splatfest_title
+name
+splatnet_id
+gender
+species
+headgear
+headgear_main
+headgear_sub0
+headgear_sub1
+headgear_sub2
+clothes
+clothes_main
+clothes_sub0
+clothes_sub1
+clothes_sub2
+shoes
+shoes_main
+shoes_sub0
+shoes_sub1
+shoes_sub2
+                                    </pre>
+                                </span>
+                            </div>
+                        </li>
+                </div>
+            </div>
             <div class="card">
                 <div class="card-content">
                     <span class="card-title">
@@ -70,68 +142,6 @@ return (set)
                         </pre>
                     </div>
                   </div>
-            </div>
-            <div class="card blue-grey darken-1">
-                <div class="card-content white-text">
-                    <span class="card-title">
-                        Available Attributes
-                    </span>
-                    List below uses RegEx for conciseness.
-                    Do not type in the RegEx exactly, but instead use a string that it would match.
-                    <br>
-                    <br>
-                    rule
-                    <br>
-                    match_type
-                    <br>
-                    stage
-                    <br>
-                    win
-                    <br>
-                    has_disconnected_player
-                    <br>
-                    time
-                    <br>
-                    battle_number
-                    <br>
-                    win_meter
-                    <br>
-                    /((my)|(other))_team_count/
-                    <br>
-                    elapsed_time
-                    <br>
-                    tag_id
-                    <br>
-                    league_point
-                    <br>
-                    splatfest_point
-                    <br>
-                    splatfest_title_after
-                    <br>
-                    player_x_power
-                    <br>
-                    /((player)|(teammate_[a-c])|(opponent_[a-d]))_weapon/
-                    <br>
-                    /((player)|(teammate_[a-c])|(opponent_[a-d]))_rank/
-                    <br>
-                    /((player)|(teammate_[a-c])|(opponent_[a-d]))_level(_star)?/
-                    <br>
-                    /((player)|(teammate_[a-c])|(opponent_[a-d]))_((kills)|(deaths)|(assists))/
-                    <br>
-                    /((player)|(teammate_[a-c])|(opponent_[a-d]))_((specials)|(game_paint_point))/
-                    <br>
-                    /((player)|(teammate_[a-c])|(opponent_[a-d]))_splatfest_title/
-                    <br>
-                    /((player)|(teammate_[a-c])|(opponent_[a-d]))_((name)|(splatnet_id))
-                    <br>
-                    /((player)|(teammate_[a-c])|(opponent_[a-d]))_((gender)|(species))/
-                    <br>
-                    /((player)|(teammate_[a-c])|(opponent_[a-d]))_((headgear)|(clothes)|(shoes))/
-                    <br>
-                    /((player)|(teammate_[a-c])|(opponent_[a-d]))_((headgear)|(clothes)|(shoes))_sub[0-2]/
-                    <br>
-                    /((player)|(teammate_[a-c])|(opponent_[a-d]))_((headgear)|(clothes)|(shoes))_main/
-                </div>
             </div>
         </div>
         <div class="col s6">
@@ -266,15 +276,49 @@ hello_world := "Hello World!"
                                     <pre>
 /* 1 + 0 */
 +(1, zero_val)
+/* 1 */
 
 /* 3 - 2 */
 -(3, 2)
+/* 1 */
 
 /* 4 * 5 */
 *(4, 5)
+/* 20 */
 
 /* 9 / 3 */
 /(9, 3)
+/* 3 */
+                                    </pre>
+                                </span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="collapsible-header">Comparison Operators</div>
+                            <div class="collapsible-body">
+                                <span>
+                                    The search languaeg contains five comparison operators: <code>gt</code>, <code>ge</code>, <code>lt</code>, <code>le</code>, and <code>eq</code>.
+                                    Comparisons between incompatible types either return <code>False</code> or throw an error.
+                                    <pre>
+/* Is zero_val equal to 0? */
+eq(zero_val, 0)
+/* True */
+
+/* Is 1 greater than 3? */
+gt(1, 3)
+/* False */
+
+/* Is 1 less than or equal to 3? */
+le(1, 3)
+/* True */
+
+/* Is "Hello World" less than 7.0? */
+lt("Hello World", 7.0)
+/* False */
+
+/* Is "Hello World" greater than or equal to 7.0? */
+ge("Hello World, 7.0")
+/* False */
                                     </pre>
                                 </span>
                             </div>
@@ -300,12 +344,16 @@ list_of_strings.push(".")
 /* Removing from the end of a list */
 alice_sequence.pop()
 /* alice_sequence now contains [1, 1, 1, 1, 1] */
+
+/* Getting the size of a list */
+alice_len := len(alice_sequence)
+/* 5 */
                                     </pre>
                                 </span>
                             </div>
                         </li>
                         <li>
-                            <div class="collapsible-header">Sets</div>
+                            <div class="collapsible-header">Sets (and set operations)</div>
                             <div class="collapsible-body">
                                 <span>
                                     At the core of the advanced search is sets.
@@ -313,15 +361,33 @@ alice_sequence.pop()
                                     <pre>
 /* Identifies the set of matches where the player used the
    "Custom Dualie Squelchers" weapon. */
-eq(player_weapon, "Custom Dualie Squelchers")
+set_a := eq(player_weapon, "Custom Dualie Squelchers")
 
 /* Identifies the set of matches where the SplatNet battle
    number is smaller than 3000. */
-lt(battle_number, 3000)
+set_b := lt(battle_number, 3000)
 
 /* Identifies the set of matches where your team scored any
    nonzero number of points. */
-gt(my_win_count, zero_var)
+set_c := gt(my_win_count, zero_var)
+
+/* The intersection of set_a and set_b */
+set_d := and(set_a, set_b)
+
+/* The union of set_b and set_c */
+set_e := or(set_b, set_c)
+
+/* The difference of set_d and set_e */
+set_f := -(set_d, set_e)
+
+/* The symmetric difference of set_a and set_f */
+set_g := xor(set_a, set_f)
+
+/* The complement of set_g */
+set_h := not(set_g)
+
+/* Gets the number of elements in set_h */
+set_h_len := len(set_h)
                                     </pre>
                                 </span>
                             </div>
