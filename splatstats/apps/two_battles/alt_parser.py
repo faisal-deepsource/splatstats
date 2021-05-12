@@ -1168,8 +1168,7 @@ class Interpreter:
         self.eat(RPAREN)
         if evaluate:
             return self.get_var(var_name).pop()
-        else:
-            return None
+        return None
 
     def slice_handler(self, var_name, evaluate=True):
         self.eat(OBJECT_FUNCT)
@@ -1188,8 +1187,7 @@ class Interpreter:
         self.eat(RPAREN)
         if evaluate:
             return self.get_var(var_name).append(item)
-        else:
-            return None
+        return None
 
     def term(self, evaluate=True):
         if self.current_token.type == BUILTIN_FUNCT:
