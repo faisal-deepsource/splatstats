@@ -15,8 +15,8 @@ urlpatterns = [
         views.account_activation_sent,
         name="account_activation_sent",
     ),
-    path("api/", include("rest_framework.urls")),
     path("api/", include(router.urls)),
+    #path("api/", include("rest_framework.urls")),
     url(r"^signup/$", views.signup, name="signup"),
     url(
         r"^account_activation_sent/$",
@@ -47,4 +47,13 @@ urlpatterns = [
         auth_views.PasswordResetCompleteView.as_view(),
         name="password_reset_complete",
     ),
+    path("password_change",
+        auth_views.PasswordChangeView.as_view(),
+        name="password_change"
+    ),
+    path(
+        "password_change_done",
+        auth_views.PasswordChangeDoneView.as_view(),
+        name="password_change_done"
+    )
 ]

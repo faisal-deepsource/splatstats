@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "main_site.html" %}
 
 {% block content_wrapper %}
     <div class="row">
@@ -14,7 +14,7 @@
                     {% endfor %}
                     </div>
                     <div class="card-action">
-                        <input type="submit" value="Filter">
+                        <input class="btn waves-effect waves-light" type="submit" value="Filter">
                         {% if not search_status %}
                             <a href="advanced_search">Advanced Filter</a>
                         {% endif %}
