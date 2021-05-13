@@ -6,14 +6,17 @@
             <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Splat Stats</a>
                 <!-- Dropdown Structure -->
                 <ul id='dropdown1' class='dropdown-content'>
-                    <li><a href="/two_battles">Battles</a></li>
+                    <li><a href="/two_battles">All Battles</a></li>
+                    {% if user.is_authenticated %}
+                        <li><a href="/two_battles/user/{{ user.id }}">Your Battles</a></li>
+                    {% endif %}
                     <!--<li><a href="/two_salmon">Salmon Run</a></li>-->
                 </ul>
                 <!-- Dropdown Structure -->
                 <ul id='dropdown_accounts' class='dropdown-content'>
                     {% if user.is_authenticated %}
-                        <li><a href="/auth/account/">Profile</a></li>
-                        <li><a href=""></a></li>
+                        <li><a href="/auth/account/two_factor">Manage Two-Factor Login</a></li>
+                        <li><a href="/auth/logout">Logout</a></li>
                     {% else %}
                         <li><a href="/auth/account/login">Login</a></li>
                     {% endif %}
@@ -21,13 +24,14 @@
                 <ul class="right">
                     <li>
                         <!-- Dropdown Trigger -->
-                        <a class='dropdown-trigger btn' href='#' data-target='dropdown1'>Splatoon 2</a>
+                        <a class='dropdown-trigger' href='#' data-target='dropdown1'>Splatoon 2</a>
                     </li>
                     <li>
                         <!-- Dropdown Trigger -->
                         {% if user.is_authenticated %}
+                            <a class='dropdown-trigger' href="#" data-target='dropdown_accounts'>{{ user.username }}</a>
                         {% else %}
-                            <a class='dropdown-trigger btn' href="#" data-target='dropdown_accounts'>User</a>
+                            <a class='dropdown-trigger' href="#" data-target='dropdown_accounts'>User</a>
                         {% endif %}
                     </li>
                 </ul>
@@ -35,7 +39,7 @@
                 <li><a href="#">Navbar Link</a></li>
             </ul>
             <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-            </div>
+            </div>   
         </nav>
         
         <div class="container">{% block content_wrapper %}{% endblock content_wrapper %}</div>

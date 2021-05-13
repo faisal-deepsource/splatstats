@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from rest_framework import viewsets
 from .permissions import IsOwnerOrReadOnly
 from rest_framework.parsers import JSONParser
@@ -29,19 +30,77 @@ def index(request):
             lexer = Lexer(query)
             interpreter = Interpreter(lexer)
             battles = interpreter.interpret()
-            if request.user.is_authenticated:
-                battles = battles.filter(player_user=request.user).order_by("-time")
-            else:
-                battles = battles.order_by("-time")
+            battles = battles.order_by("-time")
             attributes = ""
         else:
             attributes = ""
-            if request.user.is_authenticated:
-                battles = Battle.objects.filter(player_user=request.user).order_by(
-                    "-time"
-                )
-            else:
-                battles = Battle.objects.order_by("-time")
+            battles = Battle.objects.order_by("-time")
+            if form.cleaned_data["rule"] != "all":
+                battles = battles.filter(rule=form.cleaned_data["rule"])
+            if form.cleaned_data["match_type"] != "all":
+                battles = battles.filter(match_type=form.cleaned_data["match_type"])
+            if form.cleaned_data["stage"] != "all":
+                battles = battles.filter(stage=form.cleaned_data["stage"])
+            if form.cleaned_data["rank"] != "21":
+                battles = battles.filter(player_rank=int(form.cleaned_data["rank"]))
+            if form.cleaned_data["weapon"] != "all":
+                battles = battles.filter(player_weapon=form.cleaned_data["weapon"])
+            query = ""
+            attributes += "&rule=" + form.cleaned_data["rule"]
+            attributes += "&match_type=" + form.cleaned_data["match_type"]
+            attributes += "&stage=" + form.cleaned_data["stage"]
+            attributes += "&rank=" + form.cleaned_data["rank"]
+            attributes += "&weapon=" + form.cleaned_data["weapon"]
+        battles = battles.order_by("-time")
+    else:
+        query = ""
+        battles = Battle.objects.order_by("-time")
+        attributes = ""
+    paginator = Paginator(battles, 50)  # Show 50 battles per page
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+    results = []
+    time_vals = []
+    player_weapons = []
+    for battle in page_obj:
+        results.append("Win" if battle.win else "Lose")
+        if battle.time is not None:
+            time_vals.append(
+                datetime.utcfromtimestamp(battle.time).strftime("%Y-%m-%d %H:%M:%S")
+            )
+        else:
+            time_vals.append(None)
+        player_weapons.append(
+            static("two_battles/weapons/" + battle.player_weapon + ".png")
+        )
+    context = {
+        "page_obj": page_obj,
+        "my_list": zip(
+            page_obj,
+            results,
+            time_vals,
+            player_weapons,
+        ),
+        "form": form,
+        "query": query,
+        "attributes": attributes,
+    }
+    return render(request, "two_battles/index.html", context)
+
+def index_user(request, id):
+    form = FilterForm(request.GET)
+    attributes = ""
+    if form.is_valid():
+        if "query" in form.cleaned_data and form.cleaned_data["query"] != "":
+            query = urllib.parse.quote(form.cleaned_data["query"])
+            lexer = Lexer(query)
+            interpreter = Interpreter(lexer)
+            battles = interpreter.interpret()
+            battles = battles.filter(player_user=User.objects.get(pk=id)).order_by("-time")
+            attributes = ""
+        else:
+            attributes = ""
+            battles = Battle.objects.filter(player_user=request.user).order_by("-time")
             if form.cleaned_data["rule"] != "all":
                 battles = battles.filter(rule=form.cleaned_data["rule"])
             if form.cleaned_data["match_type"] != "all":
@@ -62,7 +121,7 @@ def index(request):
     else:
         query = ""
         if request.user.is_authenticated:
-            battles = Battle.objects.filter(player_user=request.user).order_by("-time")
+            battles = Battle.objects.filter(player_user=User.objects.get(pk=id)).order_by("-time")
         else:
             battles = Battle.objects.order_by("-time")
         attributes = ""
@@ -96,7 +155,6 @@ def index(request):
         "attributes": attributes,
     }
     return render(request, "two_battles/index.html", context)
-
 
 def detail(request, id):
     battle = get_object_or_404(Battle, pk=id)
