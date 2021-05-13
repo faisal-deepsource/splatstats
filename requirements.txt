@@ -40,7 +40,7 @@ packaging==20.9
 phonenumbers==8.12.22
 Pillow==8.2.0
 proto-plus==1.18.1
-protobuf==3.16.0
+protobuf==3.17.0
 pyasn1==0.4.8
 pyasn1-modules==0.2.8
 pycparser==2.20
