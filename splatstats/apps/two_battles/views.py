@@ -1296,7 +1296,9 @@ def detail(request, id):
             "battle_players": battle_players,
             "result": "Win" if battle.win else "Lose",
             "end_result": "Time"
-            if battle.rule != "turf_war" and battle.elapsed_time >= 300
+            if battle.rule != "turf_war"
+            and battle.elapsed_time is not None
+            and battle.elapsed_time >= 300
             else "Knockout",
             "start_time": datetime.utcfromtimestamp(battle.time).strftime(
                 "%Y-%m-%d %H:%M:%S"

@@ -4,6 +4,7 @@ from two_factor.urls import urlpatterns as tf_urls
 from . import views
 from rest_framework.routers import DefaultRouter
 from rest_framework.authtoken import views as token_views
+from django.contrib.auth import views as auth_views
 
 router = DefaultRouter()
 router.register(r"users", views.UserViewSet)
@@ -29,4 +30,21 @@ urlpatterns = [
     ),
     path("", include(tf_urls)),
     path("api-token/", token_views.obtain_auth_token),
+    path("logout/", auth_views.LogoutView.as_view()),
+    path("password_reset", auth_views.PasswordResetView.as_view()),
+    path(
+        "reset/<uidb64>/<token>/",
+        auth_views.PasswordResetConfirmView.as_view(),
+        name="password_reset_confirm",
+    ),
+    path(
+        "password_reset_done/",
+        auth_views.PasswordResetDoneView.as_view(),
+        name="password_reset_done",
+    ),
+    path(
+        "password_reset_complete",
+        auth_views.PasswordResetCompleteView.as_view(),
+        name="password_reset_complete",
+    ),
 ]

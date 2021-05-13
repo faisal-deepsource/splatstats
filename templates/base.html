@@ -1,6 +1,6 @@
-<!DOCTYPE html>
-
-<html lang="en">
+{% load i18n %}<!DOCTYPE html>
+{% get_current_language as LANGUAGE_CODE %}{% get_current_language_bidi as LANGUAGE_BIDI %}
+<html lang="{{ LANGUAGE_CODE|default:"en-us" }}" dir="{{ LANGUAGE_BIDI|yesno:'rtl,ltr,auto' }}">
     <head>
         <!--Import Google Icon Font-->
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -8,49 +8,5 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
         {% block head %}{% endblock head %}
     </head>
-    <body>
-        <nav class="light-blue lighten-1" role="navigation">
-            <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Splat Stats</a>
-                <!-- Dropdown Structure -->
-                <ul id='dropdown1' class='dropdown-content'>
-                    <li><a href="/two_battles">Battles</a></li>
-                    <!--<li><a href="/two_salmon">Salmon Run</a></li>-->
-                </ul>
-                <!-- Dropdown Structure -->
-                <ul id='dropdown_accounts' class='dropdown-content'>
-                    <li><a href="/account/login">Login</a></li>
-                </ul>
-                <ul class="right">
-                    <li>
-                        <!-- Dropdown Trigger -->
-                        <a class='dropdown-trigger btn' href='#' data-target='dropdown1'>Splatoon 2</a>
-                    </li>
-                    <li>
-                        <!-- Dropdown Trigger -->
-                        <a class='dropdown-trigger btn' href="#" data-target='dropdown_accounts'>User</a>
-                    </li>
-                </ul>
-              <ul id="nav-mobile" class="sidenav">
-                <li><a href="#">Navbar Link</a></li>
-              </ul>
-              <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-            </div>
-        </nav>
-          
-        <div class="container">{% block content_wrapper %}{% endblock content_wrapper %}</div>
-        <!-- Compiled and minified JavaScript -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-        <script src='https://storage.ko-fi.com/cdn/scripts/overlay-widget.js'></script>
-        <script>
-        kofiWidgetOverlay.draw('cass_dlcm', {
-            'type': 'floating-chat',
-            'floating-chat.donateButton.text': 'Support Me',
-            'floating-chat.donateButton.background-color': '#00b9fe',
-            'floating-chat.donateButton.text-color': '#fff'
-        });
-        </script>
-        {% load static %}
-        <script src="{% static 'core/js/base.js' %}"></script>
-        {% block aftercontent %}{% endblock aftercontent %}
-    </body>
+    {% block body %}{% endblock body %}
 </html>

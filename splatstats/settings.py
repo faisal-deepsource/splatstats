@@ -10,7 +10,6 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
-from pathlib import Path
 import os.path
 import os
 from google.cloud import secretmanager
@@ -41,7 +40,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = access_secret_version("DJANGO_SECRET_KEY")
@@ -120,13 +119,15 @@ DATABASES = {
         "NAME": "db",
         "USER": "django_database_user",
         "PASSWORD": access_secret_version("DJANGO_DATABASE_PASSWORD"),
-        "HOST": "35.224.168.252",  # "/cloudsql/{}".format(access_secret_version("DJANGO_DATABASE_HOST")),
+        "HOST": "/cloudsql/{}".format(
+            access_secret_version("DJANGO_DATABASE_HOST")
+        ),  # "35.224.168.252",
         "PORT": "3306",
-        # "OPTIONS": {
-        #     "unix_socket": "/cloudsql/{}".format(
-        #         access_secret_version("DJANGO_DATABASE_HOST")
-        #     ),
-        # },
+        "OPTIONS": {
+            "unix_socket": "/cloudsql/{}".format(
+                access_secret_version("DJANGO_DATABASE_HOST")
+            ),
+        },
     }
 }
 
@@ -201,6 +202,8 @@ EMAIL_USE_TLS = True
 EMAIL_HOST = "smtp.sendgrid.net"
 EMAIL_HOST_USER = "apikey"
 EMAIL_HOST_PASSWORD = SENDGRID_API_KEY
+DEFAULT_FROM_EMAIL = "SplatStats <noreply@cass-dlcm.dev>"
+
 
 api_settings.UNICODE_JSON = False
 DATA_UPLOAD_MAX_NUMBER_FIELDS = 10000
@@ -210,9 +213,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "data")
 
 LOCALE_PATHS = (BASE_DIR, "locale")
 
-# SESSION_COOKIE_SECURE = not DEBUG
-# CSRF_COOKIE_SECURE = not DEBUG
-# SECURE_SSL_REDIRECT = not DEBUG
-# SECURE_HSTS_SECONDS = 3600 if not DEBUG else 0
-# SECURE_HSTS_INCLUDE_SUBDOMAINS = not DEBUG
-# SECURE_HSTS_PRELOAD = not DEBUG
+SESSION_COOKIE_SECURE = not DEBUG
+CSRF_COOKIE_SECURE = not DEBUG
+SECURE_SSL_REDIRECT = not DEBUG
+SECURE_HSTS_SECONDS = 3600 if not DEBUG else 0
+SECURE_HSTS_INCLUDE_SUBDOMAINS = not DEBUG
+SECURE_HSTS_PRELOAD = not DEBUG
