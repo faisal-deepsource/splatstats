@@ -1397,7 +1397,9 @@ Shoes = (
 class Battle(models.Model):
     # general match stats
     splatnet_upload = models.BooleanField()
+    splatnet_json = models.JSONField(null=True, blank=True)
     stat_ink_upload = models.BooleanField()
+    stat_ink_json = models.JSONField(null=True, blank=True)
     rule = models.CharField(max_length=13, choices=Rule.choices)
     match_type = models.CharField(max_length=11, choices=Match_Type.choices)
     stage = models.CharField(max_length=4, choices=Stage)
