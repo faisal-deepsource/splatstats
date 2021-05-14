@@ -10,6 +10,8 @@ class BattleSerializer(serializers.HyperlinkedModelSerializer):
         fields = [
             "url",
             "id",
+            "splatnet_json",
+            "stat_ink_json",
             "splatnet_upload",
             "stat_ink_upload",
             "rule",

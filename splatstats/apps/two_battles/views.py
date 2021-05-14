@@ -87,6 +87,7 @@ def index(request):
     }
     return render(request, "two_battles/index.html", context)
 
+
 def index_user(request, id):
     form = FilterForm(request.GET)
     attributes = ""
@@ -96,7 +97,9 @@ def index_user(request, id):
             lexer = Lexer(query)
             interpreter = Interpreter(lexer)
             battles = interpreter.interpret()
-            battles = battles.filter(player_user=User.objects.get(pk=id)).order_by("-time")
+            battles = battles.filter(player_user=User.objects.get(pk=id)).order_by(
+                "-time"
+            )
             attributes = ""
         else:
             attributes = ""
@@ -121,7 +124,9 @@ def index_user(request, id):
     else:
         query = ""
         if request.user.is_authenticated:
-            battles = Battle.objects.filter(player_user=User.objects.get(pk=id)).order_by("-time")
+            battles = Battle.objects.filter(
+                player_user=User.objects.get(pk=id)
+            ).order_by("-time")
         else:
             battles = Battle.objects.order_by("-time")
         attributes = ""
@@ -155,6 +160,7 @@ def index_user(request, id):
         "attributes": attributes,
     }
     return render(request, "two_battles/index.html", context)
+
 
 def detail(request, id):
     battle = get_object_or_404(Battle, pk=id)

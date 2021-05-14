@@ -1928,6 +1928,8 @@ class Battle(models.Model):
             battle_number=data.get("battle_number"), player_user=player_user
         ):
             battle = cls(
+                splatnet_json=data.get("splatnet_json"),
+                stat_ink_json=data.get("stat_ink_json"),
                 splatnet_upload=data.get("splatnet_upload"),
                 stat_ink_upload=data.get("stat_ink_upload"),
                 rule=data.get("rule"),
