@@ -46,11 +46,11 @@ DEBUG = False
 SECRET_KEY = access_secret_version("DJANGO_SECRET_KEY")
 
 ALLOWED_HOSTS = [
-    "splatstats-312616.uc.r.appspot.com",
+    #"splatstats-312616.uc.r.appspot.com",
     "splatstats.cass-dlcm.dev",
-    "127.0.0.1",
-    "localhost",
-    "2607:f8b0:4023:1006::99",
+    #"127.0.0.1",
+    #"localhost",
+    #"2607:f8b0:4023:1006::99",
 ]
 
 
@@ -60,7 +60,8 @@ INSTALLED_APPS = [
     "splatstats.apps.two_battles",
     "splatstats.apps.two_salmon",
     "splatstats.apps.site_auth",
-    "django.contrib.admin",
+    'material',
+    'material.admin',
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
