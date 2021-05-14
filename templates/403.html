@@ -1,5 +1,7 @@
 {% extends "admin/base_site.html" %}
-{% load i18n static %}
+{% load static i18n %}
+
+{% block title %}{% trans 'Page not found' %}{% endblock %}
 
 {% block extrastyle %}
   {{ block.super }}
@@ -15,17 +17,16 @@
 {% block breadcrumbs %}{% endblock %}
 {% block side_nav %}{% endblock %}
 
-{% block title %}{{ title }}{% endblock %}
-
-{% block content_title %}<h4 class="center">{{ title }}</h4>{% endblock %}
 
 {% block content %}
-  <div class="app message-card">
-    <div class="card">
-      <div class="card-content">
-        <p>{% trans "Your password has been set. You may go ahead and log in now." %}</p>
-        <p><a href="{% url 'admin:index' %}">{% trans 'Log in' %}</a></p>
-      </div>
+  <div id="layout-content">
+    <div class="side-bar">
+      {% include 'material/admin/includes/admin-out-bg.html' with current_theme=current_theme %}
+    </div>
+    <div class="text-content">
+      <h2>403</h2>
+      <h3>{% trans 'Page not found' %}</h3>
+      <p>{% trans 'You have no permissions to do this action.' %}</p>
     </div>
   </div>
 {% endblock %}
