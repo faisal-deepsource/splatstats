@@ -4,7 +4,7 @@ from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import User
 from django.core.files import File
 from django.core.files.temp import NamedTemporaryFile
-from ...models import Species, Gender
+from ...models import species, gender
 
 # Create your models here.
 
@@ -1448,8 +1448,8 @@ class Battle(models.Model):
     player_splatfest_title = models.TextField(blank=True, null=True)
     player_splatnet_id = models.CharField(max_length=16, null=True)
     player_name = models.CharField(max_length=10, null=True)
-    player_gender = models.CharField(max_length=4, null=True, choices=Gender.choices)
-    player_species = models.CharField(max_length=9, null=True, choices=Species.choices)
+    player_gender = models.CharField(max_length=4, null=True, choices=gender)
+    player_species = models.CharField(max_length=9, null=True, choices=species)
     # headgear
     player_headgear = models.CharField(null=True, max_length=5, choices=Headgear)
     player_headgear_main = models.CharField(
@@ -1493,10 +1493,8 @@ class Battle(models.Model):
     teammate1_level = models.PositiveSmallIntegerField(null=True)
     teammate1_rank = models.PositiveSmallIntegerField(null=True, choices=Ranks.choices)
     teammate1_weapon = models.CharField(null=True, max_length=4, choices=Weapons)
-    teammate1_gender = models.CharField(max_length=4, null=True, choices=Gender.choices)
-    teammate1_species = models.CharField(
-        max_length=9, null=True, choices=Species.choices
-    )
+    teammate1_gender = models.CharField(max_length=4, null=True, choices=gender)
+    teammate1_species = models.CharField(max_length=9, null=True, choices=species)
     teammate1_kills = models.PositiveSmallIntegerField(null=True)
     teammate1_deaths = models.PositiveSmallIntegerField(null=True)
     teammate1_assists = models.PositiveSmallIntegerField(null=True)
@@ -1553,10 +1551,8 @@ class Battle(models.Model):
     teammate2_level = models.PositiveSmallIntegerField(null=True)
     teammate2_rank = models.PositiveSmallIntegerField(null=True, choices=Ranks.choices)
     teammate2_weapon = models.CharField(null=True, max_length=4, choices=Weapons)
-    teammate2_gender = models.CharField(max_length=4, null=True, choices=Gender.choices)
-    teammate2_species = models.CharField(
-        max_length=9, null=True, choices=Species.choices
-    )
+    teammate2_gender = models.CharField(max_length=4, null=True, choices=gender)
+    teammate2_species = models.CharField(max_length=9, null=True, choices=species)
     teammate2_kills = models.PositiveSmallIntegerField(null=True)
     teammate2_deaths = models.PositiveSmallIntegerField(null=True)
     teammate2_assists = models.PositiveSmallIntegerField(null=True)
@@ -1613,10 +1609,8 @@ class Battle(models.Model):
     teammate0_level = models.PositiveSmallIntegerField(null=True)
     teammate0_rank = models.PositiveSmallIntegerField(null=True, choices=Ranks.choices)
     teammate0_weapon = models.CharField(null=True, max_length=4, choices=Weapons)
-    teammate0_gender = models.CharField(max_length=4, null=True, choices=Gender.choices)
-    teammate0_species = models.CharField(
-        max_length=9, null=True, choices=Species.choices
-    )
+    teammate0_gender = models.CharField(max_length=4, null=True, choices=gender)
+    teammate0_species = models.CharField(max_length=9, null=True, choices=species)
     teammate0_kills = models.PositiveSmallIntegerField(null=True)
     teammate0_deaths = models.PositiveSmallIntegerField(null=True)
     teammate0_assists = models.PositiveSmallIntegerField(null=True)
@@ -1673,10 +1667,8 @@ class Battle(models.Model):
     opponent0_level = models.PositiveSmallIntegerField(null=True)
     opponent0_rank = models.PositiveSmallIntegerField(null=True, choices=Ranks.choices)
     opponent0_weapon = models.CharField(null=True, max_length=4, choices=Weapons)
-    opponent0_gender = models.CharField(max_length=4, null=True, choices=Gender.choices)
-    opponent0_species = models.CharField(
-        max_length=9, null=True, choices=Species.choices
-    )
+    opponent0_gender = models.CharField(max_length=4, null=True, choices=gender)
+    opponent0_species = models.CharField(max_length=9, null=True, choices=species)
     opponent0_kills = models.PositiveSmallIntegerField(null=True)
     opponent0_deaths = models.PositiveSmallIntegerField(null=True)
     opponent0_assists = models.PositiveSmallIntegerField(null=True)
@@ -1733,10 +1725,8 @@ class Battle(models.Model):
     opponent1_level = models.PositiveSmallIntegerField(null=True)
     opponent1_rank = models.PositiveSmallIntegerField(null=True, choices=Ranks.choices)
     opponent1_weapon = models.CharField(null=True, max_length=4, choices=Weapons)
-    opponent1_gender = models.CharField(max_length=4, null=True, choices=Gender.choices)
-    opponent1_species = models.CharField(
-        max_length=9, null=True, choices=Species.choices
-    )
+    opponent1_gender = models.CharField(max_length=4, null=True, choices=gender)
+    opponent1_species = models.CharField(max_length=9, null=True, choices=species)
     opponent1_kills = models.PositiveSmallIntegerField(null=True)
     opponent1_deaths = models.PositiveSmallIntegerField(null=True)
     opponent1_assists = models.PositiveSmallIntegerField(null=True)
@@ -1793,10 +1783,8 @@ class Battle(models.Model):
     opponent2_level = models.PositiveSmallIntegerField(null=True)
     opponent2_rank = models.PositiveSmallIntegerField(null=True, choices=Ranks.choices)
     opponent2_weapon = models.CharField(null=True, max_length=4, choices=Weapons)
-    opponent2_gender = models.CharField(max_length=4, null=True, choices=Gender.choices)
-    opponent2_species = models.CharField(
-        max_length=9, null=True, choices=Species.choices
-    )
+    opponent2_gender = models.CharField(max_length=4, null=True, choices=gender)
+    opponent2_species = models.CharField(max_length=9, null=True, choices=species)
     opponent2_kills = models.PositiveSmallIntegerField(null=True)
     opponent2_deaths = models.PositiveSmallIntegerField(null=True)
     opponent2_assists = models.PositiveSmallIntegerField(null=True)
@@ -1853,10 +1841,8 @@ class Battle(models.Model):
     opponent3_level = models.PositiveSmallIntegerField(null=True)
     opponent3_rank = models.PositiveSmallIntegerField(null=True, choices=Ranks.choices)
     opponent3_weapon = models.CharField(null=True, max_length=4, choices=Weapons)
-    opponent3_gender = models.CharField(max_length=4, null=True, choices=Gender.choices)
-    opponent3_species = models.CharField(
-        max_length=9, null=True, choices=Species.choices
-    )
+    opponent3_gender = models.CharField(max_length=4, null=True, choices=gender)
+    opponent3_species = models.CharField(max_length=9, null=True, choices=species)
     opponent3_kills = models.PositiveSmallIntegerField(null=True)
     opponent3_deaths = models.PositiveSmallIntegerField(null=True)
     opponent3_assists = models.PositiveSmallIntegerField(null=True)

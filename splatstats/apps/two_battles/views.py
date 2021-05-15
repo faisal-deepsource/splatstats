@@ -1,14 +1,10 @@
 from django.contrib.auth.models import User
 from rest_framework import viewsets
-from .permissions import IsOwnerOrReadOnly
-from rest_framework.parsers import JSONParser
+from ...permissions import IsOwnerOrReadOnly
 from .serializers import BattleSerializer
 from .alt_parser import Interpreter, Lexer
 from django.shortcuts import get_object_or_404, render
-from django.http import HttpResponseRedirect
-from rest_framework import views, status, permissions
-from rest_framework.parsers import JSONParser
-from rest_framework.response import Response
+from rest_framework import permissions
 from time import gmtime
 from time import strftime
 from .forms import FilterForm, AdvancedFilterForm
@@ -17,7 +13,6 @@ from .models import Battle
 from .objects import Player
 from django.templatetags.static import static
 from datetime import datetime
-import regex
 from django.core.paginator import Paginator
 
 

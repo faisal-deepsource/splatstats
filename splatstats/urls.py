@@ -23,6 +23,7 @@ urlpatterns = (
         path("admin/", admin.site.urls),
         path("two_battles/", include("splatstats.apps.two_battles.urls")),
         path("auth/", include("splatstats.apps.site_auth.urls")),
+        path("two_salmon/", include("splatstats.apps.two_salmon.urls")),
     ]
     + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
