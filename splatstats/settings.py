@@ -46,11 +46,11 @@ DEBUG = False
 SECRET_KEY = access_secret_version("DJANGO_SECRET_KEY")
 
 ALLOWED_HOSTS = [
-    #"splatstats-312616.uc.r.appspot.com",
+    # "splatstats-312616.uc.r.appspot.com",
     "splatstats.cass-dlcm.dev",
-    #"127.0.0.1",
+    # "127.0.0.1",
     # "localhost",
-    #"2607:f8b0:4023:1006::99",
+    # "2607:f8b0:4023:1006::99",
 ]
 
 
@@ -119,7 +119,9 @@ DATABASES = {
         "NAME": "db",
         "USER": "django_database_user",
         "PASSWORD": access_secret_version("DJANGO_DATABASE_PASSWORD"),
-        "HOST": "/cloudsql/{}".format(access_secret_version("DJANGO_DATABASE_HOST")),#"35.224.168.252"
+        "HOST": "/cloudsql/{}".format(
+            access_secret_version("DJANGO_DATABASE_HOST")
+        ),  # "35.224.168.252"
         "PORT": "3306",
         "OPTIONS": {
             "unix_socket": "/cloudsql/{}".format(

@@ -19,7 +19,13 @@ tides = (("low", _("Low Tide")), ("normal", _("Normal")), ("high", _("High tide"
 
 fail_reasons = (("wipe_out", _("wipe_out")), ("time_limit", _("time_limit")))
 
-titles = (("1", _("Apprentice")), ("2", _("Part Timer")), ("3", _("Go Getter")), ("4", "Overachiever"), ("5", _("Profreshional")),)
+titles = (
+    ("1", _("Apprentice")),
+    ("2", _("Part Timer")),
+    ("3", _("Go Getter")),
+    ("4", "Overachiever"),
+    ("5", _("Profreshional")),
+)
 
 specials = (
     ("2", _("Splat-Bomb Launcher")),
