@@ -122,9 +122,7 @@ DATABASES = {
         "NAME": "db",
         "USER": "django_database_user",
         "PASSWORD": access_secret_version("DJANGO_DATABASE_PASSWORD"),
-        "HOST": "/cloudsql/{}".format(
-            access_secret_version("DJANGO_DATABASE_HOST")
-        ),
+        "HOST": "/cloudsql/{}".format(access_secret_version("DJANGO_DATABASE_HOST")),
         # "35.224.168.252",
         "PORT": "3306",
         "OPTIONS": {

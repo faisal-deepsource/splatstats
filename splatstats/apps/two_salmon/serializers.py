@@ -156,7 +156,6 @@ class ShiftSerializer(serializers.HyperlinkedModelSerializer):
         ]
         validators = [
             UniqueTogetherValidator(
-                queryset=Shift.objects.all(),
-                fields=['player_id', 'job_id']
+                queryset=Shift.objects.all(), fields=["player_id", "job_id"]
             )
         ]

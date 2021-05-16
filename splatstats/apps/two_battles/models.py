@@ -1401,8 +1401,10 @@ Shoes = (
 class Battle(models.Model):
     class Meta:
         constraints = [
-            models.UniqueConstraint(fields=['player_splatnet_id','battle_number'], name="unique-two-match"),
-            ]
+            models.UniqueConstraint(
+                fields=["player_splatnet_id", "battle_number"], name="unique-two-match"
+            ),
+        ]
 
     # general match stats
     splatnet_upload = models.BooleanField()
@@ -1418,7 +1420,9 @@ class Battle(models.Model):
     battle_number = models.CharField(
         "SplatNet Battle Number", max_length=255, null=True
     )
-    win_meter = models.DecimalField("Freshness", blank=True, null=True, decimal_places=1, max_digits=3)
+    win_meter = models.DecimalField(
+        "Freshness", blank=True, null=True, decimal_places=1, max_digits=3
+    )
     my_team_count = models.DecimalField(decimal_places=1, max_digits=4, null=True)
     other_team_count = models.DecimalField(decimal_places=1, max_digits=4, null=True)
     elapsed_time = models.PositiveIntegerField(null=True)

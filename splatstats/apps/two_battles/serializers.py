@@ -263,6 +263,6 @@ class BattleSerializer(serializers.HyperlinkedModelSerializer):
         validators = [
             UniqueTogetherValidator(
                 queryset=Battle.objects.all(),
-                fields=('player_splatnet_id', 'battle_number')
+                fields=("player_splatnet_id", "battle_number"),
             )
         ]

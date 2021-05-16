@@ -6,12 +6,14 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('two_salmon', '0008_auto_20210515_1010'),
+        ("two_salmon", "0008_auto_20210515_1010"),
     ]
 
     operations = [
         migrations.AddConstraint(
-            model_name='shift',
-            constraint=models.UniqueConstraint(fields=('player_id', 'job_id'), name='unique-two-shift'),
+            model_name="shift",
+            constraint=models.UniqueConstraint(
+                fields=("player_id", "job_id"), name="unique-two-shift"
+            ),
         ),
     ]
