@@ -43,28 +43,32 @@
                     <tr>
                         <th>User</th>
                         <th>Splatnet #</th>
-                        <th>Mode</th>
                         <th>Stage</th>
-                        <th>Weapon</th>
-                        <th>Result</th>
-                        <th>k/d</th>
-                        <th>Time</th>
+                        <th>Cleared?</th>
+                        <th>Player Golden</th>
+                        <th>Team Golden</th>
+                        <th>Team Power</th>
+                        <th>Hazard Level</th>
+                        <th>Title</th>
+                        <th>Date Time</th>
                     </tr>
-                {% for battle, result, time_val, player_weapons in my_list %}
+                {% for shift, team_golden, team_power, time_val in my_list %}
                     <tr>
-                        <td>{{ battle.player_name }}</td>
-                        <td><a href="/two_battles/{{ battle.id }}/">{{ battle.battle_number }}</a></td>
-                        <td>{{ battle.get_rule_display }}</td>
-                        <td>{{ battle.get_stage_display }}</td>
-                        <td><img style="height: 36px;" src="{{ player_weapons }}">{{ battle.get_player_weapon_display }}</td>
-                        <td>{{ result }}</td>
-                        <td>{{ battle.player_kills }}/{{ battle.player_deaths }}</td>
+                        <td>{{ shift.player_name }}</td>
+                        <td><a href="/two_salmon/{{ shift.id }}/">{{ shift.job_id }}</a></td>
+                        <td>{{ shift.get_stage_display }}</td>
+                        <td>{{ shift.is_clear }}</td>
+                        <td>{{ shift.player_golden_eggs }}</td>
+                        <td>{{ team_golden }}</td>
+                        <td>{{ team_power }}</td>
+                        <td>{{ shift.danger_rate }}</td>
+                        <td>{{ shift.get_player_title_display }} {{ shift.grade_point }}</td>
                         <td>{{ time_val }}</td>
                     </tr>
                 {% endfor %}
                 </table>
             {% else %}
-                <p>No battles are available.</p>
+                <p>No shifts are available.</p>
             {% endif %}
         </div>
     </div>

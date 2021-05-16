@@ -17,17 +17,32 @@ events = (
 
 tides = (("low", _("Low Tide")), ("normal", _("Normal")), ("high", _("High tide")))
 
-fail_reasons = (("wipe_out", _("wipe_out")), ("time_limit", _("time_limit")))
+fail_reasons = (
+    ("all", _("All")),
+    ("wipe_out", _("Wiped")),
+    ("time_limit", _("Time")),
+    (None, _("Cleared")),
+)
+
+cleared_failed = (
+    ("all", _("All")),
+    ("cleared", _("Cleared")),
+    ("failed", _("Failed")),
+    ("1", _("Failed on Wave 1")),
+    ("2", _("Failed on Wave 2")),
+    ("3", _("Failed on Wave 3")),
+)
 
 titles = (
     ("1", _("Apprentice")),
     ("2", _("Part Timer")),
     ("3", _("Go Getter")),
-    ("4", "Overachiever"),
+    ("4", _("Overachiever")),
     ("5", _("Profreshional")),
 )
 
 specials = (
+    ("all", _("All Specials")),
     ("2", _("Splat-Bomb Launcher")),
     ("7", _("Sting Ray")),
     ("8", _("Inkjet")),
@@ -95,11 +110,25 @@ weapons = (
 )
 
 stages = (
+    ("all", _("All Stages")),
     ("Salmonid Smokeyard", _("Salmonid Smokeyard")),
     ("Ruins of Ark Polaris", _("Ruins of Ark Polaris")),
     ("Spawning Grounds", _("Spawning Grounds")),
     ("Marooner's Bay", _("Marooner's Bay")),
     ("Lost Outpost", _("Lost Outpost")),
+)
+
+weaponclass = (
+    (("0", "10", "20", "30", "40", "50", "60", "70", "80", "90", "400"), _("Shooters")),
+    (("200", "210", "220", "230", "240", "250"), _("Blasters")),
+    (("300", "310"), _("Nozzlenose")),
+    (("1000", "1010", "1020", "1030"), _("Rollers")),
+    (("1100", "1110"), _("Brushes")),
+    (("2000", "2010", "2020", "2030", "2040", "2050", "2060"), _("Chargers")),
+    (("3000", "3010", "3020", "3030", "3040"), _("Sloshers")),
+    (("4000", "4010", "4020", "4030", "4040"), _("Splatlings")),
+    (("5000", "5010", "5020", "5030", "5040"), _("Dualies")),
+    (("6000", "6010", "6020"), _("Brellas")),
 )
 
 
