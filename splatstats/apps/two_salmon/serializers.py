@@ -1,9 +1,10 @@
+from rest_framework.validators import UniqueTogetherValidator
 from rest_framework import serializers
 from .models import Shift
 
 
 class ShiftSerializer(serializers.HyperlinkedModelSerializer):
-    player_user = serializers.ReadOnlyField(source="player_user.username")
+    player_user = serializers.PrimaryKeyRelatedField(read_only=True)
 
     class Meta:
         model = Shift
@@ -152,4 +153,10 @@ class ShiftSerializer(serializers.HyperlinkedModelSerializer):
             "teammate2_w1_specials",
             "teammate2_w2_specials",
             "teammate2_w3_specials",
+        ]
+        validators = [
+            UniqueTogetherValidator(
+                queryset=Shift.objects.all(),
+                fields=['player_id', 'job_id']
+            )
         ]

@@ -104,6 +104,11 @@ stages = (
 
 
 class Shift(models.Model):
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['player_id','job_id'], name="unique-two-shift"),
+            ]
+
     player_user = models.ForeignKey(
         User, related_name="two_salmon", on_delete=models.CASCADE, null=True
     )

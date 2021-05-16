@@ -13,3 +13,14 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
         fields = ["url", "id", "username", "two_battles", "two_salmon"]
+
+
+class SocialSerializer(serializers.Serializer):
+    """
+    Serializer which accepts an OAuth2 access token.
+    """
+
+    access_token = serializers.CharField(
+        allow_blank=False,
+        trim_whitespace=True,
+    )

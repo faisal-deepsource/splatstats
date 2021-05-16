@@ -1,9 +1,6 @@
-import base64
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import User
-from django.core.files import File
-from django.core.files.temp import NamedTemporaryFile
 from ...models import species, gender
 
 # Create your models here.
@@ -24,10 +21,11 @@ class Match_Type(models.TextChoices):
     lt = "league_team", _("League Team")
     rk = "gachi", _("Ranked")
     pv = "private", _("Private")
-    rg = "turf_war", _("Turf War")
+    tw = "turf_war", _("Turf War")
     fs = "fes_solo", _("Splatfest Solo/Pro")
     ft = "fes_team", _("Splatfest Team/Normal")
     fest = "fest", _("Splatfest")
+    rg = "regular", _("Turf War")
 
 
 class Ranks(models.IntegerChoices):
@@ -931,6 +929,7 @@ Headgear = (
     ("21005", _("Cap of Legend")),
     ("21006", _("Oceanic Hard Hat")),
     ("21007", _("Worker's Head Towel")),
+    ("21008", _("Worker's Cap")),
     ("21009", _("Sailor Cap")),
     ("22000", _("Mecha Head - HTR")),
     ("24000", _("Kyonshi Hat")),
@@ -945,6 +944,10 @@ Headgear = (
     ("24009", _("Green Novelty Visor")),
     ("24010", _("Orange Novelty Visor")),
     ("24011", _("Pink Novelty Visor")),
+    ("24012", _("Jetflame Crest")),
+    ("24013", _("Fierce Fishskull")),
+    ("24014", _("Hivemind Antenna")),
+    ("24015", _("Eye of Justice")),
     ("25000", _("Squid Hairclip")),
     ("25001", _("Samurai Helmet")),
     ("25002", _("Power Mask")),
@@ -1221,6 +1224,7 @@ Clothes = (
     ("27004", _("Armor Jacket Replica")),
     ("27101", _("Hero Hoodie Replica")),
     ("27104", _("Neo Octoling Armor")),
+    ("27105", _("Null Armor Replica")),
     ("27015", _("Null Armor Replica")),
     ("27106", _("Old-Timey Clothes")),
 )
@@ -1395,6 +1399,11 @@ Shoes = (
 
 
 class Battle(models.Model):
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['player_splatnet_id','battle_number'], name="unique-two-match"),
+            ]
+
     # general match stats
     splatnet_upload = models.BooleanField()
     splatnet_json = models.JSONField(null=True, blank=True)
@@ -1409,7 +1418,7 @@ class Battle(models.Model):
     battle_number = models.CharField(
         "SplatNet Battle Number", max_length=255, null=True
     )
-    win_meter = models.IntegerField("Freshness", blank=True, null=True)
+    win_meter = models.DecimalField("Freshness", blank=True, null=True, decimal_places=1, max_digits=3)
     my_team_count = models.DecimalField(decimal_places=1, max_digits=4, null=True)
     other_team_count = models.DecimalField(decimal_places=1, max_digits=4, null=True)
     elapsed_time = models.PositiveIntegerField(null=True)
@@ -1891,587 +1900,587 @@ class Battle(models.Model):
         null=True, max_length=3, choices=SubAbilities
     )
 
-    @classmethod
-    def create(cls, **kwargs):
-        data = kwargs["data"]
-        player_user = kwargs["user"]
+    # @classmethod
+    # def create(cls, **kwargs):
+    #     data = kwargs["data"]
+    #     player_user = kwargs["user"]
 
-        if data.get("image_result") is not None:
-            img_temp0 = NamedTemporaryFile()
-            img_temp0.write(
-                base64.b64decode(data.get("image_result").encode(encoding="ascii"))
-            )
-            img_temp0.flush()
+    #     if data.get("image_result") is not None:
+    #         img_temp0 = NamedTemporaryFile()
+    #         img_temp0.write(
+    #             base64.b64decode(data.get("image_result").encode(encoding="ascii"))
+    #         )
+    #         img_temp0.flush()
 
-        if data.get("image_gear") is not None:
-            img_temp1 = NamedTemporaryFile()
-            img_temp1.write(
-                base64.b64decode(data.get("image_gear").encode(encoding="ascii"))
-            )
-            img_temp1.flush()
+    #     if data.get("image_gear") is not None:
+    #         img_temp1 = NamedTemporaryFile()
+    #         img_temp1.write(
+    #             base64.b64decode(data.get("image_gear").encode(encoding="ascii"))
+    #         )
+    #         img_temp1.flush()
 
-        if not Battle.objects.filter(
-            battle_number=data.get("battle_number"), player_user=player_user
-        ):
-            battle = cls(
-                splatnet_json=data.get("splatnet_json"),
-                stat_ink_json=data.get("stat_ink_json"),
-                splatnet_upload=data.get("splatnet_upload"),
-                stat_ink_upload=data.get("stat_ink_upload"),
-                rule=data.get("rule"),
-                match_type=data.get("match_type"),
-                stage=data.get("stage"),
-                player_weapon=data.get("player_weapon"),
-                player_rank=data.get("player_rank"),
-                win=data.get("win"),
-                has_disconnected_player=data.get("has_disconnected_player"),
-                time=data.get("time"),
-                battle_number=data.get("battle_number"),
-                win_meter=data.get("win_meter"),
-                tag_id=data.get("tag_id"),
-                player_x_power=data.get("player_x_power"),
-                league_point=data.get("league_point"),
-                splatfest_point=data.get("splatfest_point"),
-                player_splatfest_title=data.get("player_splatfest_title"),
-                splatfest_title_after=data.get("splatfest_title_after"),
-                player_level=data.get("player_level"),
-                my_team_count=data.get("my_team_count"),
-                other_team_count=data.get("other_team_count"),
-                player_kills=data.get("player_kills"),
-                player_deaths=data.get("player_deaths"),
-                player_assists=data.get("player_assists"),
-                player_specials=data.get("player_specials"),
-                player_game_paint_point=data.get("player_game_paint_point"),
-                player_splatnet_id=data.get("player_splatnet_id"),
-                player_name=data.get("player_name"),
-                player_level_star=data.get("player_level_star"),
-                elapsed_time=data.get("elapsed_time"),
-                player_user=player_user,
-                player_gender=data.get("player_gender"),
-                player_species=data.get("player_species"),
-                player_headgear=data.get("player_headgear"),
-                player_headgear_main=data.get("player_headgear_main"),
-                player_headgear_sub0=data.get("player_headgear_sub0"),
-                player_headgear_sub1=data.get("player_headgear_sub1"),
-                player_headgear_sub2=data.get("player_headgear_sub2"),
-                player_clothes=data.get("player_clothes"),
-                player_clothes_main=data.get("player_clothes_main"),
-                player_clothes_sub0=data.get("player_clothes_sub0"),
-                player_clothes_sub1=data.get("player_clothes_sub1"),
-                player_clothes_sub2=data.get("player_clothes_sub2"),
-                player_shoes=data.get("player_shoes"),
-                player_shoes_main=data.get("player_shoes_main"),
-                player_shoes_sub0=data.get("player_shoes_sub0"),
-                player_shoes_sub1=data.get("player_shoes_sub1"),
-                player_shoes_sub2=data.get("player_shoes_sub2"),
-                teammate0_splatnet_id=data.get("teammate0_splatnet_id"),
-                teammate0_name=data.get("teammate0_name"),
-                teammate0_level_star=data.get("teammate0_level_star"),
-                teammate0_level=data.get("teammate0_level"),
-                teammate0_rank=data.get("teammate0_rank"),
-                teammate0_weapon=data.get("teammate0_weapon"),
-                teammate0_gender=data.get("teammate0_gender"),
-                teammate0_species=data.get("teammate0_species"),
-                teammate0_kills=data.get("teammate0_kills"),
-                teammate0_deaths=data.get("teammate0_deaths"),
-                teammate0_assists=data.get("teammate0_assists"),
-                teammate0_game_paint_point=data.get("teammate0_game_paint_point"),
-                teammate0_specials=data.get("teammate0_specials"),
-                teammate0_headgear=data.get("teammate0_headgear"),
-                teammate0_headgear_main=data.get("teammate0_headgear_main"),
-                teammate0_headgear_sub0=data.get("teammate0_headgear_sub0"),
-                teammate0_headgear_sub1=data.get("teammate0_headgear_sub1"),
-                teammate0_headgear_sub2=data.get("teammate0_headgear_sub2"),
-                teammate0_clothes=data.get("teammate0_clothes"),
-                teammate0_clothes_main=data.get("teammate0_clothes_main"),
-                teammate0_clothes_sub0=data.get("teammate0_clothes_sub0"),
-                teammate0_clothes_sub1=data.get("teammate0_clothes_sub1"),
-                teammate0_clothes_sub2=data.get("teammate0_clothes_sub2"),
-                teammate0_shoes=data.get("teammate0_shoes"),
-                teammate0_shoes_main=data.get("teammate0_shoes_main"),
-                teammate0_shoes_sub0=data.get("teammate0_shoes_sub0"),
-                teammate0_shoes_sub1=data.get("teammate0_shoes_sub1"),
-                teammate0_shoes_sub2=data.get("teammate0_shoes_sub2"),
-                teammate1_splatnet_id=data.get("teammate1_splatnet_id"),
-                teammate1_name=data.get("teammate1_name"),
-                teammate1_level_star=data.get("teammate1_level_star"),
-                teammate1_level=data.get("teammate1_level"),
-                teammate1_rank=data.get("teammate1_rank"),
-                teammate1_weapon=data.get("teammate1_weapon"),
-                teammate1_gender=data.get("teammate1_gender"),
-                teammate1_species=data.get("teammate1_species"),
-                teammate1_kills=data.get("teammate1_kills"),
-                teammate1_deaths=data.get("teammate1_deaths"),
-                teammate1_assists=data.get("teammate1_assists"),
-                teammate1_game_paint_point=data.get("teammate1_game_paint_point"),
-                teammate1_specials=data.get("teammate1_specials"),
-                teammate1_headgear=data.get("teammate1_headgear"),
-                teammate1_headgear_main=data.get("teammate1_headgear_main"),
-                teammate1_headgear_sub0=data.get("teammate1_headgear_sub0"),
-                teammate1_headgear_sub1=data.get("teammate1_headgear_sub1"),
-                teammate1_headgear_sub2=data.get("teammate1_headgear_sub2"),
-                teammate1_clothes=data.get("teammate1_clothes"),
-                teammate1_clothes_main=data.get("teammate1_clothes_main"),
-                teammate1_clothes_sub0=data.get("teammate1_clothes_sub0"),
-                teammate1_clothes_sub1=data.get("teammate1_clothes_sub1"),
-                teammate1_clothes_sub2=data.get("teammate1_clothes_sub2"),
-                teammate1_shoes=data.get("teammate1_shoes"),
-                teammate1_shoes_main=data.get("teammate1_shoes_main"),
-                teammate1_shoes_sub0=data.get("teammate1_shoes_sub0"),
-                teammate1_shoes_sub1=data.get("teammate1_shoes_sub1"),
-                teammate1_shoes_sub2=data.get("teammate1_shoes_sub2"),
-                teammate2_splatnet_id=data.get("teammate2_splatnet_id"),
-                teammate2_name=data.get("teammate2_name"),
-                teammate2_level_star=data.get("teammate2_level_star"),
-                teammate2_level=data.get("teammate2_level"),
-                teammate2_rank=data.get("teammate2_rank"),
-                teammate2_weapon=data.get("teammate2_weapon"),
-                teammate2_gender=data.get("teammate2_gender"),
-                teammate2_species=data.get("teammate2_species"),
-                teammate2_kills=data.get("teammate2_kills"),
-                teammate2_deaths=data.get("teammate2_deaths"),
-                teammate2_assists=data.get("teammate2_assists"),
-                teammate2_game_paint_point=data.get("teammate2_game_paint_point"),
-                teammate2_specials=data.get("teammate2_specials"),
-                teammate2_headgear=data.get("teammate2_headgear"),
-                teammate2_headgear_main=data.get("teammate2_headgear_main"),
-                teammate2_headgear_sub0=data.get("teammate2_headgear_sub0"),
-                teammate2_headgear_sub1=data.get("teammate2_headgear_sub1"),
-                teammate2_headgear_sub2=data.get("teammate2_headgear_sub2"),
-                teammate2_clothes=data.get("teammate2_clothes"),
-                teammate2_clothes_main=data.get("teammate2_clothes_main"),
-                teammate2_clothes_sub0=data.get("teammate2_clothes_sub0"),
-                teammate2_clothes_sub1=data.get("teammate2_clothes_sub1"),
-                teammate2_clothes_sub2=data.get("teammate2_clothes_sub2"),
-                teammate2_shoes=data.get("teammate2_shoes"),
-                teammate2_shoes_main=data.get("teammate2_shoes_main"),
-                teammate2_shoes_sub0=data.get("teammate2_shoes_sub0"),
-                teammate2_shoes_sub1=data.get("teammate2_shoes_sub1"),
-                teammate2_shoes_sub2=data.get("teammate2_shoes_sub2"),
-                opponent0_splatnet_id=data.get("opponent0_splatnet_id"),
-                opponent0_name=data.get("opponent0_name"),
-                opponent0_level_star=data.get("opponent0_level_star"),
-                opponent0_level=data.get("opponent0_level"),
-                opponent0_rank=data.get("opponent0_rank"),
-                opponent0_weapon=data.get("opponent0_weapon"),
-                opponent0_gender=data.get("opponent0_gender"),
-                opponent0_species=data.get("opponent0_species"),
-                opponent0_kills=data.get("opponent0_kills"),
-                opponent0_deaths=data.get("opponent0_deaths"),
-                opponent0_assists=data.get("opponent0_assists"),
-                opponent0_game_paint_point=data.get("opponent0_game_paint_point"),
-                opponent0_specials=data.get("opponent0_specials"),
-                opponent0_headgear=data.get("opponent0_headgear"),
-                opponent0_headgear_main=data.get("opponent0_headgear_main"),
-                opponent0_headgear_sub0=data.get("opponent0_headgear_sub0"),
-                opponent0_headgear_sub1=data.get("opponent0_headgear_sub1"),
-                opponent0_headgear_sub2=data.get("opponent0_headgear_sub2"),
-                opponent0_clothes=data.get("opponent0_clothes"),
-                opponent0_clothes_main=data.get("opponent0_clothes_main"),
-                opponent0_clothes_sub0=data.get("opponent0_clothes_sub0"),
-                opponent0_clothes_sub1=data.get("opponent0_clothes_sub1"),
-                opponent0_clothes_sub2=data.get("opponent0_clothes_sub2"),
-                opponent0_shoes=data.get("opponent0_shoes"),
-                opponent0_shoes_main=data.get("opponent0_shoes_main"),
-                opponent0_shoes_sub0=data.get("opponent0_shoes_sub0"),
-                opponent0_shoes_sub1=data.get("opponent0_shoes_sub1"),
-                opponent0_shoes_sub2=data.get("opponent0_shoes_sub2"),
-                opponent1_splatnet_id=data.get("opponent1_splatnet_id"),
-                opponent1_name=data.get("opponent1_name"),
-                opponent1_level_star=data.get("opponent1_level_star"),
-                opponent1_level=data.get("opponent1_level"),
-                opponent1_rank=data.get("opponent1_rank"),
-                opponent1_weapon=data.get("opponent1_weapon"),
-                opponent1_gender=data.get("opponent1_gender"),
-                opponent1_species=data.get("opponent1_species"),
-                opponent1_kills=data.get("opponent1_kills"),
-                opponent1_deaths=data.get("opponent1_deaths"),
-                opponent1_assists=data.get("opponent1_assists"),
-                opponent1_game_paint_point=data.get("opponent1_game_paint_point"),
-                opponent1_specials=data.get("opponent1_specials"),
-                opponent1_headgear=data.get("opponent1_headgear"),
-                opponent1_headgear_main=data.get("opponent1_headgear_main"),
-                opponent1_headgear_sub0=data.get("opponent1_headgear_sub0"),
-                opponent1_headgear_sub1=data.get("opponent1_headgear_sub1"),
-                opponent1_headgear_sub2=data.get("opponent1_headgear_sub2"),
-                opponent1_clothes=data.get("opponent1_clothes"),
-                opponent1_clothes_main=data.get("opponent1_clothes_main"),
-                opponent1_clothes_sub0=data.get("opponent1_clothes_sub0"),
-                opponent1_clothes_sub1=data.get("opponent1_clothes_sub1"),
-                opponent1_clothes_sub2=data.get("opponent1_clothes_sub2"),
-                opponent1_shoes=data.get("opponent1_shoes"),
-                opponent1_shoes_main=data.get("opponent1_shoes_main"),
-                opponent1_shoes_sub0=data.get("opponent1_shoes_sub0"),
-                opponent1_shoes_sub1=data.get("opponent1_shoes_sub1"),
-                opponent1_shoes_sub2=data.get("opponent1_shoes_sub2"),
-                opponent2_splatnet_id=data.get("opponent2_splatnet_id"),
-                opponent2_name=data.get("opponent2_name"),
-                opponent2_level_star=data.get("opponent2_level_star"),
-                opponent2_level=data.get("opponent2_level"),
-                opponent2_rank=data.get("opponent2_rank"),
-                opponent2_weapon=data.get("opponent2_weapon"),
-                opponent2_gender=data.get("opponent2_gender"),
-                opponent2_species=data.get("opponent2_species"),
-                opponent2_kills=data.get("opponent2_kills"),
-                opponent2_deaths=data.get("opponent2_deaths"),
-                opponent2_assists=data.get("opponent2_assists"),
-                opponent2_game_paint_point=data.get("opponent2_game_paint_point"),
-                opponent2_specials=data.get("opponent2_specials"),
-                opponent2_headgear=data.get("opponent2_headgear"),
-                opponent2_headgear_main=data.get("opponent2_headgear_main"),
-                opponent2_headgear_sub0=data.get("opponent2_headgear_sub0"),
-                opponent2_headgear_sub1=data.get("opponent2_headgear_sub1"),
-                opponent2_headgear_sub2=data.get("opponent2_headgear_sub2"),
-                opponent2_clothes=data.get("opponent2_clothes"),
-                opponent2_clothes_main=data.get("opponent2_clothes_main"),
-                opponent2_clothes_sub0=data.get("opponent2_clothes_sub0"),
-                opponent2_clothes_sub1=data.get("opponent2_clothes_sub1"),
-                opponent2_clothes_sub2=data.get("opponent2_clothes_sub2"),
-                opponent2_shoes=data.get("opponent2_shoes"),
-                opponent2_shoes_main=data.get("opponent2_shoes_main"),
-                opponent2_shoes_sub0=data.get("opponent2_shoes_sub0"),
-                opponent2_shoes_sub1=data.get("opponent2_shoes_sub1"),
-                opponent2_shoes_sub2=data.get("opponent2_shoes_sub2"),
-                opponent3_splatnet_id=data.get("opponent3_splatnet_id"),
-                opponent3_name=data.get("opponent3_name"),
-                opponent3_level_star=data.get("opponent3_level_star"),
-                opponent3_level=data.get("opponent3_level"),
-                opponent3_rank=data.get("opponent3_rank"),
-                opponent3_weapon=data.get("opponent3_weapon"),
-                opponent3_gender=data.get("opponent3_gender"),
-                opponent3_species=data.get("opponent3_species"),
-                opponent3_kills=data.get("opponent3_kills"),
-                opponent3_deaths=data.get("opponent3_deaths"),
-                opponent3_assists=data.get("opponent3_assists"),
-                opponent3_game_paint_point=data.get("opponent3_game_paint_point"),
-                opponent3_specials=data.get("opponent3_specials"),
-                opponent3_headgear=data.get("opponent3_headgear"),
-                opponent3_headgear_main=data.get("opponent3_headgear_main"),
-                opponent3_headgear_sub0=data.get("opponent3_headgear_sub0"),
-                opponent3_headgear_sub1=data.get("opponent3_headgear_sub1"),
-                opponent3_headgear_sub2=data.get("opponent3_headgear_sub2"),
-                opponent3_clothes=data.get("opponent3_clothes"),
-                opponent3_clothes_main=data.get("opponent3_clothes_main"),
-                opponent3_clothes_sub0=data.get("opponent3_clothes_sub0"),
-                opponent3_clothes_sub1=data.get("opponent3_clothes_sub1"),
-                opponent3_clothes_sub2=data.get("opponent3_clothes_sub2"),
-                opponent3_shoes=data.get("opponent3_shoes"),
-                opponent3_shoes_main=data.get("opponent3_shoes_main"),
-                opponent3_shoes_sub0=data.get("opponent3_shoes_sub0"),
-                opponent3_shoes_sub1=data.get("opponent3_shoes_sub1"),
-                opponent3_shoes_sub2=data.get("opponent3_shoes_sub2"),
-            )
-            battle.save()
-            if data.get("image_result") is not None:
-                battle.image_result.save(
-                    "data/{}_image_result.png".format(battle.id),
-                    File(img_temp0),
-                    save=data.get("True"),
-                )
-            if data.get("image_gear") is not None:
-                battle.image_gear.save(
-                    "data/{}_image_gear.png".format(battle.id),
-                    File(img_temp1),
-                    save=data.get("True"),
-                )
-            return battle
-        if Battle.objects.filter(
-            battle_number=data.get("battle_number"), player_user=player_user
-        )[0].splatnet_upload is None and data.get("splatnet_upload"):
-            battle = Battle.objects.filter(
-                battle_number=data.get("battle_number"), player_user=player_user
-            )[0]
-            battle.splatnet_upload = True
-            battle.rule = data.get("rule")
-            battle.match_type = data.get("match_type")
-            battle.stage = data.get("stage")
-            battle.win = data.get("win")
-            battle.has_disconnected_player = data.get("has_disconnected_player")
-            battle.time = data.get("time")
-            battle.win_meter = data.get("win_meter")
-            battle.my_team_count = data.get("my_team_count")
-            battle.other_team_count = data.get("other_team_count")
-            battle.elapsed_time = data.get("elapsed_time")
+    #     if not Battle.objects.filter(
+    #         battle_number=data.get("battle_number"), player_user=player_user
+    #     ):
+    #         battle = cls(
+    #             splatnet_json=data.get("splatnet_json"),
+    #             stat_ink_json=data.get("stat_ink_json"),
+    #             splatnet_upload=data.get("splatnet_upload"),
+    #             stat_ink_upload=data.get("stat_ink_upload"),
+    #             rule=data.get("rule"),
+    #             match_type=data.get("match_type"),
+    #             stage=data.get("stage"),
+    #             player_weapon=data.get("player_weapon"),
+    #             player_rank=data.get("player_rank"),
+    #             win=data.get("win"),
+    #             has_disconnected_player=data.get("has_disconnected_player"),
+    #             time=data.get("time"),
+    #             battle_number=data.get("battle_number"),
+    #             win_meter=data.get("win_meter"),
+    #             tag_id=data.get("tag_id"),
+    #             player_x_power=data.get("player_x_power"),
+    #             league_point=data.get("league_point"),
+    #             splatfest_point=data.get("splatfest_point"),
+    #             player_splatfest_title=data.get("player_splatfest_title"),
+    #             splatfest_title_after=data.get("splatfest_title_after"),
+    #             player_level=data.get("player_level"),
+    #             my_team_count=data.get("my_team_count"),
+    #             other_team_count=data.get("other_team_count"),
+    #             player_kills=data.get("player_kills"),
+    #             player_deaths=data.get("player_deaths"),
+    #             player_assists=data.get("player_assists"),
+    #             player_specials=data.get("player_specials"),
+    #             player_game_paint_point=data.get("player_game_paint_point"),
+    #             player_splatnet_id=data.get("player_splatnet_id"),
+    #             player_name=data.get("player_name"),
+    #             player_level_star=data.get("player_level_star"),
+    #             elapsed_time=data.get("elapsed_time"),
+    #             player_user=player_user,
+    #             player_gender=data.get("player_gender"),
+    #             player_species=data.get("player_species"),
+    #             player_headgear=data.get("player_headgear"),
+    #             player_headgear_main=data.get("player_headgear_main"),
+    #             player_headgear_sub0=data.get("player_headgear_sub0"),
+    #             player_headgear_sub1=data.get("player_headgear_sub1"),
+    #             player_headgear_sub2=data.get("player_headgear_sub2"),
+    #             player_clothes=data.get("player_clothes"),
+    #             player_clothes_main=data.get("player_clothes_main"),
+    #             player_clothes_sub0=data.get("player_clothes_sub0"),
+    #             player_clothes_sub1=data.get("player_clothes_sub1"),
+    #             player_clothes_sub2=data.get("player_clothes_sub2"),
+    #             player_shoes=data.get("player_shoes"),
+    #             player_shoes_main=data.get("player_shoes_main"),
+    #             player_shoes_sub0=data.get("player_shoes_sub0"),
+    #             player_shoes_sub1=data.get("player_shoes_sub1"),
+    #             player_shoes_sub2=data.get("player_shoes_sub2"),
+    #             teammate0_splatnet_id=data.get("teammate0_splatnet_id"),
+    #             teammate0_name=data.get("teammate0_name"),
+    #             teammate0_level_star=data.get("teammate0_level_star"),
+    #             teammate0_level=data.get("teammate0_level"),
+    #             teammate0_rank=data.get("teammate0_rank"),
+    #             teammate0_weapon=data.get("teammate0_weapon"),
+    #             teammate0_gender=data.get("teammate0_gender"),
+    #             teammate0_species=data.get("teammate0_species"),
+    #             teammate0_kills=data.get("teammate0_kills"),
+    #             teammate0_deaths=data.get("teammate0_deaths"),
+    #             teammate0_assists=data.get("teammate0_assists"),
+    #             teammate0_game_paint_point=data.get("teammate0_game_paint_point"),
+    #             teammate0_specials=data.get("teammate0_specials"),
+    #             teammate0_headgear=data.get("teammate0_headgear"),
+    #             teammate0_headgear_main=data.get("teammate0_headgear_main"),
+    #             teammate0_headgear_sub0=data.get("teammate0_headgear_sub0"),
+    #             teammate0_headgear_sub1=data.get("teammate0_headgear_sub1"),
+    #             teammate0_headgear_sub2=data.get("teammate0_headgear_sub2"),
+    #             teammate0_clothes=data.get("teammate0_clothes"),
+    #             teammate0_clothes_main=data.get("teammate0_clothes_main"),
+    #             teammate0_clothes_sub0=data.get("teammate0_clothes_sub0"),
+    #             teammate0_clothes_sub1=data.get("teammate0_clothes_sub1"),
+    #             teammate0_clothes_sub2=data.get("teammate0_clothes_sub2"),
+    #             teammate0_shoes=data.get("teammate0_shoes"),
+    #             teammate0_shoes_main=data.get("teammate0_shoes_main"),
+    #             teammate0_shoes_sub0=data.get("teammate0_shoes_sub0"),
+    #             teammate0_shoes_sub1=data.get("teammate0_shoes_sub1"),
+    #             teammate0_shoes_sub2=data.get("teammate0_shoes_sub2"),
+    #             teammate1_splatnet_id=data.get("teammate1_splatnet_id"),
+    #             teammate1_name=data.get("teammate1_name"),
+    #             teammate1_level_star=data.get("teammate1_level_star"),
+    #             teammate1_level=data.get("teammate1_level"),
+    #             teammate1_rank=data.get("teammate1_rank"),
+    #             teammate1_weapon=data.get("teammate1_weapon"),
+    #             teammate1_gender=data.get("teammate1_gender"),
+    #             teammate1_species=data.get("teammate1_species"),
+    #             teammate1_kills=data.get("teammate1_kills"),
+    #             teammate1_deaths=data.get("teammate1_deaths"),
+    #             teammate1_assists=data.get("teammate1_assists"),
+    #             teammate1_game_paint_point=data.get("teammate1_game_paint_point"),
+    #             teammate1_specials=data.get("teammate1_specials"),
+    #             teammate1_headgear=data.get("teammate1_headgear"),
+    #             teammate1_headgear_main=data.get("teammate1_headgear_main"),
+    #             teammate1_headgear_sub0=data.get("teammate1_headgear_sub0"),
+    #             teammate1_headgear_sub1=data.get("teammate1_headgear_sub1"),
+    #             teammate1_headgear_sub2=data.get("teammate1_headgear_sub2"),
+    #             teammate1_clothes=data.get("teammate1_clothes"),
+    #             teammate1_clothes_main=data.get("teammate1_clothes_main"),
+    #             teammate1_clothes_sub0=data.get("teammate1_clothes_sub0"),
+    #             teammate1_clothes_sub1=data.get("teammate1_clothes_sub1"),
+    #             teammate1_clothes_sub2=data.get("teammate1_clothes_sub2"),
+    #             teammate1_shoes=data.get("teammate1_shoes"),
+    #             teammate1_shoes_main=data.get("teammate1_shoes_main"),
+    #             teammate1_shoes_sub0=data.get("teammate1_shoes_sub0"),
+    #             teammate1_shoes_sub1=data.get("teammate1_shoes_sub1"),
+    #             teammate1_shoes_sub2=data.get("teammate1_shoes_sub2"),
+    #             teammate2_splatnet_id=data.get("teammate2_splatnet_id"),
+    #             teammate2_name=data.get("teammate2_name"),
+    #             teammate2_level_star=data.get("teammate2_level_star"),
+    #             teammate2_level=data.get("teammate2_level"),
+    #             teammate2_rank=data.get("teammate2_rank"),
+    #             teammate2_weapon=data.get("teammate2_weapon"),
+    #             teammate2_gender=data.get("teammate2_gender"),
+    #             teammate2_species=data.get("teammate2_species"),
+    #             teammate2_kills=data.get("teammate2_kills"),
+    #             teammate2_deaths=data.get("teammate2_deaths"),
+    #             teammate2_assists=data.get("teammate2_assists"),
+    #             teammate2_game_paint_point=data.get("teammate2_game_paint_point"),
+    #             teammate2_specials=data.get("teammate2_specials"),
+    #             teammate2_headgear=data.get("teammate2_headgear"),
+    #             teammate2_headgear_main=data.get("teammate2_headgear_main"),
+    #             teammate2_headgear_sub0=data.get("teammate2_headgear_sub0"),
+    #             teammate2_headgear_sub1=data.get("teammate2_headgear_sub1"),
+    #             teammate2_headgear_sub2=data.get("teammate2_headgear_sub2"),
+    #             teammate2_clothes=data.get("teammate2_clothes"),
+    #             teammate2_clothes_main=data.get("teammate2_clothes_main"),
+    #             teammate2_clothes_sub0=data.get("teammate2_clothes_sub0"),
+    #             teammate2_clothes_sub1=data.get("teammate2_clothes_sub1"),
+    #             teammate2_clothes_sub2=data.get("teammate2_clothes_sub2"),
+    #             teammate2_shoes=data.get("teammate2_shoes"),
+    #             teammate2_shoes_main=data.get("teammate2_shoes_main"),
+    #             teammate2_shoes_sub0=data.get("teammate2_shoes_sub0"),
+    #             teammate2_shoes_sub1=data.get("teammate2_shoes_sub1"),
+    #             teammate2_shoes_sub2=data.get("teammate2_shoes_sub2"),
+    #             opponent0_splatnet_id=data.get("opponent0_splatnet_id"),
+    #             opponent0_name=data.get("opponent0_name"),
+    #             opponent0_level_star=data.get("opponent0_level_star"),
+    #             opponent0_level=data.get("opponent0_level"),
+    #             opponent0_rank=data.get("opponent0_rank"),
+    #             opponent0_weapon=data.get("opponent0_weapon"),
+    #             opponent0_gender=data.get("opponent0_gender"),
+    #             opponent0_species=data.get("opponent0_species"),
+    #             opponent0_kills=data.get("opponent0_kills"),
+    #             opponent0_deaths=data.get("opponent0_deaths"),
+    #             opponent0_assists=data.get("opponent0_assists"),
+    #             opponent0_game_paint_point=data.get("opponent0_game_paint_point"),
+    #             opponent0_specials=data.get("opponent0_specials"),
+    #             opponent0_headgear=data.get("opponent0_headgear"),
+    #             opponent0_headgear_main=data.get("opponent0_headgear_main"),
+    #             opponent0_headgear_sub0=data.get("opponent0_headgear_sub0"),
+    #             opponent0_headgear_sub1=data.get("opponent0_headgear_sub1"),
+    #             opponent0_headgear_sub2=data.get("opponent0_headgear_sub2"),
+    #             opponent0_clothes=data.get("opponent0_clothes"),
+    #             opponent0_clothes_main=data.get("opponent0_clothes_main"),
+    #             opponent0_clothes_sub0=data.get("opponent0_clothes_sub0"),
+    #             opponent0_clothes_sub1=data.get("opponent0_clothes_sub1"),
+    #             opponent0_clothes_sub2=data.get("opponent0_clothes_sub2"),
+    #             opponent0_shoes=data.get("opponent0_shoes"),
+    #             opponent0_shoes_main=data.get("opponent0_shoes_main"),
+    #             opponent0_shoes_sub0=data.get("opponent0_shoes_sub0"),
+    #             opponent0_shoes_sub1=data.get("opponent0_shoes_sub1"),
+    #             opponent0_shoes_sub2=data.get("opponent0_shoes_sub2"),
+    #             opponent1_splatnet_id=data.get("opponent1_splatnet_id"),
+    #             opponent1_name=data.get("opponent1_name"),
+    #             opponent1_level_star=data.get("opponent1_level_star"),
+    #             opponent1_level=data.get("opponent1_level"),
+    #             opponent1_rank=data.get("opponent1_rank"),
+    #             opponent1_weapon=data.get("opponent1_weapon"),
+    #             opponent1_gender=data.get("opponent1_gender"),
+    #             opponent1_species=data.get("opponent1_species"),
+    #             opponent1_kills=data.get("opponent1_kills"),
+    #             opponent1_deaths=data.get("opponent1_deaths"),
+    #             opponent1_assists=data.get("opponent1_assists"),
+    #             opponent1_game_paint_point=data.get("opponent1_game_paint_point"),
+    #             opponent1_specials=data.get("opponent1_specials"),
+    #             opponent1_headgear=data.get("opponent1_headgear"),
+    #             opponent1_headgear_main=data.get("opponent1_headgear_main"),
+    #             opponent1_headgear_sub0=data.get("opponent1_headgear_sub0"),
+    #             opponent1_headgear_sub1=data.get("opponent1_headgear_sub1"),
+    #             opponent1_headgear_sub2=data.get("opponent1_headgear_sub2"),
+    #             opponent1_clothes=data.get("opponent1_clothes"),
+    #             opponent1_clothes_main=data.get("opponent1_clothes_main"),
+    #             opponent1_clothes_sub0=data.get("opponent1_clothes_sub0"),
+    #             opponent1_clothes_sub1=data.get("opponent1_clothes_sub1"),
+    #             opponent1_clothes_sub2=data.get("opponent1_clothes_sub2"),
+    #             opponent1_shoes=data.get("opponent1_shoes"),
+    #             opponent1_shoes_main=data.get("opponent1_shoes_main"),
+    #             opponent1_shoes_sub0=data.get("opponent1_shoes_sub0"),
+    #             opponent1_shoes_sub1=data.get("opponent1_shoes_sub1"),
+    #             opponent1_shoes_sub2=data.get("opponent1_shoes_sub2"),
+    #             opponent2_splatnet_id=data.get("opponent2_splatnet_id"),
+    #             opponent2_name=data.get("opponent2_name"),
+    #             opponent2_level_star=data.get("opponent2_level_star"),
+    #             opponent2_level=data.get("opponent2_level"),
+    #             opponent2_rank=data.get("opponent2_rank"),
+    #             opponent2_weapon=data.get("opponent2_weapon"),
+    #             opponent2_gender=data.get("opponent2_gender"),
+    #             opponent2_species=data.get("opponent2_species"),
+    #             opponent2_kills=data.get("opponent2_kills"),
+    #             opponent2_deaths=data.get("opponent2_deaths"),
+    #             opponent2_assists=data.get("opponent2_assists"),
+    #             opponent2_game_paint_point=data.get("opponent2_game_paint_point"),
+    #             opponent2_specials=data.get("opponent2_specials"),
+    #             opponent2_headgear=data.get("opponent2_headgear"),
+    #             opponent2_headgear_main=data.get("opponent2_headgear_main"),
+    #             opponent2_headgear_sub0=data.get("opponent2_headgear_sub0"),
+    #             opponent2_headgear_sub1=data.get("opponent2_headgear_sub1"),
+    #             opponent2_headgear_sub2=data.get("opponent2_headgear_sub2"),
+    #             opponent2_clothes=data.get("opponent2_clothes"),
+    #             opponent2_clothes_main=data.get("opponent2_clothes_main"),
+    #             opponent2_clothes_sub0=data.get("opponent2_clothes_sub0"),
+    #             opponent2_clothes_sub1=data.get("opponent2_clothes_sub1"),
+    #             opponent2_clothes_sub2=data.get("opponent2_clothes_sub2"),
+    #             opponent2_shoes=data.get("opponent2_shoes"),
+    #             opponent2_shoes_main=data.get("opponent2_shoes_main"),
+    #             opponent2_shoes_sub0=data.get("opponent2_shoes_sub0"),
+    #             opponent2_shoes_sub1=data.get("opponent2_shoes_sub1"),
+    #             opponent2_shoes_sub2=data.get("opponent2_shoes_sub2"),
+    #             opponent3_splatnet_id=data.get("opponent3_splatnet_id"),
+    #             opponent3_name=data.get("opponent3_name"),
+    #             opponent3_level_star=data.get("opponent3_level_star"),
+    #             opponent3_level=data.get("opponent3_level"),
+    #             opponent3_rank=data.get("opponent3_rank"),
+    #             opponent3_weapon=data.get("opponent3_weapon"),
+    #             opponent3_gender=data.get("opponent3_gender"),
+    #             opponent3_species=data.get("opponent3_species"),
+    #             opponent3_kills=data.get("opponent3_kills"),
+    #             opponent3_deaths=data.get("opponent3_deaths"),
+    #             opponent3_assists=data.get("opponent3_assists"),
+    #             opponent3_game_paint_point=data.get("opponent3_game_paint_point"),
+    #             opponent3_specials=data.get("opponent3_specials"),
+    #             opponent3_headgear=data.get("opponent3_headgear"),
+    #             opponent3_headgear_main=data.get("opponent3_headgear_main"),
+    #             opponent3_headgear_sub0=data.get("opponent3_headgear_sub0"),
+    #             opponent3_headgear_sub1=data.get("opponent3_headgear_sub1"),
+    #             opponent3_headgear_sub2=data.get("opponent3_headgear_sub2"),
+    #             opponent3_clothes=data.get("opponent3_clothes"),
+    #             opponent3_clothes_main=data.get("opponent3_clothes_main"),
+    #             opponent3_clothes_sub0=data.get("opponent3_clothes_sub0"),
+    #             opponent3_clothes_sub1=data.get("opponent3_clothes_sub1"),
+    #             opponent3_clothes_sub2=data.get("opponent3_clothes_sub2"),
+    #             opponent3_shoes=data.get("opponent3_shoes"),
+    #             opponent3_shoes_main=data.get("opponent3_shoes_main"),
+    #             opponent3_shoes_sub0=data.get("opponent3_shoes_sub0"),
+    #             opponent3_shoes_sub1=data.get("opponent3_shoes_sub1"),
+    #             opponent3_shoes_sub2=data.get("opponent3_shoes_sub2"),
+    #         )
+    #         battle.save()
+    #         if data.get("image_result") is not None:
+    #             battle.image_result.save(
+    #                 "data/{}_image_result.png".format(battle.id),
+    #                 File(img_temp0),
+    #                 save=data.get("True"),
+    #             )
+    #         if data.get("image_gear") is not None:
+    #             battle.image_gear.save(
+    #                 "data/{}_image_gear.png".format(battle.id),
+    #                 File(img_temp1),
+    #                 save=data.get("True"),
+    #             )
+    #         return battle
+    #     if Battle.objects.filter(
+    #         battle_number=data.get("battle_number"), player_user=player_user
+    #     )[0].splatnet_upload is None and data.get("splatnet_upload"):
+    #         battle = Battle.objects.filter(
+    #             battle_number=data.get("battle_number"), player_user=player_user
+    #         )[0]
+    #         battle.splatnet_upload = True
+    #         battle.rule = data.get("rule")
+    #         battle.match_type = data.get("match_type")
+    #         battle.stage = data.get("stage")
+    #         battle.win = data.get("win")
+    #         battle.has_disconnected_player = data.get("has_disconnected_player")
+    #         battle.time = data.get("time")
+    #         battle.win_meter = data.get("win_meter")
+    #         battle.my_team_count = data.get("my_team_count")
+    #         battle.other_team_count = data.get("other_team_count")
+    #         battle.elapsed_time = data.get("elapsed_time")
 
-            # league battle stuff
-            battle.tag_id = data.get("tag_id")
-            battle.league_point = data.get("league_point")
+    #         # league battle stuff
+    #         battle.tag_id = data.get("tag_id")
+    #         battle.league_point = data.get("league_point")
 
-            # splatfest
-            battle.splatfest_point = data.get("splatfest_point")
-            battle.splatfest_title_after = data.get("splatfest_title_after")
+    #         # splatfest
+    #         battle.splatfest_point = data.get("splatfest_point")
+    #         battle.splatfest_title_after = data.get("splatfest_title_after")
 
-            # player
-            # basic stats
-            battle.player_splatnet_id = data.get("player_splatnet_id")
-            battle.player_name = data.get("player_name")
-            battle.player_weapon = data.get("player_weapon")
-            battle.player_rank = data.get("player_rank")
-            battle.player_splatfest_title = data.get("player_splatfest_title")
-            battle.player_level_star = data.get("player_level_star")
-            battle.player_level = data.get("player_level")
-            battle.player_kills = data.get("player_kills")
-            battle.player_deaths = data.get("player_deaths")
-            battle.player_assists = data.get("player_assists")
-            battle.player_specials = data.get("player_specials")
-            battle.player_game_paint_point = data.get("player_game_paint_point")
-            battle.player_gender = data.get("player_gender")
-            battle.player_species = data.get("player_species")
-            battle.player_x_power = data.get("player_x_power")
-            # headgear
-            battle.player_headgear = data.get("player_headgear")
-            battle.player_headgear_main = data.get("player_headgear_main")
-            battle.player_headgear_sub0 = data.get("player_headgear_sub0")
-            battle.player_headgear_sub1 = data.get("player_headgear_sub1")
-            battle.player_headgear_sub2 = data.get("player_headgear_sub2")
-            # clothes
-            battle.player_clothes = data.get("player_clothes")
-            battle.player_clothes_main = data.get("player_clothes_main")
-            battle.player_clothes_sub0 = data.get("player_clothes_sub0")
-            battle.player_clothes_sub1 = data.get("player_clothes_sub1")
-            battle.player_clothes_sub2 = data.get("player_clothes_sub2")
-            # shoes
-            battle.player_shoes = data.get("player_shoes")
-            battle.player_shoes_main = data.get("player_shoes_main")
-            battle.player_shoes_sub0 = data.get("player_shoes_sub0")
-            battle.player_shoes_sub1 = data.get("player_shoes_sub1")
-            battle.player_shoes_sub2 = data.get("player_shoes_sub2")
+    #         # player
+    #         # basic stats
+    #         battle.player_splatnet_id = data.get("player_splatnet_id")
+    #         battle.player_name = data.get("player_name")
+    #         battle.player_weapon = data.get("player_weapon")
+    #         battle.player_rank = data.get("player_rank")
+    #         battle.player_splatfest_title = data.get("player_splatfest_title")
+    #         battle.player_level_star = data.get("player_level_star")
+    #         battle.player_level = data.get("player_level")
+    #         battle.player_kills = data.get("player_kills")
+    #         battle.player_deaths = data.get("player_deaths")
+    #         battle.player_assists = data.get("player_assists")
+    #         battle.player_specials = data.get("player_specials")
+    #         battle.player_game_paint_point = data.get("player_game_paint_point")
+    #         battle.player_gender = data.get("player_gender")
+    #         battle.player_species = data.get("player_species")
+    #         battle.player_x_power = data.get("player_x_power")
+    #         # headgear
+    #         battle.player_headgear = data.get("player_headgear")
+    #         battle.player_headgear_main = data.get("player_headgear_main")
+    #         battle.player_headgear_sub0 = data.get("player_headgear_sub0")
+    #         battle.player_headgear_sub1 = data.get("player_headgear_sub1")
+    #         battle.player_headgear_sub2 = data.get("player_headgear_sub2")
+    #         # clothes
+    #         battle.player_clothes = data.get("player_clothes")
+    #         battle.player_clothes_main = data.get("player_clothes_main")
+    #         battle.player_clothes_sub0 = data.get("player_clothes_sub0")
+    #         battle.player_clothes_sub1 = data.get("player_clothes_sub1")
+    #         battle.player_clothes_sub2 = data.get("player_clothes_sub2")
+    #         # shoes
+    #         battle.player_shoes = data.get("player_shoes")
+    #         battle.player_shoes_main = data.get("player_shoes_main")
+    #         battle.player_shoes_sub0 = data.get("player_shoes_sub0")
+    #         battle.player_shoes_sub1 = data.get("player_shoes_sub1")
+    #         battle.player_shoes_sub2 = data.get("player_shoes_sub2")
 
-            # teammate0
-            battle.teammate0_splatnet_id = data.get("teammate0_splatnet_id")
-            battle.teammate0_name = data.get("teammate0_name")
-            battle.teammate0_weapon = data.get("teammate0_weapon")
-            battle.teammate0_rank = data.get("teammate0_rank")
-            battle.teammate0_level_star = data.get("teammate0_level_star")
-            battle.teammate0_level = data.get("teammate0_level")
-            battle.teammate0_kills = data.get("teammate0_kills")
-            battle.teammate0_deaths = data.get("teammate0_deaths")
-            battle.teammate0_assists = data.get("teammate0_assists")
-            battle.teammate0_specials = data.get("teammate0_specials")
-            battle.teammate0_game_paint_point = data.get("teammate0_game_paint_point")
-            battle.teammate0_gender = data.get("teammate0_gender")
-            battle.teammate0_species = data.get("teammate0_species")
-            # headgear
-            battle.teammate0_headgear = data.get("teammate0_headgear")
-            battle.teammate0_headgear_main = data.get("teammate0_headgear_main")
-            battle.teammate0_headgear_sub0 = data.get("teammate0_headgear_sub0")
-            battle.teammate0_headgear_sub1 = data.get("teammate0_headgear_sub1")
-            battle.teammate0_headgear_sub2 = data.get("teammate0_headgear_sub2")
-            # clothes
-            battle.teammate0_clothes = data.get("teammate0_clothes")
-            battle.teammate0_clothes_main = data.get("teammate0_clothes_main")
-            battle.teammate0_clothes_sub0 = data.get("teammate0_clothes_sub0")
-            battle.teammate0_clothes_sub1 = data.get("teammate0_clothes_sub1")
-            battle.teammate0_clothes_sub2 = data.get("teammate0_clothes_sub2")
-            # shoes
-            battle.teammate0_shoes = data.get("teammate0_shoes")
-            battle.teammate0_shoes_main = data.get("teammate0_shoes_main")
-            battle.teammate0_shoes_sub0 = data.get("teammate0_shoes_sub0")
-            battle.teammate0_shoes_sub1 = data.get("teammate0_shoes_sub1")
-            battle.teammate0_shoes_sub2 = data.get("teammate0_shoes_sub2")
+    #         # teammate0
+    #         battle.teammate0_splatnet_id = data.get("teammate0_splatnet_id")
+    #         battle.teammate0_name = data.get("teammate0_name")
+    #         battle.teammate0_weapon = data.get("teammate0_weapon")
+    #         battle.teammate0_rank = data.get("teammate0_rank")
+    #         battle.teammate0_level_star = data.get("teammate0_level_star")
+    #         battle.teammate0_level = data.get("teammate0_level")
+    #         battle.teammate0_kills = data.get("teammate0_kills")
+    #         battle.teammate0_deaths = data.get("teammate0_deaths")
+    #         battle.teammate0_assists = data.get("teammate0_assists")
+    #         battle.teammate0_specials = data.get("teammate0_specials")
+    #         battle.teammate0_game_paint_point = data.get("teammate0_game_paint_point")
+    #         battle.teammate0_gender = data.get("teammate0_gender")
+    #         battle.teammate0_species = data.get("teammate0_species")
+    #         # headgear
+    #         battle.teammate0_headgear = data.get("teammate0_headgear")
+    #         battle.teammate0_headgear_main = data.get("teammate0_headgear_main")
+    #         battle.teammate0_headgear_sub0 = data.get("teammate0_headgear_sub0")
+    #         battle.teammate0_headgear_sub1 = data.get("teammate0_headgear_sub1")
+    #         battle.teammate0_headgear_sub2 = data.get("teammate0_headgear_sub2")
+    #         # clothes
+    #         battle.teammate0_clothes = data.get("teammate0_clothes")
+    #         battle.teammate0_clothes_main = data.get("teammate0_clothes_main")
+    #         battle.teammate0_clothes_sub0 = data.get("teammate0_clothes_sub0")
+    #         battle.teammate0_clothes_sub1 = data.get("teammate0_clothes_sub1")
+    #         battle.teammate0_clothes_sub2 = data.get("teammate0_clothes_sub2")
+    #         # shoes
+    #         battle.teammate0_shoes = data.get("teammate0_shoes")
+    #         battle.teammate0_shoes_main = data.get("teammate0_shoes_main")
+    #         battle.teammate0_shoes_sub0 = data.get("teammate0_shoes_sub0")
+    #         battle.teammate0_shoes_sub1 = data.get("teammate0_shoes_sub1")
+    #         battle.teammate0_shoes_sub2 = data.get("teammate0_shoes_sub2")
 
-            # teammate1
-            battle.teammate1_splatnet_id = data.get("teammate1_splatnet_id")
-            battle.teammate1_name = data.get("teammate1_name")
-            battle.teammate1_weapon = data.get("teammate1_weapon")
-            battle.teammate1_rank = data.get("teammate1_rank")
-            battle.teammate1_level_star = data.get("teammate1_level_star")
-            battle.teammate1_level = data.get("teammate1_level")
-            battle.teammate1_kills = data.get("teammate1_kills")
-            battle.teammate1_deaths = data.get("teammate1_deaths")
-            battle.teammate1_assists = data.get("teammate1_assists")
-            battle.teammate1_specials = data.get("teammate1_specials")
-            battle.teammate1_game_paint_point = data.get("teammate1_game_paint_point")
-            battle.teammate1_gender = data.get("teammate1_gender")
-            battle.teammate1_species = data.get("teammate1_species")
-            # headgear
-            battle.teammate1_headgear = data.get("teammate1_headgear")
-            battle.teammate1_headgear_main = data.get("teammate1_headgear_main")
-            battle.teammate1_headgear_sub0 = data.get("teammate1_headgear_sub0")
-            battle.teammate1_headgear_sub1 = data.get("teammate1_headgear_sub1")
-            battle.teammate1_headgear_sub2 = data.get("teammate1_headgear_sub2")
-            # clothes
-            battle.teammate1_clothes = data.get("teammate1_clothes")
-            battle.teammate1_clothes_main = data.get("teammate1_clothes_main")
-            battle.teammate1_clothes_sub0 = data.get("teammate1_clothes_sub0")
-            battle.teammate1_clothes_sub1 = data.get("teammate1_clothes_sub1")
-            battle.teammate1_clothes_sub2 = data.get("teammate1_clothes_sub2")
-            # shoes
-            battle.teammate1_shoes = data.get("teammate1_shoes")
-            battle.teammate1_shoes_main = data.get("teammate1_shoes_main")
-            battle.teammate1_shoes_sub0 = data.get("teammate1_shoes_sub0")
-            battle.teammate1_shoes_sub1 = data.get("teammate1_shoes_sub1")
-            battle.teammate1_shoes_sub2 = data.get("teammate1_shoes_sub2")
+    #         # teammate1
+    #         battle.teammate1_splatnet_id = data.get("teammate1_splatnet_id")
+    #         battle.teammate1_name = data.get("teammate1_name")
+    #         battle.teammate1_weapon = data.get("teammate1_weapon")
+    #         battle.teammate1_rank = data.get("teammate1_rank")
+    #         battle.teammate1_level_star = data.get("teammate1_level_star")
+    #         battle.teammate1_level = data.get("teammate1_level")
+    #         battle.teammate1_kills = data.get("teammate1_kills")
+    #         battle.teammate1_deaths = data.get("teammate1_deaths")
+    #         battle.teammate1_assists = data.get("teammate1_assists")
+    #         battle.teammate1_specials = data.get("teammate1_specials")
+    #         battle.teammate1_game_paint_point = data.get("teammate1_game_paint_point")
+    #         battle.teammate1_gender = data.get("teammate1_gender")
+    #         battle.teammate1_species = data.get("teammate1_species")
+    #         # headgear
+    #         battle.teammate1_headgear = data.get("teammate1_headgear")
+    #         battle.teammate1_headgear_main = data.get("teammate1_headgear_main")
+    #         battle.teammate1_headgear_sub0 = data.get("teammate1_headgear_sub0")
+    #         battle.teammate1_headgear_sub1 = data.get("teammate1_headgear_sub1")
+    #         battle.teammate1_headgear_sub2 = data.get("teammate1_headgear_sub2")
+    #         # clothes
+    #         battle.teammate1_clothes = data.get("teammate1_clothes")
+    #         battle.teammate1_clothes_main = data.get("teammate1_clothes_main")
+    #         battle.teammate1_clothes_sub0 = data.get("teammate1_clothes_sub0")
+    #         battle.teammate1_clothes_sub1 = data.get("teammate1_clothes_sub1")
+    #         battle.teammate1_clothes_sub2 = data.get("teammate1_clothes_sub2")
+    #         # shoes
+    #         battle.teammate1_shoes = data.get("teammate1_shoes")
+    #         battle.teammate1_shoes_main = data.get("teammate1_shoes_main")
+    #         battle.teammate1_shoes_sub0 = data.get("teammate1_shoes_sub0")
+    #         battle.teammate1_shoes_sub1 = data.get("teammate1_shoes_sub1")
+    #         battle.teammate1_shoes_sub2 = data.get("teammate1_shoes_sub2")
 
-            # teammate2
-            battle.teammate2_splatnet_id = data.get("teammate2_splatnet_id")
-            battle.teammate2_name = data.get("teammate2_name")
-            battle.teammate2_weapon = data.get("teammate2_weapon")
-            battle.teammate2_rank = data.get("teammate2_rank")
-            battle.teammate2_level_star = data.get("teammate2_level_star")
-            battle.teammate2_level = data.get("teammate2_level")
-            battle.teammate2_kills = data.get("teammate2_kills")
-            battle.teammate2_deaths = data.get("teammate2_deaths")
-            battle.teammate2_assists = data.get("teammate2_assists")
-            battle.teammate2_specials = data.get("teammate2_specials")
-            battle.teammate2_game_paint_point = data.get("teammate2_game_paint_point")
-            battle.teammate2_gender = data.get("teammate2_gender")
-            battle.teammate2_species = data.get("teammate2_species")
-            # headgear
-            battle.teammate2_headgear = data.get("teammate2_headgear")
-            battle.teammate2_headgear_main = data.get("teammate2_headgear_main")
-            battle.teammate2_headgear_sub0 = data.get("teammate2_headgear_sub0")
-            battle.teammate2_headgear_sub1 = data.get("teammate2_headgear_sub1")
-            battle.teammate2_headgear_sub2 = data.get("teammate2_headgear_sub2")
-            # clothes
-            battle.teammate2_clothes = data.get("teammate2_clothes")
-            battle.teammate2_clothes_main = data.get("teammate2_clothes_main")
-            battle.teammate2_clothes_sub0 = data.get("teammate2_clothes_sub0")
-            battle.teammate2_clothes_sub1 = data.get("teammate2_clothes_sub1")
-            battle.teammate2_clothes_sub2 = data.get("teammate2_clothes_sub2")
-            # shoes
-            battle.teammate2_shoes = data.get("teammate2_shoes")
-            battle.teammate2_shoes_main = data.get("teammate2_shoes_main")
-            battle.teammate2_shoes_sub0 = data.get("teammate2_shoes_sub0")
-            battle.teammate2_shoes_sub1 = data.get("teammate2_shoes_sub1")
-            battle.teammate2_shoes_sub2 = data.get("teammate2_shoes_sub2")
+    #         # teammate2
+    #         battle.teammate2_splatnet_id = data.get("teammate2_splatnet_id")
+    #         battle.teammate2_name = data.get("teammate2_name")
+    #         battle.teammate2_weapon = data.get("teammate2_weapon")
+    #         battle.teammate2_rank = data.get("teammate2_rank")
+    #         battle.teammate2_level_star = data.get("teammate2_level_star")
+    #         battle.teammate2_level = data.get("teammate2_level")
+    #         battle.teammate2_kills = data.get("teammate2_kills")
+    #         battle.teammate2_deaths = data.get("teammate2_deaths")
+    #         battle.teammate2_assists = data.get("teammate2_assists")
+    #         battle.teammate2_specials = data.get("teammate2_specials")
+    #         battle.teammate2_game_paint_point = data.get("teammate2_game_paint_point")
+    #         battle.teammate2_gender = data.get("teammate2_gender")
+    #         battle.teammate2_species = data.get("teammate2_species")
+    #         # headgear
+    #         battle.teammate2_headgear = data.get("teammate2_headgear")
+    #         battle.teammate2_headgear_main = data.get("teammate2_headgear_main")
+    #         battle.teammate2_headgear_sub0 = data.get("teammate2_headgear_sub0")
+    #         battle.teammate2_headgear_sub1 = data.get("teammate2_headgear_sub1")
+    #         battle.teammate2_headgear_sub2 = data.get("teammate2_headgear_sub2")
+    #         # clothes
+    #         battle.teammate2_clothes = data.get("teammate2_clothes")
+    #         battle.teammate2_clothes_main = data.get("teammate2_clothes_main")
+    #         battle.teammate2_clothes_sub0 = data.get("teammate2_clothes_sub0")
+    #         battle.teammate2_clothes_sub1 = data.get("teammate2_clothes_sub1")
+    #         battle.teammate2_clothes_sub2 = data.get("teammate2_clothes_sub2")
+    #         # shoes
+    #         battle.teammate2_shoes = data.get("teammate2_shoes")
+    #         battle.teammate2_shoes_main = data.get("teammate2_shoes_main")
+    #         battle.teammate2_shoes_sub0 = data.get("teammate2_shoes_sub0")
+    #         battle.teammate2_shoes_sub1 = data.get("teammate2_shoes_sub1")
+    #         battle.teammate2_shoes_sub2 = data.get("teammate2_shoes_sub2")
 
-            # opponent0
-            battle.opponent0_splatnet_id = data.get("opponent0_splatnet_id")
-            battle.opponent0_name = data.get("opponent0_name")
-            battle.opponent0_weapon = data.get("opponent0_weapon")
-            battle.opponent0_rank = data.get("opponent0_rank")
-            battle.opponent0_level_star = data.get("opponent0_level_star")
-            battle.opponent0_level = data.get("opponent0_level")
-            battle.opponent0_kills = data.get("opponent0_kills")
-            battle.opponent0_deaths = data.get("opponent0_deaths")
-            battle.opponent0_assists = data.get("opponent0_assists")
-            battle.opponent0_specials = data.get("opponent0_specials")
-            battle.opponent0_game_paint_point = data.get("opponent0_game_paint_point")
-            battle.opponent0_gender = data.get("opponent0_gender")
-            battle.opponent0_species = data.get("opponent0_species")
-            # headgear
-            battle.opponent0_headgear = data.get("opponent0_headgear")
-            battle.opponent0_headgear_main = data.get("opponent0_headgear_main")
-            battle.opponent0_headgear_sub0 = data.get("opponent0_headgear_sub0")
-            battle.opponent0_headgear_sub1 = data.get("opponent0_headgear_sub1")
-            battle.opponent0_headgear_sub2 = data.get("opponent0_headgear_sub2")
-            # clothes
-            battle.opponent0_clothes = data.get("opponent0_clothes")
-            battle.opponent0_clothes_main = data.get("opponent0_clothes_main")
-            battle.opponent0_clothes_sub0 = data.get("opponent0_clothes_sub0")
-            battle.opponent0_clothes_sub1 = data.get("opponent0_clothes_sub1")
-            battle.opponent0_clothes_sub2 = data.get("opponent0_clothes_sub2")
-            # shoes
-            battle.opponent0_shoes = data.get("opponent0_shoes")
-            battle.opponent0_shoes_main = data.get("opponent0_shoes_main")
-            battle.opponent0_shoes_sub0 = data.get("opponent0_shoes_sub0")
-            battle.opponent0_shoes_sub1 = data.get("opponent0_shoes_sub1")
-            battle.opponent0_shoes_sub2 = data.get("opponent0_shoes_sub2")
+    #         # opponent0
+    #         battle.opponent0_splatnet_id = data.get("opponent0_splatnet_id")
+    #         battle.opponent0_name = data.get("opponent0_name")
+    #         battle.opponent0_weapon = data.get("opponent0_weapon")
+    #         battle.opponent0_rank = data.get("opponent0_rank")
+    #         battle.opponent0_level_star = data.get("opponent0_level_star")
+    #         battle.opponent0_level = data.get("opponent0_level")
+    #         battle.opponent0_kills = data.get("opponent0_kills")
+    #         battle.opponent0_deaths = data.get("opponent0_deaths")
+    #         battle.opponent0_assists = data.get("opponent0_assists")
+    #         battle.opponent0_specials = data.get("opponent0_specials")
+    #         battle.opponent0_game_paint_point = data.get("opponent0_game_paint_point")
+    #         battle.opponent0_gender = data.get("opponent0_gender")
+    #         battle.opponent0_species = data.get("opponent0_species")
+    #         # headgear
+    #         battle.opponent0_headgear = data.get("opponent0_headgear")
+    #         battle.opponent0_headgear_main = data.get("opponent0_headgear_main")
+    #         battle.opponent0_headgear_sub0 = data.get("opponent0_headgear_sub0")
+    #         battle.opponent0_headgear_sub1 = data.get("opponent0_headgear_sub1")
+    #         battle.opponent0_headgear_sub2 = data.get("opponent0_headgear_sub2")
+    #         # clothes
+    #         battle.opponent0_clothes = data.get("opponent0_clothes")
+    #         battle.opponent0_clothes_main = data.get("opponent0_clothes_main")
+    #         battle.opponent0_clothes_sub0 = data.get("opponent0_clothes_sub0")
+    #         battle.opponent0_clothes_sub1 = data.get("opponent0_clothes_sub1")
+    #         battle.opponent0_clothes_sub2 = data.get("opponent0_clothes_sub2")
+    #         # shoes
+    #         battle.opponent0_shoes = data.get("opponent0_shoes")
+    #         battle.opponent0_shoes_main = data.get("opponent0_shoes_main")
+    #         battle.opponent0_shoes_sub0 = data.get("opponent0_shoes_sub0")
+    #         battle.opponent0_shoes_sub1 = data.get("opponent0_shoes_sub1")
+    #         battle.opponent0_shoes_sub2 = data.get("opponent0_shoes_sub2")
 
-            # opponent1
-            battle.opponent1_splatnet_id = data.get("opponent1_splatnet_id")
-            battle.opponent1_name = data.get("opponent1_name")
-            battle.opponent1_weapon = data.get("opponent1_weapon")
-            battle.opponent1_rank = data.get("opponent1_rank")
-            battle.opponent1_level_star = data.get("opponent1_level_star")
-            battle.opponent1_level = data.get("opponent1_level")
-            battle.opponent1_kills = data.get("opponent1_kills")
-            battle.opponent1_deaths = data.get("opponent1_deaths")
-            battle.opponent1_assists = data.get("opponent1_assists")
-            battle.opponent1_specials = data.get("opponent1_specials")
-            battle.opponent1_game_paint_point = data.get("opponent1_game_paint_point")
-            battle.opponent1_gender = data.get("opponent1_gender")
-            battle.opponent1_species = data.get("opponent1_species")
-            # headgear
-            battle.opponent1_headgear = data.get("opponent1_headgear")
-            battle.opponent1_headgear_main = data.get("opponent1_headgear_main")
-            battle.opponent1_headgear_sub0 = data.get("opponent1_headgear_sub0")
-            battle.opponent1_headgear_sub1 = data.get("opponent1_headgear_sub1")
-            battle.opponent1_headgear_sub2 = data.get("opponent1_headgear_sub2")
-            # clothes
-            battle.opponent1_clothes = data.get("opponent1_clothes")
-            battle.opponent1_clothes_main = data.get("opponent1_clothes_main")
-            battle.opponent1_clothes_sub0 = data.get("opponent1_clothes_sub0")
-            battle.opponent1_clothes_sub1 = data.get("opponent1_clothes_sub1")
-            battle.opponent1_clothes_sub2 = data.get("opponent1_clothes_sub2")
-            # shoes
-            battle.opponent1_shoes = data.get("opponent1_shoes")
-            battle.opponent1_shoes_main = data.get("opponent1_shoes_main")
-            battle.opponent1_shoes_sub0 = data.get("opponent1_shoes_sub0")
-            battle.opponent1_shoes_sub1 = data.get("opponent1_shoes_sub1")
-            battle.opponent1_shoes_sub2 = data.get("opponent1_shoes_sub2")
+    #         # opponent1
+    #         battle.opponent1_splatnet_id = data.get("opponent1_splatnet_id")
+    #         battle.opponent1_name = data.get("opponent1_name")
+    #         battle.opponent1_weapon = data.get("opponent1_weapon")
+    #         battle.opponent1_rank = data.get("opponent1_rank")
+    #         battle.opponent1_level_star = data.get("opponent1_level_star")
+    #         battle.opponent1_level = data.get("opponent1_level")
+    #         battle.opponent1_kills = data.get("opponent1_kills")
+    #         battle.opponent1_deaths = data.get("opponent1_deaths")
+    #         battle.opponent1_assists = data.get("opponent1_assists")
+    #         battle.opponent1_specials = data.get("opponent1_specials")
+    #         battle.opponent1_game_paint_point = data.get("opponent1_game_paint_point")
+    #         battle.opponent1_gender = data.get("opponent1_gender")
+    #         battle.opponent1_species = data.get("opponent1_species")
+    #         # headgear
+    #         battle.opponent1_headgear = data.get("opponent1_headgear")
+    #         battle.opponent1_headgear_main = data.get("opponent1_headgear_main")
+    #         battle.opponent1_headgear_sub0 = data.get("opponent1_headgear_sub0")
+    #         battle.opponent1_headgear_sub1 = data.get("opponent1_headgear_sub1")
+    #         battle.opponent1_headgear_sub2 = data.get("opponent1_headgear_sub2")
+    #         # clothes
+    #         battle.opponent1_clothes = data.get("opponent1_clothes")
+    #         battle.opponent1_clothes_main = data.get("opponent1_clothes_main")
+    #         battle.opponent1_clothes_sub0 = data.get("opponent1_clothes_sub0")
+    #         battle.opponent1_clothes_sub1 = data.get("opponent1_clothes_sub1")
+    #         battle.opponent1_clothes_sub2 = data.get("opponent1_clothes_sub2")
+    #         # shoes
+    #         battle.opponent1_shoes = data.get("opponent1_shoes")
+    #         battle.opponent1_shoes_main = data.get("opponent1_shoes_main")
+    #         battle.opponent1_shoes_sub0 = data.get("opponent1_shoes_sub0")
+    #         battle.opponent1_shoes_sub1 = data.get("opponent1_shoes_sub1")
+    #         battle.opponent1_shoes_sub2 = data.get("opponent1_shoes_sub2")
 
-            # opponent2
-            battle.opponent2_splatnet_id = data.get("opponent2_splatnet_id")
-            battle.opponent2_name = data.get("opponent2_name")
-            battle.opponent2_weapon = data.get("opponent2_weapon")
-            battle.opponent2_rank = data.get("opponent2_rank")
-            battle.opponent2_level_star = data.get("opponent2_level_star")
-            battle.opponent2_level = data.get("opponent2_level")
-            battle.opponent2_kills = data.get("opponent2_kills")
-            battle.opponent2_deaths = data.get("opponent2_deaths")
-            battle.opponent2_assists = data.get("opponent2_assists")
-            battle.opponent2_specials = data.get("opponent2_specials")
-            battle.opponent2_game_paint_point = data.get("opponent2_game_paint_point")
-            battle.opponent2_gender = data.get("opponent2_gender")
-            battle.opponent2_species = data.get("opponent2_species")
-            # headgear
-            battle.opponent2_headgear = data.get("opponent2_headgear")
-            battle.opponent2_headgear_main = data.get("opponent2_headgear_main")
-            battle.opponent2_headgear_sub0 = data.get("opponent2_headgear_sub0")
-            battle.opponent2_headgear_sub1 = data.get("opponent2_headgear_sub1")
-            battle.opponent2_headgear_sub2 = data.get("opponent2_headgear_sub2")
-            # clothes
-            battle.opponent2_clothes = data.get("opponent2_clothes")
-            battle.opponent2_clothes_main = data.get("opponent2_clothes_main")
-            battle.opponent2_clothes_sub0 = data.get("opponent2_clothes_sub0")
-            battle.opponent2_clothes_sub1 = data.get("opponent2_clothes_sub1")
-            battle.opponent2_clothes_sub2 = data.get("opponent2_clothes_sub2")
-            # shoes
-            battle.opponent2_shoes = data.get("opponent2_shoes")
-            battle.opponent2_shoes_main = data.get("opponent2_shoes_main")
-            battle.opponent2_shoes_sub0 = data.get("opponent2_shoes_sub0")
-            battle.opponent2_shoes_sub1 = data.get("opponent2_shoes_sub1")
-            battle.opponent2_shoes_sub2 = data.get("opponent2_shoes_sub2")
+    #         # opponent2
+    #         battle.opponent2_splatnet_id = data.get("opponent2_splatnet_id")
+    #         battle.opponent2_name = data.get("opponent2_name")
+    #         battle.opponent2_weapon = data.get("opponent2_weapon")
+    #         battle.opponent2_rank = data.get("opponent2_rank")
+    #         battle.opponent2_level_star = data.get("opponent2_level_star")
+    #         battle.opponent2_level = data.get("opponent2_level")
+    #         battle.opponent2_kills = data.get("opponent2_kills")
+    #         battle.opponent2_deaths = data.get("opponent2_deaths")
+    #         battle.opponent2_assists = data.get("opponent2_assists")
+    #         battle.opponent2_specials = data.get("opponent2_specials")
+    #         battle.opponent2_game_paint_point = data.get("opponent2_game_paint_point")
+    #         battle.opponent2_gender = data.get("opponent2_gender")
+    #         battle.opponent2_species = data.get("opponent2_species")
+    #         # headgear
+    #         battle.opponent2_headgear = data.get("opponent2_headgear")
+    #         battle.opponent2_headgear_main = data.get("opponent2_headgear_main")
+    #         battle.opponent2_headgear_sub0 = data.get("opponent2_headgear_sub0")
+    #         battle.opponent2_headgear_sub1 = data.get("opponent2_headgear_sub1")
+    #         battle.opponent2_headgear_sub2 = data.get("opponent2_headgear_sub2")
+    #         # clothes
+    #         battle.opponent2_clothes = data.get("opponent2_clothes")
+    #         battle.opponent2_clothes_main = data.get("opponent2_clothes_main")
+    #         battle.opponent2_clothes_sub0 = data.get("opponent2_clothes_sub0")
+    #         battle.opponent2_clothes_sub1 = data.get("opponent2_clothes_sub1")
+    #         battle.opponent2_clothes_sub2 = data.get("opponent2_clothes_sub2")
+    #         # shoes
+    #         battle.opponent2_shoes = data.get("opponent2_shoes")
+    #         battle.opponent2_shoes_main = data.get("opponent2_shoes_main")
+    #         battle.opponent2_shoes_sub0 = data.get("opponent2_shoes_sub0")
+    #         battle.opponent2_shoes_sub1 = data.get("opponent2_shoes_sub1")
+    #         battle.opponent2_shoes_sub2 = data.get("opponent2_shoes_sub2")
 
-            # opponent3
-            battle.opponent3_splatnet_id = data.get("opponent3_splatnet_id")
-            battle.opponent3_name = data.get("opponent3_name")
-            battle.opponent3_weapon = data.get("opponent3_weapon")
-            battle.opponent3_rank = data.get("opponent3_rank")
-            battle.opponent3_level_star = data.get("opponent3_level_star")
-            battle.opponent3_level = data.get("opponent3_level")
-            battle.opponent3_kills = data.get("opponent3_kills")
-            battle.opponent3_deaths = data.get("opponent3_deaths")
-            battle.opponent3_assists = data.get("opponent3_assists")
-            battle.opponent3_specials = data.get("opponent3_specials")
-            battle.opponent3_game_paint_point = data.get("opponent3_game_paint_point")
-            battle.opponent3_gender = data.get("opponent3_gender")
-            battle.opponent3_species = data.get("opponent3_species")
-            # headgear
-            battle.opponent3_headgear = data.get("opponent3_headgear")
-            battle.opponent3_headgear_main = data.get("opponent3_headgear_main")
-            battle.opponent3_headgear_sub0 = data.get("opponent3_headgear_sub0")
-            battle.opponent3_headgear_sub1 = data.get("opponent3_headgear_sub1")
-            battle.opponent3_headgear_sub2 = data.get("opponent3_headgear_sub2")
-            # clothes
-            battle.opponent3_clothes = data.get("opponent3_clothes")
-            battle.opponent3_clothes_main = data.get("opponent3_clothes_main")
-            battle.opponent3_clothes_sub0 = data.get("opponent3_clothes_sub0")
-            battle.opponent3_clothes_sub1 = data.get("opponent3_clothes_sub1")
-            battle.opponent3_clothes_sub2 = data.get("opponent3_clothes_sub2")
-            # shoes
-            battle.opponent3_shoes = data.get("opponent3_shoes")
-            battle.opponent3_shoes_main = data.get("opponent3_shoes_main")
-            battle.opponent3_shoes_sub0 = data.get("opponent3_shoes_sub0")
-            battle.opponent3_shoes_sub1 = data.get("opponent3_shoes_sub1")
-            battle.opponent3_shoes_sub2 = data.get("opponent3_shoes_sub2")
-            battle.save()
+    #         # opponent3
+    #         battle.opponent3_splatnet_id = data.get("opponent3_splatnet_id")
+    #         battle.opponent3_name = data.get("opponent3_name")
+    #         battle.opponent3_weapon = data.get("opponent3_weapon")
+    #         battle.opponent3_rank = data.get("opponent3_rank")
+    #         battle.opponent3_level_star = data.get("opponent3_level_star")
+    #         battle.opponent3_level = data.get("opponent3_level")
+    #         battle.opponent3_kills = data.get("opponent3_kills")
+    #         battle.opponent3_deaths = data.get("opponent3_deaths")
+    #         battle.opponent3_assists = data.get("opponent3_assists")
+    #         battle.opponent3_specials = data.get("opponent3_specials")
+    #         battle.opponent3_game_paint_point = data.get("opponent3_game_paint_point")
+    #         battle.opponent3_gender = data.get("opponent3_gender")
+    #         battle.opponent3_species = data.get("opponent3_species")
+    #         # headgear
+    #         battle.opponent3_headgear = data.get("opponent3_headgear")
+    #         battle.opponent3_headgear_main = data.get("opponent3_headgear_main")
+    #         battle.opponent3_headgear_sub0 = data.get("opponent3_headgear_sub0")
+    #         battle.opponent3_headgear_sub1 = data.get("opponent3_headgear_sub1")
+    #         battle.opponent3_headgear_sub2 = data.get("opponent3_headgear_sub2")
+    #         # clothes
+    #         battle.opponent3_clothes = data.get("opponent3_clothes")
+    #         battle.opponent3_clothes_main = data.get("opponent3_clothes_main")
+    #         battle.opponent3_clothes_sub0 = data.get("opponent3_clothes_sub0")
+    #         battle.opponent3_clothes_sub1 = data.get("opponent3_clothes_sub1")
+    #         battle.opponent3_clothes_sub2 = data.get("opponent3_clothes_sub2")
+    #         # shoes
+    #         battle.opponent3_shoes = data.get("opponent3_shoes")
+    #         battle.opponent3_shoes_main = data.get("opponent3_shoes_main")
+    #         battle.opponent3_shoes_sub0 = data.get("opponent3_shoes_sub0")
+    #         battle.opponent3_shoes_sub1 = data.get("opponent3_shoes_sub1")
+    #         battle.opponent3_shoes_sub2 = data.get("opponent3_shoes_sub2")
+    #         battle.save()
 
-        return Battle.objects.filter(
-            battle_number=data.get("battle_number"), player_user=player_user
-        )[0]
+    #     return Battle.objects.filter(
+    #         battle_number=data.get("battle_number"), player_user=player_user
+    #     )[0]
 
     def __str__(self):
         return str(self.id)

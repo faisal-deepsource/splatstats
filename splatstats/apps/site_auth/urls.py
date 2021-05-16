@@ -58,4 +58,5 @@ urlpatterns = [
         name="password_change_done",
     ),
     path("logout", auth_views.LogoutView.as_view(), name="logout"),
+    url("", include("social_django.urls", namespace="social")),
 ]

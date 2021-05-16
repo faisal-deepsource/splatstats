@@ -1,13 +1,14 @@
 from rest_framework import serializers
 from .models import Battle
+from rest_framework.validators import UniqueTogetherValidator
 
 
 class BattleSerializer(serializers.HyperlinkedModelSerializer):
-    player_user = serializers.ReadOnlyField(source="player_user.username")
+    player_user = serializers.PrimaryKeyRelatedField(read_only=True)
 
     class Meta:
         model = Battle
-        fields = [
+        fields = (
             "url",
             "id",
             "splatnet_json",
@@ -258,4 +259,10 @@ class BattleSerializer(serializers.HyperlinkedModelSerializer):
             "opponent3_shoes_sub0",
             "opponent3_shoes_sub1",
             "opponent3_shoes_sub2",
+        )
+        validators = [
+            UniqueTogetherValidator(
+                queryset=Battle.objects.all(),
+                fields=('player_splatnet_id', 'battle_number')
+            )
         ]
