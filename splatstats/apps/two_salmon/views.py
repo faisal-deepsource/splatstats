@@ -144,6 +144,7 @@ def detail(request, id):
 
     return render(request, "two_salmon/shift.html", context)
 
+
 def index_user(request, id):
     form = FilterForm(request.GET)
     attributes = ""
@@ -153,11 +154,15 @@ def index_user(request, id):
             lexer = Lexer(query)
             interpreter = Interpreter(lexer)
             battles = interpreter.interpret()
-            battles = battles.filter(player_user=User.objects.get(pk=id)).order_by("-playtime")
+            battles = battles.filter(player_user=User.objects.get(pk=id)).order_by(
+                "-playtime"
+            )
             attributes = ""
         else:
             attributes = ""
-            shifts = Shift.objects.filter(player_user=User.objects.get(pk=id)).order_by("-playtime")
+            shifts = Shift.objects.filter(player_user=User.objects.get(pk=id)).order_by(
+                "-playtime"
+            )
             if form.cleaned_data["rule"] != "all":
                 shifts = shifts.filter(rule=form.cleaned_data["rule"])
             if form.cleaned_data["match_type"] != "all":
@@ -177,7 +182,9 @@ def index_user(request, id):
         shifts = shifts.order_by("-playtime")
     else:
         query = ""
-        shifts = Shift.objects.filter(player_user=User.objects.get(pk=id)).order_by("-playtime")
+        shifts = Shift.objects.filter(player_user=User.objects.get(pk=id)).order_by(
+            "-playtime"
+        )
         attributes = ""
     paginator = Paginator(shifts, 50)  # Show 50 shifts per page
     page_number = request.GET.get("page")
