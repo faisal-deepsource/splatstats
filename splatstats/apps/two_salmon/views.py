@@ -8,7 +8,7 @@ from .serializers import ShiftSerializer
 from rest_framework import permissions
 from ...permissions import IsOwnerOrReadOnly
 from .advanced_search_language import Lexer, Interpreter
-from .forms import FilterForm
+from .forms import FilterForm, AdvancedFilterForm
 from .objects import Wave
 
 # Create your views here.
@@ -213,3 +213,50 @@ def index_user(request, id):
         "attributes": attributes,
     }
     return render(request, "two_salmon/index.html", context)
+
+def advanced_search(request):
+    form = AdvancedFilterForm(request.GET)
+    if form.is_valid():
+        lexer = Lexer(form.cleaned_data["query"])
+        interpreter = Interpreter(lexer)
+        shifts = interpreter.interpret()
+        if request.user.is_authenticated:
+            shifts = shifts.filter(player_user=request.user).order_by("-playtime")
+        else:
+            shifts = shifts.order_by("-playtime")
+        paginator = Paginator(shifts, 50)  # Show 50 battles per page
+        page_number = request.GET.get("page")
+        page_obj = paginator.get_page(page_number)
+        time_vals = []
+        team_golden = []
+        team_power = []
+        for shift in page_obj:
+            if shift.playtime is not None:
+                time_vals.append(shift.playtime.strftime("%Y-%m-%d %H:%M:%S"))
+            else:
+                time_vals.append(None)
+            team_golden.append(
+                int(shift.wave_1_golden_delivered or 0)
+                + int(shift.wave_2_golden_delivered or 0)
+                + int(shift.wave_3_golden_delivered or 0)
+            )
+            team_power.append(
+                int(shift.wave_1_power_eggs or 0)
+                + int(shift.wave_2_power_eggs or 0)
+                + int(shift.wave_3_power_eggs or 0)
+            )
+        query = urllib.parse.quote(form.cleaned_data["query"])
+        context = {
+            "page_obj": page_obj,
+            "my_list": zip(
+                page_obj,
+                team_golden,
+                team_power,
+                time_vals,
+            ),
+            "form": form,
+            "query": query,
+            "attributes": "",
+        }
+        return render(request, "two_salmon/index.html", context)
+    return render(request, "two_salmon/advanced_search.html", {"form": form})

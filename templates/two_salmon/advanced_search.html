@@ -1,0 +1,393 @@
+{% extends "main_site.html" %}
+
+{% block content_wrapper %}
+    <div class="card darken-1">
+        <div class="card-content">
+            <span class="card-title">
+                Advanced Search
+            </span>
+            This page is incomplete. The search works, but documentation is lacking. Check back later for more details.
+        </div>
+    </div>
+    <div class="card darken-1">
+        <form action="" method="get">
+            <div class="card-content">
+                {% for field in form %}
+                <div class="fieldWrapper">
+                    {{ field.errors }}
+                    {{ field }}
+                </div>
+            {% endfor %}
+            </div>
+            <div class="card-action">
+                <input type="submit" value="Filter">
+            </div>
+        </form>
+    </div>
+    <div class=row>
+        <div class="col s6">
+            <div class="card darken-1">
+                <div class="card-content">
+                    <span class="card-title">
+                        Available Attributes
+                    </span>
+                    <ul class="collapsible">
+                        <li>
+                            <div class="collapsible-header">General</div>
+                            <div class="collapsible-body">
+                                <span>
+                                    <pre>
+
+schedule_weapon_0
+schedule_weapon_1
+schedule_weapon_2
+schedule_weapon_3
+stage
+schedule_starttime
+schedule_endtime
+playtime
+starttime
+endtime
+grade_point_delta
+job_score
+job_failure_reason
+is_clear
+failure_wave
+grade_point
+job_id
+danger_rate
+                                    </pre>
+                                </span>
+                            </div>
+                        </li>
+                        <div class="collapsible-header">Boss Counts</div>
+                            <div class="collapsible-body">
+                                <span>
+                                    To query for a specific boss count, use the boss name and <code>_count</code>.
+                                    <pre>
+steel_eel
+maws
+scrapper
+stinger
+steelhead
+flyfish
+drizzler
+griller
+goldie
+                                    </pre>
+                                </span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="collapsible-header">Waves</div>
+                            <div class="collapsible-body">
+                                <span>
+                                    To query for a specific attribute, use <code>wave_</code>, <code>1_</code> through <code>3_</code> for a specific wave, or <code>a_</code> through <code>c_</code> for any wave, followed by the attribute name.
+                                    <pre>
+power_eggs
+golden_delivered
+golden_appear
+quota
+water_level
+event_type
+                                    </pre>
+                                </span>    
+                            </div>
+                        </li>
+                        <li>
+                            <div class="collapsible-header">Player specific</div>
+                            <div class="collapsible-body">
+                                <span>
+                                    To query for a specific attribute, use <code>player_</code> or <code>teammate_</code> <code>a_</code> through <code>c_</code>, followed by the attribute name.
+                                    <pre>
+species
+gender
+title
+golden_eggs
+power_eggs
+name
+special
+weapon_w1
+weapon_w2
+weapon_w3
+revive_count
+death_count
+id
+goldie_kills
+drizzler_kills
+griller_kills
+flyfish_kills
+steelhead_kills
+stinger_kills
+maws_kills
+scrapper_kills
+steel_eel_kills
+w1_specials
+w2_specials
+w3_specials
+                                    </pre>
+                                </span>
+                            </div>
+                        </li>
+                </div>
+            </div>
+        </div>
+        <div class="col s6">
+            <div class="card">
+                <div class="card-content">
+                    <span class="card-title">
+                        About the advanced search
+                    </span>
+                    <ul class="collapsible">
+                        <li>
+                            <div class="collapsible-header">Extended Backus-Naur form</div>
+                            <div class="collapsible-body">
+                                <span>
+                                    <pre>
+lowercase_letter = "a" | "b" | "c" | "d" | "e" | "f" | "g"
+                 | "h" | "i" | "j" | "k" | "l" | "m" | "n"
+                 | "o" | "p" | "q" | "r" | "s" | "t" | "u"
+                 | "v" | "w" | "x" | "y" | "z" ;
+uppercase_letter = "A" | "B" | "C" | "D" | "E" | "F" | "G"
+                 | "H" | "I" | "J" | "K" | "L" | "M" | "N"
+                 | "O" | "P" | "Q" | "R" | "S" | "T" | "U"
+                 | "V" | "W" | "X" | "Y" | "Z" ;
+letter = lowercase_letter | uppercase_letter ;
+bool = "True" | "False" ;
+digit_not_zero = "1" | "2" | "3" | "4" | "5" | "6" | "7"
+               | "8" | "9" ;
+digit = "0" | digit_not_zero ;
+string = '"' , { letter | digit | "_" | " " | "'" | "-" }
+       , '"' ;
+inline_comment = "/*" , { letter | digit | "_" | " " | "'"
+               | "-" } ,  "*/";
+int = ( [ "-" ] digit_not_zero , { digit } ) | "0" ;
+float = int , "." , digit , { digit } ;
+value = bool | int | float | string ;
+identifier = lowercase_letter, { lowercase_letter | digit
+           | "_" } ;
+newline = "\r\n" | "\r" | "\n";
+whitespace = " " | newline ;
+binary_bool_bitwise_op = ( "and" )
+                       | ( [ "x" ] , "or" ) ;
+comp_op = ( "g" , ( "e" | "t" ) )
+        | ( "l" , ( "e" | "t" ) )
+        | ( "eq" ) ;
+math_op = "+" | "-" | "*" | "/" ;
+binary_op = ( comp_op | binary_bool_bitwise_op | math_op )
+          , "(" , [ whitespace ] , term , [ whitespace ]
+          , "," , [ whitespace ] , term , [ whitespace ]
+          , ")" ;
+unary_op = ( "not" ) | ( "len" )
+         , "(" , [ whitespace ] , term , [ whitespace ]
+         , ")" ;
+assignment = identifier | obj_func_call , [ whitespace ]
+           , ":=" , [ whitespace ] , term ;
+list = "[" , [ whitespace ] , [ { term , ","
+     , [ whitespace ] } , term , [ whitespace ] ] , "]" ;
+func_call = identifier [ "(" , [ whitespace ] , [ term ,
+          { "," , [ whitespace ] , term } ,
+          [ whitespace ] ] ")" ] ;
+obj_func_call = identifier , "." , identifier , "("
+              , [ whitespace ] , [ term , { ","
+              , [ whitespace ] , term , [ whitespace ] } ]
+              , ")" ;
+term = identifier
+     | func_call
+     | binary_op
+     | unary_op
+     | value
+     | obj_func_call
+     | list ;
+line = ( if , [ whitespace ] )
+     | ( while , [ whitespace ] )
+     | ( def , [ whitespace ] )
+     | ( assignment , [ whitespace ] )
+     | ( return , [ whitespace ]  );
+return = "return" , [ [ whitespace ] , "(" , [ whitespace ]
+       , term , [ whitespace ] , ")" ] ;
+if = "if(" , [ whitespace ] , term , [ whitespace ] , ")" ,
+   [ whitespace ] , "{" , [ whitespace ] , { line } , "}" ,
+   [ whitespace ], "else" , [ whitespace ] , "{" ,
+   [ whitespace ] , { line } , "}" ;
+while = "while(" , [ whitespace ] , identifier | binary_op
+      | list_index_at | unary_op , [ whitespace ] , ")" ,
+      [ whitespace ] , "{" , [ whitespace ] , { line }
+      , "}" ;
+def = "def" , [ whitespace ] , identifier , "(" , [
+    [ whitespace ] , identifier { [ whitespace ] , ","
+    , [ whitespace ] , identifier } ] , [ whitespace ]
+    , ")" , [ whitespace ] , "{" , [ whitespace ] , 
+    { line } , "}" ;
+                                    </span>
+                                </pre>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="collapsible-header">Literals</div>
+                            <div class="collapsible-body">
+                                <span>
+                                    The search language denotes literals in a few ways.
+                                    <pre>
+/* A string */
+"Custom Dualie Squelchers"
+
+/* An integer */
+5
+
+/* A decimal */
+7.2
+
+/* A Boolean */
+True
+                                    </pre>
+                                </span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="collapsible-header">Variables (and assignment)</div>
+                            <div class="collapsible-body">
+                                <span>
+                                    The advanced search allows you to store variables, for various purposes.
+                                    They can store any value in the language.
+                                    <pre>
+/* zero_var contains the value 0 */
+zero_var := 0
+
+/* "Hello World!" string example */
+hello_world := "Hello World!"
+                                    </pre>
+                                </span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="collapsible-header">Math Operators</div>
+                            <div class="collapsible-body">
+                                <span>
+                                    The search language allows you to preform math operations.
+                                    Math operations are denoted using prefix notation, as function calls.
+                                    <pre>
+/* 1 + 0 */
++(1, zero_val)
+/* 1 */
+
+/* 3 - 2 */
+-(3, 2)
+/* 1 */
+
+/* 4 * 5 */
+*(4, 5)
+/* 20 */
+
+/* 9 / 3 */
+/(9, 3)
+/* 3 */
+                                    </pre>
+                                </span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="collapsible-header">Comparison Operators</div>
+                            <div class="collapsible-body">
+                                <span>
+                                    The search language contains five comparison operators: <code>gt</code>, <code>ge</code>, <code>lt</code>, <code>le</code>, and <code>eq</code>.
+                                    Comparisons between incompatible types either return <code>False</code> or throw an error.
+                                    <pre>
+/* Is zero_val equal to 0? */
+eq(zero_val, 0)
+/* True */
+
+/* Is 1 greater than 3? */
+gt(1, 3)
+/* False */
+
+/* Is 1 less than or equal to 3? */
+le(1, 3)
+/* True */
+
+/* Is "Hello World" less than 7.0? */
+lt("Hello World", 7.0)
+/* False */
+
+/* Is "Hello World" greater than or equal to 7.0? */
+ge("Hello World, 7.0")
+/* False */
+                                    </pre>
+                                </span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="collapsible-header">Lists (and list operations)</div>
+                            <div class="collapsible-body">
+                                <span>
+                                    The search language allows you to store multiple values in a single identifier using lists.
+                                    Lists have their own special functions.
+                                    <pre>
+/* The Alice sequence of numbers */
+alice_sequence := [1, 1, 1, 1, 1, 1]
+
+/* A list of strings. Note that this is different from a
+   single string. */
+list_of_strings := [hello_world, "."]
+
+/* Adding to the end of a list */
+list_of_strings.push(".")
+/* list_of_strings now contains [hello_world, ".", "."]
+
+/* Removing from the end of a list */
+alice_sequence.pop()
+/* alice_sequence now contains [1, 1, 1, 1, 1] */
+
+/* Getting the size of a list */
+alice_len := len(alice_sequence)
+/* 5 */
+                                    </pre>
+                                </span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="collapsible-header">Sets (and set operations)</div>
+                            <div class="collapsible-body">
+                                <span>
+                                    At the core of the advanced search is sets.
+                                    You filter the data into sets by using comparisons with attributes.
+                                    <pre>
+/* Identifies the set of matches where the player used the
+   "Custom Dualie Squelchers" weapon. */
+set_a := eq(player_weapon, "Custom Dualie Squelchers")
+
+/* Identifies the set of matches where the SplatNet battle
+   number is smaller than 3000. */
+set_b := lt(battle_number, 3000)
+
+/* Identifies the set of matches where your team scored any
+   nonzero number of points. */
+set_c := gt(my_win_count, zero_var)
+
+/* The intersection of set_a and set_b */
+set_d := and(set_a, set_b)
+
+/* The union of set_b and set_c */
+set_e := or(set_b, set_c)
+
+/* The difference of set_d and set_e */
+set_f := -(set_d, set_e)
+
+/* The symmetric difference of set_a and set_f */
+set_g := xor(set_a, set_f)
+
+/* The complement of set_g */
+set_h := not(set_g)
+
+/* Gets the number of elements in set_h */
+set_h_len := len(set_h)
+                                    </pre>
+                                </span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content_wrapper %}
