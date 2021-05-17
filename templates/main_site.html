@@ -7,8 +7,10 @@
                 <!-- Dropdown Structure -->
                 <ul id='dropdown1' class='dropdown-content'>
                     <li><a href="/two_battles">All Battles</a></li>
+                    <li><a href="/two_salmon">All Shifts</a></li>
                     {% if user.is_authenticated %}
                         <li><a href="/two_battles/user/{{ user.id }}">Your Battles</a></li>
+                        <li><a href="/two_salmon/user/{{ user.id }}">Your Shifts</a></li>
                     {% endif %}
                     <!--<li><a href="/two_salmon">Salmon Run</a></li>-->
                 </ul>
@@ -19,6 +21,7 @@
                         <li><a href="/auth/logout">Logout</a></li>
                     {% else %}
                         <li><a href="/auth/account/login">Login</a></li>
+                        <li><a href="/auth/signup">Sign Up</a></li>
                     {% endif %}
                 </ul>
                 <ul class="right">
