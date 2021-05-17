@@ -99,24 +99,115 @@ def index(request):
 
 def detail(request, id):
     shift = get_object_or_404(Shift, pk=id)
-    context = {"shift": shift}
-    if shift.is_clear:
-        context["result"] = "Cleared"
-    else:
-        context["result"] = "Failed on {} due to {}".format(
-            shift.failure_wave, shift.job_failure_reason
-        )
-    context["shift_waves"] = [
-        Wave(
-            1,
-            shift.wave_1_event_type,
-            shift.wave_1_water_level,
-            shift.wave_1_quota,
-            shift.wave_1_golden_delivered,
-            shift.wave_1_golden_appear,
-            shift.wave_1_power_eggs,
-        )
-    ]
+    context = {
+        "shift": shift,
+        "shift_players": [
+            Player(
+                shift.player_name,
+                shift.player_weapon_w1,
+                shift.player_weapon_w2,
+                shift.player_weapon_w3,
+                shift.player_special,
+                shift.player_w1_specials,
+                shift.player_w2_specials,
+                shift.player_w3_specials,
+                shift.player_revive_count,
+                shift.player_death_count,
+                shift.player_golden_eggs,
+                shift.player_power_eggs,
+            )
+        ],
+        "shift_bosses": (
+            Boss(
+                "Drizzler",
+                shift.drizzler_count,
+                shift.player_drizzler_kills,
+                shift.teammate0_drizzler_kills,
+                shift.teammate1_drizzler_kills,
+                shift.teammate2_drizzler_kills,
+            ),
+            Boss(
+                "Flyfish",
+                shift.flyfish_count,
+                shift.player_flyfish_kills,
+                shift.teammate0_flyfish_kills,
+                shift.teammate1_flyfish_kills,
+                shift.teammate2_flyfish_kills,
+            ),
+            Boss(
+                "Goldie",
+                shift.goldie_count,
+                shift.player_goldie_kills,
+                shift.teammate0_goldie_kills,
+                shift.teammate1_goldie_kills,
+                shift.teammate2_goldie_kills,
+            ),
+            Boss(
+                "Griller",
+                shift.griller_count,
+                shift.player_griller_kills,
+                shift.teammate0_griller_kills,
+                shift.teammate1_griller_kills,
+                shift.teammate2_griller_kills,
+            ),
+            Boss(
+                "Maws",
+                shift.maws_count,
+                shift.player_maws_kills,
+                shift.teammate0_maws_kills,
+                shift.teammate1_maws_kills,
+                shift.teammate2_maws_kills,
+            ),
+            Boss(
+                "Scrapper",
+                shift.scrapper_count,
+                shift.player_scrapper_kills,
+                shift.teammate0_scrapper_kills,
+                shift.teammate1_scrapper_kills,
+                shift.teammate2_scrapper_kills,
+            ),
+            Boss(
+                "Steelhead",
+                shift.steelhead_count,
+                shift.player_steelhead_kills,
+                shift.teammate0_steelhead_kills,
+                shift.teammate1_steelhead_kills,
+                shift.teammate2_steelhead_kills,
+            ),
+            Boss(
+                "Steel Eel",
+                shift.steel_eel_count,
+                shift.player_steel_eel_kills,
+                shift.teammate0_steel_eel_kills,
+                shift.teammate1_steel_eel_kills,
+                shift.teammate2_steel_eel_kills,
+            ),
+            Boss(
+                "Stinger",
+                shift.stinger_count,
+                shift.player_stinger_kills,
+                shift.teammate0_stinger_kills,
+                shift.teammate1_stinger_kills,
+                shift.teammate2_stinger_kills,
+            ),
+        ),
+        "result": "Cleared"
+        if shift.is_clear
+        else "Failed on {}, {}".format(
+            shift.failure_wave, shift.get_job_failure_reason_display()
+        ),
+        "shift_waves": [
+            Wave(
+                1,
+                shift.wave_1_event_type,
+                shift.wave_1_water_level,
+                shift.wave_1_quota,
+                shift.wave_1_golden_delivered,
+                shift.wave_1_golden_appear,
+                shift.wave_1_power_eggs,
+            )
+        ],
+    }
     if shift.failure_wave is None or shift.failure_wave > 1:
         context["shift_waves"].append(
             Wave(
@@ -141,80 +232,57 @@ def detail(request, id):
                     shift.wave_3_power_eggs,
                 )
             )
-    context["shift_bosses"] = (
-        Boss(
-            "Drizzler",
-            shift.drizzler_count,
-            shift.player_drizzler_kills,
-            shift.teammate0_drizzler_kills,
-            shift.teammate1_drizzler_kills,
-            shift.teammate2_drizzler_kills,
-        ),
-        Boss(
-            "Flyfish",
-            shift.flyfish_count,
-            shift.player_flyfish_kills,
-            shift.teammate0_flyfish_kills,
-            shift.teammate1_flyfish_kills,
-            shift.teammate2_flyfish_kills,
-        ),
-        Boss(
-            "Goldie",
-            shift.goldie_count,
-            shift.player_goldie_kills,
-            shift.teammate0_goldie_kills,
-            shift.teammate1_goldie_kills,
-            shift.teammate2_goldie_kills,
-        ),
-        Boss(
-            "Griller",
-            shift.griller_count,
-            shift.player_griller_kills,
-            shift.teammate0_griller_kills,
-            shift.teammate1_griller_kills,
-            shift.teammate2_griller_kills,
-        ),
-        Boss(
-            "Maws",
-            shift.maws_count,
-            shift.player_maws_kills,
-            shift.teammate0_maws_kills,
-            shift.teammate1_maws_kills,
-            shift.teammate2_maws_kills,
-        ),
-        Boss(
-            "Scrapper",
-            shift.scrapper_count,
-            shift.player_scrapper_kills,
-            shift.teammate0_scrapper_kills,
-            shift.teammate1_scrapper_kills,
-            shift.teammate2_scrapper_kills,
-        ),
-        Boss(
-            "Steelhead",
-            shift.steelhead_count,
-            shift.player_steelhead_kills,
-            shift.teammate0_steelhead_kills,
-            shift.teammate1_steelhead_kills,
-            shift.teammate2_steelhead_kills,
-        ),
-        Boss(
-            "Steel Eel",
-            shift.steel_eel_count,
-            shift.player_steel_eel_kills,
-            shift.teammate0_steel_eel_kills,
-            shift.teammate1_steel_eel_kills,
-            shift.teammate2_steel_eel_kills,
-        ),
-        Boss(
-            "Stinger",
-            shift.stinger_count,
-            shift.player_stinger_kills,
-            shift.teammate0_stinger_kills,
-            shift.teammate1_stinger_kills,
-            shift.teammate2_stinger_kills,
-        ),
-    )
+    if shift.teammate0_name is not None:
+        context["shift_players"].append(
+            Player(
+                shift.teammate0_name,
+                shift.teammate0_weapon_w1,
+                shift.teammate0_weapon_w2,
+                shift.teammate0_weapon_w3,
+                shift.teammate0_special,
+                shift.teammate0_w1_specials,
+                shift.teammate0_w2_specials,
+                shift.teammate0_w3_specials,
+                shift.teammate0_revive_count,
+                shift.teammate0_death_count,
+                shift.teammate0_golden_eggs,
+                shift.teammate0_power_eggs,
+            )
+        )
+        if shift.teammate1_name is not None:
+            context["shift_players"].append(
+                Player(
+                    shift.teammate1_name,
+                    shift.teammate1_weapon_w1,
+                    shift.teammate1_weapon_w2,
+                    shift.teammate1_weapon_w3,
+                    shift.teammate1_special,
+                    shift.teammate1_w1_specials,
+                    shift.teammate1_w2_specials,
+                    shift.teammate1_w3_specials,
+                    shift.teammate1_revive_count,
+                    shift.teammate1_death_count,
+                    shift.teammate1_golden_eggs,
+                    shift.teammate1_power_eggs,
+                )
+            )
+            if shift.teammate2_name is not None:
+                context["shift_players"].append(
+                    Player(
+                        shift.teammate2_name,
+                        shift.teammate2_weapon_w1,
+                        shift.teammate2_weapon_w2,
+                        shift.teammate2_weapon_w3,
+                        shift.teammate2_special,
+                        shift.teammate2_w1_specials,
+                        shift.teammate2_w2_specials,
+                        shift.teammate2_w3_specials,
+                        shift.teammate2_revive_count,
+                        shift.teammate2_death_count,
+                        shift.teammate2_golden_eggs,
+                        shift.teammate2_power_eggs,
+                    )
+                )
     return render(request, "two_salmon/shift.html", context)
 
 

@@ -14,6 +14,7 @@ class Wave:
 class Player:
     def __init__(
         self,
+        name,
         w1_weapon,
         w2_weapon,
         w3_weapon,
@@ -26,6 +27,7 @@ class Player:
         golden,
         power,
     ):
+        self.name = name
         self.w1_weapon = w1_weapon
         self.w2_weapon = w2_weapon
         self.w3_weapon = w3_weapon

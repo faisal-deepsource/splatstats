@@ -54,6 +54,7 @@ class ShiftSerializer(serializers.HyperlinkedModelSerializer):
             "scrapper_count",
             "stinger_count",
             "steelhead_count",
+            "griller_count",
             "flyfish_count",
             "drizzler_count",
             "goldie_count",

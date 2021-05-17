@@ -15,7 +15,7 @@
         </tr>
         <tr>
             <th>Title</th>
-            <td>{{ shift.player_title }}{{ shift.grade_point }}</td>
+            <td>{{ shift.get_player_title_display }} {{ shift.grade_point }}</td>
         </tr>
         <tr>
             <th>Hazard Level</th>
@@ -52,6 +52,38 @@
                     <td>{{ wave.delivers }}</td>
                     <td>{{ wave.appearances }}</td>
                     <td>{{ wave.power_eggs }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Wave 1 Weapon</th>
+                <th>Wave 2 Weapon</th>
+                <th>Wave 3 Weapon</th>
+                <th>Special</th>
+                <th>Special Usage</th>
+                <th>Rescues</th>
+                <th>Deaths</th>
+                <th>Golden Eggs</th>
+                <th>Power Eggs</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for player in shift_players %}
+                <tr>
+                    <td>{{ player.name }}</td>
+                    <td>{{ player.w1_weapon }}</td>
+                    <td>{{ player.w2_weapon }}</td>
+                    <td>{{ player.w3_weapon }}</td>
+                    <td>{{ player.special }}</td>
+                    <td>{{ player.w1_specials }} - {{ player.w2_specials }} - {{ player.w3_specials }}</td>
+                    <td>{{ player.rescues }}</td>
+                    <td>{{ player.deaths }}</td>
+                    <td>{{ player.golden }}</td>
+                    <td>{{ player.power }}</td>
                 </tr>
             {% endfor %}
         </tbody>
