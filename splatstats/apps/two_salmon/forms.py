@@ -8,5 +8,6 @@ class FilterForm(forms.Form):
     cleared = forms.ChoiceField(choices=cleared_failed)
     failreason = forms.ChoiceField(choices=fail_reasons)
 
+
 class AdvancedFilterForm(forms.Form):
     query = forms.CharField(widget=forms.Textarea(attrs={"rows": 20, "cols": 40}))

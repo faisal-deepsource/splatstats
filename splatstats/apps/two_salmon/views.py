@@ -1,7 +1,6 @@
 from django.core.paginator import Paginator
-from datetime import datetime
 import urllib
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from .models import Shift
 from rest_framework import viewsets
 from .serializers import ShiftSerializer
@@ -9,6 +8,7 @@ from rest_framework import permissions
 from ...permissions import IsOwnerOrReadOnly
 from .advanced_search_language import Lexer, Interpreter
 from .forms import FilterForm
+from .objects import Wave
 
 # Create your views here.
 class ShiftViewSet(viewsets.ModelViewSet):
@@ -68,9 +68,7 @@ def index(request):
     team_power = []
     for shift in page_obj:
         if shift.playtime is not None:
-            time_vals.append(
-                shift.playtime.strftime("%Y-%m-%d %H:%M:%S")
-            )
+            time_vals.append(shift.playtime.strftime("%Y-%m-%d %H:%M:%S"))
         else:
             time_vals.append(None)
         team_golden.append(
@@ -96,3 +94,51 @@ def index(request):
         "attributes": attributes,
     }
     return render(request, "two_salmon/index.html", context)
+
+
+def detail(request, id):
+    shift = get_object_or_404(Shift, pk=id)
+    context = {"shift": shift}
+    if shift.is_clear:
+        context["result"] = "Cleared"
+    else:
+        context["result"] = "Failed on {} due to {}".format(
+            shift.failure_wave, shift.job_failure_reason
+        )
+    context["shift_waves"] = [
+        Wave(
+            1,
+            shift.wave_1_event_type,
+            shift.wave_1_water_level,
+            shift.wave_1_quota,
+            shift.wave_1_golden_delivered,
+            shift.wave_1_golden_appear,
+            shift.wave_1_power_eggs,
+        )
+    ]
+    if shift.failure_wave is None or shift.failure_wave > 1:
+        context["shift_waves"].append(
+            Wave(
+                2,
+                shift.wave_2_event_type,
+                shift.wave_2_water_level,
+                shift.wave_2_quota,
+                shift.wave_2_golden_delivered,
+                shift.wave_2_golden_appear,
+                shift.wave_2_power_eggs,
+            )
+        )
+        if shift.failure_wave is None or shift.failure_wave > 2:
+            context["shift_waves"].append(
+                Wave(
+                    3,
+                    shift.wave_3_event_type,
+                    shift.wave_3_water_level,
+                    shift.wave_3_quota,
+                    shift.wave_3_golden_delivered,
+                    shift.wave_3_golden_appear,
+                    shift.wave_3_power_eggs,
+                )
+            )
+
+    return render(request, "two_salmon/shift.html", context)

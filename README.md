@@ -19,7 +19,7 @@ SplatStats is a website for storing and analyzing Splatoon 2 battle and salmon r
         - [ ] Bulk Export
     - [ ] Salmon Run
         - [x] Import
-        - [ ] View
+        - [x] View
         - [ ] Filter
         - [ ] Statistical Tests
         - [x] API Retrieval

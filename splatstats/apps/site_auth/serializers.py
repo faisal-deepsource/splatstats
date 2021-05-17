@@ -4,10 +4,10 @@ from rest_framework import serializers
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     two_battles = serializers.HyperlinkedRelatedField(
-        many=True, view_name="two-battle-detail", read_only=True
+        many=True, view_name="battle-detail", read_only=True
     )
     two_salmon = serializers.HyperlinkedRelatedField(
-        many=True, view_name="two-salmon-detail", read_only=True
+        many=True, view_name="shift-detail", read_only=True
     )
 
     class Meta:
@@ -19,7 +19,6 @@ class SocialSerializer(serializers.Serializer):
     """
     Serializer which accepts an OAuth2 access token.
     """
-
     access_token = serializers.CharField(
         allow_blank=False,
         trim_whitespace=True,

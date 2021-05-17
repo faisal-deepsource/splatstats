@@ -1,0 +1,63 @@
+{% extends "main_site.html" %}
+{% block content_wrapper %}
+    <table>
+        <tr>
+            <th>SplatNet Job #</th>
+            <th>{{ shift.job_id }}</th>
+        </tr>
+        <tr>
+            <th>Stage</th>
+            <th>{{ shift.get_stage_display }}</th>
+        </tr>
+        <tr>
+            <th>Result</th>
+            <th>{{ result }}</th>
+        </tr>
+        <tr>
+            <th>Title</th>
+            <th>{{ shift.player_title }}{{ shift.grade_point }}</th>
+        </tr>
+        <tr>
+            <th>Hazard Level</th>
+            <th>{{ shift.danger_rate }}</th>
+        </tr>
+        <tr>
+            <th>Rotation</th>
+            <th>From {{ shift.schedule_starttime }} to {{ shift.schedule_endtime }}</th>
+        </tr>
+        <tr>
+            <th>Job Start</th>
+            <th>{{ shift.playtime }}</th>
+        </tr>
+        <tr>
+            <th>Job End</th>
+            <th>{{ shift.endtime }}</th>
+        </tr>
+    </table>
+    <table>
+        <thead>
+            <tr>
+                <th>Wave</th>
+                <th>Event</th>
+                <th>Water Level</th>
+                <th>Quota</th>
+                <th>Delivers</th>
+                <th>Appearances</th>
+                <th>Power Eggs</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for wave in shift_waves %}
+                <tr>
+                    <th>{{ wave.num }}</th>
+                    <th>{{ wave.event }}</th>
+                    <th>{{ wave.water_level }}</th>
+                    <th>{{ wave.quota }}</th>
+                    <th>{{ wave.delivers }}</th>
+                    <th>{{ wave.appearances }}</th>
+                    <th>{{ wave.power_eggs }}</th>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock content_wrapper %}
