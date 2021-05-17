@@ -9,7 +9,7 @@ from rest_framework import permissions
 from ...permissions import IsOwnerOrReadOnly
 from .advanced_search_language import Lexer, Interpreter
 from .forms import FilterForm, AdvancedFilterForm
-from .objects import Wave
+from .objects import Wave, Player, Boss
 
 # Create your views here.
 class ShiftViewSet(viewsets.ModelViewSet):
@@ -141,8 +141,82 @@ def detail(request, id):
                     shift.wave_3_power_eggs,
                 )
             )
-
+    context["shift_bosses"] = (
+        Boss(
+            "Drizzler",
+            shift.drizzler_count,
+            shift.player_drizzler_kills,
+            shift.teammate0_drizzler_kills,
+            shift.teammate1_drizzler_kills,
+            shift.teammate2_drizzler_kills,
+        ),
+        Boss(
+            "Flyfish",
+            shift.flyfish_count,
+            shift.player_flyfish_kills,
+            shift.teammate0_flyfish_kills,
+            shift.teammate1_flyfish_kills,
+            shift.teammate2_flyfish_kills,
+        ),
+        Boss(
+            "Goldie",
+            shift.goldie_count,
+            shift.player_goldie_kills,
+            shift.teammate0_goldie_kills,
+            shift.teammate1_goldie_kills,
+            shift.teammate2_goldie_kills,
+        ),
+        Boss(
+            "Griller",
+            shift.griller_count,
+            shift.player_griller_kills,
+            shift.teammate0_griller_kills,
+            shift.teammate1_griller_kills,
+            shift.teammate2_griller_kills,
+        ),
+        Boss(
+            "Maws",
+            shift.maws_count,
+            shift.player_maws_kills,
+            shift.teammate0_maws_kills,
+            shift.teammate1_maws_kills,
+            shift.teammate2_maws_kills,
+        ),
+        Boss(
+            "Scrapper",
+            shift.scrapper_count,
+            shift.player_scrapper_kills,
+            shift.teammate0_scrapper_kills,
+            shift.teammate1_scrapper_kills,
+            shift.teammate2_scrapper_kills,
+        ),
+        Boss(
+            "Steelhead",
+            shift.steelhead_count,
+            shift.player_steelhead_kills,
+            shift.teammate0_steelhead_kills,
+            shift.teammate1_steelhead_kills,
+            shift.teammate2_steelhead_kills,
+        ),
+        Boss(
+            "Steel Eel",
+            shift.steel_eel_count,
+            shift.player_steel_eel_kills,
+            shift.teammate0_steel_eel_kills,
+            shift.teammate1_steel_eel_kills,
+            shift.teammate2_steel_eel_kills,
+        ),
+        Boss(
+            "Stinger",
+            shift.stinger_count,
+            shift.player_stinger_kills,
+            shift.teammate0_stinger_kills,
+            shift.teammate1_stinger_kills,
+            shift.teammate2_stinger_kills,
+        ),
+    )
     return render(request, "two_salmon/shift.html", context)
+
 
 def index_user(request, id):
     form = FilterForm(request.GET)
@@ -153,11 +227,15 @@ def index_user(request, id):
             lexer = Lexer(query)
             interpreter = Interpreter(lexer)
             battles = interpreter.interpret()
-            battles = battles.filter(player_user=User.objects.get(pk=id)).order_by("-playtime")
+            battles = battles.filter(player_user=User.objects.get(pk=id)).order_by(
+                "-playtime"
+            )
             attributes = ""
         else:
             attributes = ""
-            shifts = Shift.objects.filter(player_user=User.objects.get(pk=id)).order_by("-playtime")
+            shifts = Shift.objects.filter(player_user=User.objects.get(pk=id)).order_by(
+                "-playtime"
+            )
             if form.cleaned_data["rule"] != "all":
                 shifts = shifts.filter(rule=form.cleaned_data["rule"])
             if form.cleaned_data["match_type"] != "all":
@@ -177,7 +255,9 @@ def index_user(request, id):
         shifts = shifts.order_by("-playtime")
     else:
         query = ""
-        shifts = Shift.objects.filter(player_user=User.objects.get(pk=id)).order_by("-playtime")
+        shifts = Shift.objects.filter(player_user=User.objects.get(pk=id)).order_by(
+            "-playtime"
+        )
         attributes = ""
     paginator = Paginator(shifts, 50)  # Show 50 shifts per page
     page_number = request.GET.get("page")
@@ -213,6 +293,7 @@ def index_user(request, id):
         "attributes": attributes,
     }
     return render(request, "two_salmon/index.html", context)
+
 
 def advanced_search(request):
     form = AdvancedFilterForm(request.GET)

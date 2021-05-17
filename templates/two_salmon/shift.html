@@ -3,35 +3,31 @@
     <table>
         <tr>
             <th>SplatNet Job #</th>
-            <th>{{ shift.job_id }}</th>
+            <td>{{ shift.job_id }}</td>
         </tr>
         <tr>
             <th>Stage</th>
-            <th>{{ shift.get_stage_display }}</th>
+            <td>{{ shift.get_stage_display }}</td>
         </tr>
         <tr>
             <th>Result</th>
-            <th>{{ result }}</th>
+            <td>{{ result }}</td>
         </tr>
         <tr>
             <th>Title</th>
-            <th>{{ shift.player_title }}{{ shift.grade_point }}</th>
+            <td>{{ shift.player_title }}{{ shift.grade_point }}</td>
         </tr>
         <tr>
             <th>Hazard Level</th>
-            <th>{{ shift.danger_rate }}</th>
+            <td>{{ shift.danger_rate }}</td>
         </tr>
         <tr>
             <th>Rotation</th>
-            <th>From {{ shift.schedule_starttime }} to {{ shift.schedule_endtime }}</th>
+            <td>From {{ shift.schedule_starttime }} to {{ shift.schedule_endtime }}</td>
         </tr>
         <tr>
             <th>Job Start</th>
-            <th>{{ shift.playtime }}</th>
-        </tr>
-        <tr>
-            <th>Job End</th>
-            <th>{{ shift.endtime }}</th>
+            <td>{{ shift.playtime }}</td>
         </tr>
     </table>
     <table>
@@ -49,13 +45,37 @@
         <tbody>
             {% for wave in shift_waves %}
                 <tr>
-                    <th>{{ wave.num }}</th>
-                    <th>{{ wave.event }}</th>
-                    <th>{{ wave.water_level }}</th>
-                    <th>{{ wave.quota }}</th>
-                    <th>{{ wave.delivers }}</th>
-                    <th>{{ wave.appearances }}</th>
-                    <th>{{ wave.power_eggs }}</th>
+                    <td>{{ wave.num }}</td>
+                    <td>{{ wave.event }}</td>
+                    <td>{{ wave.water_level }}</td>
+                    <td>{{ wave.quota }}</td>
+                    <td>{{ wave.delivers }}</td>
+                    <td>{{ wave.appearances }}</td>
+                    <td>{{ wave.power_eggs }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <table>
+        <thead>
+            <tr>
+                <th>Boss Name</th>
+                <th>Appearances</th>
+                <th>{{ shift.player_name }}</th>
+                <th>{{ shift.teammate0_name }}</th>
+                <th>{{ shift.teammate1_name }}</th>
+                <th>{{ shift.teammate2_name }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for boss in shift_bosses %}
+                <tr>
+                    <td>{{ boss.name }}</td>
+                    <td>{{ boss.appearances }}</td>
+                    <td>{{ boss.player_kills }}</td>
+                    <td>{{ boss.teammate0_kills }}</td>
+                    <td>{{ boss.teammate1_kills }}</td>
+                    <td>{{ boss.teammate2_kills }}</td>
                 </tr>
             {% endfor %}
         </tbody>
