@@ -51,6 +51,7 @@ specials = (
 
 weapons = (
     ("all", _("All Weapons")),
+    ("-2", _("Random Grizzco")),
     ("-1", _("Random")),
     ("0", _("Sploosh-o-matic")),
     ("10", _("Splattershot Jr.")),
@@ -199,7 +200,7 @@ class Shift(models.Model):
     player_golden_eggs = models.PositiveSmallIntegerField(null=True)
     player_power_eggs = models.PositiveSmallIntegerField(null=True)
     player_name = models.CharField(max_length=10, null=True)
-    player_special = models.CharField(max_length=2, choices=specials, null=True)
+    player_special = models.CharField(max_length=3, choices=specials, null=True)
     player_weapon_w1 = models.CharField(max_length=5, choices=weapons, null=True)
     player_weapon_w2 = models.CharField(max_length=5, choices=weapons, null=True)
     player_weapon_w3 = models.CharField(max_length=5, choices=weapons, null=True)
@@ -224,7 +225,7 @@ class Shift(models.Model):
     teammate0_golden_eggs = models.PositiveSmallIntegerField(null=True)
     teammate0_power_eggs = models.PositiveSmallIntegerField(null=True)
     teammate0_name = models.CharField(max_length=10, null=True)
-    teammate0_special = models.CharField(max_length=2, choices=specials, null=True)
+    teammate0_special = models.CharField(max_length=3, choices=specials, null=True)
     teammate0_weapon_w1 = models.CharField(max_length=5, choices=weapons, null=True)
     teammate0_weapon_w2 = models.CharField(max_length=5, choices=weapons, null=True)
     teammate0_weapon_w3 = models.CharField(max_length=5, choices=weapons, null=True)
@@ -249,7 +250,7 @@ class Shift(models.Model):
     teammate1_golden_eggs = models.PositiveSmallIntegerField(null=True)
     teammate1_power_eggs = models.PositiveSmallIntegerField(null=True)
     teammate1_name = models.CharField(max_length=10, null=True)
-    teammate1_special = models.CharField(max_length=2, choices=specials, null=True)
+    teammate1_special = models.CharField(max_length=3, choices=specials, null=True)
     teammate1_weapon_w1 = models.CharField(max_length=5, choices=weapons, null=True)
     teammate1_weapon_w2 = models.CharField(max_length=5, choices=weapons, null=True)
     teammate1_weapon_w3 = models.CharField(max_length=5, choices=weapons, null=True)
@@ -274,7 +275,7 @@ class Shift(models.Model):
     teammate2_golden_eggs = models.PositiveSmallIntegerField(null=True)
     teammate2_power_eggs = models.PositiveSmallIntegerField(null=True)
     teammate2_name = models.CharField(max_length=10, null=True)
-    teammate2_special = models.CharField(max_length=2, choices=specials, null=True)
+    teammate2_special = models.CharField(max_length=3, choices=specials, null=True)
     teammate2_weapon_w1 = models.CharField(max_length=5, choices=weapons, null=True)
     teammate2_weapon_w2 = models.CharField(max_length=5, choices=weapons, null=True)
     teammate2_weapon_w3 = models.CharField(max_length=5, choices=weapons, null=True)
