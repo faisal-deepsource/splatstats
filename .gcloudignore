@@ -18,6 +18,12 @@
 __pycache__/
 # Ignored by the build system
 /setup.cfg
+
 venv
 .mypy_cache
 migrations/
+data
+.deepsource.toml
+language_ebnf.txt
+python-probe.log
+README.md
